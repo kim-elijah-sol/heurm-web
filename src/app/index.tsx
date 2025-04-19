@@ -2,6 +2,7 @@ import { Route, Router } from '@solidjs/router';
 import { render } from 'solid-js/web';
 import Index from '~/pages/Index';
 import Login from '~/pages/login';
+import './style/resetStyle';
 
 render(
   () => (
