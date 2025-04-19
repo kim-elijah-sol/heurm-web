@@ -1,4 +1,4 @@
-import { Button } from '~/shared/ui';
+import { Button, Input } from '~/shared/ui';
 
 function Index() {
   return (
@@ -9,6 +9,10 @@ function Index() {
       <Button variant='text'>텍스트 버튼</Button>
       <Button variant='border'>보더 버튼</Button>
       <Button variant='link'>링크 버튼</Button>
+
+      <Input placeholder='id 입력!' />
+      <Input type='password' placeholder='비번 입력!' />
+      <Input placeholder='에러 발생' error />
     </div>
   );
 }
