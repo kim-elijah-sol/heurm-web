@@ -5,7 +5,7 @@ type ButtonProps = JSX.ButtonHTMLAttributes<HTMLButtonElement>;
 
 type Size = 'fit' | 'full';
 
-type Variant = 'emerald' | 'warning' | 'text' | 'border';
+type Variant = 'emerald' | 'warning' | 'text' | 'border' | 'link';
 
 type Props = ButtonProps & {
   size?: Size;
@@ -35,6 +35,8 @@ export const Button: Component<Props> = ({
   const borderButton =
     'text-slate-700 hover:bg-slate-100 active:bg-slate-200 border border-slate-300';
 
+  const linkButton = 'text-emerald-500 hover:bg-slate-100 active:bg-slate-200';
+
   const variantClass =
     variant === 'emerald'
       ? emeraldButton
@@ -42,7 +44,9 @@ export const Button: Component<Props> = ({
       ? warningButton
       : variant === 'text'
       ? textButton
-      : borderButton;
+      : variant === 'border'
+      ? borderButton
+      : linkButton;
 
   return (
     <button
