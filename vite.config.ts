@@ -7,4 +7,7 @@ export default defineConfig({
     host: true,
     allowedHosts: ['win-yourself-vite.run.goorm.io'],
   },
+  resolve: {
+    alias: [{ find: '~', replacement: '/src' }],
+  },
 });
