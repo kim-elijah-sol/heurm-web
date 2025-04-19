@@ -1,11 +1,10 @@
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+import { defineConfig } from 'vite';
+import solidPlugin from 'vite-plugin-solid';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [solidPlugin()],
   server: {
     host: true,
-    allowedHosts: ['win-yourself.run.goorm.io']
-  }
-})
+    allowedHosts: ['win-yourself-vite.run.goorm.io'],
+  },
+});
