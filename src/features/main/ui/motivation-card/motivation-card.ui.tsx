@@ -15,9 +15,9 @@ export const MotivationCard = () => {
   onCleanup(() => clearInterval(timer));
 
   return (
-    <div class='flex items-center justify-center flex-1 h-[98px] border rounded-lg p-3 bg-white border-slate-100 shadow-[0_0_8px_4px_rgba(70,70,70,0.05)]'>
+    <div class='flex items-center justify-center flex-1 h-[98px] border rounded-lg p-3 bg-emerald-50 border-emerald-200 shadow-[0_0_8px_4px_rgba(70,70,70,0.05)]'>
       <p
-        class='font-bold text-center text-slate-800'
+        class='font-bold text-center text-emerald-800'
         innerHTML={`"${MOTIVATION_WRITING[index()]}"`}
       />
     </div>
