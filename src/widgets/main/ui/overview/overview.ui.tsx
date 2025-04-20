@@ -5,7 +5,7 @@ export const Overview = () => {
     <div>
       <div class='flex items-center justify-center gap-4'>
         <OverviewCard type='win' count={17} />
-        <p>VS</p>
+        <p class='font-bold'>VS</p>
         <OverviewCard type='lose' count={3} />
       </div>
     </div>
