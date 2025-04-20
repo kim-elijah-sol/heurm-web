@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+* {
+  font-family: 'Manrope', sans-serif;
+}
+
 button {
   @apply cursor-pointer;
 }
