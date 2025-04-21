@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { Component, createMemo } from 'solid-js';
+import { Component } from 'solid-js';
 
 type Props = {
   type: 'win' | 'lose';
@@ -7,18 +7,15 @@ type Props = {
 };
 
 export const OverviewCard: Component<Props> = (props) => {
-  const { type, count } = props;
+  const title = () => (props.type === 'win' ? '🏆 Win!' : '😥 Lose');
 
-  const title = () => (type === 'win' ? '🏆 Win!' : '😥 Lose');
+  const countText = () => props.count.toLocaleString();
 
-  const countText = () => count.toLocaleString();
-
-  const countClass = createMemo(() =>
+  const countClass = () =>
     clsx(
       'text-4xl font-extrabold',
-      type === 'win' ? 'text-emerald-500' : 'text-rose-500'
-    )
-  );
+      props.type === 'win' ? 'text-emerald-500' : 'text-rose-500'
+    );
 
   return (
     <div class='flex flex-1 flex-col items-center rounded-lg p-3 border bg-white border-slate-100 shadow-[0_0_8px_4px_rgba(70,70,70,0.05)]'>
