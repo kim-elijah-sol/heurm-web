@@ -1,9 +1,9 @@
-import { UserAvatar } from '~/features/main';
+import { HelloUser, UserAvatar } from '~/features/main';
 
 export const MainTop = () => {
   return (
     <div class='flex items-center justify-between mb-4'>
-      <div></div>
+      <HelloUser userName='Sol' />
       <UserAvatar src='https://avatars.githubusercontent.com/u/86874556?v=4' />
     </div>
   );
