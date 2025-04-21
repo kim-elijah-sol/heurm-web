@@ -1,6 +1,6 @@
 import { Overview } from '~/widgets/main';
 
-function Index() {
+function Main() {
   return (
     <div class='p-4 flex flex-col gap-3'>
       <Overview />
@@ -8,4 +8,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Main;
