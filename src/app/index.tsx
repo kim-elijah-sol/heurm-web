@@ -1,7 +1,7 @@
 import { Route, Router } from '@solidjs/router';
 import { render } from 'solid-js/web';
 import Login from '~/pages/login';
-import Main from '~/pages/Main';
+import Main from '~/pages/main';
 import './style/reset.css';
 
 render(
