@@ -6,7 +6,7 @@ export const MainTop = () => {
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
   return (
-    <div class='flex items-center justify-between'>
+    <div class='flex items-center justify-between mb-4'>
       <HelloUser userName='Sol' />
       <UserAvatar
         onClick={() => setIsBluredPanelShow(true)}
