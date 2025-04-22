@@ -10,11 +10,29 @@ function Main() {
       <Overview />
 
       <For each={CHALLENGE_COLOR}>
-        {
-          color => (
-            <ChallengeCard title='💪 health' color={color} />
-          )
-        }
+        {(color) => (
+          <ChallengeCard
+            title='💪 health'
+            color={color}
+            challengeItems={[
+              {
+                name: '3km running',
+                type: 'complete',
+                isCompleted: null,
+              },
+              {
+                name: '3km running',
+                type: 'complete',
+                isCompleted: true,
+              },
+              {
+                name: '3km running',
+                type: 'complete',
+                isCompleted: false,
+              },
+            ]}
+          />
+        )}
       </For>
     </div>
   );
