@@ -21,7 +21,7 @@ export const ChallengeCard = (props: Props) => {
 
   const itemClassName = () =>
     clsx(
-      'p-2 rounded-xl transition-all active:scale-[0.98] active:bg-[rgb(255,255,255,0.6)]'
+      'p-2 rounded-xl transition-all active:scale-[0.98] active:bg-[rgb(255,255,255,0.6)] flex items-center justify-between'
     );
 
   return (
@@ -34,6 +34,18 @@ export const ChallengeCard = (props: Props) => {
           {(challengeItem) => (
             <div class={itemClassName()}>
               <p class='font-medium'>{challengeItem.name}</p>
+
+              <p class='w-6 text-center'>
+                {challengeItem.type === 'complete' &&
+                  challengeItem.isCompleted === null &&
+                  '⏳'}
+                {challengeItem.type === 'complete' &&
+                  challengeItem.isCompleted === true &&
+                  '🎉'}
+                {challengeItem.type === 'complete' &&
+                  challengeItem.isCompleted === false &&
+                  '❌'}
+              </p>
             </div>
           )}
         </For>
