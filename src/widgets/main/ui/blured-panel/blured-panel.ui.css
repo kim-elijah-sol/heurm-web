@@ -1,0 +1,27 @@
+@keyframes wys-blured-panel-animation {
+  0% {
+    backdrop-filter: blur(0);
+  }
+
+  100% {
+    backdrop-filter: blur(12px);
+  }
+}
+
+.wys-blured-panel-animation {
+  animation: wys-blured-panel-animation 0.3s forwards;
+}
+
+@keyframes wys-blured-panel-fade-out {
+  0% {
+    backdrop-filter: blur(12px);
+  }
+
+  100% {
+    backdrop-filter: blur(0);
+  }
+}
+
+.wys-blured-panel-fade-out {
+  animation: wys-blured-panel-fade-out 0.3s forwards;
+}
