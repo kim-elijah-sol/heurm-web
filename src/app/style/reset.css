@@ -11,3 +11,7 @@ html {
 button {
   @apply cursor-pointer;
 }
+
+.remove-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
