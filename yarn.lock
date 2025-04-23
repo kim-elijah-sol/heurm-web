@@ -857,11 +857,6 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-lucide-solid@^0.503.0:
-  version "0.503.0"
-  resolved "https://registry.yarnpkg.com/lucide-solid/-/lucide-solid-0.503.0.tgz#a078944e98f0e0a2edd9a52e2ee6bbe7e7b65e98"
-  integrity sha512-lZT0Innsrcpv28qxW9iSYcvSyKNCHCv+OHKeIla8YYX0OTAGawpIA66MbIP52LcIK1I+cr32Pdqgf9AyJkfz9w==
-
 merge-anything@^5.1.7:
   version "5.1.7"
   resolved "https://registry.yarnpkg.com/merge-anything/-/merge-anything-5.1.7.tgz#94f364d2b0cf21ac76067b5120e429353b3525d7"

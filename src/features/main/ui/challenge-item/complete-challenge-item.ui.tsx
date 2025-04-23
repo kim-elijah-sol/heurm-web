@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { Ban, Check, Loader } from 'lucide-solid';
 import { createSignal, splitProps } from 'solid-js';
 import { CompleteChallengeItemType } from '~/entities/main';
 import { BluredPanel } from '../blured-panel';
@@ -46,7 +45,21 @@ export const Complete = (originProps: Props) => {
                 )}
                 on:click={() => rest.onChange(false)}
               >
-                <Ban size={36} color='#FFFFFF' />
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='36'
+                  height='36'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='#FFFFFF'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  class='lucide lucide-ban-icon lucide-ban'
+                >
+                  <circle cx='12' cy='12' r='10' />
+                  <path d='m4.9 4.9 14.2 14.2' />
+                </svg>
               </button>
               <button
                 class={clsx(
@@ -55,7 +68,20 @@ export const Complete = (originProps: Props) => {
                 )}
                 on:click={() => rest.onChange(true)}
               >
-                <Check size={36} color='#FFFFFF' />
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='36'
+                  height='36'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='#FFFFFF'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  class='lucide lucide-check-icon lucide-check'
+                >
+                  <path d='M20 6 9 17l-5-5' />
+                </svg>
               </button>
             </div>
             <button
@@ -65,7 +91,27 @@ export const Complete = (originProps: Props) => {
               )}
               on:click={() => rest.onChange(null)}
             >
-              <Loader size={36} color='#FFFFFF' />
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='36'
+                height='36'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='#FFFFFF'
+                stroke-width='2'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                class='lucide lucide-loader-icon lucide-loader'
+              >
+                <path d='M12 2v4' />
+                <path d='m16.2 7.8 2.9-2.9' />
+                <path d='M18 12h4' />
+                <path d='m16.2 16.2 2.9 2.9' />
+                <path d='M12 18v4' />
+                <path d='m4.9 19.1 2.9-2.9' />
+                <path d='M2 12h4' />
+                <path d='m4.9 4.9 2.9 2.9' />
+              </svg>
             </button>
           </div>
         </BluredPanel>
