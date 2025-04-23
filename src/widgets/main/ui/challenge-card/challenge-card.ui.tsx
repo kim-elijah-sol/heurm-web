@@ -6,8 +6,9 @@ import {
   CHALLENGE_100_BG_COLOR,
   CHALLENGE_BG_COLOR,
   CHALLENGE_COLOR,
+  CompleteChallengeItemType,
 } from '~/entities/main';
-import { getChallengeItemResult } from '~/features/main';
+import { ChallengeItem } from '~/features/main';
 
 type Props = {
   title: string;
@@ -74,11 +75,6 @@ export const ChallengeCard = (props: Props) => {
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color]);
 
-  const itemClassName = () =>
-    clsx(
-      'p-2 rounded-xl transition-all active:scale-[0.98] active:bg-[rgb(255,255,255,0.6)] flex items-center justify-between'
-    );
-
   const handleChangeComplete = (index: number, isCompleted: boolean | null) => {
     setChallengeItems(
       challengeItems.map((it, _index) =>
@@ -100,27 +96,17 @@ export const ChallengeCard = (props: Props) => {
       <div class={itemsContainerClassName()}>
         <For each={challengeItems}>
           {(challengeItem, index) => {
-            const challengeItemResult = getChallengeItemResult(challengeItem);
-
             return (
-              <div
-                class={itemClassName()}
-                onClick={() => {
-                  if (challengeItem.type === 'complete') {
-                    handleChangeComplete(index(), false);
-                  }
-                }}
-              >
-                <p class='font-medium'>{challengeItem.name}</p>
-
-                <p class='w-6 text-center'>
-                  <Switch>
-                    <Match when={challengeItemResult === 'progress'}>⏳</Match>
-                    <Match when={challengeItemResult === 'win'}>🎉</Match>
-                    <Match when={challengeItemResult === 'fail'}>❌</Match>
-                  </Switch>
-                </p>
-              </div>
+              <Switch>
+                <Match when={challengeItem.type === 'complete'}>
+                  <ChallengeItem.Complete
+                    {...(challengeItem as CompleteChallengeItemType)}
+                    onChange={(isComplete) =>
+                      handleChangeComplete(index(), isComplete)
+                    }
+                  />
+                </Match>
+              </Switch>
             );
           }}
         </For>
