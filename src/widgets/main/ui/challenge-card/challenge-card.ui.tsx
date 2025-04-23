@@ -1,11 +1,12 @@
 import { clsx } from 'clsx';
-import { For } from 'solid-js';
+import { For, Match, Switch } from 'solid-js';
 import {
   ChallengeItemType,
   CHALLENGE_100_BG_COLOR,
   CHALLENGE_BG_COLOR,
   CHALLENGE_COLOR,
 } from '~/entities/main';
+import { getChallengeItemResult } from '~/features/main';
 
 type Props = {
   title: string;
@@ -31,23 +32,23 @@ export const ChallengeCard = (props: Props) => {
       </div>
       <div class={itemsContainerClassName()}>
         <For each={props.challengeItems}>
-          {(challengeItem) => (
-            <div class={itemClassName()}>
-              <p class='font-medium'>{challengeItem.name}</p>
+          {(challengeItem) => {
+            const challengeItemResult = getChallengeItemResult(challengeItem);
 
-              <p class='w-6 text-center'>
-                {challengeItem.type === 'complete' &&
-                  challengeItem.isCompleted === null &&
-                  '⏳'}
-                {challengeItem.type === 'complete' &&
-                  challengeItem.isCompleted === true &&
-                  '🎉'}
-                {challengeItem.type === 'complete' &&
-                  challengeItem.isCompleted === false &&
-                  '❌'}
-              </p>
-            </div>
-          )}
+            return (
+              <div class={itemClassName()}>
+                <p class='font-medium'>{challengeItem.name}</p>
+
+                <p class='w-6 text-center'>
+                  <Switch>
+                    <Match when={challengeItemResult === 'progress'}>⏳</Match>
+                    <Match when={challengeItemResult === 'win'}>🎉</Match>
+                    <Match when={challengeItemResult === 'fail'}>❌</Match>
+                  </Switch>
+                </p>
+              </div>
+            );
+          }}
         </For>
       </div>
     </div>
