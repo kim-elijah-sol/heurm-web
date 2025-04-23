@@ -1,3 +1,4 @@
+export * from './blured-panel';
 export * from './date-card';
 export * from './hello-user';
 export * from './in-progress-card';

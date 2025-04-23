@@ -1,6 +1,5 @@
 import { createSignal } from 'solid-js';
-import { HelloUser, UserAvatar } from '~/features/main';
-import { BluredPanel } from '../blured-panel';
+import { BluredPanel, HelloUser, UserAvatar } from '~/features/main';
 
 export const MainTop = () => {
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
