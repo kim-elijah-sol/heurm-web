@@ -1,10 +1,10 @@
 @keyframes wys-blured-panel-animation {
   0% {
-    backdrop-filter: blur(0);
+    opacity: 0;
   }
 
   100% {
-    backdrop-filter: blur(12px);
+    opacity: 1;
   }
 }
 
@@ -14,11 +14,11 @@
 
 @keyframes wys-blured-panel-fade-out {
   0% {
-    backdrop-filter: blur(12px);
+    opacity: 1;
   }
 
   100% {
-    backdrop-filter: blur(0);
+    opacity: 0;
   }
 }
 

@@ -1,10 +1,11 @@
 import clsx from 'clsx';
-import { createSignal } from 'solid-js';
+import { children, createSignal, JSX, onCleanup, onMount } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import './blured-panel.ui.css';
 
 type Props = {
   close: () => void;
+  children: JSX.Element;
 };
 
 export const BluredPanel = (props: Props) => {
@@ -17,6 +18,16 @@ export const BluredPanel = (props: Props) => {
     }, 300);
   };
 
+  const resolved = children(() => props.children);
+
+  onMount(() => {
+    document.querySelector('html')!.style.overflowY = 'hidden';
+  });
+
+  onCleanup(() => {
+    document.querySelector('html')!.style.overflowY = 'auto';
+  });
+
   return (
     <Portal>
       <div
@@ -25,7 +36,9 @@ export const BluredPanel = (props: Props) => {
           'fixed inset-0 z-50 backdrop-blur-md wys-blured-panel-animation',
           transition() ? 'wys-blured-panel-fade-out' : ''
         )}
-      ></div>
+      >
+        {resolved()}
+      </div>
     </Portal>
   );
 };
