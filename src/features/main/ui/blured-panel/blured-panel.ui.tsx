@@ -5,7 +5,7 @@ import './blured-panel.ui.css';
 
 type Props = {
   close: () => void;
-  children: JSX.Element;
+  children: (close: () => void) => JSX.Element;
 };
 
 export const BluredPanel = (props: Props) => {
@@ -18,7 +18,7 @@ export const BluredPanel = (props: Props) => {
     }, 300);
   };
 
-  const resolved = children(() => props.children);
+  const resolved = children(() => props.children(close));
 
   onMount(() => {
     document.querySelector('html')!.style.overflowY = 'hidden';
