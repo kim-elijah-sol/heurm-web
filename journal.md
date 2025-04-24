@@ -1,5 +1,9 @@
 # Win Yourself Journal
 
+# 2025-04-24
+
+현재까지 기본 메인 디자인 완료
+
 # 2025-04-19
 
 win yourself 프로젝트는 `Solid Js` 로 개발하기로 했다.<br>
