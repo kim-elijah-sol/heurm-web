@@ -15,3 +15,7 @@ button {
 .remove-scroll-bar::-webkit-scrollbar {
   display: none;
 }
+
+input {
+  outline: none;
+}

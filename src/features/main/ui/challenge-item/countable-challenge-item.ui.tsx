@@ -1,5 +1,7 @@
-import { createSignal, splitProps } from 'solid-js';
+import clsx from 'clsx';
+import { createEffect, createSignal, splitProps } from 'solid-js';
 import { CountableChallengeItemType } from '~/entities/main';
+import { Ban, Check, Loader } from '~/shared/ui';
 import { BluredPanel } from '../blured-panel';
 
 type Props = CountableChallengeItemType & {
@@ -11,20 +13,46 @@ export const Countable = (originProps: Props) => {
 
   const [rest, challengeItem] = splitProps(originProps, ['onChange']);
 
-  const challengeResultText = () => {
-    if (challengeItem.count === null) return '⏳';
-    if (
-      challengeItem.type === 'over' &&
-      challengeItem.count >= challengeItem.targetCount
-    )
-      return '🎉';
-    if (
-      challengeItem.type === 'under' &&
-      challengeItem.count <= challengeItem.targetCount
-    )
-      return '🎉';
-    return '❌';
+  const [value, setValue] = createSignal(originProps.count?.toString() ?? '');
+
+  const getChallengeResult = (count: number | null) => {
+    if (count === null) return null;
+    if (challengeItem.type === 'over' && count >= challengeItem.targetCount)
+      return true;
+    if (challengeItem.type === 'under' && count <= challengeItem.targetCount)
+      return true;
+    return false;
   };
+
+  const challengeResultText = () => {
+    const result = getChallengeResult(challengeItem.count);
+
+    return result ? '🎉' : result === false ? '❌' : '⏳';
+  };
+
+  const valueToCount = () => (value() ? Number(value()) : null);
+
+  const icon = () => {
+    const result = getChallengeResult(valueToCount());
+
+    return result ? Check : result === false ? Ban : Loader;
+  };
+
+  const buttonColor = () => {
+    const result = getChallengeResult(valueToCount());
+
+    return result
+      ? 'bg-emerald-400 active:bg-emerald-500'
+      : result === false
+      ? 'bg-rose-400 active:bg-rose-500'
+      : 'bg-blue-400 active:bg-blue-500';
+  };
+
+  createEffect(() => {
+    if (isBluredPanelShow()) {
+      setValue(originProps.count?.toString() ?? '');
+    }
+  });
 
   return (
     <>
@@ -37,15 +65,15 @@ export const Countable = (originProps: Props) => {
         <p class='w-6 text-center'>{challengeResultText()}</p>
       </div>
       {isBluredPanelShow() && (
-        <BluredPanel close={() => setIsBluredPanelShow(false)}>
+        <BluredPanel
+          autoClose={false}
+          close={() => setIsBluredPanelShow(false)}
+        >
           {(close) => (
-            <div
-              class='w-full h-full flex flex-col items-center justify-center relative'
-              on:click={(e) => e.stopPropagation()}
-            >
+            <div class='w-full h-full flex flex-col items-center justify-center relative'>
               <button
-                on:click={close}
-                class='p-2 rounded-[35%] transition-all active:scale-90 bg-rose-400 absolute right-6 top-6'
+                onClick={close}
+                class='p-2 rounded-[35%] transition-all active:scale-90 bg-red-500 absolute right-6 top-6'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -62,6 +90,34 @@ export const Countable = (originProps: Props) => {
                   <path d='M18 6 6 18' />
                   <path d='m6 6 12 12' />
                 </svg>
+              </button>
+
+              <p class='text-[24px] text-slate-600 mb-4 font-semibold'>
+                {challengeItem.targetCount.toLocaleString()}
+              </p>
+
+              <input
+                id='count'
+                type='number'
+                pattern='[0-9]*'
+                inputmode='numeric'
+                class='text-center text-[64px] text-slate-800 font-semibold mb-8 placeholder:text-gray-400'
+                placeholder='Current'
+                value={value()}
+                onChange={(e) => setValue(e.target.value)}
+              />
+
+              <button
+                class={clsx(
+                  'p-6 rounded-[35%] transition-all active:scale-90',
+                  buttonColor()
+                )}
+                onClick={() => {
+                  rest.onChange(valueToCount());
+                  close();
+                }}
+              >
+                {icon()()}
               </button>
             </div>
           )}
