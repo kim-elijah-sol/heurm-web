@@ -2,7 +2,7 @@ import { InProgressCard, MotivationCard, OverviewCard } from '~/features/main';
 
 export const Overview = () => {
   return (
-    <div>
+    <div class='mb-3'>
       <div class='flex gap-3 mb-3'>
         <InProgressCard count={5} />
         <MotivationCard />
