@@ -25,50 +25,16 @@ export const ChallengeCard = (props: Props) => {
       isCompleted: null,
     },
     {
-      name: '3km running',
-      type: 'complete',
-      isCompleted: true,
-    },
-    {
-      name: '3km running',
-      type: 'complete',
-      isCompleted: false,
-    },
-    {
       name: 'push-up',
       type: 'over',
       targetCount: 72,
       count: null,
     },
     {
-      name: 'push-up',
-      type: 'over',
-      targetCount: 72,
-      count: 82,
-    },
-    {
-      name: 'push-up',
-      type: 'over',
-      targetCount: 72,
-      count: 71,
-    },
-    {
       name: '100m sprint',
       type: 'under',
       targetCount: 15,
       count: null,
-    },
-    {
-      name: '100m sprint',
-      type: 'under',
-      targetCount: 15,
-      count: 14,
-    },
-    {
-      name: '100m sprint',
-      type: 'under',
-      targetCount: 15,
-      count: 17,
     },
   ]);
 
