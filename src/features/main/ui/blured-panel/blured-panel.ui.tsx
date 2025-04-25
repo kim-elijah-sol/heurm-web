@@ -6,6 +6,7 @@ import './blured-panel.ui.css';
 type Props = {
   close: () => void;
   children: (close: () => void) => JSX.Element;
+  autoClose?: boolean;
 };
 
 export const BluredPanel = (props: Props) => {
@@ -20,6 +21,8 @@ export const BluredPanel = (props: Props) => {
 
   const resolved = children(() => props.children(close));
 
+  const autoClose = () => props.autoClose ?? true;
+
   onMount(() => {
     document.querySelector('html')!.style.overflowY = 'hidden';
   });
@@ -31,7 +34,7 @@ export const BluredPanel = (props: Props) => {
   return (
     <Portal>
       <div
-        on:click={close}
+        on:click={autoClose() ? close : undefined}
         class={clsx(
           'fixed inset-0 z-50 backdrop-blur-md wys-blured-panel-animation',
           transition() ? 'wys-blured-panel-fade-out' : ''
