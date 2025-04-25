@@ -12,11 +12,6 @@ export const Complete = (originProps: Props) => {
 
   const [rest, challengeItem] = splitProps(originProps, ['onChange']);
 
-  const itemClassName = () =>
-    clsx(
-      'p-2 rounded-xl transition-all active:scale-[0.98] active:bg-[rgb(255,255,255,0.6)] flex items-center justify-between'
-    );
-
   const challengeResultText = () =>
     challengeItem.isCompleted === null
       ? '⏳'
@@ -29,7 +24,10 @@ export const Complete = (originProps: Props) => {
 
   return (
     <>
-      <div class={itemClassName()} onClick={() => setIsBluredPanelShow(true)}>
+      <div
+        class='p-2 rounded-xl transition-all active:scale-[0.98] active:bg-[rgb(255,255,255,0.6)] flex items-center justify-between'
+        onClick={() => setIsBluredPanelShow(true)}
+      >
         <p class='font-medium'>{challengeItem.name}</p>
 
         <p class='w-6 text-center'>{challengeResultText()}</p>
