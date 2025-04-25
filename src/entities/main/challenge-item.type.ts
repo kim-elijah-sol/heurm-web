@@ -24,7 +24,8 @@ export type UnderChallengeItemType = ChallengeItemBase &
     type: 'under';
   };
 
+export type CountableChallengeItemType = OverChallengeItemType | UnderChallengeItemType
+
 export type ChallengeItemType =
   | CompleteChallengeItemType
-  | OverChallengeItemType
-  | UnderChallengeItemType;
+  | CountableChallengeItemType;

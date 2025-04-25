@@ -7,6 +7,7 @@ import {
   CHALLENGE_BG_COLOR,
   CHALLENGE_COLOR,
   CompleteChallengeItemType,
+  CountableChallengeItemType,
 } from '~/entities/main';
 import { ChallengeItem } from '~/features/main';
 
@@ -88,6 +89,19 @@ export const ChallengeCard = (props: Props) => {
     );
   };
 
+  const handleChangeCountable = (index: number, count: number | null) => {
+    setChallengeItems(
+      challengeItems.map((it, _index) =>
+        _index === index
+          ? {
+              ...it,
+              count,
+            }
+          : it
+      )
+    );
+  };
+
   return (
     <div class='overflow-hidden rounded-xl'>
       <div class={topClassName()}>
@@ -104,6 +118,12 @@ export const ChallengeCard = (props: Props) => {
                     onChange={(isComplete) =>
                       handleChangeComplete(index(), isComplete)
                     }
+                  />
+                </Match>
+                <Match when={challengeItem.type !== 'complete'}>
+                  <ChallengeItem.Countable
+                    {...(challengeItem as CountableChallengeItemType)}
+                    onChange={(count) => handleChangeCountable(index(), count)}
                   />
                 </Match>
               </Switch>
