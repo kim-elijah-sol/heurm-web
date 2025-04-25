@@ -10,6 +10,7 @@ import {
   CountableChallengeItemType,
 } from '~/entities/main';
 import { ChallengeItem } from '~/features/main';
+import { Menu } from '~/shared/ui';
 
 type Props = {
   title: string;
@@ -71,7 +72,11 @@ export const ChallengeCard = (props: Props) => {
     },
   ]);
 
-  const topClassName = () => clsx('px-4 py-2', CHALLENGE_BG_COLOR[props.color]);
+  const topClassName = () =>
+    clsx(
+      'pl-4 pr-3 py-2 flex items-center justify-between',
+      CHALLENGE_BG_COLOR[props.color]
+    );
 
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color]);
@@ -106,6 +111,9 @@ export const ChallengeCard = (props: Props) => {
     <div class='overflow-hidden rounded-xl'>
       <div class={topClassName()}>
         <p class='font-semibold text-white'>{props.title}</p>
+        <button class='p-1 rounded-[35%] transition-all active:bg-[#FFFFFF30] active:scale-90'>
+          <Menu />
+        </button>
       </div>
       <div class={itemsContainerClassName()}>
         <For each={challengeItems}>
