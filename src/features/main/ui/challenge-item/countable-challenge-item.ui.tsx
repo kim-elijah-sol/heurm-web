@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { createEffect, createSignal, splitProps } from 'solid-js';
 import { CountableChallengeItemType } from '~/entities/main';
-import { Ban, Check, Loader } from '~/shared/ui';
+import { Ban, Check, Loader, X } from '~/shared/ui';
 import { BluredPanel } from '../blured-panel';
 
 type Props = CountableChallengeItemType & {
@@ -75,21 +75,7 @@ export const Countable = (originProps: Props) => {
                 onClick={close}
                 class='p-2 rounded-[35%] transition-all active:scale-90 bg-red-500 absolute right-6 top-6'
               >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='30'
-                  height='30'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='#FFFFFF'
-                  stroke-width='2'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                  class='lucide lucide-x-icon lucide-x'
-                >
-                  <path d='M18 6 6 18' />
-                  <path d='m6 6 12 12' />
-                </svg>
+                <X />
               </button>
 
               <p class='text-[24px] text-slate-600 mb-4 font-semibold'>
