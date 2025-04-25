@@ -36,7 +36,7 @@ export const Complete = (originProps: Props) => {
       {isBluredPanelShow() && (
         <BluredPanel close={() => setIsBluredPanelShow(false)}>
           {() => (
-            <div class='w-full h-full flex flex-col items-center justify-center gap-8'>
+            <div class='w-full h-full flex flex-col items-center justify-center gap-8 touch-none'>
               <div class='flex gap-12'>
                 <button
                   class={clsx(

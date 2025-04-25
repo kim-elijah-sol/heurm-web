@@ -13,7 +13,7 @@ export const MainTop = () => {
       />
       {isBluredPanelShow() && (
         <BluredPanel close={() => setIsBluredPanelShow(false)}>
-          <></>
+          {() => <div class='w-full h-full touch-none'></div>}
         </BluredPanel>
       )}
     </div>

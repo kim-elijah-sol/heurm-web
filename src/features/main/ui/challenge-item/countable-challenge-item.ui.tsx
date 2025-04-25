@@ -70,7 +70,7 @@ export const Countable = (originProps: Props) => {
           close={() => setIsBluredPanelShow(false)}
         >
           {(close) => (
-            <div class='w-full h-full flex flex-col items-center justify-center relative'>
+            <div class='w-full h-full flex flex-col items-center justify-center relative touch-none'>
               <button
                 onClick={close}
                 class='p-2 rounded-[35%] transition-all active:scale-90 bg-red-500 absolute right-6 top-6'
