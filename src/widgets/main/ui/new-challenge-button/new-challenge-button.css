@@ -1,0 +1,33 @@
+@keyframes color-cycle {
+  0% {
+    background-color: oklch(70.83% 0.234 27.95);
+  }
+  12.5% {
+    background-color: oklch(83.75% 0.178 99.16);
+  }
+  25% {
+    background-color: oklch(73.83% 0.173 141.85);
+  }
+  37.5% {
+    background-color: oklch(74.55% 0.135 193.83);
+  }
+  50% {
+    background-color: oklch(71.62% 0.186 250.04);
+  }
+  62.5% {
+    background-color: oklch(70.82% 0.141 278.28);
+  }
+  75% {
+    background-color: oklch(74.19% 0.167 296.06);
+  }
+  87.5% {
+    background-color: oklch(74.89% 0.201 11.04);
+  }
+  100% {
+    background-color: oklch(70.83% 0.234 27.95);
+  }
+}
+
+.wys-new-challenge-button {
+  animation: 5s color-cycle linear infinite;
+}
