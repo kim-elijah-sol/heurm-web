@@ -24,29 +24,29 @@ export const Countable = (originProps: Props) => {
     return false;
   };
 
-  const challengeResultText = () => {
-    const result = getChallengeResult(challengeItem.count);
-
-    return result ? '🎉' : result === false ? '❌' : '⏳';
-  };
-
   const valueToCount = () => (value() ? Number(value()) : null);
 
-  const icon = () => {
-    const result = getChallengeResult(valueToCount());
+  const challengeResult = () => getChallengeResult(valueToCount());
 
-    return result ? Check : result === false ? Ban : Loader;
-  };
+  const challengeResultText = () =>
+    challengeResult() ? '🎉' : challengeResult() === false ? '❌' : '⏳';
 
-  const buttonColor = () => {
-    const result = getChallengeResult(valueToCount());
+  const icon = () =>
+    challengeResult() ? Check : challengeResult() === false ? Ban : Loader;
 
-    return result
+  const buttonColor = () =>
+    challengeResult()
       ? 'bg-emerald-400 active:bg-emerald-500'
-      : result === false
+      : challengeResult() === false
       ? 'bg-rose-400 active:bg-rose-500'
       : 'bg-blue-400 active:bg-blue-500';
-  };
+
+  const nameTextClass = () =>
+    challengeResult() === null
+      ? 'text-gray-500 font-medium'
+      : challengeResult()
+      ? 'text-emerald-500 font-bold'
+      : 'text-rose-500 font-semibold';
 
   createEffect(() => {
     if (isBluredPanelShow()) {
@@ -60,7 +60,7 @@ export const Countable = (originProps: Props) => {
         class='p-2 rounded-xl transition-all active:scale-[0.98] active:bg-[rgb(255,255,255,0.6)] flex items-center justify-between'
         onClick={() => setIsBluredPanelShow(true)}
       >
-        <p class='font-medium'>{challengeItem.name}</p>
+        <p class={nameTextClass()}>{challengeItem.name}</p>
 
         <p class='w-6 text-center'>{challengeResultText()}</p>
       </div>

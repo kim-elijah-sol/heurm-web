@@ -29,7 +29,17 @@ export const Complete = (originProps: Props) => {
         class='p-2 rounded-xl transition-all active:scale-[0.98] active:bg-[rgb(255,255,255,0.6)] flex items-center justify-between'
         onClick={() => setIsBluredPanelShow(true)}
       >
-        <p class='font-medium'>{challengeItem.name}</p>
+        <p
+          class={
+            challengeItem.isCompleted === null
+              ? 'text-gray-500 font-medium'
+              : challengeItem.isCompleted
+              ? 'text-emerald-500 font-bold'
+              : 'text-rose-500 font-semibold'
+          }
+        >
+          {challengeItem.name}
+        </p>
 
         <p class='w-6 text-center'>{challengeResultText()}</p>
       </div>
