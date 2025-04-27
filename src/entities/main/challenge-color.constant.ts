@@ -31,13 +31,13 @@ export const CHALLENGE_100_BG_COLOR = {
   pink: 'bg-pink-100',
 };
 
-export const CHALLENGE_ACTIVE_BG_COLOR = {
-  red: 'active:bg-red-50',
-  green: 'active:bg-green-50',
-  blue: 'active:bg-blue-50',
-  indigo: 'active:bg-indigo-50',
-  teal: 'active:bg-teal-50',
-  yellow: 'active:bg-yellow-50',
-  purple: 'active:bg-purple-50',
-  pink: 'active:bg-pink-50',
+export const CHALLENGE_ACTIVE_BG_400_COLOR = {
+  red: 'active:bg-red-400',
+  green: 'active:bg-green-400',
+  blue: 'active:bg-blue-400',
+  indigo: 'active:bg-indigo-400',
+  teal: 'active:bg-teal-400',
+  yellow: 'active:bg-yellow-400',
+  purple: 'active:bg-purple-400',
+  pink: 'active:bg-pink-400',
 };
