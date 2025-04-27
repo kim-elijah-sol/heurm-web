@@ -3,6 +3,7 @@ export * from './check.ui';
 export * from './loader.ui';
 export * from './logout.ui';
 export * from './menu.ui';
+export * from './plus.ui';
 export * from './shield-check.ui';
 export * from './sparkles.ui';
 export * from './user-round-pen';
