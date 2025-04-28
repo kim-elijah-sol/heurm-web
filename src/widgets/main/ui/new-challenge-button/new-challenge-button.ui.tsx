@@ -6,14 +6,14 @@ import {
   CHALLENGE_COLOR,
 } from '~/entities/main';
 import { BluredPanel } from '~/features/main';
-import { Plus, X } from '~/shared/ui';
+import { Check, Plus, X } from '~/shared/ui';
 import './new-challenge-button.css';
 
 export const NewChallengeButton = () => {
   const [color, setColor] =
     createSignal<(typeof CHALLENGE_COLOR)[number]>('red');
 
-  const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(true);
+  const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
   return (
     <>
@@ -49,27 +49,35 @@ export const NewChallengeButton = () => {
                 <div class='flex flex-col gap-6'>
                   <div class='flex justify-evenly'>
                     <For each={CHALLENGE_COLOR.slice(0, 4)}>
-                      {(color) => (
+                      {(it) => (
                         <button
-                          onClick={() => setColor(color)}
+                          onClick={() => setColor(it)}
                           class={clsx(
-                            'w-10 h-10 rounded-[35%]',
-                            CHALLENGE_BG_COLOR[color]
+                            'w-10 h-10 rounded-[35%] flex items-center justify-center',
+                            CHALLENGE_BG_COLOR[it]
                           )}
-                        ></button>
+                        >
+                          {color() === it && (
+                            <Check size={20} strokeWidth={3} />
+                          )}
+                        </button>
                       )}
                     </For>
                   </div>
                   <div class='flex justify-evenly'>
                     <For each={CHALLENGE_COLOR.slice(4)}>
-                      {(color) => (
+                      {(it) => (
                         <button
-                          onClick={() => setColor(color)}
+                          onClick={() => setColor(it)}
                           class={clsx(
-                            'w-10 h-10 rounded-[35%]',
-                            CHALLENGE_BG_COLOR[color]
+                            'w-10 h-10 rounded-[35%] flex items-center justify-center',
+                            CHALLENGE_BG_COLOR[it]
                           )}
-                        ></button>
+                        >
+                          {color() === it && (
+                            <Check size={20} strokeWidth={3} />
+                          )}
+                        </button>
                       )}
                     </For>
                   </div>
