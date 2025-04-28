@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { For, Match, Switch } from 'solid-js';
+import { createSignal, For, Match, Switch } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import {
   ChallengeItemType,
@@ -11,6 +11,7 @@ import {
 } from '~/entities/main';
 import { ChallengeItem } from '~/features/main';
 import { Menu } from '~/shared/ui';
+import { ChallengeSlidePanel } from '../challenge-slide-panel';
 
 type Props = {
   title: string;
@@ -18,6 +19,8 @@ type Props = {
 };
 
 export const ChallengeCard = (props: Props) => {
+  const [isSlidePanelShow, setIsSlidePanelShow] = createSignal(false);
+
   const [challengeItems, setChallengeItems] = createStore<ChallengeItemType[]>([
     {
       name: '3km running',
@@ -77,9 +80,15 @@ export const ChallengeCard = (props: Props) => {
     <div class='overflow-hidden rounded-xl'>
       <div class={topClassName()}>
         <p class='font-semibold text-white'>{props.title}</p>
-        <button class='p-1 rounded-[35%] transition-all active:bg-[#FFFFFF30] active:scale-90'>
+        <button
+          class='p-1 rounded-[35%] transition-all active:bg-[#FFFFFF30] active:scale-90'
+          onClick={() => setIsSlidePanelShow(true)}
+        >
           <Menu />
         </button>
+        {isSlidePanelShow() && (
+          <ChallengeSlidePanel close={() => setIsSlidePanelShow(false)} />
+        )}
       </div>
       <div class={itemsContainerClassName()}>
         <For each={challengeItems}>
