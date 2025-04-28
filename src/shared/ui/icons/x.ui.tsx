@@ -1,8 +1,8 @@
-export const X = () => (
+export const X = ({ size = 30 }: { size?: number }) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
-    width='30'
-    height='30'
+    width={size}
+    height={size}
     viewBox='0 0 24 24'
     fill='none'
     stroke='#FFFFFF'
