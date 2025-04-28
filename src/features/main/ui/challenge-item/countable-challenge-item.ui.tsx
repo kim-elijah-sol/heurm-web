@@ -103,7 +103,7 @@ export const Countable = (originProps: Props) => {
                   close();
                 }}
               >
-                {icon()()}
+                {icon()({})}
               </button>
             </div>
           )}
