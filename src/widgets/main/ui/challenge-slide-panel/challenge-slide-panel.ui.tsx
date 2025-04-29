@@ -1,4 +1,8 @@
-import { ChallengeSlidePanelTop } from '~/features/main';
+import {
+  ChallengeSlidePanelCompleteItem,
+  ChallengeSlidePanelDeleteButton,
+  ChallengeSlidePanelTop,
+} from '~/features/main';
 import { SlidePanel } from '~/shared/ui';
 
 type Props = {
@@ -11,6 +15,14 @@ export const ChallengeSlidePanel = (props: Props) => {
       {(close) => (
         <>
           <ChallengeSlidePanelTop close={close} />
+
+          <div class='flex-1 overflow-y-auto flex flex-col items-center'>
+            <div class='w-full flex flex-col gap-4 mb-4'>
+              <ChallengeSlidePanelCompleteItem />
+            </div>
+
+            <ChallengeSlidePanelDeleteButton />
+          </div>
         </>
       )}
     </SlidePanel>
