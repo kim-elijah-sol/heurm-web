@@ -89,7 +89,7 @@ export const Countable = (originProps: Props) => {
                 class='text-center text-[64px] text-slate-800 font-semibold mb-8 placeholder:text-gray-400'
                 placeholder='Current'
                 value={value()}
-                onChange={(e) => setValue(e.target.value)}
+                onInput={(e) => setValue(e.target.value)}
               />
 
               <button
