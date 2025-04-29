@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { children, createSignal, JSX } from 'solid-js';
 import { Portal } from 'solid-js/web';
-import { X } from '~/shared/ui';
 import './slide-panel.ui.css';
 
 type Props = {
@@ -29,16 +28,7 @@ export const SlidePanel = (props: Props) => {
           transition() ? 'wys-slide-panel-fade-out' : ''
         )}
       >
-        <div class='flex items-center justify-between mb-4'>
-          <p class='font-semibold text-2xl'>💪 health</p>
-          <button
-            onClick={close}
-            class='p-2 rounded-[35%] bg-red-400 transition-all active:bg-red-500 active:scale-[.95]'
-          >
-            <X size={24} />
-          </button>
-        </div>
-        <div class='flex-1 overflow-y-auto'>{resolved()}</div>
+        {resolved()}
       </div>
     </Portal>
   );

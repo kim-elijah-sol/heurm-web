@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 import { createEffect, createSignal, splitProps } from 'solid-js';
 import { CountableChallengeItemType } from '~/entities/main';
-import { Ban, Check, Loader, X } from '~/shared/ui';
-import { BluredPanel } from '../blured-panel';
+import { Ban, BluredPanel, Check, Loader, X } from '~/shared/ui';
 
 type Props = CountableChallengeItemType & {
   onChange: (count: number | null) => void;

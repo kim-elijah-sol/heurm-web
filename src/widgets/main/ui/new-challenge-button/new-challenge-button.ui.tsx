@@ -5,8 +5,7 @@ import {
   CHALLENGE_BG_COLOR,
   CHALLENGE_COLOR,
 } from '~/entities/main';
-import { BluredPanel } from '~/features/main';
-import { Check, Plus, X } from '~/shared/ui';
+import { BluredPanel, Check, Plus, X } from '~/shared/ui';
 import './new-challenge-button.css';
 
 export const NewChallengeButton = () => {

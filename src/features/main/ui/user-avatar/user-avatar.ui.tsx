@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import { createSignal } from 'solid-js';
-import { Logout, ShieldCheck, UserRoundPen } from '~/shared/ui';
-import { BluredPanel } from '../blured-panel';
+import { BluredPanel, Logout, ShieldCheck, UserRoundPen } from '~/shared/ui';
 
 type Props = {
   src: string;
