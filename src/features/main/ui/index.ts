@@ -1,4 +1,5 @@
 export * from './challenge-item';
+export * from './challenge-slide-panel-delete-button';
 export * from './challenge-slide-panel-top';
 export * from './date-card';
 export * from './hello-user';
