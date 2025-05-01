@@ -1,5 +1,6 @@
 import {
   ChallengeSlidePanelCompleteItem,
+  ChallengeSlidePanelCountableItem,
   ChallengeSlidePanelDeleteButton,
   ChallengeSlidePanelTop,
 } from '~/features/main';
@@ -19,6 +20,11 @@ export const ChallengeSlidePanel = (props: Props) => {
           <div class='flex-1 overflow-y-auto flex flex-col items-center'>
             <div class='w-full flex flex-col gap-4 mb-4'>
               <ChallengeSlidePanelCompleteItem />
+              <ChallengeSlidePanelCountableItem type='over' value='push-up' />
+              <ChallengeSlidePanelCountableItem
+                type='under'
+                value='100m sprint'
+              />
             </div>
 
             <ChallengeSlidePanelDeleteButton />
