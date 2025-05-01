@@ -1,11 +1,12 @@
 import clsx from 'clsx';
-import { createSignal, For } from 'solid-js';
+import { createSignal } from 'solid-js';
 import {
   CHALLENGE_ACTIVE_BG_400_COLOR,
   CHALLENGE_BG_COLOR,
   CHALLENGE_COLOR,
 } from '~/entities/main';
-import { BluredPanel, Check, Plus, X } from '~/shared/ui';
+import { ChallengeColorSelect } from '~/features/main';
+import { BluredPanel, Plus, X } from '~/shared/ui';
 import './new-challenge-button.css';
 
 export const NewChallengeButton = () => {
@@ -45,42 +46,7 @@ export const NewChallengeButton = () => {
                   placeholder='Challenge Name'
                 />
 
-                <div class='flex flex-col gap-6'>
-                  <div class='flex justify-evenly'>
-                    <For each={CHALLENGE_COLOR.slice(0, 4)}>
-                      {(it) => (
-                        <button
-                          onClick={() => setColor(it)}
-                          class={clsx(
-                            'w-10 h-10 rounded-[35%] flex items-center justify-center',
-                            CHALLENGE_BG_COLOR[it]
-                          )}
-                        >
-                          {color() === it && (
-                            <Check size={20} strokeWidth={3} />
-                          )}
-                        </button>
-                      )}
-                    </For>
-                  </div>
-                  <div class='flex justify-evenly'>
-                    <For each={CHALLENGE_COLOR.slice(4)}>
-                      {(it) => (
-                        <button
-                          onClick={() => setColor(it)}
-                          class={clsx(
-                            'w-10 h-10 rounded-[35%] flex items-center justify-center',
-                            CHALLENGE_BG_COLOR[it]
-                          )}
-                        >
-                          {color() === it && (
-                            <Check size={20} strokeWidth={3} />
-                          )}
-                        </button>
-                      )}
-                    </For>
-                  </div>
-                </div>
+                <ChallengeColorSelect color={color()} setColor={setColor} />
               </div>
 
               <button
