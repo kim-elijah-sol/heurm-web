@@ -5,6 +5,7 @@ import {
   ChallengeSlidePanelCompleteItem,
   ChallengeSlidePanelCountableItem,
   ChallengeSlidePanelDeleteButton,
+  ChallengeSlidePanelNewItemButton,
   ChallengeSlidePanelTop,
 } from '~/features/main';
 import { SlidePanel } from '~/shared/ui';
@@ -29,8 +30,12 @@ export const ChallengeSlidePanel = (props: Props) => {
             <ChallengeColorSelect
               color={color()}
               setColor={setColor}
-              className='mb-4'
+              className='mb-6'
             />
+
+            <div class='flex justify-center mb-4'>
+              <ChallengeSlidePanelNewItemButton />
+            </div>
 
             <div class='w-full flex flex-col gap-4 mb-4'>
               <ChallengeSlidePanelCompleteItem color={color()} />
