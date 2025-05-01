@@ -1,10 +1,10 @@
 import { createEffect, For } from 'solid-js';
-import { useDateSelect } from '~/entities/main';
+import { createDateSelect } from '~/entities/main';
 import { DateCard, isSameDate } from '~/features/main';
 import './date-select.ui.css';
 
 export const DateSelect = () => {
-  const { current, setCurrent, dates } = useDateSelect();
+  const { current, setCurrent, dates } = createDateSelect();
 
   let container: HTMLDivElement;
 

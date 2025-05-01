@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 
-export const useDateSelect = () => {
+export const createDateSelect = () => {
   const start = new Date('2025-03-21');
 
   const end = new Date('2025-04-22');
