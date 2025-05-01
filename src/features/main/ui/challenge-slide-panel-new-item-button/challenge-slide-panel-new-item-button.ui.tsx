@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 import { createSignal } from 'solid-js';
 import {
+  ArrowLeft,
   BluredPanel,
+  Check,
   CheckCheck,
   ChevronsDown,
   ChevronsUp,
@@ -87,6 +89,84 @@ export const ChallengeSlidePanelNewItemButton = () => {
                     onClick={() => handleClickType()}
                   >
                     <ChevronsDown />
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class={clsx(
+                  'wys-challenge-slide-panel-new-item-step flex flex-col items-center gap-8',
+                  step() === 'name'
+                    ? 'wys-challenge-slide-panel-new-item-step-current'
+                    : step() === 'type'
+                    ? 'wys-challenge-slide-panel-new-item-step-ready'
+                    : 'wys-challenge-slide-panel-new-item-step-end'
+                )}
+              >
+                <input
+                  type='text'
+                  class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 text-center'
+                  placeholder='Challenge Item Name'
+                />
+
+                <div class='flex gap-12'>
+                  <button
+                    class={clsx(
+                      buttonBaseClassName,
+                      'bg-gray-400 active:bg-gray-500'
+                    )}
+                    onClick={() => setStep('type')}
+                  >
+                    <ArrowLeft />
+                  </button>
+
+                  <button
+                    class={clsx(
+                      buttonBaseClassName,
+                      'bg-green-400 active:bg-green-500'
+                    )}
+                    onClick={() => setStep('count')}
+                  >
+                    <Check />
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class={clsx(
+                  'wys-challenge-slide-panel-new-item-step flex flex-col items-center gap-8',
+                  step() === 'count'
+                    ? 'wys-challenge-slide-panel-new-item-step-current'
+                    : 'wys-challenge-slide-panel-new-item-step-ready'
+                )}
+              >
+                <input
+                  type='number'
+                  pattern='[0-9]*'
+                  inputMode='numeric'
+                  class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 text-center'
+                  placeholder='Target'
+                />
+
+                <div class='flex gap-12'>
+                  <button
+                    class={clsx(
+                      buttonBaseClassName,
+                      'bg-gray-400 active:bg-gray-500'
+                    )}
+                    onClick={() => setStep('count')}
+                  >
+                    <ArrowLeft />
+                  </button>
+
+                  <button
+                    class={clsx(
+                      buttonBaseClassName,
+                      'bg-green-400 active:bg-green-500'
+                    )}
+                    onClick={close}
+                  >
+                    <Check />
                   </button>
                 </div>
               </div>

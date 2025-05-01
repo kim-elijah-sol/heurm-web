@@ -11,3 +11,7 @@
 .wys-challenge-slide-panel-new-item-step-end {
   transform: translate(-50%, calc(-50% - 16px));
 }
+
+.wys-challenge-slide-panel-new-item-step-ready {
+  transform: translate(-50%, calc(-50% + 16px));
+}
