@@ -1,3 +1,4 @@
+export * from './arrow-left.ui';
 export * from './ban.ui';
 export * from './check-check.ui';
 export * from './check.ui';
