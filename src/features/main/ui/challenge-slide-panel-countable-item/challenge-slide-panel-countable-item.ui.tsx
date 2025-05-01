@@ -8,10 +8,12 @@ import {
   CHALLENGE_ACTIVE_BG_200_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
   CHALLENGE_COLOR,
+  CHALLENGE_DAY,
   CHALLENGE_FOCUS_BG_300_COLOR,
 } from '~/entities/main';
 import { X } from '~/shared/ui';
 import { capitalize } from '../../fx';
+import { createChallengeItemDay } from '../../hook';
 
 type Props = {
   type: 'over' | 'under';
@@ -20,6 +22,8 @@ type Props = {
 };
 
 export const ChallengeSlidePanelCountableItem = (props: Props) => {
+  const [day, handleChangeDay] = createChallengeItemDay();
+
   return (
     <div
       class={clsx(
@@ -62,13 +66,14 @@ export const ChallengeSlidePanelCountableItem = (props: Props) => {
       </div>
 
       <div class='flex justify-between'>
-        <For each={['S', 'M', 'T', 'W', 'T', 'F', 'S']}>
+        <For each={CHALLENGE_DAY}>
           {(it) => (
             <button
+              onClick={() => handleChangeDay(it)}
               class={clsx(
                 'w-8 h-8 transition-all active:scale-90 rounded-[35%]',
                 CHALLENGE_ACTIVE_BG_200_COLOR[props.color],
-                it === 'S' || it === 'T'
+                day().includes(it)
                   ? clsx(
                       'text-gray-700 font-black',
                       CHALLENGE_300_BG_COLOR[props.color]
@@ -76,7 +81,7 @@ export const ChallengeSlidePanelCountableItem = (props: Props) => {
                   : 'text-gray-400 font-semibold'
               )}
             >
-              {it}
+              {it[0]}
             </button>
           )}
         </For>
