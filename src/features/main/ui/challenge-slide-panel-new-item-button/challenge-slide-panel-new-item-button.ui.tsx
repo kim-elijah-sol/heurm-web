@@ -1,9 +1,99 @@
-import { Plus } from '~/shared/ui';
+import clsx from 'clsx';
+import { createSignal } from 'solid-js';
+import {
+  BluredPanel,
+  CheckCheck,
+  ChevronsDown,
+  ChevronsUp,
+  Plus,
+  X,
+} from '~/shared/ui';
+import './challenge-slide-panel-new-item-button.ui.css';
+
+type Step = 'type' | 'name' | 'count';
 
 export const ChallengeSlidePanelNewItemButton = () => {
+  const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
+
+  const [step, setStep] = createSignal<Step>('type');
+
+  const buttonBaseClassName =
+    'p-6 rounded-[35%] transition-all active:scale-90';
+
+  const handleClickType = () => {
+    setStep('name');
+  };
+
+  const close = () => {
+    setIsBluredPanelShow(true);
+    setStep('type');
+  };
+
   return (
-    <button class='bg-slate-200 p-2 rounded-[35%] transition-all active:bg-slate-300 active:scale-90'>
-      <Plus className='stroke-slate-800' />
-    </button>
+    <>
+      <button
+        class='bg-slate-200 p-2 rounded-[35%] transition-all active:bg-slate-300 active:scale-90'
+        onClick={close}
+      >
+        <Plus className='stroke-slate-800' />
+      </button>
+
+      {isBluredPanelShow() && (
+        <BluredPanel
+          close={() => setIsBluredPanelShow(false)}
+          autoClose={false}
+        >
+          {(close) => (
+            <div class='w-full h-full relative'>
+              <button
+                onClick={close}
+                class='p-2 rounded-[35%] transition-all active:scale-90 bg-red-400 absolute right-6 top-6 active:bg-red-500'
+              >
+                <X />
+              </button>
+
+              <div
+                class={clsx(
+                  'wys-challenge-slide-panel-new-item-step flex flex-col items-center gap-8',
+                  step() === 'type'
+                    ? 'wys-challenge-slide-panel-new-item-step-current'
+                    : 'wys-challenge-slide-panel-new-item-step-end'
+                )}
+              >
+                <button
+                  class={clsx(
+                    buttonBaseClassName,
+                    'bg-emerald-400 active:bg-emerald-500'
+                  )}
+                  onClick={() => handleClickType()}
+                >
+                  <CheckCheck />
+                </button>
+                <div class='flex gap-12'>
+                  <button
+                    class={clsx(
+                      buttonBaseClassName,
+                      'bg-blue-400 active:bg-blue-500'
+                    )}
+                    onClick={() => handleClickType()}
+                  >
+                    <ChevronsUp />
+                  </button>
+                  <button
+                    class={clsx(
+                      buttonBaseClassName,
+                      'bg-rose-400 active:bg-rose-500'
+                    )}
+                    onClick={() => handleClickType()}
+                  >
+                    <ChevronsDown />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </BluredPanel>
+      )}
+    </>
   );
 };

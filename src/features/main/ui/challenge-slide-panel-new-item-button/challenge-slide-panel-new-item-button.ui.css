@@ -1,0 +1,13 @@
+.wys-challenge-slide-panel-new-item-step {
+  @apply absolute left-[50%] top-[50%] pointer-events-none opacity-0;
+  transition: 0.3s;
+}
+
+.wys-challenge-slide-panel-new-item-step-current {
+  @apply pointer-events-auto! opacity-100!;
+  transform: translate(-50%, -50%);
+}
+
+.wys-challenge-slide-panel-new-item-step-end {
+  transform: translate(-50%, calc(-50% - 16px));
+}
