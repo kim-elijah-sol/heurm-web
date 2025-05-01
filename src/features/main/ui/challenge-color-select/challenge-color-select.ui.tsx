@@ -17,33 +17,45 @@ export const ChallengeColorSelect = (props: Props) => {
       <div class='flex justify-evenly'>
         <For each={CHALLENGE_COLOR.slice(0, 4)}>
           {(it) => (
-            <button
-              onClick={() => props.setColor(it)}
-              class={clsx(
-                'w-10 h-10 rounded-[35%] flex items-center justify-center',
-                CHALLENGE_BG_COLOR[it]
-              )}
-            >
-              {props.color === it && <Check size={20} strokeWidth={3} />}
-            </button>
+            <ColorItem
+              color={it}
+              setColor={props.setColor}
+              isCurrent={it === props.color}
+            />
           )}
         </For>
       </div>
       <div class='flex justify-evenly'>
         <For each={CHALLENGE_COLOR.slice(4)}>
           {(it) => (
-            <button
-              onClick={() => props.setColor(it)}
-              class={clsx(
-                'w-10 h-10 rounded-[35%] flex items-center justify-center',
-                CHALLENGE_BG_COLOR[it]
-              )}
-            >
-              {props.color === it && <Check size={20} strokeWidth={3} />}
-            </button>
+            <ColorItem
+              color={it}
+              setColor={props.setColor}
+              isCurrent={it === props.color}
+            />
           )}
         </For>
       </div>
     </div>
+  );
+};
+
+type ColorItemProps = {
+  color: Color;
+  setColor: (color: Color) => void;
+  isCurrent: boolean;
+};
+
+const ColorItem = (props: ColorItemProps) => {
+  return (
+    <button
+      onClick={() => props.setColor(props.color)}
+      class={clsx(
+        'w-10 h-10 rounded-[35%] flex items-center justify-center transition-all active:scale-90',
+        CHALLENGE_BG_COLOR[props.color]
+      )}
+    >
+      {props.isCurrent && <Check size={20} strokeWidth={3} />}
+    </button>
   );
 };
