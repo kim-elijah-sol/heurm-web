@@ -11,7 +11,7 @@ import {
   CHALLENGE_DAY,
   CHALLENGE_FOCUS_BG_300_COLOR,
 } from '~/entities/main';
-import { X } from '~/shared/ui';
+import { ChevronsDown, ChevronsUp, X } from '~/shared/ui';
 import { capitalize } from '../../fx';
 import { createChallengeItemDay } from '../../hook';
 
@@ -24,6 +24,8 @@ type Props = {
 export const ChallengeSlidePanelCountableItem = (props: Props) => {
   const [day, handleChangeDay] = createChallengeItemDay();
 
+  const TypeIcon = props.type === 'over' ? ChevronsUp : ChevronsDown;
+
   return (
     <div
       class={clsx(
@@ -35,9 +37,12 @@ export const ChallengeSlidePanelCountableItem = (props: Props) => {
         <div class='flex flex-col gap-1 pl-1'>
           <input type='text' class='font-semibold' value={props.value} />
 
-          <span class='font-semibold text-[12px] text-gray-400'>
-            {capitalize(props.type)} Type
-          </span>
+          <div class='flex items-center gap-1'>
+            <TypeIcon className='stroke-gray-400' size={16} strokeWidth={2} />
+            <span class='font-semibold text-[12px] text-gray-400'>
+              {capitalize(props.type)} Type
+            </span>
+          </div>
         </div>
         <button
           class={clsx(

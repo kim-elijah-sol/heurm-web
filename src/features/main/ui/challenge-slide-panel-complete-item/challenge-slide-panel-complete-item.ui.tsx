@@ -9,7 +9,7 @@ import {
   CHALLENGE_COLOR,
   CHALLENGE_DAY,
 } from '~/entities/main';
-import { X } from '~/shared/ui';
+import { CheckCheck, X } from '~/shared/ui';
 import { createChallengeItemDay } from '../../hook';
 
 type Props = {
@@ -30,9 +30,12 @@ export const ChallengeSlidePanelCompleteItem = (props: Props) => {
         <div class='flex flex-col gap-1 pl-1'>
           <input type='text' class='font-semibold' value='3km running' />
 
-          <span class='font-semibold text-[12px] text-gray-400'>
-            Complete Type
-          </span>
+          <div class='flex items-center gap-1'>
+            <CheckCheck className='stroke-gray-400' size={16} strokeWidth={2} />
+            <span class='font-semibold text-[12px] text-gray-400'>
+              Complete Type
+            </span>
+          </div>
         </div>
         <button
           class={clsx(
