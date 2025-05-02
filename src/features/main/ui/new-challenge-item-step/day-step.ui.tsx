@@ -16,6 +16,18 @@ type Props = {
 export const DayStep = (props: Props) => {
   const buttonBaseClassName =
     'p-6 rounded-[35%] transition-all active:scale-90';
+
+  const dayClassName =
+    'w-12 h-12 text-2xl bg-gray-50/25 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md';
+
+  const activeDayClassName = 'font-black bg-gray-100';
+
+  const weekdayActiveClassName = 'text-gray-700';
+
+  const weekdayInactiveClassName = 'text-gray-400';
+
+  const inactiveDayClassName = 'font-semibold';
+
   return (
     <div
       class={clsx(
@@ -30,15 +42,15 @@ export const DayStep = (props: Props) => {
               <button
                 onClick={() => props.onChangeDay(it)}
                 class={clsx(
-                  'w-12 h-12 text-2xl bg-slate-50/25 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md',
+                  dayClassName,
                   props.day.includes(it)
                     ? clsx(
-                        'font-black bg-slate-100',
-                        it === 'SUN' ? 'text-red-500' : 'text-gray-700'
+                        activeDayClassName,
+                        it === 'SUN' ? 'text-red-500' : weekdayActiveClassName
                       )
                     : clsx(
-                        'font-semibold',
-                        it === 'SUN' ? 'text-red-300' : 'text-gray-400'
+                        inactiveDayClassName,
+                        it === 'SUN' ? 'text-red-300' : weekdayInactiveClassName
                       )
                 )}
               >
@@ -54,15 +66,17 @@ export const DayStep = (props: Props) => {
               <button
                 onClick={() => props.onChangeDay(it)}
                 class={clsx(
-                  'w-12 h-12 text-2xl bg-slate-50/25 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md',
+                  dayClassName,
                   props.day.includes(it)
                     ? clsx(
-                        'font-black bg-slate-100',
-                        it === 'SAT' ? 'text-blue-500' : 'text-gray-700'
+                        activeDayClassName,
+                        it === 'SAT' ? 'text-blue-500' : weekdayActiveClassName
                       )
                     : clsx(
-                        'font-semibold',
-                        it === 'SAT' ? 'text-blue-300' : 'text-gray-400'
+                        inactiveDayClassName,
+                        it === 'SAT'
+                          ? 'text-blue-300'
+                          : weekdayInactiveClassName
                       )
                 )}
               >
