@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { createSignal } from 'solid-js';
+import { createSignal, For } from 'solid-js';
+import { CHALLENGE_DAY } from '~/entities/main';
 import {
   ArrowLeft,
   BluredPanel,
@@ -10,14 +11,17 @@ import {
   Plus,
   X,
 } from '~/shared/ui';
+import { createChallengeItemDay } from '../../hook';
 import './challenge-slide-panel-new-item-button.ui.css';
 
-type Step = 'type' | 'name' | 'count';
+type Step = 'type' | 'name' | 'count' | 'day';
 
 export const ChallengeSlidePanelNewItemButton = () => {
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
-  const [step, setStep] = createSignal<Step>('type');
+  const [step, setStep] = createSignal<Step>('day');
+
+  const [day, handleChangeDay] = createChallengeItemDay();
 
   const buttonBaseClassName =
     'p-6 rounded-[35%] transition-all active:scale-90';
@@ -54,6 +58,9 @@ export const ChallengeSlidePanelNewItemButton = () => {
                 <X />
               </button>
 
+              {/**
+               * Type Step
+               */}
               <div
                 class={clsx(
                   'wys-challenge-slide-panel-new-item-step flex flex-col items-center gap-8',
@@ -93,6 +100,9 @@ export const ChallengeSlidePanelNewItemButton = () => {
                 </div>
               </div>
 
+              {/**
+               * Name Step
+               */}
               <div
                 class={clsx(
                   'wys-challenge-slide-panel-new-item-step flex flex-col items-center gap-8',
@@ -132,11 +142,16 @@ export const ChallengeSlidePanelNewItemButton = () => {
                 </div>
               </div>
 
+              {/**
+               * Count Step
+               */}
               <div
                 class={clsx(
                   'wys-challenge-slide-panel-new-item-step flex flex-col items-center gap-8',
                   step() === 'count'
                     ? 'wys-challenge-slide-panel-new-item-step-current'
+                    : step() === 'day'
+                    ? 'wys-challenge-slide-panel-new-item-step-end'
                     : 'wys-challenge-slide-panel-new-item-step-ready'
                 )}
               >
@@ -147,6 +162,98 @@ export const ChallengeSlidePanelNewItemButton = () => {
                   class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 text-center'
                   placeholder='Target'
                 />
+
+                <div class='flex gap-12'>
+                  <button
+                    class={clsx(
+                      buttonBaseClassName,
+                      'bg-gray-400 active:bg-gray-500'
+                    )}
+                    onClick={() => setStep('name')}
+                  >
+                    <ArrowLeft />
+                  </button>
+
+                  <button
+                    class={clsx(
+                      buttonBaseClassName,
+                      'bg-green-400 active:bg-green-500'
+                    )}
+                    onClick={() => setStep('day')}
+                  >
+                    <Check />
+                  </button>
+                </div>
+              </div>
+
+              {/**
+               * Day Step
+               */}
+              <div
+                class={clsx(
+                  'wys-challenge-slide-panel-new-item-step flex flex-col items-center gap-8',
+                  step() === 'day'
+                    ? 'wys-challenge-slide-panel-new-item-step-current'
+                    : 'wys-challenge-slide-panel-new-item-step-ready'
+                )}
+              >
+                <div class='flex flex-col gap-4 w-full items-center'>
+                  <div class='flex gap-4'>
+                    <For each={CHALLENGE_DAY.slice(0, 4)}>
+                      {(it) => (
+                        <button
+                          onClick={() => handleChangeDay(it)}
+                          class={clsx(
+                            'w-12 h-12 text-2xl bg-slate-50 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md',
+                            day().includes(it)
+                              ? clsx(
+                                  'font-black bg-slate-100',
+                                  it === 'SUN'
+                                    ? 'text-red-500'
+                                    : 'text-gray-700'
+                                )
+                              : clsx(
+                                  'font-semibold',
+                                  it === 'SUN'
+                                    ? 'text-red-300'
+                                    : 'text-gray-400'
+                                )
+                          )}
+                        >
+                          {it[0]}
+                        </button>
+                      )}
+                    </For>
+                  </div>
+
+                  <div class='flex gap-4'>
+                    <For each={CHALLENGE_DAY.slice(4)}>
+                      {(it) => (
+                        <button
+                          onClick={() => handleChangeDay(it)}
+                          class={clsx(
+                            'w-12 h-12 text-2xl bg-slate-50 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md',
+                            day().includes(it)
+                              ? clsx(
+                                  'font-black bg-slate-100',
+                                  it === 'SAT'
+                                    ? 'text-blue-500'
+                                    : 'text-gray-700'
+                                )
+                              : clsx(
+                                  'font-semibold',
+                                  it === 'SAT'
+                                    ? 'text-blue-300'
+                                    : 'text-gray-400'
+                                )
+                          )}
+                        >
+                          {it[0]}
+                        </button>
+                      )}
+                    </For>
+                  </div>
+                </div>
 
                 <div class='flex gap-12'>
                   <button
