@@ -1,5 +1,46 @@
 # Win Yourself Journal
 
+# 2025-05-02
+
+현재까지 완성된 기능을 정리해보아야 할 것 같다.<br>
+
+- 메인 페이지
+  - Top 영역
+  - Overview 영역
+  - Challenge 목록
+  - 새로운 Challenge 추가 버튼
+- 회원 기능 화면 구성
+- 새로운 Challnge 추가 패널
+  - 상태 연결 개발
+- Challenge 설정 패널
+  - Challenge 제목 수정 상태 연결 개발
+  - 새로운 Challenge-Item 추가 버튼
+  - Challenge-Item 목록
+  - Challenge-Item 정보 수정 상태 연결 개발
+  - Challenge 삭제 버튼
+- 새로운 Challenge-Item 추가 패널
+  - 각 스텝 화면 구성
+
+이제 개발하야할 기능을 정리해봐야 할 것 같은데, a-z 리스트 업하면 끝도 없으니 당장 정리해야할 부분만 정리하기<br><br>
+
+## 시급 🚨
+
+- Overview <-> Challenge 영역 `데이터 연결`
+- 새로운 Challenge 생성 시 `데이터 연결`
+- Challenge 설정 패널 `데이터 연결`
+  - Challenge 이름
+  - Challenge-Item
+  - Challenge 색상
+- `Toast` 개발
+
+<br>
+
+## 천천히 🐢
+
+- 약관 보기
+- 회원 정보 수정
+- 로그인 및 로그아웃 로직
+
 # 2025-04-29
 
 챌린지 아이템 관련 페이지는 슬라이드돼서 화면 보여지는 패널로 하기로 했다.<br>
