@@ -204,7 +204,7 @@ export const ChallengeSlidePanelNewItemButton = () => {
                         <button
                           onClick={() => handleChangeDay(it)}
                           class={clsx(
-                            'w-12 h-12 text-2xl bg-slate-50 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md',
+                            'w-12 h-12 text-2xl bg-slate-50/25 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md',
                             day().includes(it)
                               ? clsx(
                                   'font-black bg-slate-100',
@@ -232,7 +232,7 @@ export const ChallengeSlidePanelNewItemButton = () => {
                         <button
                           onClick={() => handleChangeDay(it)}
                           class={clsx(
-                            'w-12 h-12 text-2xl bg-slate-50 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md',
+                            'w-12 h-12 text-2xl bg-slate-50/25 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md',
                             day().includes(it)
                               ? clsx(
                                   'font-black bg-slate-100',
