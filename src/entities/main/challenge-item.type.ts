@@ -1,5 +1,8 @@
+import { CHALLENGE_DAY } from './challenge-day.constant';
+
 type ChallengeItemBase = {
   name: string;
+  day: (typeof CHALLENGE_DAY)[number][];
 };
 
 type CountableType = {
@@ -24,7 +27,9 @@ export type UnderChallengeItemType = ChallengeItemBase &
     type: 'under';
   };
 
-export type CountableChallengeItemType = OverChallengeItemType | UnderChallengeItemType
+export type CountableChallengeItemType =
+  | OverChallengeItemType
+  | UnderChallengeItemType;
 
 export type ChallengeItemType =
   | CompleteChallengeItemType
