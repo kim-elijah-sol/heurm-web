@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { CHALLENGE_COLOR } from '~/entities/main';
+import { CHALLENGE_COLOR, useChallenges } from '~/entities/main';
 import {
   ChallengeCard,
   DateSelect,
@@ -9,6 +9,8 @@ import {
 } from '~/widgets/main';
 
 function Main() {
+  const { challenges } = useChallenges
+
   return (
     <div class='p-4 flex flex-col gap-4'>
       <MainTop />
@@ -16,8 +18,8 @@ function Main() {
       <Overview />
 
       <div class='flex flex-col gap-4 mb-2'>
-        <For each={CHALLENGE_COLOR}>
-          {(color) => <ChallengeCard title='💪 health' color={color} />}
+        <For each={challenges()}>
+          {(challnge) => <ChallengeCard {...challnge} />}
         </For>
       </div>
       <NewChallengeButton />

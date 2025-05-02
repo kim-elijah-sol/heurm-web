@@ -1,6 +1,5 @@
 import { clsx } from 'clsx';
 import { createSignal, For, Match, Switch } from 'solid-js';
-import { createStore } from 'solid-js/store';
 import {
   ChallengeItemType,
   CHALLENGE_100_BG_COLOR,
@@ -16,30 +15,11 @@ import { ChallengeSlidePanel } from '../challenge-slide-panel';
 type Props = {
   title: string;
   color: (typeof CHALLENGE_COLOR)[number];
+  challengeItems: ChallengeItemType[];
 };
 
 export const ChallengeCard = (props: Props) => {
   const [isSlidePanelShow, setIsSlidePanelShow] = createSignal(false);
-
-  const [challengeItems, setChallengeItems] = createStore<ChallengeItemType[]>([
-    {
-      name: '3km running',
-      type: 'complete',
-      isCompleted: null,
-    },
-    {
-      name: 'push-up',
-      type: 'over',
-      targetCount: 72,
-      count: null,
-    },
-    {
-      name: '100m sprint',
-      type: 'under',
-      targetCount: 15,
-      count: null,
-    },
-  ]);
 
   const topClassName = () =>
     clsx(
@@ -50,31 +30,12 @@ export const ChallengeCard = (props: Props) => {
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color]);
 
-  const handleChangeComplete = (index: number, isCompleted: boolean | null) => {
-    setChallengeItems(
-      challengeItems.map((it, _index) =>
-        _index === index
-          ? {
-              ...it,
-              isCompleted,
-            }
-          : it
-      )
-    );
-  };
+  const handleChangeComplete = (
+    index: number,
+    isCompleted: boolean | null
+  ) => {};
 
-  const handleChangeCountable = (index: number, count: number | null) => {
-    setChallengeItems(
-      challengeItems.map((it, _index) =>
-        _index === index
-          ? {
-              ...it,
-              count,
-            }
-          : it
-      )
-    );
-  };
+  const handleChangeCountable = (index: number, count: number | null) => {};
 
   return (
     <div class='overflow-hidden rounded-xl'>
@@ -87,11 +48,14 @@ export const ChallengeCard = (props: Props) => {
           <Menu />
         </button>
         {isSlidePanelShow() && (
-          <ChallengeSlidePanel color={props.color} close={() => setIsSlidePanelShow(false)} />
+          <ChallengeSlidePanel
+            color={props.color}
+            close={() => setIsSlidePanelShow(false)}
+          />
         )}
       </div>
       <div class={itemsContainerClassName()}>
-        <For each={challengeItems}>
+        <For each={props.challengeItems}>
           {(challengeItem, index) => {
             return (
               <Switch>
