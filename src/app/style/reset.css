@@ -6,6 +6,7 @@ html {
 
 * {
   font-family: 'Manrope', sans-serif;
+  @apply select-none;
 }
 
 button {
