@@ -9,10 +9,10 @@ export const ChallengeSlidePanelNewItemButton = () => {
   return (
     <>
       <button
-        class='bg-slate-200 p-2 rounded-[35%] transition-all active:bg-slate-300 active:scale-90'
+        class='bg-slate-200 p-3 rounded-[35%] transition-all active:bg-slate-300 active:scale-90'
         onClick={() => setIsBluredPanelShow(true)}
       >
-        <Plus className='stroke-slate-800' />
+        <Plus size={28} className='stroke-slate-800' />
       </button>
 
       {isBluredPanelShow() && (

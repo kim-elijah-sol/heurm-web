@@ -1,16 +1,18 @@
 import clsx from 'clsx';
 
 export const Plus = ({
+  size = 24,
   stroke = '#FFFFFF',
   className,
 }: {
+  size?: number;
   stroke?: string;
   className?: string;
 }) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
-    width='24'
-    height='24'
+    width={size}
+    height={size}
     viewBox='0 0 24 24'
     fill='none'
     stroke={stroke}
