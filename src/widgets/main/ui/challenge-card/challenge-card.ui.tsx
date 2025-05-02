@@ -15,7 +15,15 @@ import { ChallengeSlidePanel } from '../challenge-slide-panel';
 type Props = {
   title: string;
   color: (typeof CHALLENGE_COLOR)[number];
-  challengeItems: ChallengeItemType[];
+  challengeItems: (ChallengeItemType & { id: number })[];
+  onChangeCompleteItem: (
+    challengeItemId: number,
+    isCompleted: boolean | null
+  ) => void;
+  onChangeCountableItem: (
+    challengeItemId: number,
+    count: number | null
+  ) => void;
 };
 
 export const ChallengeCard = (props: Props) => {
@@ -30,12 +38,11 @@ export const ChallengeCard = (props: Props) => {
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color]);
 
-  const handleChangeComplete = (
-    index: number,
-    isCompleted: boolean | null
-  ) => {};
+  const handleChangeComplete = (id: number, isCompleted: boolean | null) =>
+    props.onChangeCompleteItem(id, isCompleted);
 
-  const handleChangeCountable = (index: number, count: number | null) => {};
+  const handleChangeCountable = (id: number, count: number | null) =>
+    props.onChangeCountableItem(id, count);
 
   return (
     <div class='overflow-hidden rounded-xl'>
@@ -56,21 +63,23 @@ export const ChallengeCard = (props: Props) => {
       </div>
       <div class={itemsContainerClassName()}>
         <For each={props.challengeItems}>
-          {(challengeItem, index) => {
+          {(challengeItem) => {
             return (
               <Switch>
                 <Match when={challengeItem.type === 'complete'}>
                   <ChallengeItem.Complete
                     {...(challengeItem as CompleteChallengeItemType)}
-                    onChange={(isComplete) =>
-                      handleChangeComplete(index(), isComplete)
+                    onChange={(isCompleted) =>
+                      handleChangeComplete(challengeItem.id, isCompleted)
                     }
                   />
                 </Match>
                 <Match when={challengeItem.type !== 'complete'}>
                   <ChallengeItem.Countable
                     {...(challengeItem as CountableChallengeItemType)}
-                    onChange={(count) => handleChangeCountable(index(), count)}
+                    onChange={(count) =>
+                      handleChangeCountable(challengeItem.id, count)
+                    }
                   />
                 </Match>
               </Switch>
