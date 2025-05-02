@@ -1,4 +1,4 @@
-import { createRoot, createSignal } from 'solid-js';
+import { createMemo, createRoot, createSignal } from 'solid-js';
 import { CHALLENGE_COLOR } from './challenge-color.constant';
 import { CHALLENGE_DAY } from './challenge-day.constant';
 import { ChallengeItemType } from './challenge-item.type';
@@ -146,9 +146,47 @@ export const useChallenges = createRoot(() => {
       );
     };
 
+  const progressChallengeItemCount = createMemo(() =>
+    challenges().reduce(
+      (acc, current) =>
+        acc +
+        current.challengeItems.filter((it) =>
+          it.type === 'complete' ? it.isCompleted === null : it.count === null
+        ).length,
+      0
+    )
+  );
+
+  const winChallengeItemCount = createMemo(() =>
+    challenges().reduce(
+      (acc, current) =>
+        acc +
+        current.challengeItems.filter((it) =>
+          it.type === 'complete'
+            ? it.isCompleted === true
+            : it.type === 'over'
+            ? (it.count ?? -Infinity) >= it.targetCount
+            : (it.count ?? Infinity) <= it.targetCount
+        ).length,
+      0
+    )
+  );
+
+  const loseChallengeItemCount = createMemo(() =>
+    challenges().reduce(
+      (acc, current) =>
+        acc +
+        current.challengeItems.length,
+      0
+    ) - winChallengeItemCount() - progressChallengeItemCount()
+  );
+
   return {
     challenges,
     handleChangeComplete,
     handleChangeCountable,
+    progressChallengeItemCount,
+    winChallengeItemCount,
+    loseChallengeItemCount,
   };
 });
