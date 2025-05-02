@@ -18,7 +18,13 @@ export const OverviewCard: Component<Props> = (props) => {
     );
 
   return (
-    <div class='flex flex-1 flex-col items-center rounded-lg p-3 border bg-white border-slate-100 shadow-[0_0_8px_4px_rgba(70,70,70,0.05)]'>
+    <div
+      style={{
+        flex: props.count || 1,
+        'min-width': '100px',
+      }}
+      class='flex flex-col items-center rounded-lg p-3 transition-all border bg-white border-slate-100 shadow-[0_0_8px_4px_rgba(70,70,70,0.05)]'
+    >
       <span class='text-sm font-semibold mb-3 text-slate-700'>{title()}</span>
       <p class={countClass()}>{countText()}</p>
     </div>
