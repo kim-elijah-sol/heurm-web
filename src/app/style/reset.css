@@ -13,7 +13,7 @@ button {
   @apply cursor-pointer;
 }
 
-.remove-scroll-bar::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
 }
 

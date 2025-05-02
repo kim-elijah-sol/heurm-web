@@ -25,7 +25,7 @@ export const DateSelect = () => {
   return (
     <div
       ref={(ref) => (container = ref)}
-      class='wys-date-select-container flex items-center gap-4 overflow-x-auto remove-scroll-bar w-[100vw] ml-[-16px] py-2 h-[124px]'
+      class='wys-date-select-container flex items-center gap-4 overflow-x-auto w-[100vw] ml-[-16px] py-2 h-[124px]'
     >
       <For each={dates()}>
         {(date) => (
