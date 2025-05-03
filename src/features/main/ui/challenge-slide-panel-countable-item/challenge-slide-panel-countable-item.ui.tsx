@@ -41,7 +41,7 @@ export const ChallengeSlidePanelCountableItem = (props: Props) => {
             type='text'
             class='font-semibold'
             value={props.name}
-            onBlur={(e) => props.onChangeName(e.target.value)}
+            onInput={(e) => props.onChangeName(e.target.value)}
           />
 
           <div class='flex items-center gap-1'>
@@ -68,7 +68,7 @@ export const ChallengeSlidePanelCountableItem = (props: Props) => {
           pattern='[0-9]*'
           inputMode='numeric'
           value={props.targetCount}
-          onBlur={(e) => props.onChangeTargetColor(Number(e.target.value))}
+          onInput={(e) => props.onChangeTargetColor(Number(e.target.value))}
           class={clsx(
             'font-semibold px-3 py-2 rounded-[12px] w-full transition-all',
             CHALLENGE_200_BG_COLOR[props.color],

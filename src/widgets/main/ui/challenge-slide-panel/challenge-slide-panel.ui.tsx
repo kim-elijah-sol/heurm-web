@@ -1,8 +1,9 @@
-import { createSignal, For } from 'solid-js';
+import { createSignal, Index } from 'solid-js';
 import {
   ChallengeItemType,
   CHALLENGE_COLOR,
   CHALLENGE_DAY,
+  CountableChallengeItemType,
 } from '~/entities/main';
 import {
   ChallengeColorSelect,
@@ -96,30 +97,34 @@ export const ChallengeSlidePanel = (props: Props) => {
             </div>
 
             <div class='w-full flex flex-col gap-4 mb-4'>
-              <For each={challengeItems()}>
+              <Index each={challengeItems()}>
                 {(it) =>
-                  it.type === 'complete' ? (
+                  it().type === 'complete' ? (
                     <ChallengeSlidePanelCompleteItem
-                      name={it.name}
-                      onChangeName={(name) => handleChangeName(it.id, name)}
-                      day={it.day}
-                      onChangeDay={(day) => handleChangeDay(it.id, day)}
+                      name={it().name}
+                      onChangeName={(name) => handleChangeName(it().id, name)}
+                      day={it().day}
+                      onChangeDay={(day) => handleChangeDay(it().id, day)}
                       color={color()}
                     />
                   ) : (
                     <ChallengeSlidePanelCountableItem
-                      type={it.type}
-                      name={it.name}
-                      onChangeName={(name) => handleChangeName(it.id, name)}
-                      day={it.day}
-                      onChangeDay={(day) => handleChangeDay(it.id, day)}
-                      targetCount={it.targetCount}
-                      onChangeTargetColor={targetCount => handleChangeTargetCount(it.id, targetCount)}
+                      type={(it() as CountableChallengeItemType).type}
+                      name={it().name}
+                      onChangeName={(name) => handleChangeName(it().id, name)}
+                      day={it().day}
+                      onChangeDay={(day) => handleChangeDay(it().id, day)}
+                      targetCount={
+                        (it() as CountableChallengeItemType).targetCount
+                      }
+                      onChangeTargetColor={(targetCount) =>
+                        handleChangeTargetCount(it().id, targetCount)
+                      }
                       color={color()}
                     />
                   )
                 }
-              </For>
+              </Index>
             </div>
 
             <ChallengeSlidePanelDeleteButton />
