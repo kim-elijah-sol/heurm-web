@@ -13,17 +13,19 @@ import {
 } from '~/entities/main';
 import { ChevronsDown, ChevronsUp, X } from '~/shared/ui';
 import { capitalize } from '../../fx';
-import { createChallengeItemDay } from '../../hook';
 
 type Props = {
   type: 'over' | 'under';
-  value: string;
+  name: string;
+  onChangeName: (name: string) => void;
+  day: (typeof CHALLENGE_DAY)[number][];
+  onChangeDay: (day: (typeof CHALLENGE_DAY)[number]) => void;
+  targetCount: number;
+  onChangeTargetColor: (targetCount: number) => void;
   color: (typeof CHALLENGE_COLOR)[number];
 };
 
 export const ChallengeSlidePanelCountableItem = (props: Props) => {
-  const [day, handleChangeDay] = createChallengeItemDay();
-
   const TypeIcon = props.type === 'over' ? ChevronsUp : ChevronsDown;
 
   return (
@@ -35,7 +37,12 @@ export const ChallengeSlidePanelCountableItem = (props: Props) => {
     >
       <div class='flex items-start justify-between mb-4'>
         <div class='flex flex-col gap-1 pl-1'>
-          <input type='text' class='font-semibold' value={props.value} />
+          <input
+            type='text'
+            class='font-semibold'
+            value={props.name}
+            onBlur={(e) => props.onChangeName(e.target.value)}
+          />
 
           <div class='flex items-center gap-1'>
             <TypeIcon className='stroke-gray-400' size={16} strokeWidth={2} />
@@ -60,7 +67,8 @@ export const ChallengeSlidePanelCountableItem = (props: Props) => {
           type='number'
           pattern='[0-9]*'
           inputMode='numeric'
-          value='82'
+          value={props.targetCount}
+          onBlur={(e) => props.onChangeTargetColor(Number(e.target.value))}
           class={clsx(
             'font-semibold px-3 py-2 rounded-[12px] w-full transition-all',
             CHALLENGE_200_BG_COLOR[props.color],
@@ -74,11 +82,11 @@ export const ChallengeSlidePanelCountableItem = (props: Props) => {
         <For each={CHALLENGE_DAY}>
           {(it) => (
             <button
-              onClick={() => handleChangeDay(it)}
+              onClick={() => props.onChangeDay(it)}
               class={clsx(
                 'w-8 h-8 transition-all active:scale-90 rounded-[35%]',
                 CHALLENGE_ACTIVE_BG_200_COLOR[props.color],
-                day().includes(it)
+                props.day.includes(it)
                   ? clsx(
                       'text-gray-700 font-black',
                       CHALLENGE_300_BG_COLOR[props.color]

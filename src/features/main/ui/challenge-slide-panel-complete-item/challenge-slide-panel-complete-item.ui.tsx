@@ -33,7 +33,7 @@ export const ChallengeSlidePanelCompleteItem = (props: Props) => {
             type='text'
             class='font-semibold'
             value={props.name}
-            onInput={(e) => props.onChangeName(e.target.value)}
+            onBlur={(e) => props.onChangeName(e.target.value)}
           />
 
           <div class='flex items-center gap-1'>

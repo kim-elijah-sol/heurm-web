@@ -61,6 +61,19 @@ export const ChallengeSlidePanel = (props: Props) => {
     );
   };
 
+  const handleChangeTargetCount = (id: number, targetCount: number) => {
+    setChallengeItems(
+      challengeItems().map((it) =>
+        it.id === id
+          ? {
+              ...it,
+              targetCount,
+            }
+          : it
+      )
+    );
+  };
+
   return (
     <SlidePanel close={props.close}>
       {(close) => (
@@ -96,7 +109,12 @@ export const ChallengeSlidePanel = (props: Props) => {
                   ) : (
                     <ChallengeSlidePanelCountableItem
                       type={it.type}
-                      value='82'
+                      name={it.name}
+                      onChangeName={(name) => handleChangeName(it.id, name)}
+                      day={it.day}
+                      onChangeDay={(day) => handleChangeDay(it.id, day)}
+                      targetCount={it.targetCount}
+                      onChangeTargetColor={targetCount => handleChangeTargetCount(it.id, targetCount)}
                       color={color()}
                     />
                   )
