@@ -1,8 +1,11 @@
 import clsx from 'clsx';
+import { Setter } from 'solid-js';
 import { NewChallengeStepDisplayType } from '~/entities/main';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {
+  count: string;
+  setCount: Setter<string>;
   displayType: NewChallengeStepDisplayType;
   onNext: () => void;
   onPrev: () => void;
@@ -25,6 +28,8 @@ export const CountStep = (props: Props) => {
         inputMode='numeric'
         class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 text-center'
         placeholder='Target'
+        value={props.count}
+        onInput={(e) => props.setCount(e.target.value)}
       />
 
       <div class='flex gap-12'>

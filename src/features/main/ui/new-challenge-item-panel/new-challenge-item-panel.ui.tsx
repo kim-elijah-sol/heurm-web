@@ -11,6 +11,14 @@ type Props = {
 export const NewChallengeItemPanel = (props: Props) => {
   const [step, setStep] = createSignal<NewChallengeStep>('type');
 
+  const [type, setType] = createSignal<'complete' | 'over' | 'under' | null>(
+    null
+  );
+
+  const [name, setName] = createSignal<string>('');
+
+  const [count, setCount] = createSignal<string>('');
+
   const [day, handleChangeDay] = createChallengeItemDay();
 
   return (
@@ -24,18 +32,31 @@ export const NewChallengeItemPanel = (props: Props) => {
 
       <NewChallengeItemStep.Type
         displayType={step() === 'type' ? 'current' : 'end'}
-        onNext={() => setStep('name')}
+        onNext={(type) => {
+          setType(type);
+          setStep('name');
+        }}
       />
 
       <NewChallengeItemStep.Name
+        name={name()}
+        setName={setName}
         displayType={
           step() === 'name' ? 'current' : step() === 'type' ? 'ready' : 'end'
         }
         onPrev={() => setStep('type')}
-        onNext={() => setStep('count')}
+        onNext={() => {
+          if (type() === 'complete') {
+            setStep('day');
+          } else {
+            setStep('count');
+          }
+        }}
       />
 
       <NewChallengeItemStep.Count
+        count={count()}
+        setCount={setCount}
         displayType={
           step() === 'count' ? 'current' : step() === 'day' ? 'end' : 'ready'
         }
@@ -47,8 +68,17 @@ export const NewChallengeItemPanel = (props: Props) => {
         displayType={step() === 'day' ? 'current' : 'ready'}
         day={day()}
         onChangeDay={handleChangeDay}
-        onPrev={() => setStep('count')}
-        onNext={props.close}
+        onPrev={() => {
+          if (type() === 'complete') {
+            setStep('name');
+          } else {
+            setStep('count');
+          }
+        }}
+        onNext={() => {
+          console.log(type(), name(), count(), day());
+          props.close();
+        }}
       />
     </div>
   );

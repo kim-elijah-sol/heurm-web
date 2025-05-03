@@ -1,8 +1,11 @@
 import clsx from 'clsx';
+import { Setter } from 'solid-js';
 import { NewChallengeStepDisplayType } from '~/entities/main';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {
+  name: string;
+  setName: Setter<string>;
   displayType: NewChallengeStepDisplayType;
   onNext: () => void;
   onPrev: () => void;
@@ -23,6 +26,8 @@ export const NameStep = (props: Props) => {
         type='text'
         class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 text-center'
         placeholder='Challenge Item Name'
+        value={props.name}
+        onInput={(e) => props.setName(e.target.value)}
       />
 
       <div class='flex gap-12'>

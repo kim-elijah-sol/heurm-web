@@ -4,7 +4,7 @@ import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 
 type Props = {
   displayType: NewChallengeStepDisplayType;
-  onNext: () => void;
+  onNext: (type: 'complete' | 'over' | 'under') => void;
 };
 
 export const TypeStep = (props: Props) => {
@@ -23,20 +23,20 @@ export const TypeStep = (props: Props) => {
           buttonBaseClassName,
           'bg-emerald-400 active:bg-emerald-500'
         )}
-        onClick={props.onNext}
+        onClick={() => props.onNext('complete')}
       >
         <CheckCheck />
       </button>
       <div class='flex gap-12'>
         <button
           class={clsx(buttonBaseClassName, 'bg-blue-400 active:bg-blue-500')}
-          onClick={props.onNext}
+          onClick={() => props.onNext('over')}
         >
           <ChevronsUp />
         </button>
         <button
           class={clsx(buttonBaseClassName, 'bg-rose-400 active:bg-rose-500')}
-          onClick={props.onNext}
+          onClick={() => props.onNext('under')}
         >
           <ChevronsDown />
         </button>
