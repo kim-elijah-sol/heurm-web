@@ -56,6 +56,7 @@ export const ChallengeCard = (props: Props) => {
         </button>
         {isSlidePanelShow() && (
           <ChallengeSlidePanel
+            title={props.title}
             color={props.color}
             close={() => setIsSlidePanelShow(false)}
           />

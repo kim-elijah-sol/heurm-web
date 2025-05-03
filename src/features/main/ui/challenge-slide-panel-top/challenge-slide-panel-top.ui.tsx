@@ -1,23 +1,23 @@
 import clsx from 'clsx';
-import { createEffect, createSignal } from 'solid-js';
+import { Accessor, createEffect, createSignal, Setter } from 'solid-js';
 import { Check, X } from '~/shared/ui';
 import './challenge-slide-panel-top.ui.css';
 
 type Props = {
   close: () => void;
+  title: Accessor<string>;
+  setTitle: Setter<string>;
 };
 
 export const ChallengeSlidePanelTop = (props: Props) => {
-  const [title, setTitle] = createSignal('💪 health');
-
-  const [titleValue, setTitleValue] = createSignal('💪 health');
+  const [titleValue, setTitleValue] = createSignal(props.title());
 
   const [titleWidth, setTitleWidth] = createSignal(0);
 
   const [isFocused, setIsFocused] = createSignal(false);
 
   createEffect(() => {
-    title();
+    props.title();
     setTitleWidth(
       document.querySelector('#title-width-tracker')?.clientWidth ?? 0
     );
@@ -35,9 +35,9 @@ export const ChallengeSlidePanelTop = (props: Props) => {
           const nextTitle = titleValue().trim();
 
           if (nextTitle) {
-            setTitle(nextTitle);
+            props.setTitle(nextTitle);
           } else {
-            setTitleValue(title());
+            setTitleValue(props.title());
           }
           setIsFocused(false);
         }}
@@ -68,7 +68,7 @@ export const ChallengeSlidePanelTop = (props: Props) => {
         class='font-semibold text-xl py-2 px-3 rounded-[12px] bg-slate-100 transition-all w-fit fixed left-[-3141592px] top-[-3141592px]'
         id='title-width-tracker'
       >
-        {title()}
+        {props.title()}
       </p>
     </div>
   );

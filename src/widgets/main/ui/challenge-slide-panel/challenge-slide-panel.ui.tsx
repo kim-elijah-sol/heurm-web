@@ -12,11 +12,14 @@ import {
 import { SlidePanel } from '~/shared/ui';
 
 type Props = {
+  title: string;
   close: () => void;
   color: (typeof CHALLENGE_COLOR)[number];
 };
 
 export const ChallengeSlidePanel = (props: Props) => {
+  const [title, setTitle] = createSignal(props.title);
+
   const [color, setColor] = createSignal<(typeof CHALLENGE_COLOR)[number]>(
     props.color
   );
@@ -25,7 +28,11 @@ export const ChallengeSlidePanel = (props: Props) => {
     <SlidePanel close={props.close}>
       {(close) => (
         <>
-          <ChallengeSlidePanelTop close={close} />
+          <ChallengeSlidePanelTop
+            close={close}
+            title={title}
+            setTitle={setTitle}
+          />
 
           <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20'>
             <ChallengeColorSelect
