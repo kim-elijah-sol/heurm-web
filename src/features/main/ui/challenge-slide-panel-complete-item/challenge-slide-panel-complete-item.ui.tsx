@@ -10,15 +10,16 @@ import {
   CHALLENGE_DAY,
 } from '~/entities/main';
 import { CheckCheck, X } from '~/shared/ui';
-import { createChallengeItemDay } from '../../hook';
 
 type Props = {
+  name: string;
+  onChangeName: (name: string) => void;
+  day: (typeof CHALLENGE_DAY)[number][];
+  onChangeDay: (day: (typeof CHALLENGE_DAY)[number]) => void;
   color: (typeof CHALLENGE_COLOR)[number];
 };
 
 export const ChallengeSlidePanelCompleteItem = (props: Props) => {
-  const [day, handleChangeDay] = createChallengeItemDay();
-
   return (
     <div
       class={clsx(
@@ -28,7 +29,12 @@ export const ChallengeSlidePanelCompleteItem = (props: Props) => {
     >
       <div class='flex items-start justify-between mb-6'>
         <div class='flex flex-col gap-1 pl-1'>
-          <input type='text' class='font-semibold' value='3km running' />
+          <input
+            type='text'
+            class='font-semibold'
+            value={props.name}
+            onInput={(e) => props.onChangeName(e.target.value)}
+          />
 
           <div class='flex items-center gap-1'>
             <CheckCheck className='stroke-gray-400' size={16} strokeWidth={2} />
@@ -52,11 +58,11 @@ export const ChallengeSlidePanelCompleteItem = (props: Props) => {
         <For each={CHALLENGE_DAY}>
           {(it) => (
             <button
-              onClick={() => handleChangeDay(it)}
+              onClick={() => props.onChangeDay(it)}
               class={clsx(
                 'w-8 h-8 transition-all active:scale-90 rounded-[35%]',
                 CHALLENGE_ACTIVE_BG_200_COLOR[props.color],
-                day().includes(it)
+                props.day.includes(it)
                   ? clsx(
                       'text-gray-700 font-black',
                       CHALLENGE_300_BG_COLOR[props.color]

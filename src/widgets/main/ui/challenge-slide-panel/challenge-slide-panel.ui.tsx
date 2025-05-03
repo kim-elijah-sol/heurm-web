@@ -1,5 +1,9 @@
-import { createSignal } from 'solid-js';
-import { CHALLENGE_COLOR } from '~/entities/main';
+import { createSignal, For } from 'solid-js';
+import {
+  ChallengeItemType,
+  CHALLENGE_COLOR,
+  CHALLENGE_DAY,
+} from '~/entities/main';
 import {
   ChallengeColorSelect,
   ChallengeSlidePanelCompleteItem,
@@ -15,6 +19,7 @@ type Props = {
   title: string;
   close: () => void;
   color: (typeof CHALLENGE_COLOR)[number];
+  challengeItems: (ChallengeItemType & { id: number })[];
 };
 
 export const ChallengeSlidePanel = (props: Props) => {
@@ -23,6 +28,38 @@ export const ChallengeSlidePanel = (props: Props) => {
   const [color, setColor] = createSignal<(typeof CHALLENGE_COLOR)[number]>(
     props.color
   );
+
+  const [challengeItems, setChallengeItems] = createSignal(
+    props.challengeItems
+  );
+
+  const handleChangeName = (id: number, name: string) => {
+    setChallengeItems(
+      challengeItems().map((it) =>
+        it.id === id
+          ? {
+              ...it,
+              name,
+            }
+          : it
+      )
+    );
+  };
+
+  const handleChangeDay = (id: number, day: (typeof CHALLENGE_DAY)[number]) => {
+    setChallengeItems(
+      challengeItems().map((it) =>
+        it.id === id
+          ? {
+              ...it,
+              day: it.day.includes(day)
+                ? it.day.filter((it) => it !== day)
+                : it.day.concat(day),
+            }
+          : it
+      )
+    );
+  };
 
   return (
     <SlidePanel close={props.close}>
@@ -46,17 +83,25 @@ export const ChallengeSlidePanel = (props: Props) => {
             </div>
 
             <div class='w-full flex flex-col gap-4 mb-4'>
-              <ChallengeSlidePanelCompleteItem color={color()} />
-              <ChallengeSlidePanelCountableItem
-                type='over'
-                value='push-up'
-                color={color()}
-              />
-              <ChallengeSlidePanelCountableItem
-                color={color()}
-                type='under'
-                value='100m sprint'
-              />
+              <For each={challengeItems()}>
+                {(it) =>
+                  it.type === 'complete' ? (
+                    <ChallengeSlidePanelCompleteItem
+                      name={it.name}
+                      onChangeName={(name) => handleChangeName(it.id, name)}
+                      day={it.day}
+                      onChangeDay={(day) => handleChangeDay(it.id, day)}
+                      color={color()}
+                    />
+                  ) : (
+                    <ChallengeSlidePanelCountableItem
+                      type={it.type}
+                      value='82'
+                      color={color()}
+                    />
+                  )
+                }
+              </For>
             </div>
 
             <ChallengeSlidePanelDeleteButton />
