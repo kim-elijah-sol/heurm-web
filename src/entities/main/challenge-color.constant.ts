@@ -64,6 +64,17 @@ export const CHALLENGE_400_BG_COLOR = {
   pink: 'bg-pink-400',
 } as const;
 
+export const CHALLENGE_FROM_300_BG_COLOR = {
+  red: 'from-red-300',
+  green: 'from-green-300',
+  blue: 'from-blue-300',
+  indigo: 'from-indigo-300',
+  teal: 'from-teal-300',
+  yellow: 'from-yellow-300',
+  purple: 'from-purple-300',
+  pink: 'from-pink-300',
+} as const;
+
 export const CHALLENGE_FOCUS_BG_300_COLOR = {
   red: 'focus:bg-red-300',
   green: 'focus:bg-green-300',

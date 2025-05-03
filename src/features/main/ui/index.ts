@@ -4,6 +4,7 @@ export * from './challenge-slide-panel-complete-item';
 export * from './challenge-slide-panel-countable-item';
 export * from './challenge-slide-panel-delete-button';
 export * from './challenge-slide-panel-new-item-button';
+export * from './challenge-slide-panel-save-button';
 export * from './challenge-slide-panel-top';
 export * from './date-card';
 export * from './hello-user';
