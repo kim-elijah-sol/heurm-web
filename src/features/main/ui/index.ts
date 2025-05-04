@@ -1,7 +1,5 @@
 export * from './challenge-color-select';
 export * from './challenge-item';
-export * from './challenge-slide-panel-complete-item';
-export * from './challenge-slide-panel-countable-item';
 export * from './challenge-slide-panel-delete-button';
 export * from './challenge-slide-panel-item';
 export * from './challenge-slide-panel-new-item-button';

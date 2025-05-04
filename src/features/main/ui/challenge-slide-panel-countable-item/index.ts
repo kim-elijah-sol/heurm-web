@@ -1,1 +1,0 @@
-export * from './challenge-slide-panel-countable-item.ui'
