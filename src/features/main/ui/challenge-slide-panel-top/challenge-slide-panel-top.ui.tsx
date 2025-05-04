@@ -10,6 +10,8 @@ type Props = {
 };
 
 export const ChallengeSlidePanelTop = (props: Props) => {
+  let isCloseable = true;
+
   const [titleValue, setTitleValue] = createSignal(props.title());
 
   const [titleWidth, setTitleWidth] = createSignal(0);
@@ -39,10 +41,15 @@ export const ChallengeSlidePanelTop = (props: Props) => {
           } else {
             setTitleValue(props.title());
           }
+
           setIsFocused(false);
+          setTimeout(() => {
+            isCloseable = true;
+          }, 200);
         }}
         onFocus={() => {
           setIsFocused(true);
+          isCloseable = false;
         }}
         maxLength={16}
         style={{
@@ -51,7 +58,7 @@ export const ChallengeSlidePanelTop = (props: Props) => {
       />
       <button
         onClick={() => {
-          if (isFocused() === false) {
+          if (isCloseable) {
             props.close();
           }
         }}
