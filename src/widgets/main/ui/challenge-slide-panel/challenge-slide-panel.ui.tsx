@@ -47,7 +47,7 @@ export const ChallengeSlidePanel = (props: Props) => {
             setTitle={setTitle}
           />
 
-          <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20'>
+          <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20 pt-[60px]'>
             <ChallengeColorSelect
               color={color()}
               setColor={setColor}

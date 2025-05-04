@@ -24,7 +24,7 @@ export const ChallengeSlidePanelTop = (props: Props) => {
   });
 
   return (
-    <div class='flex items-center justify-between mb-4 gap-4'>
+    <div class='absolute flex items-center justify-between gap-4 left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm'>
       <input
         id='title-input'
         type='text'
