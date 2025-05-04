@@ -1,0 +1,23 @@
+import clsx from 'clsx';
+import {
+  CHALLENGE_400_BG_COLOR,
+  CHALLENGE_ACTIVE_BG_500_COLOR,
+} from '~/entities/main';
+import { X } from '~/shared/ui';
+import { useChallengeItemColor } from '../../context/challenge-item-color/use-challenge-item-color.hook';
+
+export const DeleteButton = () => {
+  const color = useChallengeItemColor();
+
+  return (
+    <button
+      class={clsx(
+        'p-1 rounded-[35%] transition-all active:scale-90',
+        CHALLENGE_400_BG_COLOR[color()],
+        CHALLENGE_ACTIVE_BG_500_COLOR[color()]
+      )}
+    >
+      <X size={22} />
+    </button>
+  );
+};

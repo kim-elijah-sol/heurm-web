@@ -1,0 +1,24 @@
+import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
+import { capitalize } from '../../fx';
+
+type Props = {
+  type: 'complete' | 'over' | 'under';
+};
+
+export const TypeLabel = (props: Props) => {
+  const TypeIcon =
+    props.type === 'complete'
+      ? CheckCheck
+      : props.type === 'over'
+      ? ChevronsUp
+      : ChevronsDown;
+
+  return (
+    <div class='flex items-center gap-1'>
+      <TypeIcon className='stroke-gray-400' size={16} strokeWidth={2} />
+      <span class='font-semibold text-[12px] text-gray-400'>
+        {capitalize(props.type)} Type
+      </span>
+    </div>
+  );
+};

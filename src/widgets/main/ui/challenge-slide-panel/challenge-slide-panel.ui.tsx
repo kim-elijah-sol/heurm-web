@@ -6,9 +6,8 @@ import {
 } from '~/entities/main';
 import {
   ChallengeColorSelect,
-  ChallengeSlidePanelCompleteItem,
-  ChallengeSlidePanelCountableItem,
   ChallengeSlidePanelDeleteButton,
+  ChallengeSlidePanelItem,
   ChallengeSlidePanelNewItemButton,
   ChallengeSlidePanelSaveButton,
   ChallengeSlidePanelTop,
@@ -63,32 +62,39 @@ export const ChallengeSlidePanel = (props: Props) => {
 
             <div class='w-full flex flex-col gap-4 mb-4'>
               <Index each={challengeItems()}>
-                {(it) =>
-                  it().type === 'complete' ? (
-                    <ChallengeSlidePanelCompleteItem
-                      name={it().name}
-                      onChangeName={(name) => handleChangeName(it().id, name)}
-                      day={it().day}
-                      onChangeDay={(day) => handleChangeDay(it().id, day)}
-                      color={color()}
-                    />
-                  ) : (
-                    <ChallengeSlidePanelCountableItem
-                      type={(it() as CountableChallengeItemType).type}
-                      name={it().name}
-                      onChangeName={(name) => handleChangeName(it().id, name)}
-                      day={it().day}
-                      onChangeDay={(day) => handleChangeDay(it().id, day)}
-                      targetCount={
-                        (it() as CountableChallengeItemType).targetCount
-                      }
-                      onChangeTargetColor={(targetCount) =>
-                        handleChangeTargetCount(it().id, targetCount)
-                      }
-                      color={color()}
-                    />
-                  )
-                }
+                {(it) => (
+                  <ChallengeSlidePanelItem
+                    color={color}
+                    nameInput={
+                      <ChallengeSlidePanelItem.NameInput
+                        name={it().name}
+                        onChangeName={(name) => handleChangeName(it().id, name)}
+                      />
+                    }
+                    typeLabel={
+                      <ChallengeSlidePanelItem.TypeLabel type={it().type} />
+                    }
+                    deleteButton={<ChallengeSlidePanelItem.DeleteButton />}
+                    targetCountInput={
+                      it().type !== 'complete' && (
+                        <ChallengeSlidePanelItem.TargetCountInput
+                          targetCount={
+                            (it() as CountableChallengeItemType).targetCount
+                          }
+                          onChangeTargetColor={(targetCount) =>
+                            handleChangeTargetCount(it().id, targetCount)
+                          }
+                        />
+                      )
+                    }
+                    daySelect={
+                      <ChallengeSlidePanelItem.DaySelect
+                        day={it().day}
+                        onChangeDay={(day) => handleChangeDay(it().id, day)}
+                      />
+                    }
+                  />
+                )}
               </Index>
             </div>
 
