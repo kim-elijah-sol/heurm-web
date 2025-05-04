@@ -61,7 +61,7 @@ export const ChallengeSlidePanel = (props: Props) => {
             </div>
 
             <div class='w-full flex flex-col gap-4 mb-4'>
-              <Index each={challengeItems()}>
+              <Index each={challengeItems}>
                 {(it) => (
                   <ChallengeSlidePanelItem
                     color={color}

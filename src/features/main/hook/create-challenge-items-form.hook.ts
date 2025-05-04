@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createStore } from 'solid-js/store';
 import {
   ChallengeItemForm,
   ChallengeItemType,
@@ -8,46 +8,30 @@ import {
 export const createChallengeItemsForm = (
   _challengeItems: ChallengeItemForm[]
 ) => {
-  const [challengeItems, setChallengeItems] = createSignal(_challengeItems);
+  const [challengeItems, setChallengeItems] = createStore(_challengeItems);
 
   const handleChangeName = (id: number, name: string) => {
     setChallengeItems(
-      challengeItems().map((it) =>
-        it.id === id
-          ? {
-              ...it,
-              name,
-            }
-          : it
-      )
+      challengeItems.findIndex((it) => it.id === id),
+      'name',
+      name
     );
   };
 
   const handleChangeDay = (id: number, day: (typeof CHALLENGE_DAY)[number]) => {
     setChallengeItems(
-      challengeItems().map((it) =>
-        it.id === id
-          ? {
-              ...it,
-              day: it.day.includes(day)
-                ? it.day.filter((it) => it !== day)
-                : it.day.concat(day),
-            }
-          : it
-      )
+      challengeItems.findIndex((it) => it.id === id),
+      'day',
+      (days) =>
+        days.includes(day) ? days.filter((it) => it !== day) : [...days, day]
     );
   };
 
   const handleChangeTargetCount = (id: number, targetCount: number) => {
     setChallengeItems(
-      challengeItems().map((it) =>
-        it.id === id
-          ? {
-              ...it,
-              targetCount,
-            }
-          : it
-      )
+      challengeItems.findIndex((it) => it.id === id),
+      'targetCount' as any,
+      targetCount
     );
   };
 
@@ -58,7 +42,7 @@ export const createChallengeItemsForm = (
       isNew: true,
     };
 
-    setChallengeItems([newChallengeItem].concat(challengeItems()));
+    setChallengeItems([newChallengeItem, ...challengeItems]);
   };
 
   return {
