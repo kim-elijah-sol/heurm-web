@@ -75,6 +75,15 @@ export const ChallengeSlidePanel = (props: Props) => {
     );
   };
 
+  const handleNewChallengeItem = (challengeItem: ChallengeItemType) => {
+    const newChallengeItem: ChallengeItemType & { id: number } = {
+      ...challengeItem,
+      id: new Date().valueOf(),
+    };
+
+    setChallengeItems([newChallengeItem].concat(challengeItems()));
+  };
+
   return (
     <SlidePanel close={props.close}>
       {(close) => (
@@ -93,7 +102,9 @@ export const ChallengeSlidePanel = (props: Props) => {
             />
 
             <div class='flex justify-center mb-4'>
-              <ChallengeSlidePanelNewItemButton />
+              <ChallengeSlidePanelNewItemButton
+                onNewChallengeItem={handleNewChallengeItem}
+              />
             </div>
 
             <div class='w-full flex flex-col gap-4 mb-4'>

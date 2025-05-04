@@ -1,9 +1,14 @@
 import { createSignal } from 'solid-js';
+import { ChallengeItemType } from '~/entities/main';
 import { BluredPanel, Plus } from '~/shared/ui';
 import { NewChallengeItemPanel } from '../new-challenge-item-panel';
 import './challenge-slide-panel-new-item-button.ui.css';
 
-export const ChallengeSlidePanelNewItemButton = () => {
+type Props = {
+  onNewChallengeItem: (challengeItem: ChallengeItemType) => void;
+};
+
+export const ChallengeSlidePanelNewItemButton = (props: Props) => {
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
   return (
@@ -20,7 +25,12 @@ export const ChallengeSlidePanelNewItemButton = () => {
           close={() => setIsBluredPanelShow(false)}
           autoClose={false}
         >
-          {(close) => <NewChallengeItemPanel close={close} />}
+          {(close) => (
+            <NewChallengeItemPanel
+              onSubmit={props.onNewChallengeItem}
+              close={close}
+            />
+          )}
         </BluredPanel>
       )}
     </>

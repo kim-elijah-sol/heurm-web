@@ -1,10 +1,11 @@
 import { createSignal } from 'solid-js';
-import { NewChallengeStep } from '~/entities/main';
+import { ChallengeItemType, NewChallengeStep } from '~/entities/main';
 import { X } from '~/shared/ui';
 import { createChallengeItemDay } from '../../hook';
 import { NewChallengeItemStep } from '../new-challenge-item-step';
 
 type Props = {
+  onSubmit: (challengeItem: ChallengeItemType) => void;
   close: () => void;
 };
 
@@ -76,7 +77,26 @@ export const NewChallengeItemPanel = (props: Props) => {
           }
         }}
         onNext={() => {
-          console.log(type(), name(), count(), day());
+          const _type = type();
+
+          if (_type === null) return;
+
+          if (_type === 'complete') {
+            props.onSubmit({
+              type: 'complete',
+              isCompleted: null,
+              name: name(),
+              day: day(),
+            });
+          } else {
+            props.onSubmit({
+              type: _type,
+              targetCount: Number(count()),
+              count: null,
+              name: name(),
+              day: day(),
+            });
+          }
           props.close();
         }}
       />
