@@ -1,11 +1,6 @@
 import { createSignal, Index } from 'solid-js';
+import { ChallengeItemType, CountableChallengeItemType } from '~/entities/main';
 import {
-  ChallengeColor,
-  ChallengeItemType,
-  CountableChallengeItemType,
-} from '~/entities/main';
-import {
-  ChallengeColorSelect,
   ChallengeSlidePanelDeleteButton,
   ChallengeSlidePanelItem,
   ChallengeSlidePanelNewItemButton,
@@ -14,7 +9,8 @@ import {
   createChallengeItemsForm,
 } from '~/features/main';
 import { createBoolean } from '~/shared/hook';
-import { SlidePanel } from '~/shared/ui';
+import { ChallengeColor } from '~/shared/model';
+import { ChallengeColorSelect, SlidePanel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item-panel/ui';
 
 type Props = {

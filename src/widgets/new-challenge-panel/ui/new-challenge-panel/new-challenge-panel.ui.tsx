@@ -1,12 +1,11 @@
 import clsx from 'clsx';
 import { createSignal } from 'solid-js';
 import {
-  ChallengeColor,
   CHALLENGE_ACTIVE_BG_400_COLOR,
   CHALLENGE_BG_COLOR,
-} from '~/entities/main';
-import { ChallengeColorSelect } from '~/features/main';
-import { BluredPanel, X } from '~/shared/ui';
+} from '~/shared/constant';
+import { ChallengeColor } from '~/shared/model';
+import { BluredPanel, ChallengeColorSelect, X } from '~/shared/ui';
 
 type Props = {
   close: () => void;
