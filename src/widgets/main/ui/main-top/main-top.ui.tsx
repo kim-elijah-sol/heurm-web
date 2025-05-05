@@ -1,4 +1,4 @@
-import { HelloUser, UserAvatar } from '~/features/main';
+import { HelloUser, UserAvatar } from '~/features/main/ui';
 import { createBoolean } from '~/shared/hook';
 import { UserPanel } from '~/widgets/user-panel/ui';
 

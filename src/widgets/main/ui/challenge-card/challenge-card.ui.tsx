@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { For, Match, Switch } from 'solid-js';
-import { ChallengeItem } from '~/features/main';
+import { ChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import {

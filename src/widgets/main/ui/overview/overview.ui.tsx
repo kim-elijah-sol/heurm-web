@@ -1,5 +1,9 @@
 import { useChallenges } from '~/entities/main';
-import { InProgressCard, MotivationCard, OverviewCard } from '~/features/main';
+import {
+  InProgressCard,
+  MotivationCard,
+  OverviewCard,
+} from '~/features/main/ui';
 
 export const Overview = () => {
   const {

@@ -1,6 +1,7 @@
 import { createEffect, For } from 'solid-js';
 import { createDateSelect } from '~/entities/main';
-import { DateCard, isSameDate } from '~/features/main';
+import { isSameDate } from '~/features/main/fx';
+import { DateCard } from '~/features/main/ui';
 import './date-select.ui.css';
 
 export const DateSelect = () => {
