@@ -1,7 +1,7 @@
 import { createSignal, Index } from 'solid-js';
 import {
+  ChallengeColor,
   ChallengeItemType,
-  CHALLENGE_COLOR,
   CountableChallengeItemType,
 } from '~/entities/main';
 import {
@@ -18,16 +18,14 @@ import { SlidePanel } from '~/shared/ui';
 type Props = {
   title: string;
   close: () => void;
-  color: (typeof CHALLENGE_COLOR)[number];
+  color: ChallengeColor;
   challengeItems: (ChallengeItemType & { id: number })[];
 };
 
-export const ChallengeSlidePanel = (props: Props) => {
+export const ChallengeEditPanel = (props: Props) => {
   const [title, setTitle] = createSignal(props.title);
 
-  const [color, setColor] = createSignal<(typeof CHALLENGE_COLOR)[number]>(
-    props.color
-  );
+  const [color, setColor] = createSignal<ChallengeColor>(props.color);
 
   const {
     challengeItems,

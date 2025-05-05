@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { createSignal, For, Match, Switch } from 'solid-js';
+import { For, Match, Switch } from 'solid-js';
 import {
   ChallengeItemType,
   CHALLENGE_100_BG_COLOR,
@@ -9,8 +9,9 @@ import {
   CountableChallengeItemType,
 } from '~/entities/main';
 import { ChallengeItem } from '~/features/main';
+import { createBoolean } from '~/shared/hook';
 import { Menu } from '~/shared/ui';
-import { ChallengeSlidePanel } from '../challenge-slide-panel';
+import { ChallengeEditPanel } from '~/widgets/challenge-edit-panel/ui';
 
 type Props = {
   title: string;
@@ -27,7 +28,7 @@ type Props = {
 };
 
 export const ChallengeCard = (props: Props) => {
-  const [isSlidePanelShow, setIsSlidePanelShow] = createSignal(false);
+  const [isChallengeEditPanel, open, close] = createBoolean();
 
   const topClassName = () =>
     clsx(
@@ -50,15 +51,15 @@ export const ChallengeCard = (props: Props) => {
         <p class='font-semibold text-white'>{props.title}</p>
         <button
           class='p-1 rounded-[35%] transition-all active:bg-[#FFFFFF30] active:scale-90'
-          onClick={() => setIsSlidePanelShow(true)}
+          onClick={open}
         >
           <Menu />
         </button>
-        {isSlidePanelShow() && (
-          <ChallengeSlidePanel
+        {isChallengeEditPanel() && (
+          <ChallengeEditPanel
             title={props.title}
             color={props.color}
-            close={() => setIsSlidePanelShow(false)}
+            close={close}
             challengeItems={props.challengeItems}
           />
         )}
