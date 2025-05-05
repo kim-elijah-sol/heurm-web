@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { createEffect, createSignal, splitProps } from 'solid-js';
-import { CountableChallengeItemType } from '~/entities/main';
+import { CountableChallengeItemType } from '~/shared/model';
 import { Ban, BluredPanel, Check, Loader, X } from '~/shared/ui';
 
 type Props = CountableChallengeItemType & {

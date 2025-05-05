@@ -1,7 +1,6 @@
 import { createMemo, createRoot, createSignal } from 'solid-js';
 import { CHALLENGE_DAY } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/model';
-import { ChallengeItemType } from './challenge-item.type';
+import { ChallengeColor, ChallengeItemType } from '~/shared/model';
 
 type Challenge = {
   id: number;

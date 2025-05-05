@@ -1,14 +1,14 @@
 import { clsx } from 'clsx';
 import { For, Match, Switch } from 'solid-js';
+import { ChallengeItem } from '~/features/main';
+import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
+import { createBoolean } from '~/shared/hook';
 import {
+  ChallengeColor,
   ChallengeItemType,
   CompleteChallengeItemType,
   CountableChallengeItemType,
-} from '~/entities/main';
-import { ChallengeItem } from '~/features/main';
-import { CHALLENGE_BG_COLOR, CHALLENGE_100_BG_COLOR } from '~/shared/constant';
-import { createBoolean } from '~/shared/hook';
-import { ChallengeColor } from '~/shared/model';
+} from '~/shared/model';
 import { Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit-panel/ui';
 

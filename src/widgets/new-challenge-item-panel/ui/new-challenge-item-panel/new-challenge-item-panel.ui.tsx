@@ -1,5 +1,6 @@
 import { createSignal } from 'solid-js';
-import { ChallengeItemType, NewChallengeStep } from '~/entities/main';
+import { NewChallengeStep } from '~/entities/main';
+import { ChallengeItemType } from '~/shared/model';
 import { BluredPanel, X } from '~/shared/ui';
 import { createChallengeItemDay } from '../../hook';
 import { NewChallengeItemStep } from '../new-challenge-item-step';

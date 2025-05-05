@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { createSignal, splitProps } from 'solid-js';
-import { CompleteChallengeItemType } from '~/entities/main';
+import { CompleteChallengeItemType } from '~/shared/model';
 import { Ban, BluredPanel, Check, Loader } from '~/shared/ui';
 
 type Props = CompleteChallengeItemType & {
