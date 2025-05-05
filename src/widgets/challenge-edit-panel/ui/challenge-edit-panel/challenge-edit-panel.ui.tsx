@@ -13,7 +13,9 @@ import {
   ChallengeSlidePanelTop,
   createChallengeItemsForm,
 } from '~/features/main';
+import { createBoolean } from '~/shared/hook';
 import { SlidePanel } from '~/shared/ui';
+import { NewChallengeItemPanel } from '~/widgets/new-challenge-item-panel/ui';
 
 type Props = {
   title: string;
@@ -23,6 +25,9 @@ type Props = {
 };
 
 export const ChallengeEditPanel = (props: Props) => {
+  const [isNewChallengeItemPanel, open, newChallengeItemClose] =
+    createBoolean();
+
   const [title, setTitle] = createSignal(props.title);
 
   const [color, setColor] = createSignal<ChallengeColor>(props.color);
@@ -53,9 +58,13 @@ export const ChallengeEditPanel = (props: Props) => {
             />
 
             <div class='flex justify-center mb-4'>
-              <ChallengeSlidePanelNewItemButton
-                onNewChallengeItem={handleNewChallengeItem}
-              />
+              <ChallengeSlidePanelNewItemButton onClick={open} />
+              {isNewChallengeItemPanel() && (
+                <NewChallengeItemPanel
+                  onSubmit={handleNewChallengeItem}
+                  close={newChallengeItemClose}
+                />
+              )}
             </div>
 
             <div class='w-full flex flex-col gap-4 mb-4'>
