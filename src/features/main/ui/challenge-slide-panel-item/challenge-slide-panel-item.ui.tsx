@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Accessor, children, JSX } from 'solid-js';
-import { ChallengeColor, CHALLENGE_100_BG_COLOR } from '~/entities/main';
+import { CHALLENGE_100_BG_COLOR } from '~/shared/constant';
+import { ChallengeColor } from '~/shared/model';
 import { ChallengeItemColorContext } from '../../context';
 
 type Props = {

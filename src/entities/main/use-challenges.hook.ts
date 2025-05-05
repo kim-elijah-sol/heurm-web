@@ -1,12 +1,12 @@
 import { createMemo, createRoot, createSignal } from 'solid-js';
-import { CHALLENGE_COLOR } from './challenge-color.constant';
-import { CHALLENGE_DAY } from './challenge-day.constant';
+import { CHALLENGE_DAY } from '~/shared/constant';
+import { ChallengeColor } from '~/shared/model';
 import { ChallengeItemType } from './challenge-item.type';
 
 type Challenge = {
   id: number;
   title: string;
-  color: (typeof CHALLENGE_COLOR)[number];
+  color: ChallengeColor;
   challengeItems: (ChallengeItemType & { id: number })[];
 };
 
@@ -172,13 +172,14 @@ export const useChallenges = createRoot(() => {
     )
   );
 
-  const loseChallengeItemCount = createMemo(() =>
-    challenges().reduce(
-      (acc, current) =>
-        acc +
-        current.challengeItems.length,
-      0
-    ) - winChallengeItemCount() - progressChallengeItemCount()
+  const loseChallengeItemCount = createMemo(
+    () =>
+      challenges().reduce(
+        (acc, current) => acc + current.challengeItems.length,
+        0
+      ) -
+      winChallengeItemCount() -
+      progressChallengeItemCount()
   );
 
   return {

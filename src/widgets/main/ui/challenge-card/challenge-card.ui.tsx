@@ -2,20 +2,19 @@ import { clsx } from 'clsx';
 import { For, Match, Switch } from 'solid-js';
 import {
   ChallengeItemType,
-  CHALLENGE_100_BG_COLOR,
-  CHALLENGE_BG_COLOR,
-  CHALLENGE_COLOR,
   CompleteChallengeItemType,
   CountableChallengeItemType,
 } from '~/entities/main';
 import { ChallengeItem } from '~/features/main';
+import { CHALLENGE_BG_COLOR, CHALLENGE_100_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
+import { ChallengeColor } from '~/shared/model';
 import { Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit-panel/ui';
 
 type Props = {
   title: string;
-  color: (typeof CHALLENGE_COLOR)[number];
+  color: ChallengeColor;
   challengeItems: (ChallengeItemType & { id: number })[];
   onChangeCompleteItem: (
     challengeItemId: number,

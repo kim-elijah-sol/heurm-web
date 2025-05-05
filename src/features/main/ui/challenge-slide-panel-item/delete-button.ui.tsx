@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
-} from '~/entities/main';
+} from '~/shared/constant';
 import { X } from '~/shared/ui';
 import { useChallengeItemColor } from '../../context/challenge-item-color/use-challenge-item-color.hook';
 

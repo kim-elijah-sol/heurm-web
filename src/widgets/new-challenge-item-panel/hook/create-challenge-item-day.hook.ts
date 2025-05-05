@@ -1,12 +1,10 @@
 import { createSignal } from 'solid-js';
-import { CHALLENGE_DAY } from '~/entities/main';
+import { ChallengeDay } from '~/shared/model';
 
-type Day = (typeof CHALLENGE_DAY)[number];
+export const createChallengeItemDay = (defaulyDay?: ChallengeDay[]) => {
+  const [day, setDay] = createSignal<ChallengeDay[]>(defaulyDay ?? []);
 
-export const createChallengeItemDay = (defaulyDay?: Day[]) => {
-  const [day, setDay] = createSignal<Day[]>(defaulyDay ?? []);
-
-  const handleChangeDay = (selectDay: Day) => {
+  const handleChangeDay = (selectDay: ChallengeDay) => {
     setDay((day) =>
       day.includes(selectDay)
         ? day.filter((day) => day !== selectDay)

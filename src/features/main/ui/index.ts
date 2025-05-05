@@ -1,4 +1,3 @@
-export * from './challenge-color-select';
 export * from './challenge-item';
 export * from './challenge-slide-panel-delete-button';
 export * from './challenge-slide-panel-item';

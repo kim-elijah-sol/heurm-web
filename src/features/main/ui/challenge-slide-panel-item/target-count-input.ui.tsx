@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import {
   CHALLENGE_200_BG_COLOR,
   CHALLENGE_FOCUS_BG_300_COLOR,
-} from '~/entities/main';
+} from '~/shared/constant';
 import { useChallengeItemColor } from '../../context/challenge-item-color/use-challenge-item-color.hook';
 
 type Props = {

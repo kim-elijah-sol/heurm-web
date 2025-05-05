@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import { For } from 'solid-js';
-import { CHALLENGE_DAY, NewChallengeStepDisplayType } from '~/entities/main';
+import { NewChallengeStepDisplayType } from '~/entities/main';
+import { CHALLENGE_DAY } from '~/shared/constant';
+import { ChallengeDay } from '~/shared/model';
 import { ArrowLeft, Check } from '~/shared/ui';
 
-type Day = (typeof CHALLENGE_DAY)[number];
-
 type Props = {
-  day: Day[];
-  onChangeDay: (day: Day) => void;
+  day: ChallengeDay[];
+  onChangeDay: (day: ChallengeDay) => void;
   displayType: NewChallengeStepDisplayType;
   onNext: () => void;
   onPrev: () => void;

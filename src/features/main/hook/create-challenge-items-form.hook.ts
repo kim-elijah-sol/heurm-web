@@ -1,9 +1,6 @@
 import { createStore } from 'solid-js/store';
-import {
-  ChallengeItemForm,
-  ChallengeItemType,
-  CHALLENGE_DAY,
-} from '~/entities/main';
+import { ChallengeItemForm, ChallengeItemType } from '~/entities/main';
+import { ChallengeDay } from '~/shared/model';
 
 export const createChallengeItemsForm = (
   _challengeItems: ChallengeItemForm[]
@@ -18,7 +15,7 @@ export const createChallengeItemsForm = (
     );
   };
 
-  const handleChangeDay = (id: number, day: (typeof CHALLENGE_DAY)[number]) => {
+  const handleChangeDay = (id: number, day: ChallengeDay) => {
     setChallengeItems(
       challengeItems.findIndex((it) => it.id === id),
       'day',

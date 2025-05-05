@@ -2,12 +2,12 @@ import clsx from 'clsx';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
-  CHALLENGE_COLOR,
   CHALLENGE_FROM_300_BG_COLOR,
-} from '~/entities/main';
+} from '~/shared/constant';
+import { ChallengeColor } from '~/shared/model';
 
 type Props = {
-  color: (typeof CHALLENGE_COLOR)[number];
+  color: ChallengeColor;
 };
 
 export const ChallengeSlidePanelSaveButton = (props: Props) => {

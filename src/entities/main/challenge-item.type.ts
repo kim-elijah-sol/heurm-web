@@ -1,8 +1,8 @@
-import { CHALLENGE_DAY } from './challenge-day.constant';
+import { ChallengeDay } from '~/shared/model';
 
 type ChallengeItemBase = {
   name: string;
-  day: (typeof CHALLENGE_DAY)[number][];
+  day: ChallengeDay[];
 };
 
 type CountableType = {
