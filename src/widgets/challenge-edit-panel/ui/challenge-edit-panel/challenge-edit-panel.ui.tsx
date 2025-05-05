@@ -1,14 +1,18 @@
 import { createSignal, Index } from 'solid-js';
+import { createChallengeItemsForm } from '~/features/challenge-edit-panel/hook';
 import {
-  ChallengeSlidePanelDeleteButton,
-  ChallengeSlidePanelItem,
-  ChallengeSlidePanelNewItemButton,
-  ChallengeSlidePanelSaveButton,
-  ChallengeSlidePanelTop,
-  createChallengeItemsForm,
-} from '~/features/main';
+  ChallengeEditPanelDeleteButton,
+  ChallengeEditPanelItem,
+  ChallengeEditPanelNewItemButton,
+  ChallengeEditPanelSaveButton,
+  ChallengeEditPanelTop,
+} from '~/features/challenge-edit-panel/ui';
 import { createBoolean } from '~/shared/hook';
-import { ChallengeColor, ChallengeItemType, CountableChallengeItemType } from '~/shared/model';
+import {
+  ChallengeColor,
+  ChallengeItemType,
+  CountableChallengeItemType,
+} from '~/shared/model';
 import { ChallengeColorSelect, SlidePanel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item-panel/ui';
 
@@ -39,7 +43,7 @@ export const ChallengeEditPanel = (props: Props) => {
     <SlidePanel close={props.close}>
       {(close) => (
         <>
-          <ChallengeSlidePanelTop
+          <ChallengeEditPanelTop
             close={close}
             title={title}
             setTitle={setTitle}
@@ -53,7 +57,7 @@ export const ChallengeEditPanel = (props: Props) => {
             />
 
             <div class='flex justify-center mb-4'>
-              <ChallengeSlidePanelNewItemButton onClick={open} />
+              <ChallengeEditPanelNewItemButton onClick={open} />
               {isNewChallengeItemPanel() && (
                 <NewChallengeItemPanel
                   onSubmit={handleNewChallengeItem}
@@ -65,21 +69,21 @@ export const ChallengeEditPanel = (props: Props) => {
             <div class='w-full flex flex-col gap-4 mb-4'>
               <Index each={challengeItems}>
                 {(it) => (
-                  <ChallengeSlidePanelItem
+                  <ChallengeEditPanelItem
                     color={color}
                     nameInput={
-                      <ChallengeSlidePanelItem.NameInput
+                      <ChallengeEditPanelItem.NameInput
                         name={it().name}
                         onChangeName={(name) => handleChangeName(it().id, name)}
                       />
                     }
                     typeLabel={
-                      <ChallengeSlidePanelItem.TypeLabel type={it().type} />
+                      <ChallengeEditPanelItem.TypeLabel type={it().type} />
                     }
-                    deleteButton={<ChallengeSlidePanelItem.DeleteButton />}
+                    deleteButton={<ChallengeEditPanelItem.DeleteButton />}
                     targetCountInput={
                       it().type !== 'complete' && (
-                        <ChallengeSlidePanelItem.TargetCountInput
+                        <ChallengeEditPanelItem.TargetCountInput
                           targetCount={
                             (it() as CountableChallengeItemType).targetCount
                           }
@@ -90,7 +94,7 @@ export const ChallengeEditPanel = (props: Props) => {
                       )
                     }
                     daySelect={
-                      <ChallengeSlidePanelItem.DaySelect
+                      <ChallengeEditPanelItem.DaySelect
                         day={it().day}
                         onChangeDay={(day) => handleChangeDay(it().id, day)}
                       />
@@ -100,10 +104,10 @@ export const ChallengeEditPanel = (props: Props) => {
               </Index>
             </div>
 
-            <ChallengeSlidePanelDeleteButton />
+            <ChallengeEditPanelDeleteButton />
           </div>
 
-          <ChallengeSlidePanelSaveButton color={color()} />
+          <ChallengeEditPanelSaveButton color={color()} />
         </>
       )}
     </SlidePanel>

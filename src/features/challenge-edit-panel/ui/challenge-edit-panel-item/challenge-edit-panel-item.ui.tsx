@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { Accessor, children, JSX } from 'solid-js';
+import { ChallengeItemColorContext } from '~/entities/challenge-edit-panel/context';
 import { CHALLENGE_100_BG_COLOR } from '~/shared/constant';
 import { ChallengeColor } from '~/shared/model';
-import { ChallengeItemColorContext } from '../../context';
 
 type Props = {
   color: Accessor<ChallengeColor>;
@@ -13,7 +13,7 @@ type Props = {
   daySelect: JSX.Element;
 };
 
-export const ChallengeSlidePanelItem = (props: Props) => {
+export const ChallengeEditPanelItem = (props: Props) => {
   return (
     <ChallengeItemColorContext.Provider value={props.color}>
       <div

@@ -4,6 +4,7 @@ import { ChallengeItemType } from '~/shared/model';
 import { BluredPanel, X } from '~/shared/ui';
 import { createChallengeItemDay } from '../../hook';
 import { NewChallengeItemStep } from '../new-challenge-item-step';
+import './new-challenge-item-step.ui.css';
 
 type Props = {
   onSubmit: (challengeItem: ChallengeItemType) => void;
@@ -28,7 +29,7 @@ export const NewChallengeItemPanel = (props: Props) => {
       {(close) => (
         <div class='w-full h-full relative'>
           <button
-            onClick={props.close}
+            onClick={close}
             class='p-2 rounded-[35%] transition-all active:scale-90 bg-red-400 absolute right-6 top-6 active:bg-red-500'
           >
             <X />
@@ -108,7 +109,7 @@ export const NewChallengeItemPanel = (props: Props) => {
                   day: day(),
                 });
               }
-              props.close();
+              close();
             }}
           />
         </div>

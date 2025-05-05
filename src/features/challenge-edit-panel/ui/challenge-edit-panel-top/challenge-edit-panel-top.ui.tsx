@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Accessor, createEffect, createSignal, Setter } from 'solid-js';
 import { Check, X } from '~/shared/ui';
-import './challenge-slide-panel-top.ui.css';
+import './challenge-edit-panel-top.ui.css';
 
 type Props = {
   close: () => void;
@@ -9,7 +9,7 @@ type Props = {
   setTitle: Setter<string>;
 };
 
-export const ChallengeSlidePanelTop = (props: Props) => {
+export const ChallengeEditPanelTop = (props: Props) => {
   let isCloseable = true;
 
   const [titleValue, setTitleValue] = createSignal(props.title());
@@ -30,7 +30,7 @@ export const ChallengeSlidePanelTop = (props: Props) => {
       <input
         id='title-input'
         type='text'
-        class='font-semibold text-xl py-2 px-3 rounded-[12px] bg-slate-100 transition-all wys-challenge-slide-panel-top-input'
+        class='font-semibold text-xl py-2 px-3 rounded-[12px] bg-slate-100 transition-all wys-challenge-edit-panel-top'
         value={titleValue()}
         onInput={(e) => setTitleValue(e.target.value)}
         onBlur={() => {

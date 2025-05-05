@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { For } from 'solid-js';
+import { useChallengeItemColor } from '~/entities/challenge-edit-panel/context';
 import {
   CHALLENGE_300_BG_COLOR,
   CHALLENGE_ACTIVE_BG_200_COLOR,
   CHALLENGE_DAY,
 } from '~/shared/constant';
 import { ChallengeDay } from '~/shared/model';
-import { useChallengeItemColor } from '../../context/challenge-item-color/use-challenge-item-color.hook';
 
 type Props = {
   day: ChallengeDay[];

@@ -31,8 +31,8 @@ export const DayStep = (props: Props) => {
   return (
     <div
       class={clsx(
-        'wys-challenge-slide-panel-new-item-step flex flex-col items-center gap-8',
-        `wys-challenge-slide-panel-new-item-step-${props.displayType}`
+        'wys-new-challenge-item-step flex flex-col items-center gap-8',
+        `wys-new-challenge-item-step-${props.displayType}`
       )}
     >
       <div class='flex flex-col gap-4 w-full items-center'>

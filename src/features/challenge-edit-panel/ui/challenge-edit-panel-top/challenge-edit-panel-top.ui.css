@@ -1,0 +1,7 @@
+.wys-challenge-edit-panel-top-input {
+  max-width: calc(100vw - 92px);
+}
+
+.wys-challenge-edit-panel-top-input:focus {
+  width: calc(100vw - 92px) !important;
+}
