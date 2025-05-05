@@ -6,7 +6,7 @@ import {
   MainTop,
   NewChallengeButton,
   Overview,
-} from '~/widgets/main';
+} from '~/widgets/main/ui';
 
 function Main() {
   const { challenges, handleChangeComplete, handleChangeCountable } =
