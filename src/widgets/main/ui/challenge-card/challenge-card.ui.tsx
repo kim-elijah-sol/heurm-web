@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { For, Match, Switch } from 'solid-js';
-import { ChallengeItem } from '~/features/main/ui';
+import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import {
@@ -27,16 +27,25 @@ type Props = {
 };
 
 export const ChallengeCard = (props: Props) => {
-  const [isChallengeEditPanel, open, close] = createBoolean();
+  const [isChallengeEditPanel, open, _close] = createBoolean();
+
+  const close = () => {
+    newChallengeItemPanelOpen = false;
+    _close();
+  };
+
+  let newChallengeItemPanelOpen = false;
+
+  const color = () => props.color;
 
   const topClassName = () =>
     clsx(
       'pl-4 pr-3 py-2 flex items-center justify-between',
-      CHALLENGE_BG_COLOR[props.color]
+      CHALLENGE_BG_COLOR[color()]
     );
 
   const itemsContainerClassName = () =>
-    clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color]);
+    clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[color()]);
 
   const handleChangeComplete = (id: number, isCompleted: boolean | null) =>
     props.onChangeCompleteItem(id, isCompleted);
@@ -57,9 +66,10 @@ export const ChallengeCard = (props: Props) => {
         {isChallengeEditPanel() && (
           <ChallengeEditPanel
             title={props.title}
-            color={props.color}
+            color={color()}
             close={close}
             challengeItems={props.challengeItems}
+            newChallengeItemPanelOpen={newChallengeItemPanelOpen}
           />
         )}
       </div>
@@ -88,6 +98,15 @@ export const ChallengeCard = (props: Props) => {
             );
           }}
         </For>
+        {props.challengeItems.length === 0 && (
+          <NoChallengeItem
+            color={color()}
+            onClick={() => {
+              newChallengeItemPanelOpen = true;
+              open();
+            }}
+          />
+        )}
       </div>
     </div>
   );

@@ -99,6 +99,12 @@ export const useChallenges = createRoot(() => {
         },
       ],
     },
+    {
+      id: 15,
+      title: '🎮 game',
+      color: 'indigo',
+      challengeItems: [],
+    },
   ]);
 
   const handleChangeComplete =
