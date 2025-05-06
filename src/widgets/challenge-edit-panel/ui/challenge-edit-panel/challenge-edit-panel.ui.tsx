@@ -1,4 +1,4 @@
-import { createSignal, Index } from 'solid-js';
+import { createSignal, Index, onMount } from 'solid-js';
 import { createChallengeItemsForm } from '~/features/challenge-edit-panel/hook';
 import {
   ChallengeEditPanelDeleteButton,
@@ -21,6 +21,8 @@ type Props = {
   close: () => void;
   color: ChallengeColor;
   challengeItems: (ChallengeItemType & { id: number })[];
+
+  newChallengeItemPanelOpen?: boolean;
 };
 
 export const ChallengeEditPanel = (props: Props) => {
@@ -38,6 +40,14 @@ export const ChallengeEditPanel = (props: Props) => {
     handleChangeTargetCount,
     handleNewChallengeItem,
   } = createChallengeItemsForm(props.challengeItems);
+
+  onMount(() => {
+    if (props.newChallengeItemPanelOpen) {
+      setTimeout(() => {
+        open();
+      }, 300);
+    }
+  });
 
   return (
     <SlidePanel close={props.close}>
