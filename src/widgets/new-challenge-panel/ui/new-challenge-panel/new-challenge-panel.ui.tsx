@@ -1,9 +1,8 @@
-import clsx from 'clsx';
 import { createSignal } from 'solid-js';
 import {
-  CHALLENGE_ACTIVE_BG_400_COLOR,
-  CHALLENGE_BG_COLOR,
-} from '~/shared/constant';
+  NewChallengeCTAButton,
+  NewChallengeTitleInput,
+} from '~/features/new-challenge-panel/ui';
 import { ChallengeColor } from '~/shared/model';
 import { BluredPanel, ChallengeColorSelect, X } from '~/shared/ui';
 
@@ -12,6 +11,8 @@ type Props = {
 };
 
 export const NewChallengePanel = (props: Props) => {
+  const [title, setTitle] = createSignal<string>('');
+
   const [color, setColor] = createSignal<ChallengeColor>('red');
 
   return (
@@ -26,25 +27,19 @@ export const NewChallengePanel = (props: Props) => {
           </button>
 
           <div>
-            <input
-              type='text'
-              class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 mb-10 text-center'
-              placeholder='Challenge Name'
+            <NewChallengeTitleInput
+              value={title()}
+              onInput={(e) => setTitle(e.target.value)}
             />
 
             <ChallengeColorSelect color={color()} setColor={setColor} />
           </div>
 
-          <button
-            class={clsx(
-              'w-full h-[46px] transition-all active:scale-[0.98] rounded-xl text-white font-semibold text-lg',
-              CHALLENGE_BG_COLOR[color()],
-              CHALLENGE_ACTIVE_BG_400_COLOR[color()]
-            )}
+          <NewChallengeCTAButton
+            disabled={title().trim().length === 0}
+            color={color()}
             onClick={close}
-          >
-            Create
-          </button>
+          />
         </div>
       )}
     </BluredPanel>
