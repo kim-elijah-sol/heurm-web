@@ -1,4 +1,5 @@
 import { createSignal } from 'solid-js';
+import { useChallenges } from '~/features/main/hook';
 import {
   NewChallengeCTAButton,
   NewChallengeTitleInput,
@@ -14,6 +15,8 @@ export const NewChallengePanel = (props: Props) => {
   const [title, setTitle] = createSignal<string>('');
 
   const [color, setColor] = createSignal<ChallengeColor>('red');
+
+  const { addNewChallenge } = useChallenges;
 
   return (
     <BluredPanel close={props.close} autoClose={false}>
@@ -38,7 +41,15 @@ export const NewChallengePanel = (props: Props) => {
           <NewChallengeCTAButton
             disabled={title().trim().length === 0}
             color={color()}
-            onClick={close}
+            onClick={() => {
+              addNewChallenge({
+                id: new Date().valueOf(),
+                title: title().trim(),
+                color: color(),
+                challengeItems: [],
+              });
+              close();
+            }}
           />
         </div>
       )}

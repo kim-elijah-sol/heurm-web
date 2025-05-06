@@ -181,6 +181,9 @@ export const useChallenges = createRoot(() => {
       progressChallengeItemCount()
   );
 
+  const addNewChallenge = (challenge: Challenge) =>
+    setChallenges([...challenges(), challenge]);
+
   return {
     challenges,
     handleChangeComplete,
@@ -188,5 +191,6 @@ export const useChallenges = createRoot(() => {
     progressChallengeItemCount,
     winChallengeItemCount,
     loseChallengeItemCount,
+    addNewChallenge,
   };
 });
