@@ -1,6 +1,6 @@
 import { createEffect, For } from 'solid-js';
-import { createDateSelect } from '~/entities/main';
 import { isSameDate } from '~/features/main/fx';
+import { createDateSelect } from '~/features/main/hook';
 import { DateCard } from '~/features/main/ui';
 import './date-select.ui.css';
 

@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { useChallenges } from '~/entities/main';
+import { useChallenges } from '~/features/main/hook';
 import {
   ChallengeCard,
   DateSelect,
