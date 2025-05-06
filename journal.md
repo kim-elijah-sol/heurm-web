@@ -1,8 +1,18 @@
 # Win Yourself Journal
 
+# 2025-05-06
+
+FSD 아키텍처에 따라 코드를 좀 더 보완했다.<br><br>
+기존에는 slices 를 `main` 만 뒀는데, 이는 routing 을 기반으로 slices 를 나눈 것이고,<br>
+이제는 실제 기능 별로 slice 를 나누게 되었다.<br><br>
+그에 따라, `challenge-edit-panel`, `new-challege-item-panel`, `new-challenge-panel`, `user-panel` 등이 생겼는데,<br>
+여기서 `panel` 이라는 개념도 제거해야할 것 같다.<br><br>
+그리고 widgets/main 하위에 `challenge-card`, `date-select`, `main-top`, `overview` 등 여러 ui 가 있는데,<br>
+이들도 main 하위에 둘 것이 아니라 새로운 slices 로 봐야할 것 같다.
+
 # 2025-05-05
 
-FSD 에 아키텍처에 대해 다시 생각해보게 되면서<br>
+FSD 아키텍처에 대해 다시 생각해보게 되면서<br>
 현재 코드 베이스를 전체적으로 다시 리팩토링 해야 할 것 같다.<br>
 <br>
 좀 더 잘게 도메인 별로 쪼개진 아키텍처를 그릴 수 있기를...
