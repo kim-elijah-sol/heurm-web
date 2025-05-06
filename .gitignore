@@ -28,3 +28,6 @@ Thumbs.db
 
 .for-goorm-ide
 goorm.manifest
+
+.dependency-cruiser.cjs
+dependency-graph.svg

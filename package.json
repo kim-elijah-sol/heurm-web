@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "depcruise:validate": "npx depcruise src --include-only '^src' --config --output-type err-long",
+    "depcruise:tree":"npx depcruise src --include-only '^src' --config --output-type dot | dot -Tsvg > dependency-graph.svg && open dependency-graph.svg"
   },
   "dependencies": {
     "@solidjs/router": "^0.15.3",
