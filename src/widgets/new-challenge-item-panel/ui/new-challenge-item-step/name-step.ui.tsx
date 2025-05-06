@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { Setter } from 'solid-js';
-import { NewChallengeStepDisplayType } from '~/entities/main';
+import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item-panel/model';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {
   name: string;
   setName: Setter<string>;
-  displayType: NewChallengeStepDisplayType;
+  displayType: NewChallengeItemStepDisplayType;
   onNext: () => void;
   onPrev: () => void;
 };

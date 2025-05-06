@@ -1,9 +1,9 @@
 import { clsx } from 'clsx';
-import { NewChallengeStepDisplayType } from '~/entities/main';
+import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item-panel/model';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 
 type Props = {
-  displayType: NewChallengeStepDisplayType;
+  displayType: NewChallengeItemStepDisplayType;
   onNext: (type: 'complete' | 'over' | 'under') => void;
 };
 

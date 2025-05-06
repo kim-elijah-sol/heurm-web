@@ -1,8 +1,8 @@
 import { createSignal } from 'solid-js';
-import { NewChallengeStep } from '~/entities/main';
+import { NewChallengeItemStepType } from '~/entities/new-challenge-item-panel/model';
+import { createChallengeItemDay } from '~/features/new-challenge-item-panel/hook';
 import { ChallengeItemType } from '~/shared/model';
 import { BluredPanel, X } from '~/shared/ui';
-import { createChallengeItemDay } from '../../hook';
 import { NewChallengeItemStep } from '../new-challenge-item-step';
 import './new-challenge-item-step.ui.css';
 
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const NewChallengeItemPanel = (props: Props) => {
-  const [step, setStep] = createSignal<NewChallengeStep>('type');
+  const [step, setStep] = createSignal<NewChallengeItemStepType>('type');
 
   const [type, setType] = createSignal<'complete' | 'over' | 'under' | null>(
     null
