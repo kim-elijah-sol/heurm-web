@@ -1,5 +1,5 @@
 import { createMemo } from 'solid-js';
-import { HELLO_WRITING } from '~/entities/main';
+import { HELLO_WRITING } from '~/entities/main/constant';
 
 type Props = {
   userName: string;

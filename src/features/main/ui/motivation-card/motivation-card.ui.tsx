@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { createSignal, onCleanup, Show } from 'solid-js';
-import { MOTIVATION_WRITING } from '~/entities/main';
+import { MOTIVATION_WRITING } from '~/entities/main/constant';
 import './motivation-card.ui.css';
 
 export const MotivationCard = () => {
