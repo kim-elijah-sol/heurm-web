@@ -8,7 +8,7 @@ import {
 export const createChallengeItemsForm = (
   _challengeItems: ChallengeItemForm[]
 ) => {
-  const [challengeItems, setChallengeItems] = createStore(_challengeItems);
+  const [challengeItems, setChallengeItems] = createStore([..._challengeItems]);
 
   const handleChangeName = (id: number, name: string) => {
     setChallengeItems(
