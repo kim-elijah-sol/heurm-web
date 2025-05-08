@@ -1,5 +1,34 @@
 # Win Yourself Journal
 
+# 2025-05-08
+
+이제 Solid JS 와 좀 많이 친해진 것 같다.<br>
+이 친구는 fine grained reactivity 를 위해서 값이 변경된 곳을 추적하기 위해,<br>
+데이터를 `Accessor<T>` 형태로 구성해서 실행해야한다.<br><br>
+깨달았으니, 고쳐야겠지?<br>
+props 를 전체적으로 돌아다니면서 `T` 데이터를 `Accessor<T>` 로 변경하고<br>
+컴포넌트 타입 규격을
+
+```tsx
+type Props = {...}
+
+const WinYourself = (props: Props) => {
+  return ...
+}
+```
+
+에서
+
+```tsx
+type Props = {...}
+
+const WinYourself: Component<Props> = (props) => {
+  return ...
+}
+```
+
+로 변경해볼 예정이다.
+
 # 2025-05-06
 
 FSD 아키텍처에 따라 코드를 좀 더 보완했다.<br><br>
