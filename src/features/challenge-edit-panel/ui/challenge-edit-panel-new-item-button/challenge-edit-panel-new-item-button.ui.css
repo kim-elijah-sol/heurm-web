@@ -1,0 +1,18 @@
+@keyframes wys-challenge-edit-panel-new-item-button-pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-slate-200);
+  }
+  40% {
+    box-shadow: 0 0 0 16px oklch(0.93 0.01 255.67 / 0);
+  }
+  80% {
+    box-shadow: 0 0 0 16px oklch(0.93 0.01 255.67 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 oklch(0.93 0.01 255.67 / 0);
+  }
+}
+
+.wys-challenge-edit-panel-new-item-button-pulse {
+  animation: wys-challenge-edit-panel-new-item-button-pulse 3s infinite;
+}

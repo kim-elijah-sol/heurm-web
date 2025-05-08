@@ -68,7 +68,10 @@ export const ChallengeEditPanel = (props: Props) => {
             />
 
             <div class='flex justify-center mb-4'>
-              <ChallengeEditPanelNewItemButton onClick={open} />
+              <ChallengeEditPanelNewItemButton
+                onClick={open}
+                pulse={challengeItems.length === 0}
+              />
               {isNewChallengeItemPanel() && (
                 <NewChallengeItemPanel
                   onSubmit={handleNewChallengeItem}
