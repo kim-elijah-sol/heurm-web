@@ -1,13 +1,13 @@
-import { createMemo, createSignal } from 'solid-js';
+import { createSignal } from 'solid-js';
 
 export const createBoolean = (defaultBoolean?: boolean) => {
   const [boolean, setBoolean] = createSignal<boolean>(defaultBoolean ?? false);
 
-  const setTrue = () => createMemo(() => setBoolean(true));
+  const setTrue = () => setBoolean(true);
 
-  const setFalse = () => createMemo(() => setBoolean(false));
+  const setFalse = () => setBoolean(false);
 
-  const toggle = () => createMemo(() => setBoolean((boolean) => !boolean));
+  const toggle = () => setBoolean((boolean) => !boolean);
 
   return [boolean, setTrue, setFalse, toggle, setBoolean] as const;
 };
