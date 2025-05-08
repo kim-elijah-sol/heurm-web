@@ -20,11 +20,11 @@ function Main() {
 
       <div class='flex flex-col gap-4 mb-2'>
         <For each={challenges()}>
-          {(challnge) => (
+          {(challenge) => (
             <ChallengeCard
-              {...challnge}
-              onChangeCompleteItem={handleChangeComplete(challnge.id)}
-              onChangeCountableItem={handleChangeCountable(challnge.id)}
+              {...challenge}
+              onChangeCompleteItem={handleChangeComplete(challenge.id)}
+              onChangeCountableItem={handleChangeCountable(challenge.id)}
             />
           )}
         </For>
