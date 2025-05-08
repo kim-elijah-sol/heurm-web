@@ -18,7 +18,7 @@ export const ChallengeEditPanelNoChallengeItem = (props: Props) => {
   return (
     <div
       class={clsx(
-        'py-6 px-4 rounded-[20px] mb-4 text-slate-900',
+        'py-6 px-4 rounded-[20px] mb-4 text-gray-500',
         CHALLENGE_50_BG_COLOR[props.color()]
       )}
     >
