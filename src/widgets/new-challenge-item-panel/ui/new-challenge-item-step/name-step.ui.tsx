@@ -12,8 +12,9 @@ type Props = {
 };
 
 export const NameStep = (props: Props) => {
-  const buttonBaseClassName =
-    'p-6 rounded-[35%] transition-all active:scale-90';
+  const buttonBaseClassName = 'p-6 rounded-[35%] transition-all';
+
+  const disabled = () => props.name.trim().length === 0;
 
   return (
     <div
@@ -32,14 +33,23 @@ export const NameStep = (props: Props) => {
 
       <div class='flex gap-12'>
         <button
-          class={clsx(buttonBaseClassName, 'bg-gray-400 active:bg-gray-500')}
+          class={clsx(
+            buttonBaseClassName,
+            'bg-gray-400 active:bg-gray-500 active:scale-90'
+          )}
           onClick={props.onPrev}
         >
           <ArrowLeft />
         </button>
 
         <button
-          class={clsx(buttonBaseClassName, 'bg-green-400 active:bg-green-500')}
+          disabled={disabled()}
+          class={clsx(
+            buttonBaseClassName,
+            disabled()
+              ? 'bg-gray-500'
+              : 'bg-green-400 active:bg-green-500 active:scale-90'
+          )}
           onClick={props.onNext}
         >
           <Check />

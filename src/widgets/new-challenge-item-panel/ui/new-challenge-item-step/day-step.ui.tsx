@@ -14,8 +14,7 @@ type Props = {
 };
 
 export const DayStep = (props: Props) => {
-  const buttonBaseClassName =
-    'p-6 rounded-[35%] transition-all active:scale-90';
+  const buttonBaseClassName = 'p-6 rounded-[35%] transition-all';
 
   const dayClassName =
     'w-12 h-12 text-2xl bg-gray-50/25 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md';
@@ -27,6 +26,8 @@ export const DayStep = (props: Props) => {
   const weekdayInactiveClassName = 'text-gray-400';
 
   const inactiveDayClassName = 'font-semibold';
+
+  const disabled = () => props.day.length === 0;
 
   return (
     <div
@@ -89,14 +90,22 @@ export const DayStep = (props: Props) => {
 
       <div class='flex gap-12'>
         <button
-          class={clsx(buttonBaseClassName, 'bg-gray-400 active:bg-gray-500')}
+          class={clsx(
+            buttonBaseClassName,
+            'bg-gray-400 active:bg-gray-500 active:scale-90'
+          )}
           onClick={props.onPrev}
         >
           <ArrowLeft />
         </button>
 
         <button
-          class={clsx(buttonBaseClassName, 'bg-green-400 active:bg-green-500')}
+          class={clsx(
+            buttonBaseClassName,
+            disabled()
+              ? 'bg-gray-500'
+              : 'bg-green-400 active:bg-green-500 active:scale-90'
+          )}
           onClick={props.onNext}
         >
           <Check />
