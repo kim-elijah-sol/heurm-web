@@ -20,6 +20,17 @@ export const CHALLENGE_BG_COLOR = {
   pink: 'bg-pink-300',
 } as const;
 
+export const CHALLENGE_50_BG_COLOR = {
+  red: 'bg-red-50',
+  green: 'bg-green-50',
+  blue: 'bg-blue-50',
+  indigo: 'bg-indigo-50',
+  teal: 'bg-teal-50',
+  yellow: 'bg-yellow-50',
+  purple: 'bg-purple-50',
+  pink: 'bg-pink-50',
+} as const;
+
 export const CHALLENGE_100_BG_COLOR = {
   red: 'bg-red-100',
   green: 'bg-green-100',

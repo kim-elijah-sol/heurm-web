@@ -1,9 +1,10 @@
-import { createSignal, Index, onMount } from 'solid-js';
+import { createSignal, Index, Match, onMount, Switch } from 'solid-js';
 import { createChallengeItemsForm } from '~/features/challenge-edit-panel/hook';
 import {
   ChallengeEditPanelDeleteButton,
   ChallengeEditPanelItem,
   ChallengeEditPanelNewItemButton,
+  ChallengeEditPanelNoChallengeItem,
   ChallengeEditPanelSaveButton,
   ChallengeEditPanelTop,
 } from '~/features/challenge-edit-panel/ui';
@@ -76,43 +77,52 @@ export const ChallengeEditPanel = (props: Props) => {
               )}
             </div>
 
-            <div class='w-full flex flex-col gap-4 mb-4'>
-              <Index each={challengeItems}>
-                {(it) => (
-                  <ChallengeEditPanelItem
-                    color={color}
-                    nameInput={
-                      <ChallengeEditPanelItem.NameInput
-                        name={it().name}
-                        onChangeName={(name) => handleChangeName(it().id, name)}
+            <Switch>
+              <Match when={challengeItems.length > 0}>
+                <div class='w-full flex flex-col gap-4 mb-4'>
+                  <Index each={challengeItems}>
+                    {(it) => (
+                      <ChallengeEditPanelItem
+                        color={color}
+                        nameInput={
+                          <ChallengeEditPanelItem.NameInput
+                            name={it().name}
+                            onChangeName={(name) =>
+                              handleChangeName(it().id, name)
+                            }
+                          />
+                        }
+                        typeLabel={
+                          <ChallengeEditPanelItem.TypeLabel type={it().type} />
+                        }
+                        deleteButton={<ChallengeEditPanelItem.DeleteButton />}
+                        targetCountInput={
+                          it().type !== 'complete' && (
+                            <ChallengeEditPanelItem.TargetCountInput
+                              targetCount={
+                                (it() as CountableChallengeItemType).targetCount
+                              }
+                              onChangeTargetColor={(targetCount) =>
+                                handleChangeTargetCount(it().id, targetCount)
+                              }
+                            />
+                          )
+                        }
+                        daySelect={
+                          <ChallengeEditPanelItem.DaySelect
+                            day={it().day}
+                            onChangeDay={(day) => handleChangeDay(it().id, day)}
+                          />
+                        }
                       />
-                    }
-                    typeLabel={
-                      <ChallengeEditPanelItem.TypeLabel type={it().type} />
-                    }
-                    deleteButton={<ChallengeEditPanelItem.DeleteButton />}
-                    targetCountInput={
-                      it().type !== 'complete' && (
-                        <ChallengeEditPanelItem.TargetCountInput
-                          targetCount={
-                            (it() as CountableChallengeItemType).targetCount
-                          }
-                          onChangeTargetColor={(targetCount) =>
-                            handleChangeTargetCount(it().id, targetCount)
-                          }
-                        />
-                      )
-                    }
-                    daySelect={
-                      <ChallengeEditPanelItem.DaySelect
-                        day={it().day}
-                        onChangeDay={(day) => handleChangeDay(it().id, day)}
-                      />
-                    }
-                  />
-                )}
-              </Index>
-            </div>
+                    )}
+                  </Index>
+                </div>
+              </Match>
+              <Match when={challengeItems.length === 0}>
+                <ChallengeEditPanelNoChallengeItem color={color} />
+              </Match>
+            </Switch>
 
             <ChallengeEditPanelDeleteButton />
           </div>
