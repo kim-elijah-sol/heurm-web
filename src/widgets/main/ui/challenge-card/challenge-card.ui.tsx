@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { For, Match, Switch } from 'solid-js';
+import { Accessor, For, Match, Switch } from 'solid-js';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
@@ -13,8 +13,8 @@ import { Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
 
 type Props = {
-  title: string;
-  color: ChallengeColor;
+  title: Accessor<string>;
+  color: Accessor<ChallengeColor>;
   challengeItems: (ChallengeItemType & { id: number })[];
   onChangeCompleteItem: (
     challengeItemId: number,
@@ -36,16 +36,14 @@ export const ChallengeCard = (props: Props) => {
 
   let newChallengeItemPanelOpen = false;
 
-  const color = () => props.color;
-
   const topClassName = () =>
     clsx(
       'pl-4 pr-3 py-2 flex items-center justify-between',
-      CHALLENGE_BG_COLOR[color()]
+      CHALLENGE_BG_COLOR[props.color()]
     );
 
   const itemsContainerClassName = () =>
-    clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[color()]);
+    clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color()]);
 
   const handleChangeComplete = (id: number, isCompleted: boolean | null) =>
     props.onChangeCompleteItem(id, isCompleted);
@@ -56,7 +54,7 @@ export const ChallengeCard = (props: Props) => {
   return (
     <div class='overflow-hidden rounded-xl'>
       <div class={topClassName()}>
-        <p class='font-semibold text-white'>{props.title}</p>
+        <p class='font-semibold text-white'>{props.title()}</p>
         <button
           class='p-1 rounded-[35%] transition-all active:bg-[#FFFFFF30] active:scale-90'
           onClick={open}
@@ -65,8 +63,8 @@ export const ChallengeCard = (props: Props) => {
         </button>
         {isChallengeEditPanel() && (
           <ChallengeEditPanel
-            title={props.title}
-            color={color()}
+            title={props.title()}
+            color={props.color()}
             close={close}
             challengeItems={props.challengeItems}
             newChallengeItemPanelOpen={newChallengeItemPanelOpen}
@@ -100,7 +98,7 @@ export const ChallengeCard = (props: Props) => {
         </For>
         {props.challengeItems.length === 0 && (
           <NoChallengeItem
-            color={color()}
+            color={() => props.color()}
             onClick={() => {
               newChallengeItemPanelOpen = true;
               open();
