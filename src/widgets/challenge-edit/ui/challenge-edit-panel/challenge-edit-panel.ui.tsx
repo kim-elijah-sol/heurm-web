@@ -28,7 +28,7 @@ type Props = {
   title: Accessor<string>;
   close: () => void;
   color: Accessor<ChallengeColor>;
-  challengeItems: (ChallengeItemType & { id: number })[];
+  challengeItems: Accessor<(ChallengeItemType & { id: number })[]>;
 
   newChallengeItemPanelOpen?: boolean;
 };
@@ -47,7 +47,7 @@ export const ChallengeEditPanel = (props: Props) => {
     handleChangeName,
     handleChangeTargetCount,
     handleNewChallengeItem,
-  } = createChallengeItemsForm(props.challengeItems);
+  } = createChallengeItemsForm(props.challengeItems());
 
   onMount(() => {
     if (props.newChallengeItemPanelOpen) {
