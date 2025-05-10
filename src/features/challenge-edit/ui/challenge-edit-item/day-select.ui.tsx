@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { For } from 'solid-js';
+import { Component, For } from 'solid-js';
 import { useChallengeItemColor } from '~/entities/challenge-edit/context';
 import {
   CHALLENGE_300_BG_COLOR,
@@ -13,7 +13,7 @@ type Props = {
   onChangeDay: (day: ChallengeDay) => void;
 };
 
-export const DaySelect = (props: Props) => {
+export const DaySelect: Component<Props> = (props) => {
   const color = useChallengeItemColor();
 
   return (

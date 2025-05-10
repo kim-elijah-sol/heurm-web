@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor, For, Setter } from 'solid-js';
+import { Accessor, Component, For, Setter } from 'solid-js';
 import { CHALLENGE_BG_COLOR, CHALLENGE_COLOR } from '~/shared/constant';
 import { ChallengeColor } from '~/shared/model';
 import { Check } from '~/shared/ui';
@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-export const ChallengeColorSelect = (props: Props) => {
+export const ChallengeColorSelect: Component<Props> = (props) => {
   return (
     <div class={clsx('flex flex-col gap-6 w-full', props.className)}>
       <div class='flex justify-evenly'>

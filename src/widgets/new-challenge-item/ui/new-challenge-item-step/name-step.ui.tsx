@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor, Setter } from 'solid-js';
+import { Accessor, Component, Setter } from 'solid-js';
 import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { ArrowLeft, Check } from '~/shared/ui';
 
@@ -11,7 +11,7 @@ type Props = {
   onPrev: () => void;
 };
 
-export const NameStep = (props: Props) => {
+export const NameStep: Component<Props> = (props) => {
   const buttonBaseClassName = 'p-6 rounded-[35%] transition-all';
 
   const disabled = () => props.name().trim().length === 0;

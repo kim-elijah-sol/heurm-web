@@ -1,11 +1,11 @@
-import type { JSX } from 'solid-js';
+import type { Component, JSX } from 'solid-js';
 
 type Props = Omit<
   JSX.HTMLElementTags['input'],
   'type' | 'class' | 'placeholder'
 >;
 
-export const NewChallengeTitleInput = (props: Props) => {
+export const NewChallengeTitleInput: Component<Props> = (props) => {
   return (
     <input
       type='text'

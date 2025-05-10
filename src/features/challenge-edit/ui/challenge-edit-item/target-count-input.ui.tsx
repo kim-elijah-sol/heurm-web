@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { Component } from 'solid-js';
 import { useChallengeItemColor } from '~/entities/challenge-edit/context';
 import {
   CHALLENGE_200_BG_COLOR,
@@ -10,7 +11,7 @@ type Props = {
   onChangeTargetColor: (targetCount: number) => void;
 };
 
-export const TargetCountInput = (props: Props) => {
+export const TargetCountInput: Component<Props> = (props) => {
   const color = useChallengeItemColor();
 
   return (

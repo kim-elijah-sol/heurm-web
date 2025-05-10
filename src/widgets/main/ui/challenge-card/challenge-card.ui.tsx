@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { Accessor, For, Match, Switch } from 'solid-js';
+import { Accessor, Component, For, Match, Switch } from 'solid-js';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
@@ -26,7 +26,7 @@ type Props = {
   ) => void;
 };
 
-export const ChallengeCard = (props: Props) => {
+export const ChallengeCard: Component<Props> = (props) => {
   const [isChallengeEditPanel, open, _close] = createBoolean();
 
   const close = () => {

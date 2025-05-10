@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { children, createSignal, JSX } from 'solid-js';
+import { children, Component, createSignal, JSX } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import './slide-panel.ui.css';
 
@@ -8,7 +8,7 @@ type Props = {
   children: (close: () => void) => JSX.Element;
 };
 
-export const SlidePanel = (props: Props) => {
+export const SlidePanel: Component<Props> = (props) => {
   const [transition, setTransition] = createSignal(false);
 
   const close = () => {

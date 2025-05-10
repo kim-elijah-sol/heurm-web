@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { Accessor } from 'solid-js';
+import { Accessor, Component } from 'solid-js';
 import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 
@@ -8,7 +8,7 @@ type Props = {
   onNext: (type: 'complete' | 'over' | 'under') => void;
 };
 
-export const TypeStep = (props: Props) => {
+export const TypeStep: Component<Props> = (props) => {
   const buttonBaseClassName =
     'p-6 rounded-[35%] transition-all active:scale-90';
 

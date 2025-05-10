@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { Component, createSignal } from 'solid-js';
 import { NewChallengeItemStepType } from '~/entities/new-challenge-item/model';
 import { createChallengeItemDay } from '~/features/new-challenge-item/hook';
 import { ChallengeItemType } from '~/shared/model';
@@ -11,7 +11,7 @@ type Props = {
   close: () => void;
 };
 
-export const NewChallengeItemPanel = (props: Props) => {
+export const NewChallengeItemPanel: Component<Props> = (props) => {
   const [step, setStep] = createSignal<NewChallengeItemStepType>('type');
 
   const [type, setType] = createSignal<'complete' | 'over' | 'under' | null>(

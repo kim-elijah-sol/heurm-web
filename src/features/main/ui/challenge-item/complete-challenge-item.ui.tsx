@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { createSignal, splitProps } from 'solid-js';
+import { Component, createSignal, splitProps } from 'solid-js';
 import { CompleteChallengeItemType } from '~/shared/model';
 import { Ban, BluredPanel, Check, Loader } from '~/shared/ui';
 
@@ -7,7 +7,7 @@ type Props = CompleteChallengeItemType & {
   onChange: (isCompleted: boolean | null) => void;
 };
 
-export const Complete = (originProps: Props) => {
+export const Complete: Component<Props> = (originProps) => {
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
   const [rest, challengeItem] = splitProps(originProps, ['onChange']);

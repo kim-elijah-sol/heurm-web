@@ -1,5 +1,11 @@
 import clsx from 'clsx';
-import { Accessor, createEffect, createSignal, Setter } from 'solid-js';
+import {
+  Accessor,
+  Component,
+  createEffect,
+  createSignal,
+  Setter,
+} from 'solid-js';
 import { Check, X } from '~/shared/ui';
 import './challenge-edit-top.ui.css';
 
@@ -9,7 +15,7 @@ type Props = {
   setTitle: Setter<string>;
 };
 
-export const ChallengeEditTop = (props: Props) => {
+export const ChallengeEditTop: Component<Props> = (props) => {
   let isCloseable = true;
 
   const [titleValue, setTitleValue] = createSignal(props.title());

@@ -1,11 +1,12 @@
 import clsx from 'clsx';
+import { Component } from 'solid-js';
 import { BluredPanel, Logout, ShieldCheck, UserRoundPen } from '~/shared/ui';
 
 type Props = {
   close: () => void;
 };
 
-export const UserQuickMenuPanel = (props: Props) => {
+export const UserQuickMenuPanel: Component<Props> = (props) => {
   const buttonBaseClassName =
     'p-6 rounded-[35%] transition-all active:scale-90';
 

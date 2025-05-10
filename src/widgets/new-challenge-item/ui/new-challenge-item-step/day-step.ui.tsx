@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor, For } from 'solid-js';
+import { Accessor, Component, For } from 'solid-js';
 import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { CHALLENGE_DAY } from '~/shared/constant';
 import { ChallengeDay } from '~/shared/model';
@@ -13,7 +13,7 @@ type Props = {
   onPrev: () => void;
 };
 
-export const DayStep = (props: Props) => {
+export const DayStep: Component<Props> = (props) => {
   const buttonBaseClassName = 'p-6 rounded-[35%] transition-all';
 
   const dayClassName =

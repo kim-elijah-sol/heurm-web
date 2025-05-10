@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { createEffect, createSignal, splitProps } from 'solid-js';
+import { Component, createEffect, createSignal, splitProps } from 'solid-js';
 import { CountableChallengeItemType } from '~/shared/model';
 import { Ban, BluredPanel, Check, Loader, X } from '~/shared/ui';
 
@@ -7,7 +7,7 @@ type Props = CountableChallengeItemType & {
   onChange: (count: number | null) => void;
 };
 
-export const Countable = (originProps: Props) => {
+export const Countable: Component<Props> = (originProps) => {
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
   const [rest, challengeItem] = splitProps(originProps, ['onChange']);

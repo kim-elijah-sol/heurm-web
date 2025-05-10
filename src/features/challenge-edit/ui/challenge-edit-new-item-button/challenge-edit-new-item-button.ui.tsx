@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor } from 'solid-js';
+import { Accessor, Component } from 'solid-js';
 import { Plus } from '~/shared/ui';
 import './challenge-edit-new-item-button.ui.css';
 
@@ -8,7 +8,7 @@ type Props = {
   onClick: () => void;
 };
 
-export const ChallengeEditNewItemButton = (props: Props) => {
+export const ChallengeEditNewItemButton: Component<Props> = (props) => {
   return (
     <button
       class={clsx(

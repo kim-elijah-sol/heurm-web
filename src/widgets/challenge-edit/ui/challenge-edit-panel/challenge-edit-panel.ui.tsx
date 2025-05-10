@@ -1,5 +1,6 @@
 import {
   Accessor,
+  Component,
   createSignal,
   Index,
   Match,
@@ -33,7 +34,7 @@ type Props = {
   newChallengeItemPanelOpen?: boolean;
 };
 
-export const ChallengeEditPanel = (props: Props) => {
+export const ChallengeEditPanel: Component<Props> = (props) => {
   const [isNewChallengeItemPanel, open, newChallengeItemClose] =
     createBoolean();
 

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor } from 'solid-js';
+import { Accessor, Component } from 'solid-js';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
@@ -11,7 +11,7 @@ type Props = {
   color: Accessor<ChallengeColor>;
 };
 
-export const ChallengeEditSaveButton = (props: Props) => {
+export const ChallengeEditSaveButton: Component<Props> = (props) => {
   return (
     <div class='absolute bottom-0 left-0 right-0 p-4 pt-8 bg-linear-to-t from-white via-white via-60% to-white/0'>
       <button

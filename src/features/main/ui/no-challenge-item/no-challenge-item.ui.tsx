@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor, createMemo } from 'solid-js';
+import { Accessor, Component, createMemo } from 'solid-js';
 import { NO_CHALLENGE_ITEM_WRITING } from '~/entities/main/constant';
 import {
   CHALLENGE_400_BG_COLOR,
@@ -13,7 +13,7 @@ type Props = {
   onClick: () => void;
 };
 
-export const NoChallengeItem = (props: Props) => {
+export const NoChallengeItem: Component<Props> = (props) => {
   const noChallengeItemWriting = createMemo(() => {
     return NO_CHALLENGE_ITEM_WRITING[
       Math.floor(Math.random() * NO_CHALLENGE_ITEM_WRITING.length)

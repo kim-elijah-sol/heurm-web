@@ -1,3 +1,4 @@
+import { Component } from 'solid-js';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 import { capitalize } from '../../fx';
 
@@ -5,7 +6,7 @@ type Props = {
   type: 'complete' | 'over' | 'under';
 };
 
-export const TypeLabel = (props: Props) => {
+export const TypeLabel: Component<Props> = (props) => {
   const TypeIcon =
     props.type === 'complete'
       ? CheckCheck

@@ -1,11 +1,11 @@
-import { Accessor, createMemo } from 'solid-js';
+import { Accessor, Component, createMemo } from 'solid-js';
 import { HELLO_WRITING } from '~/entities/main/constant';
 
 type Props = {
   userName: Accessor<string>;
 };
 
-export const HelloUser = (props: Props) => {
+export const HelloUser: Component<Props> = (props) => {
   const helloWriting = createMemo(() => {
     return HELLO_WRITING[Math.floor(Math.random() * HELLO_WRITING.length)];
   });

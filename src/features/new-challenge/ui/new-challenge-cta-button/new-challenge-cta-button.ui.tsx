@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor } from 'solid-js';
+import { Accessor, Component } from 'solid-js';
 import {
   CHALLENGE_ACTIVE_BG_400_COLOR,
   CHALLENGE_BG_COLOR,
@@ -12,7 +12,7 @@ type Props = {
   onClick: () => void;
 };
 
-export const NewChallengeCTAButton = (props: Props) => {
+export const NewChallengeCTAButton: Component<Props> = (props) => {
   return (
     <button
       class={clsx(

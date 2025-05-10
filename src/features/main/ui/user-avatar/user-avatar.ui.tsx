@@ -1,11 +1,11 @@
-import { Accessor } from 'solid-js';
+import { Accessor, Component } from 'solid-js';
 
 type Props = {
   src: Accessor<string>;
   onClick: () => void;
 };
 
-export const UserAvatar = (props: Props) => {
+export const UserAvatar: Component<Props> = (props) => {
   return (
     <>
       <div

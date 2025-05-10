@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { Component, createSignal } from 'solid-js';
 import { useChallenges } from '~/features/main/hook';
 import {
   NewChallengeCTAButton,
@@ -11,7 +11,7 @@ type Props = {
   close: () => void;
 };
 
-export const NewChallengePanel = (props: Props) => {
+export const NewChallengePanel: Component<Props> = (props) => {
   const [title, setTitle] = createSignal<string>('');
 
   const [color, setColor] = createSignal<ChallengeColor>('red');

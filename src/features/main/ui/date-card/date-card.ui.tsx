@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import type { Accessor, JSX } from 'solid-js';
+import type { Accessor, Component, JSX } from 'solid-js';
 import { getDayText } from '../../fx';
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   onClick: JSX.CustomEventHandlersCamelCase<HTMLDivElement>['onClick'];
 };
 
-export const DateCard = (props: Props) => {
+export const DateCard: Component<Props> = (props) => {
   const date = () => `${props.date().getMonth() + 1}.${props.date().getDate()}`;
 
   const dayText = () => getDayText(props.date().getDay());
