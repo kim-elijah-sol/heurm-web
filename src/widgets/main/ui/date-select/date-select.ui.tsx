@@ -31,8 +31,8 @@ export const DateSelect = () => {
       <For each={dates()}>
         {(date) => (
           <DateCard
-            date={date}
-            isCurrent={isSameDate(date, current())}
+            date={() => date}
+            isCurrent={() => isSameDate(date, current())}
             onClick={() => setCurrent(date)}
           />
         )}
