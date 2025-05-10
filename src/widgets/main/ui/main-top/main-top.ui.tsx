@@ -1,9 +1,9 @@
 import { HelloUser, UserAvatar } from '~/features/main/ui';
 import { createBoolean } from '~/shared/hook';
-import { UserPanel } from '~/widgets/user-panel/ui';
+import { UserQuickMenuPanel } from '~/widgets/user-quick-menu/ui';
 
 export const MainTop = () => {
-  const [isUserPanel, open, close] = createBoolean();
+  const [isUserQuickMenuPanel, open, close] = createBoolean();
 
   return (
     <div class='flex items-center justify-between mb-4'>
@@ -12,7 +12,7 @@ export const MainTop = () => {
         src='https://avatars.githubusercontent.com/u/86874556?v=4'
         onClick={open}
       />
-      {isUserPanel() && <UserPanel close={close} />}
+      {isUserQuickMenuPanel() && <UserQuickMenuPanel close={close} />}
     </div>
   );
 };

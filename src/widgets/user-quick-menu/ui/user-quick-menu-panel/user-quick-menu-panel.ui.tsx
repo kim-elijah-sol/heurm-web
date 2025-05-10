@@ -5,7 +5,7 @@ type Props = {
   close: () => void;
 };
 
-export const UserPanel = (props: Props) => {
+export const UserQuickMenuPanel = (props: Props) => {
   const buttonBaseClassName =
     'p-6 rounded-[35%] transition-all active:scale-90';
 
