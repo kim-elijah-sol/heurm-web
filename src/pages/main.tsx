@@ -22,9 +22,9 @@ function Main() {
         <For each={challenges()}>
           {(challenge) => (
             <ChallengeCard
-              {...challenge}
               title={() => challenge.title}
               color={() => challenge.color}
+              challengeItems={() => challenge.challengeItems}
               onChangeCompleteItem={handleChangeComplete(challenge.id)}
               onChangeCountableItem={handleChangeCountable(challenge.id)}
             />

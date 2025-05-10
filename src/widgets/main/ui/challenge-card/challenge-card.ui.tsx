@@ -15,7 +15,7 @@ import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
 type Props = {
   title: Accessor<string>;
   color: Accessor<ChallengeColor>;
-  challengeItems: (ChallengeItemType & { id: number })[];
+  challengeItems: Accessor<(ChallengeItemType & { id: number })[]>;
   onChangeCompleteItem: (
     challengeItemId: number,
     isCompleted: boolean | null
@@ -72,7 +72,7 @@ export const ChallengeCard = (props: Props) => {
         )}
       </div>
       <div class={itemsContainerClassName()}>
-        <For each={props.challengeItems}>
+        <For each={props.challengeItems()}>
           {(challengeItem) => {
             return (
               <Switch>
@@ -96,7 +96,7 @@ export const ChallengeCard = (props: Props) => {
             );
           }}
         </For>
-        {props.challengeItems.length === 0 && (
+        {props.challengeItems().length === 0 && (
           <NoChallengeItem
             color={() => props.color()}
             onClick={() => {
