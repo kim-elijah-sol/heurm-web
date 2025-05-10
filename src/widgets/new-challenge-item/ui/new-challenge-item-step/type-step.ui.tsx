@@ -1,9 +1,10 @@
 import { clsx } from 'clsx';
+import { Accessor } from 'solid-js';
 import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 
 type Props = {
-  displayType: NewChallengeItemStepDisplayType;
+  displayType: Accessor<NewChallengeItemStepDisplayType>;
   onNext: (type: 'complete' | 'over' | 'under') => void;
 };
 
@@ -15,7 +16,7 @@ export const TypeStep = (props: Props) => {
     <div
       class={clsx(
         'wys-new-challenge-item-step flex flex-col items-center gap-8',
-        `wys-new-challenge-item-step-${props.displayType}`
+        `wys-new-challenge-item-step-${props.displayType()}`
       )}
     >
       <button

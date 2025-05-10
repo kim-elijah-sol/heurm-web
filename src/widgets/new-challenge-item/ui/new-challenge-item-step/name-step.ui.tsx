@@ -1,12 +1,12 @@
 import clsx from 'clsx';
-import { Setter } from 'solid-js';
+import { Accessor, Setter } from 'solid-js';
 import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {
-  name: string;
+  name: Accessor<string>;
   setName: Setter<string>;
-  displayType: NewChallengeItemStepDisplayType;
+  displayType: Accessor<NewChallengeItemStepDisplayType>;
   onNext: () => void;
   onPrev: () => void;
 };
@@ -14,20 +14,20 @@ type Props = {
 export const NameStep = (props: Props) => {
   const buttonBaseClassName = 'p-6 rounded-[35%] transition-all';
 
-  const disabled = () => props.name.trim().length === 0;
+  const disabled = () => props.name().trim().length === 0;
 
   return (
     <div
       class={clsx(
         'wys-new-challenge-item-step flex flex-col items-center gap-8',
-        `wys-new-challenge-item-step-${props.displayType}`
+        `wys-new-challenge-item-step-${props.displayType()}`
       )}
     >
       <input
         type='text'
         class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 text-center'
         placeholder='Challenge Item Name'
-        value={props.name}
+        value={props.name()}
         onInput={(e) => props.setName(e.target.value)}
       />
 

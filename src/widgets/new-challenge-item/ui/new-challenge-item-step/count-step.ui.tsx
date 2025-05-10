@@ -1,12 +1,12 @@
 import clsx from 'clsx';
-import { Setter } from 'solid-js';
+import { Accessor, Setter } from 'solid-js';
 import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {
-  count: string;
+  count: Accessor<string>;
   setCount: Setter<string>;
-  displayType: NewChallengeItemStepDisplayType;
+  displayType: Accessor<NewChallengeItemStepDisplayType>;
   onNext: () => void;
   onPrev: () => void;
 };
@@ -14,13 +14,13 @@ type Props = {
 export const CountStep = (props: Props) => {
   const buttonBaseClassName = 'p-6 rounded-[35%] transition-all';
 
-  const disabled = () => props.count.trim().length === 0;
+  const disabled = () => props.count().trim().length === 0;
 
   return (
     <div
       class={clsx(
         'wys-new-challenge-item-step flex flex-col items-center gap-8',
-        `wys-new-challenge-item-step-${props.displayType}`
+        `wys-new-challenge-item-step-${props.displayType()}`
       )}
     >
       <input
@@ -29,7 +29,7 @@ export const CountStep = (props: Props) => {
         inputMode='numeric'
         class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 text-center'
         placeholder='Target'
-        value={props.count}
+        value={props.count()}
         onInput={(e) => props.setCount(e.target.value)}
       />
 

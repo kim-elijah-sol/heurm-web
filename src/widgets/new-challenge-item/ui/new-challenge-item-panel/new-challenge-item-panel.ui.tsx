@@ -36,7 +36,7 @@ export const NewChallengeItemPanel = (props: Props) => {
           </button>
 
           <NewChallengeItemStep.Type
-            displayType={step() === 'type' ? 'current' : 'end'}
+            displayType={() => (step() === 'type' ? 'current' : 'end')}
             onNext={(type) => {
               setType(type);
               setStep('name');
@@ -44,9 +44,9 @@ export const NewChallengeItemPanel = (props: Props) => {
           />
 
           <NewChallengeItemStep.Name
-            name={name()}
+            name={name}
             setName={setName}
-            displayType={
+            displayType={() =>
               step() === 'name'
                 ? 'current'
                 : step() === 'type'
@@ -64,9 +64,9 @@ export const NewChallengeItemPanel = (props: Props) => {
           />
 
           <NewChallengeItemStep.Count
-            count={count()}
+            count={count}
             setCount={setCount}
-            displayType={
+            displayType={() =>
               step() === 'count'
                 ? 'current'
                 : step() === 'day'
@@ -78,8 +78,8 @@ export const NewChallengeItemPanel = (props: Props) => {
           />
 
           <NewChallengeItemStep.Day
-            displayType={step() === 'day' ? 'current' : 'ready'}
-            day={day()}
+            displayType={() => (step() === 'day' ? 'current' : 'ready')}
+            day={day}
             onChangeDay={handleChangeDay}
             onPrev={() => {
               if (type() === 'complete') {

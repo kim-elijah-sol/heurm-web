@@ -1,14 +1,14 @@
 import clsx from 'clsx';
-import { For } from 'solid-js';
+import { Accessor, For } from 'solid-js';
 import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { CHALLENGE_DAY } from '~/shared/constant';
 import { ChallengeDay } from '~/shared/model';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {
-  day: ChallengeDay[];
+  day: Accessor<ChallengeDay[]>;
   onChangeDay: (day: ChallengeDay) => void;
-  displayType: NewChallengeItemStepDisplayType;
+  displayType: Accessor<NewChallengeItemStepDisplayType>;
   onNext: () => void;
   onPrev: () => void;
 };
@@ -27,13 +27,13 @@ export const DayStep = (props: Props) => {
 
   const inactiveDayClassName = 'font-semibold';
 
-  const disabled = () => props.day.length === 0;
+  const disabled = () => props.day().length === 0;
 
   return (
     <div
       class={clsx(
         'wys-new-challenge-item-step flex flex-col items-center gap-8',
-        `wys-new-challenge-item-step-${props.displayType}`
+        `wys-new-challenge-item-step-${props.displayType()}`
       )}
     >
       <div class='flex flex-col gap-4 w-full items-center'>
@@ -44,7 +44,7 @@ export const DayStep = (props: Props) => {
                 onClick={() => props.onChangeDay(it)}
                 class={clsx(
                   dayClassName,
-                  props.day.includes(it)
+                  props.day().includes(it)
                     ? clsx(
                         activeDayClassName,
                         it === 'SUN' ? 'text-red-500' : weekdayActiveClassName
@@ -68,7 +68,7 @@ export const DayStep = (props: Props) => {
                 onClick={() => props.onChangeDay(it)}
                 class={clsx(
                   dayClassName,
-                  props.day.includes(it)
+                  props.day().includes(it)
                     ? clsx(
                         activeDayClassName,
                         it === 'SAT' ? 'text-blue-500' : weekdayActiveClassName
