@@ -1,4 +1,11 @@
-import { createSignal, Index, Match, onMount, Switch } from 'solid-js';
+import {
+  Accessor,
+  createSignal,
+  Index,
+  Match,
+  onMount,
+  Switch,
+} from 'solid-js';
 import { createChallengeItemsForm } from '~/features/challenge-edit/hook';
 import {
   ChallengeEditDeleteButton,
@@ -18,9 +25,9 @@ import { ChallengeColorSelect, SlidePanel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item/ui';
 
 type Props = {
-  title: string;
+  title: Accessor<string>;
   close: () => void;
-  color: ChallengeColor;
+  color: Accessor<ChallengeColor>;
   challengeItems: (ChallengeItemType & { id: number })[];
 
   newChallengeItemPanelOpen?: boolean;
@@ -30,9 +37,9 @@ export const ChallengeEditPanel = (props: Props) => {
   const [isNewChallengeItemPanel, open, newChallengeItemClose] =
     createBoolean();
 
-  const [title, setTitle] = createSignal(props.title);
+  const [title, setTitle] = createSignal(props.title());
 
-  const [color, setColor] = createSignal<ChallengeColor>(props.color);
+  const [color, setColor] = createSignal<ChallengeColor>(props.color());
 
   const {
     challengeItems,

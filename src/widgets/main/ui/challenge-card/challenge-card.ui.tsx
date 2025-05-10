@@ -63,8 +63,8 @@ export const ChallengeCard = (props: Props) => {
         </button>
         {isChallengeEditPanel() && (
           <ChallengeEditPanel
-            title={props.title()}
-            color={props.color()}
+            title={props.title}
+            color={props.color}
             close={close}
             challengeItems={props.challengeItems}
             newChallengeItemPanelOpen={newChallengeItemPanelOpen}
