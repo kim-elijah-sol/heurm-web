@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item-panel/model';
+import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 
 type Props = {

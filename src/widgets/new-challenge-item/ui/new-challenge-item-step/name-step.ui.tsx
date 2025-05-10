@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Setter } from 'solid-js';
-import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item-panel/model';
+import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {

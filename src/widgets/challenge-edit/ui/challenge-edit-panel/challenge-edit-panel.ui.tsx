@@ -15,7 +15,7 @@ import {
   CountableChallengeItemType,
 } from '~/shared/model';
 import { ChallengeColorSelect, SlidePanel } from '~/shared/ui';
-import { NewChallengeItemPanel } from '~/widgets/new-challenge-item-panel/ui';
+import { NewChallengeItemPanel } from '~/widgets/new-challenge-item/ui';
 
 type Props = {
   title: string;
