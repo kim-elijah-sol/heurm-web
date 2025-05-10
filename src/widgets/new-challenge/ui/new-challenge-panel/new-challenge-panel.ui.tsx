@@ -39,8 +39,8 @@ export const NewChallengePanel = (props: Props) => {
           </div>
 
           <NewChallengeCTAButton
-            disabled={title().trim().length === 0}
-            color={color()}
+            disabled={() => title().trim().length === 0}
+            color={color}
             onClick={() => {
               addNewChallenge({
                 id: new Date().valueOf(),
