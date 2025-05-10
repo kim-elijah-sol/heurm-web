@@ -1,6 +1,6 @@
 import { createBoolean } from '~/shared/hook';
 import { Plus } from '~/shared/ui';
-import { NewChallengePanel } from '~/widgets/new-challenge-panel/ui';
+import { NewChallengePanel } from '~/widgets/new-challenge/ui';
 import './new-challenge-button.css';
 
 export const NewChallengeButton = () => {

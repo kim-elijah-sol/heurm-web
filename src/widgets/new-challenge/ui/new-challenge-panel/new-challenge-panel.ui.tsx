@@ -3,7 +3,7 @@ import { useChallenges } from '~/features/main/hook';
 import {
   NewChallengeCTAButton,
   NewChallengeTitleInput,
-} from '~/features/new-challenge-panel/ui';
+} from '~/features/new-challenge/ui';
 import { ChallengeColor } from '~/shared/model';
 import { BluredPanel, ChallengeColorSelect, X } from '~/shared/ui';
 
