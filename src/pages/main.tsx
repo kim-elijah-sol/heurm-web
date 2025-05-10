@@ -23,6 +23,8 @@ function Main() {
           {(challenge) => (
             <ChallengeCard
               {...challenge}
+              title={() => challenge.title}
+              color={() => challenge.color}
               onChangeCompleteItem={handleChangeComplete(challenge.id)}
               onChangeCountableItem={handleChangeCountable(challenge.id)}
             />
