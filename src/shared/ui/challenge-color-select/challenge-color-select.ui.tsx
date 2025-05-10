@@ -1,12 +1,12 @@
 import clsx from 'clsx';
-import { For } from 'solid-js';
+import { Accessor, For, Setter } from 'solid-js';
 import { CHALLENGE_BG_COLOR, CHALLENGE_COLOR } from '~/shared/constant';
 import { ChallengeColor } from '~/shared/model';
 import { Check } from '~/shared/ui';
 
 type Props = {
-  color: ChallengeColor;
-  setColor: (color: ChallengeColor) => void;
+  color: Accessor<ChallengeColor>;
+  setColor: Setter<ChallengeColor>;
   className?: string;
 };
 
@@ -17,9 +17,9 @@ export const ChallengeColorSelect = (props: Props) => {
         <For each={CHALLENGE_COLOR.slice(0, 4)}>
           {(it) => (
             <ColorItem
-              color={it}
+              color={() => it}
               setColor={props.setColor}
-              isCurrent={it === props.color}
+              isCurrent={() => it === props.color()}
             />
           )}
         </For>
@@ -28,9 +28,9 @@ export const ChallengeColorSelect = (props: Props) => {
         <For each={CHALLENGE_COLOR.slice(4)}>
           {(it) => (
             <ColorItem
-              color={it}
+              color={() => it}
               setColor={props.setColor}
-              isCurrent={it === props.color}
+              isCurrent={() => it === props.color()}
             />
           )}
         </For>
@@ -40,21 +40,21 @@ export const ChallengeColorSelect = (props: Props) => {
 };
 
 type ColorItemProps = {
-  color: ChallengeColor;
-  setColor: (color: ChallengeColor) => void;
-  isCurrent: boolean;
+  color: Accessor<ChallengeColor>;
+  setColor: Setter<ChallengeColor>;
+  isCurrent: Accessor<boolean>;
 };
 
 const ColorItem = (props: ColorItemProps) => {
   return (
     <button
-      onClick={() => props.setColor(props.color)}
+      onClick={() => props.setColor(props.color())}
       class={clsx(
         'w-10 h-10 rounded-[35%] flex items-center justify-center transition-all active:scale-90',
-        CHALLENGE_BG_COLOR[props.color]
+        CHALLENGE_BG_COLOR[props.color()]
       )}
     >
-      {props.isCurrent && <Check size={20} strokeWidth={3} />}
+      {props.isCurrent() && <Check size={20} strokeWidth={3} />}
     </button>
   );
 };

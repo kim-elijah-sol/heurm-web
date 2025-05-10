@@ -35,7 +35,7 @@ export const NewChallengePanel = (props: Props) => {
               onInput={(e) => setTitle(e.target.value)}
             />
 
-            <ChallengeColorSelect color={color()} setColor={setColor} />
+            <ChallengeColorSelect color={color} setColor={setColor} />
           </div>
 
           <NewChallengeCTAButton

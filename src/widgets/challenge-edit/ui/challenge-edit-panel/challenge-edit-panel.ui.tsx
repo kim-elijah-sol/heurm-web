@@ -58,7 +58,7 @@ export const ChallengeEditPanel = (props: Props) => {
 
           <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20 pt-[60px]'>
             <ChallengeColorSelect
-              color={color()}
+              color={color}
               setColor={setColor}
               className='mb-6'
             />
