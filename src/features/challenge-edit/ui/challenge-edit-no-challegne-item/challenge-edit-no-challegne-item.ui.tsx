@@ -8,7 +8,7 @@ type Props = {
   color: Accessor<ChallengeColor>;
 };
 
-export const ChallengeEditPanelNoChallengeItem = (props: Props) => {
+export const ChallengeEditNoChallengeItem = (props: Props) => {
   const noChallengeItemWriting = createMemo(() => {
     return NO_CHALLENGE_ITEM_WRITING[
       Math.floor(Math.random() * NO_CHALLENGE_ITEM_WRITING.length)

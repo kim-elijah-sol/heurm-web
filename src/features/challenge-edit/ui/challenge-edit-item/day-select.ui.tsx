@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { For } from 'solid-js';
-import { useChallengeItemColor } from '~/entities/challenge-edit-panel/context';
+import { useChallengeItemColor } from '~/entities/challenge-edit/context';
 import {
   CHALLENGE_300_BG_COLOR,
   CHALLENGE_ACTIVE_BG_200_COLOR,

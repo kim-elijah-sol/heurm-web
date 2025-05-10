@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useChallengeItemColor } from '~/entities/challenge-edit-panel/context';
+import { useChallengeItemColor } from '~/entities/challenge-edit/context';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,

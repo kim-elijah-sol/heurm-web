@@ -10,7 +10,7 @@ import {
   CountableChallengeItemType,
 } from '~/shared/model';
 import { Menu } from '~/shared/ui';
-import { ChallengeEditPanel } from '~/widgets/challenge-edit-panel/ui';
+import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
 
 type Props = {
   title: string;

@@ -1,4 +1,4 @@
-@keyframes wys-challenge-edit-panel-new-item-button-pulse {
+@keyframes wys-challenge-edit-new-item-button-pulse {
   0% {
     box-shadow: 0 0 0 0 var(--color-slate-200);
   }
@@ -13,6 +13,6 @@
   }
 }
 
-.wys-challenge-edit-panel-new-item-button-pulse {
-  animation: wys-challenge-edit-panel-new-item-button-pulse 3s infinite;
+.wys-challenge-edit-new-item-button-pulse {
+  animation: wys-challenge-edit-new-item-button-pulse 3s infinite;
 }

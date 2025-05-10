@@ -1,13 +1,13 @@
 import { createSignal, Index, Match, onMount, Switch } from 'solid-js';
-import { createChallengeItemsForm } from '~/features/challenge-edit-panel/hook';
+import { createChallengeItemsForm } from '~/features/challenge-edit/hook';
 import {
-  ChallengeEditPanelDeleteButton,
-  ChallengeEditPanelItem,
-  ChallengeEditPanelNewItemButton,
-  ChallengeEditPanelNoChallengeItem,
-  ChallengeEditPanelSaveButton,
-  ChallengeEditPanelTop,
-} from '~/features/challenge-edit-panel/ui';
+  ChallengeEditDeleteButton,
+  ChallengeEditItem,
+  ChallengeEditNewItemButton,
+  ChallengeEditNoChallengeItem,
+  ChallengeEditSaveButton,
+  ChallengeEditTop,
+} from '~/features/challenge-edit/ui';
 import { createBoolean } from '~/shared/hook';
 import {
   ChallengeColor,
@@ -54,11 +54,7 @@ export const ChallengeEditPanel = (props: Props) => {
     <SlidePanel close={props.close}>
       {(close) => (
         <>
-          <ChallengeEditPanelTop
-            close={close}
-            title={title}
-            setTitle={setTitle}
-          />
+          <ChallengeEditTop close={close} title={title} setTitle={setTitle} />
 
           <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20 pt-[60px]'>
             <ChallengeColorSelect
@@ -68,7 +64,7 @@ export const ChallengeEditPanel = (props: Props) => {
             />
 
             <div class='flex justify-center mb-4'>
-              <ChallengeEditPanelNewItemButton
+              <ChallengeEditNewItemButton
                 onClick={open}
                 pulse={challengeItems.length === 0}
               />
@@ -85,10 +81,10 @@ export const ChallengeEditPanel = (props: Props) => {
                 <div class='w-full flex flex-col gap-4 mb-4'>
                   <Index each={challengeItems}>
                     {(it) => (
-                      <ChallengeEditPanelItem
+                      <ChallengeEditItem
                         color={color}
                         nameInput={
-                          <ChallengeEditPanelItem.NameInput
+                          <ChallengeEditItem.NameInput
                             name={it().name}
                             onChangeName={(name) =>
                               handleChangeName(it().id, name)
@@ -96,12 +92,12 @@ export const ChallengeEditPanel = (props: Props) => {
                           />
                         }
                         typeLabel={
-                          <ChallengeEditPanelItem.TypeLabel type={it().type} />
+                          <ChallengeEditItem.TypeLabel type={it().type} />
                         }
-                        deleteButton={<ChallengeEditPanelItem.DeleteButton />}
+                        deleteButton={<ChallengeEditItem.DeleteButton />}
                         targetCountInput={
                           it().type !== 'complete' && (
-                            <ChallengeEditPanelItem.TargetCountInput
+                            <ChallengeEditItem.TargetCountInput
                               targetCount={
                                 (it() as CountableChallengeItemType).targetCount
                               }
@@ -112,7 +108,7 @@ export const ChallengeEditPanel = (props: Props) => {
                           )
                         }
                         daySelect={
-                          <ChallengeEditPanelItem.DaySelect
+                          <ChallengeEditItem.DaySelect
                             day={it().day}
                             onChangeDay={(day) => handleChangeDay(it().id, day)}
                           />
@@ -123,14 +119,14 @@ export const ChallengeEditPanel = (props: Props) => {
                 </div>
               </Match>
               <Match when={challengeItems.length === 0}>
-                <ChallengeEditPanelNoChallengeItem color={color} />
+                <ChallengeEditNoChallengeItem color={color} />
               </Match>
             </Switch>
 
-            <ChallengeEditPanelDeleteButton />
+            <ChallengeEditDeleteButton />
           </div>
 
-          <ChallengeEditPanelSaveButton color={color()} />
+          <ChallengeEditSaveButton color={color()} />
         </>
       )}
     </SlidePanel>
