@@ -126,7 +126,7 @@ export const ChallengeEditPanel = (props: Props) => {
             <ChallengeEditDeleteButton />
           </div>
 
-          <ChallengeEditSaveButton color={color()} />
+          <ChallengeEditSaveButton color={color} />
         </>
       )}
     </SlidePanel>
