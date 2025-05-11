@@ -1,5 +1,12 @@
 # Win Yourself Journal
 
+# 2025-05-11
+
+로그인 페이지를 만들다가 이메일 validation 을 해야하는데,<br>
+정규식을 만들까, validator 라이브러리를 이용할까 하다가 이왕 이참에 `zod` 를 도입해보기로 했다.<br><br>
+`zod` 로 모든 form 의 validation 을 처리해볼까 한다.<br>
+이건 얼마 안걸리니까
+
 # 2025-05-10
 
 Solid JS 에 알맞게 리팩토링 하는 작업이 모두 끝났다.<br><br>
