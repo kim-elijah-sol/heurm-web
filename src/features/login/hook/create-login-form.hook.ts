@@ -23,10 +23,12 @@ export const createLoginForm = () => {
   };
 
   const submitDisabled = () => {
-    return unsafeLoginFormValidator.safeParse({
-      email: email(),
-      password: password(),
-    }).success;
+    return (
+      unsafeLoginFormValidator.safeParse({
+        email: email(),
+        password: password(),
+      }).success === false
+    );
   };
 
   const handleSubmit = (e: SubmitEvent) => {
