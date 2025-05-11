@@ -1,4 +1,8 @@
 import { createSignal } from 'solid-js';
+import {
+  loginFormValidator,
+  unsafeLoginFormValidator,
+} from '~/shared/validator';
 
 export const createLoginForm = () => {
   const [email, setEmail] = createSignal<string>('');
@@ -6,19 +10,23 @@ export const createLoginForm = () => {
   const [password, setPassword] = createSignal<string>('');
 
   const submitErrorMessage = () => {
-    if (email().length === 0) {
-      return 'please enter the email';
-    }
+    const loginFormValid = loginFormValidator.safeParse({
+      email: email(),
+      password: password(),
+    });
 
-    if (password().length === 0) {
-      return 'please enter the password';
+    if (loginFormValid.success === false) {
+      return loginFormValid.error.errors[0].message;
     }
 
     return null;
   };
 
   const submitDisabled = () => {
-    return submitErrorMessage() !== null;
+    return unsafeLoginFormValidator.safeParse({
+      email: email(),
+      password: password(),
+    }).success;
   };
 
   const handleSubmit = (e: SubmitEvent) => {
