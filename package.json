@@ -6,12 +6,13 @@
     "build": "vite build",
     "preview": "vite preview",
     "depcruise:validate": "npx depcruise src --include-only '^src' --config --output-type err-long",
-    "depcruise:tree":"npx depcruise src --include-only '^src' --config --output-type dot | dot -Tsvg > dependency-graph.svg && open dependency-graph.svg"
+    "depcruise:tree": "npx depcruise src --include-only '^src' --config --output-type dot | dot -Tsvg > dependency-graph.svg && open dependency-graph.svg"
   },
   "dependencies": {
     "@solidjs/router": "^0.15.3",
     "clsx": "^2.1.1",
-    "solid-js": "^1.9.5"
+    "solid-js": "^1.9.5",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.4",
