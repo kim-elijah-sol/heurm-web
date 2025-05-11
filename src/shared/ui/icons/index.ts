@@ -5,6 +5,7 @@ export * from './check.ui';
 export * from './chevrons-down.ui';
 export * from './chevrons-up.ui';
 export * from './loader.ui';
+export * from './login.ui';
 export * from './logout.ui';
 export * from './menu.ui';
 export * from './plus.ui';
