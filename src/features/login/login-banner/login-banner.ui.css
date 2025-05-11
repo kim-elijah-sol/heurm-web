@@ -1,0 +1,21 @@
+@keyframes login-banner {
+  0% {
+    background-position: 0% 0%;
+  }
+  35% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+.login-banner {
+  background: linear-gradient(to right, #333, #333, #999, #333, #333);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 800% 100%;
+  background-position: 0% 0%;
+  animation: login-banner 5s ease-in-out infinite;
+}

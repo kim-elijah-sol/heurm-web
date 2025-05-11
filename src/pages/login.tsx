@@ -1,5 +1,11 @@
+import { LoginBanner } from '~/features/login';
+
 function Login() {
-  return <h1>Login</h1>;
+  return (
+    <div class='w-full h-dvh flex flex-col items-center justify-center'>
+      <LoginBanner />
+    </div>
+  );
 }
 
 export default Login;
