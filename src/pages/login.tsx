@@ -1,5 +1,5 @@
 import { LoginBanner } from '~/features/login/ui';
-import { LoginForm } from '~/widgets/login/ui';
+import { LoginForm, LoginHelper } from '~/widgets/login/ui';
 
 function Login() {
   return (
@@ -8,6 +8,8 @@ function Login() {
       <LoginForm />
 
       <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white my-6' />
+
+      <LoginHelper />
     </div>
   );
 }
