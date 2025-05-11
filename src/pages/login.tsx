@@ -6,6 +6,8 @@ function Login() {
     <div class='w-full h-dvh flex flex-col items-center justify-center bg-white'>
       <LoginBanner />
       <LoginForm />
+
+      <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white my-6' />
     </div>
   );
 }
