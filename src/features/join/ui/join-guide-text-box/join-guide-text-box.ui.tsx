@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Accessor, Component } from 'solid-js';
-import { JoinStep } from '~/entities/join/model';
+import { JoinStep, JoinStepDisplayType } from '~/entities/join/model';
+import { getJoinStepDisplayClass, getJoinStepValue } from '../../fx';
 import './join-guide-text-box.ui.css';
 
 type Props = {
@@ -11,11 +12,16 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
   const joinGuideTextClassName =
     'text-center text-gray-500 font-semibold text-xl transition-all duration-300 absolute whitespace-nowrap absolute top-1/2 left-1/2 -translate-x-1/2';
 
-  const currentStepClassName = '-translate-y-1/2 opacity-100';
+  const getDisplayType = (step: JoinStep): JoinStepDisplayType => {
+    const currentStepValue = getJoinStepValue(props.step());
+    const targetStepValue = getJoinStepValue(step);
 
-  const readyStepClassName = 'translate-y-full opacity-0';
-
-  const endStepClassName = '-translate-y-full opacity-0';
+    return currentStepValue === targetStepValue
+      ? 'current'
+      : currentStepValue > targetStepValue
+      ? 'end'
+      : 'ready';
+  };
 
   return (
     <div
@@ -27,8 +33,7 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
       <p
         class={clsx(
           joinGuideTextClassName,
-          props.step() === 'email' ? currentStepClassName : endStepClassName,
-          'transalte-[-50%_-50%]'
+          getJoinStepDisplayClass(getDisplayType('email'))
         )}
       >
         Enter your join email
@@ -36,11 +41,7 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
       <p
         class={clsx(
           joinGuideTextClassName,
-          props.step() === 'password'
-            ? currentStepClassName
-            : props.step() === 'email'
-            ? readyStepClassName
-            : endStepClassName
+          getJoinStepDisplayClass(getDisplayType('password'))
         )}
       >
         Set a password to
@@ -50,11 +51,7 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
       <p
         class={clsx(
           joinGuideTextClassName,
-          props.step() === 'verify'
-            ? currentStepClassName
-            : props.step() === 'done'
-            ? endStepClassName
-            : readyStepClassName
+          getJoinStepDisplayClass(getDisplayType('verify'))
         )}
       >
         Enter the code
