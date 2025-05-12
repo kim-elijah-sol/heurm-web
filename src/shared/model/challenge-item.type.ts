@@ -15,22 +15,18 @@ type CompletableType = {
   isCompleted: boolean | null;
 };
 
-export type CompleteChallengeItemType = ChallengeItemBase & CompletableType;
+export type CompleteChallengeItem = ChallengeItemBase & CompletableType;
 
-export type OverChallengeItemType = ChallengeItemBase &
+export type OverChallengeItem = ChallengeItemBase &
   CountableType & {
     type: 'over';
   };
 
-export type UnderChallengeItemType = ChallengeItemBase &
+export type UnderChallengeItem = ChallengeItemBase &
   CountableType & {
     type: 'under';
   };
 
-export type CountableChallengeItemType =
-  | OverChallengeItemType
-  | UnderChallengeItemType;
+export type CountableChallengeItem = OverChallengeItem | UnderChallengeItem;
 
-export type ChallengeItemType =
-  | CompleteChallengeItemType
-  | CountableChallengeItemType;
+export type ChallengeItem = CompleteChallengeItem | CountableChallengeItem;

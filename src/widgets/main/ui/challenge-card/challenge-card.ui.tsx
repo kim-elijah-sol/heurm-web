@@ -5,9 +5,9 @@ import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import {
   ChallengeColor,
-  ChallengeItemType,
-  CompleteChallengeItemType,
-  CountableChallengeItemType,
+  ChallengeItem as ChallengeItemType,
+  CompleteChallengeItem,
+  CountableChallengeItem,
 } from '~/shared/model';
 import { Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
@@ -78,7 +78,7 @@ export const ChallengeCard: Component<Props> = (props) => {
               <Switch>
                 <Match when={challengeItem.type === 'complete'}>
                   <ChallengeItem.Complete
-                    {...(challengeItem as CompleteChallengeItemType)}
+                    {...(challengeItem as CompleteChallengeItem)}
                     onChange={(isCompleted) =>
                       handleChangeComplete(challengeItem.id, isCompleted)
                     }
@@ -86,7 +86,7 @@ export const ChallengeCard: Component<Props> = (props) => {
                 </Match>
                 <Match when={challengeItem.type !== 'complete'}>
                   <ChallengeItem.Countable
-                    {...(challengeItem as CountableChallengeItemType)}
+                    {...(challengeItem as CountableChallengeItem)}
                     onChange={(count) =>
                       handleChangeCountable(challengeItem.id, count)
                     }

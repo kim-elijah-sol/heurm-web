@@ -1,12 +1,12 @@
 import { createMemo, createRoot, createSignal } from 'solid-js';
 import { CHALLENGE_DAY } from '~/shared/constant';
-import { ChallengeColor, ChallengeItemType } from '~/shared/model';
+import { ChallengeColor, ChallengeItem } from '~/shared/model';
 
 type Challenge = {
   id: number;
   title: string;
   color: ChallengeColor;
-  challengeItems: (ChallengeItemType & { id: number })[];
+  challengeItems: (ChallengeItem & { id: number })[];
 };
 
 export const useChallenges = createRoot(() => {

@@ -19,8 +19,8 @@ import {
 import { createBoolean } from '~/shared/hook';
 import {
   ChallengeColor,
-  ChallengeItemType,
-  CountableChallengeItemType,
+  ChallengeItem,
+  CountableChallengeItem,
 } from '~/shared/model';
 import { ChallengeColorSelect, SlidePanel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item/ui';
@@ -29,7 +29,7 @@ type Props = {
   title: Accessor<string>;
   close: () => void;
   color: Accessor<ChallengeColor>;
-  challengeItems: Accessor<(ChallengeItemType & { id: number })[]>;
+  challengeItems: Accessor<(ChallengeItem & { id: number })[]>;
 
   newChallengeItemPanelOpen?: boolean;
 };
@@ -107,7 +107,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                           it().type !== 'complete' && (
                             <ChallengeEditItem.TargetCountInput
                               targetCount={
-                                (it() as CountableChallengeItemType).targetCount
+                                (it() as CountableChallengeItem).targetCount
                               }
                               onChangeTargetColor={(targetCount) =>
                                 handleChangeTargetCount(it().id, targetCount)

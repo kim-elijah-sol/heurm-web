@@ -1,13 +1,13 @@
 import { Component, createSignal } from 'solid-js';
 import { NewChallengeItemStepType } from '~/entities/new-challenge-item/model';
 import { createChallengeItemDay } from '~/features/new-challenge-item/hook';
-import { ChallengeItemType } from '~/shared/model';
+import { ChallengeItem } from '~/shared/model';
 import { BluredPanel, X } from '~/shared/ui';
 import { NewChallengeItemStep } from '../new-challenge-item-step';
 import './new-challenge-item-step.ui.css';
 
 type Props = {
-  onSubmit: (challengeItem: ChallengeItemType) => void;
+  onSubmit: (challengeItem: ChallengeItem) => void;
   close: () => void;
 };
 

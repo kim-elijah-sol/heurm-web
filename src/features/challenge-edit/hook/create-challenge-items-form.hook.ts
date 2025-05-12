@@ -1,9 +1,5 @@
 import { createStore } from 'solid-js/store';
-import {
-  ChallengeDay,
-  ChallengeItemForm,
-  ChallengeItemType,
-} from '~/shared/model';
+import { ChallengeDay, ChallengeItem, ChallengeItemForm } from '~/shared/model';
 
 export const createChallengeItemsForm = (
   _challengeItems: ChallengeItemForm[]
@@ -35,7 +31,7 @@ export const createChallengeItemsForm = (
     );
   };
 
-  const handleNewChallengeItem = (challengeItem: ChallengeItemType) => {
+  const handleNewChallengeItem = (challengeItem: ChallengeItem) => {
     const newChallengeItem: ChallengeItemForm = {
       ...challengeItem,
       id: new Date().valueOf(),

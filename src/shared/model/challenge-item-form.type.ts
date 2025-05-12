@@ -1,6 +1,6 @@
-import { ChallengeItemType } from './challenge-item.type';
+import { ChallengeItem } from './challenge-item.type';
 
-export type ChallengeItemForm = ChallengeItemType & {
+export type ChallengeItemForm = ChallengeItem & {
   id: number;
   isNew?: boolean;
 };
