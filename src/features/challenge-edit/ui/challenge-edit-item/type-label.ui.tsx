@@ -1,9 +1,10 @@
 import { Component } from 'solid-js';
+import { ChallengeItemType } from '~/shared/model';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 import { capitalize } from '../../fx';
 
 type Props = {
-  type: 'complete' | 'over' | 'under';
+  type: ChallengeItemType;
 };
 
 export const TypeLabel: Component<Props> = (props) => {

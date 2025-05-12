@@ -1,7 +1,7 @@
 import { Component, createSignal } from 'solid-js';
 import { NewChallengeItemStepType } from '~/entities/new-challenge-item/model';
 import { createChallengeItemDay } from '~/features/new-challenge-item/hook';
-import { ChallengeItem } from '~/shared/model';
+import { ChallengeItem, ChallengeItemType } from '~/shared/model';
 import { BluredPanel, X } from '~/shared/ui';
 import { NewChallengeItemStep } from '../new-challenge-item-step';
 import './new-challenge-item-step.ui.css';
@@ -14,9 +14,7 @@ type Props = {
 export const NewChallengeItemPanel: Component<Props> = (props) => {
   const [step, setStep] = createSignal<NewChallengeItemStepType>('type');
 
-  const [type, setType] = createSignal<'complete' | 'over' | 'under' | null>(
-    null
-  );
+  const [type, setType] = createSignal<ChallengeItemType | null>(null);
 
   const [name, setName] = createSignal<string>('');
 
