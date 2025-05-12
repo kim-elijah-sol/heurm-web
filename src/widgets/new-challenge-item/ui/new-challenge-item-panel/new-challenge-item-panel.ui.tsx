@@ -1,7 +1,6 @@
-import { Component, createSignal } from 'solid-js';
-import { NewChallengeItemStepType } from '~/entities/new-challenge-item/model';
-import { createChallengeItemDay } from '~/features/new-challenge-item/hook';
-import { ChallengeItem, ChallengeItemType } from '~/shared/model';
+import { Component } from 'solid-js';
+import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
+import { ChallengeItem } from '~/shared/model';
 import { BluredPanel, X } from '~/shared/ui';
 import { NewChallengeItemStep } from '../new-challenge-item-step';
 import './new-challenge-item-step.ui.css';
@@ -12,15 +11,19 @@ type Props = {
 };
 
 export const NewChallengeItemPanel: Component<Props> = (props) => {
-  const [step, setStep] = createSignal<NewChallengeItemStepType>('type');
-
-  const [type, setType] = createSignal<ChallengeItemType | null>(null);
-
-  const [name, setName] = createSignal<string>('');
-
-  const [count, setCount] = createSignal<string>('');
-
-  const [day, handleChangeDay] = createChallengeItemDay();
+  const {
+    step,
+    setStep,
+    type,
+    setType,
+    name,
+    setName,
+    count,
+    setCount,
+    day,
+    handleChangeDay,
+    getDisplayType,
+  } = createNewChallengeItemForm();
 
   return (
     <BluredPanel close={props.close} autoClose={false}>
@@ -34,7 +37,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
           </button>
 
           <NewChallengeItemStep.Type
-            displayType={() => (step() === 'type' ? 'current' : 'end')}
+            displayType={getDisplayType('type')}
             onNext={(type) => {
               setType(type);
               setStep('name');
@@ -44,13 +47,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
           <NewChallengeItemStep.Name
             name={name}
             setName={setName}
-            displayType={() =>
-              step() === 'name'
-                ? 'current'
-                : step() === 'type'
-                ? 'ready'
-                : 'end'
-            }
+            displayType={getDisplayType('name')}
             onPrev={() => setStep('type')}
             onNext={() => {
               if (type() === 'complete') {
@@ -64,19 +61,13 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
           <NewChallengeItemStep.Count
             count={count}
             setCount={setCount}
-            displayType={() =>
-              step() === 'count'
-                ? 'current'
-                : step() === 'day'
-                ? 'end'
-                : 'ready'
-            }
+            displayType={getDisplayType('count')}
             onPrev={() => setStep('name')}
             onNext={() => setStep('day')}
           />
 
           <NewChallengeItemStep.Day
-            displayType={() => (step() === 'day' ? 'current' : 'ready')}
+            displayType={getDisplayType('day')}
             day={day}
             onChangeDay={handleChangeDay}
             onPrev={() => {
