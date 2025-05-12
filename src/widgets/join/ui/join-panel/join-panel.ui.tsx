@@ -18,6 +18,10 @@ export const JoinPanel: Component<Props> = (props) => {
     getDisplayType,
     joinFormHeight,
     handleSubmit,
+    verifyCode,
+    setVerifyCode,
+    restResendSecond,
+    handleResend,
   } = createJoinForm();
 
   return (
@@ -53,6 +57,18 @@ export const JoinPanel: Component<Props> = (props) => {
               password={password}
               setPassword={setPassword}
               displayType={getDisplayType('password')}
+            />
+
+            <JoinForm.Verify
+              restResendSecond={restResendSecond}
+              onResend={handleResend}
+              isSummitable={() =>
+                joinFormValidator.shape.verifyCode.safeParse(verifyCode())
+                  .success
+              }
+              verifyCode={verifyCode}
+              setVerifyCode={setVerifyCode}
+              displayType={getDisplayType('verify')}
             />
           </JoinForm>
         </div>

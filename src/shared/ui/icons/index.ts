@@ -10,6 +10,7 @@ export * from './login.ui';
 export * from './logout.ui';
 export * from './menu.ui';
 export * from './plus.ui';
+export * from './send.ui';
 export * from './shield-check.ui';
 export * from './sparkles.ui';
 export * from './user-plus.ui';
