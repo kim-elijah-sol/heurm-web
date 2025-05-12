@@ -32,7 +32,6 @@ export const createNewChallengeItemForm = () => {
     };
 
   return {
-    step,
     setStep,
     type,
     setType,

@@ -1,8 +1,8 @@
 import { Component } from 'solid-js';
 import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
+import { NewChallengeItemStep } from '~/features/new-challenge-item/ui';
 import { ChallengeItem } from '~/shared/model';
 import { BluredPanel, X } from '~/shared/ui';
-import { NewChallengeItemStep } from '../new-challenge-item-step';
 import './new-challenge-item-step.ui.css';
 
 type Props = {
@@ -12,7 +12,6 @@ type Props = {
 
 export const NewChallengeItemPanel: Component<Props> = (props) => {
   const {
-    step,
     setStep,
     type,
     setType,
