@@ -13,6 +13,8 @@ export const JoinPanel: Component<Props> = (props) => {
     step,
     email,
     setEmail,
+    password,
+    setPassword,
     getDisplayType,
     joinFormHeight,
     handleSubmit,
@@ -42,6 +44,15 @@ export const JoinPanel: Component<Props> = (props) => {
               email={email}
               setEmail={setEmail}
               displayType={getDisplayType('email')}
+            />
+
+            <JoinForm.Password
+              isSummitable={() =>
+                joinFormValidator.shape.password.safeParse(password()).success
+              }
+              password={password}
+              setPassword={setPassword}
+              displayType={getDisplayType('password')}
             />
           </JoinForm>
         </div>

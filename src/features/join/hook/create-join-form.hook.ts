@@ -7,6 +7,8 @@ export const createJoinForm = () => {
 
   const [email, setEmail] = createSignal<string>('');
 
+  const [password, setPassword] = createSignal<string>('');
+
   const getDisplayType = (_step: JoinStep) => (): JoinStepDisplayType => {
     const currentStepValue = getJoinStepValue(step());
     const targetStepValue = getJoinStepValue(_step);
@@ -23,6 +25,8 @@ export const createJoinForm = () => {
   const handleSubmit = () => {
     if (step() === 'email') {
       setStep('password');
+    } else if (step() === 'password') {
+      setStep('verify');
     }
   };
 
@@ -33,5 +37,7 @@ export const createJoinForm = () => {
     getDisplayType,
     joinFormHeight,
     handleSubmit,
+    password,
+    setPassword,
   };
 };

@@ -15,7 +15,7 @@ export const EmailStep: Component<Props> = (props) => {
   return (
     <div
       class={clsx(
-        'flex flex-col items-center gap-8 absolute top-1/2 left-1/2 -translate-x-1/2 w-full',
+        'flex flex-col items-center transition-all duration-300 gap-8 absolute top-1/2 left-1/2 -translate-x-1/2 w-full',
         getJoinStepDisplayClass(props.displayType())
       )}
     >
