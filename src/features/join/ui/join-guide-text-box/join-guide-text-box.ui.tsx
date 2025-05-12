@@ -19,7 +19,7 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
 
   return (
     <div
-      class='join-guide-text-box overflow-y-hidden transition-all duration-300 w-full relative'
+      class='join-guide-text-box overflow-y-hidden transition-all duration-300 w-full relative mb-10'
       style={{
         height: props.step() === 'email' ? '28px' : '56px',
       }}

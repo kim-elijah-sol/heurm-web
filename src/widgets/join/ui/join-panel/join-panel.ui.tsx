@@ -1,6 +1,7 @@
-import { Component, createSignal } from 'solid-js';
-import { JoinStep } from '~/entities/join/model';
-import { JoinBanner, JoinGuideTextBox } from '~/features/join/ui';
+import { Component } from 'solid-js';
+import { joinFormValidator } from '~/entities/join/validator';
+import { createJoinForm } from '~/features/join/hook';
+import { JoinBanner, JoinForm, JoinGuideTextBox } from '~/features/join/ui';
 import { BluredPanel, X } from '~/shared/ui';
 
 type Props = {
@@ -8,12 +9,19 @@ type Props = {
 };
 
 export const JoinPanel: Component<Props> = (props) => {
-  const [step, setStep] = createSignal<JoinStep>('email');
+  const {
+    step,
+    email,
+    setEmail,
+    getDisplayType,
+    joinFormHeight,
+    handleSubmit,
+  } = createJoinForm();
 
   return (
     <BluredPanel close={props.close} autoClose={false}>
       {(close) => (
-        <div class='w-full h-full touch-none flex flex-col items-center justify-center'>
+        <div class='w-full h-full touch-none flex flex-col items-center justify-center px-4'>
           <button
             type='button'
             onClick={close}
@@ -25,6 +33,17 @@ export const JoinPanel: Component<Props> = (props) => {
           <JoinBanner />
 
           <JoinGuideTextBox step={step} />
+
+          <JoinForm onSubmit={handleSubmit} height={joinFormHeight}>
+            <JoinForm.Email
+              isSummitable={() =>
+                joinFormValidator.shape.email.safeParse(email()).success
+              }
+              email={email}
+              setEmail={setEmail}
+              displayType={getDisplayType('email')}
+            />
+          </JoinForm>
         </div>
       )}
     </BluredPanel>
