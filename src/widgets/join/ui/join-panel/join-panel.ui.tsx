@@ -1,5 +1,6 @@
-import { Component } from 'solid-js';
-import { JoinBanner } from '~/features/join/ui';
+import { Component, createSignal } from 'solid-js';
+import { JoinStep } from '~/entities/join/model';
+import { JoinBanner, JoinGuideTextBox } from '~/features/join/ui';
 import { BluredPanel, X } from '~/shared/ui';
 
 type Props = {
@@ -7,6 +8,8 @@ type Props = {
 };
 
 export const JoinPanel: Component<Props> = (props) => {
+  const [step, setStep] = createSignal<JoinStep>('email');
+
   return (
     <BluredPanel close={props.close} autoClose={false}>
       {(close) => (
@@ -20,6 +23,8 @@ export const JoinPanel: Component<Props> = (props) => {
           </button>
 
           <JoinBanner />
+
+          <JoinGuideTextBox step={step} />
         </div>
       )}
     </BluredPanel>
