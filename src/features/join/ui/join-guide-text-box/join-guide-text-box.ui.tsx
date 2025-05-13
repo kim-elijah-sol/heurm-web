@@ -1,11 +1,10 @@
 import clsx from 'clsx';
 import { Accessor, Component } from 'solid-js';
 import { JoinStep } from '~/entities/join/model';
-import { RollingDisplayType } from '~/shared/model';
 import {
   getJoinGuideTextBoxHeight,
   getJoinStepDisplayClass,
-  getJoinStepValue,
+  getJoinStepDisplayType,
 } from '../../fx';
 import './join-guide-text-box.ui.css';
 
@@ -17,17 +16,6 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
   const joinGuideTextClassName =
     'text-center text-gray-500 font-semibold text-xl transition-all duration-300 absolute whitespace-nowrap absolute top-1/2 left-1/2 -translate-x-1/2';
 
-  const getDisplayType = (step: JoinStep): RollingDisplayType => {
-    const currentStepValue = getJoinStepValue(props.step());
-    const targetStepValue = getJoinStepValue(step);
-
-    return currentStepValue === targetStepValue
-      ? 'current'
-      : currentStepValue > targetStepValue
-      ? 'end'
-      : 'ready';
-  };
-
   return (
     <div
       class='join-guide-text-box overflow-y-hidden transition-all duration-300 w-full relative mb-10'
@@ -38,7 +26,7 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
       <p
         class={clsx(
           joinGuideTextClassName,
-          getJoinStepDisplayClass(getDisplayType('email'))
+          getJoinStepDisplayClass(getJoinStepDisplayType(props.step(), 'email'))
         )}
       >
         Enter your join email
@@ -46,7 +34,9 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
       <p
         class={clsx(
           joinGuideTextClassName,
-          getJoinStepDisplayClass(getDisplayType('password'))
+          getJoinStepDisplayClass(
+            getJoinStepDisplayType(props.step(), 'password')
+          )
         )}
       >
         Set a password to
@@ -56,7 +46,9 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
       <p
         class={clsx(
           joinGuideTextClassName,
-          getJoinStepDisplayClass(getDisplayType('verify'))
+          getJoinStepDisplayClass(
+            getJoinStepDisplayType(props.step(), 'verify')
+          )
         )}
       >
         Enter the code
@@ -66,7 +58,7 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
       <p
         class={clsx(
           joinGuideTextClassName,
-          getJoinStepDisplayClass(getDisplayType('done'))
+          getJoinStepDisplayClass(getJoinStepDisplayType(props.step(), 'done'))
         )}
       >
         Thanks for join

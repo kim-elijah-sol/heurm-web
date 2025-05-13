@@ -1,7 +1,6 @@
 import { createSignal, onCleanup } from 'solid-js';
 import { JoinStep } from '~/entities/join/model';
-import { RollingDisplayType } from '~/shared/model';
-import { getJoinFormHeight, getJoinStepValue } from '../fx';
+import { getJoinFormHeight } from '../fx';
 
 export const createJoinForm = () => {
   const RESEND_TIMEOUT = 60;
@@ -43,17 +42,6 @@ export const createJoinForm = () => {
     startCountDown();
   };
 
-  const getDisplayType = (_step: JoinStep) => (): RollingDisplayType => {
-    const currentStepValue = getJoinStepValue(step());
-    const targetStepValue = getJoinStepValue(_step);
-
-    return currentStepValue === targetStepValue
-      ? 'current'
-      : currentStepValue > targetStepValue
-      ? 'end'
-      : 'ready';
-  };
-
   const joinFormHeight = () => getJoinFormHeight(step());
 
   const handleSubmit = () => {
@@ -71,7 +59,6 @@ export const createJoinForm = () => {
     step,
     email,
     setEmail,
-    getDisplayType,
     joinFormHeight,
     handleSubmit,
     password,

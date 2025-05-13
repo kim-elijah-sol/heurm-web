@@ -1,5 +1,6 @@
 import { Component } from 'solid-js';
 import { joinFormValidator } from '~/entities/join/validator';
+import { getJoinStepDisplayType } from '~/features/join/fx';
 import { createJoinForm } from '~/features/join/hook';
 import { JoinBanner, JoinForm, JoinGuideTextBox } from '~/features/join/ui';
 import { BluredPanel, X } from '~/shared/ui';
@@ -15,7 +16,6 @@ export const JoinPanel: Component<Props> = (props) => {
     setEmail,
     password,
     setPassword,
-    getDisplayType,
     joinFormHeight,
     handleSubmit,
     verifyCode,
@@ -47,7 +47,7 @@ export const JoinPanel: Component<Props> = (props) => {
               }
               email={email}
               setEmail={setEmail}
-              displayType={getDisplayType('email')}
+              displayType={() => getJoinStepDisplayType(step(), 'email')}
             />
 
             <JoinForm.Password
@@ -56,7 +56,7 @@ export const JoinPanel: Component<Props> = (props) => {
               }
               password={password}
               setPassword={setPassword}
-              displayType={getDisplayType('password')}
+              displayType={() => getJoinStepDisplayType(step(), 'password')}
             />
 
             <JoinForm.Verify
@@ -68,11 +68,11 @@ export const JoinPanel: Component<Props> = (props) => {
               }
               verifyCode={verifyCode}
               setVerifyCode={setVerifyCode}
-              displayType={getDisplayType('verify')}
+              displayType={() => getJoinStepDisplayType(step(), 'verify')}
             />
 
             <JoinForm.Done
-              displayType={getDisplayType('done')}
+              displayType={() => getJoinStepDisplayType(step(), 'done')}
               onLogin={() => {
                 close();
               }}
