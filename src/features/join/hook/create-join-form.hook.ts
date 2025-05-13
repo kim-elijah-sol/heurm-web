@@ -14,7 +14,7 @@ export const createJoinForm = () => {
     restResendSecond,
     handleResend,
     startCountDown,
-  } = createLoginHelperForm('email');
+  } = createLoginHelperForm();
 
   const joinFormHeight = () => getJoinFormHeight(step());
 

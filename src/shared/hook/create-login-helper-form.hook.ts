@@ -2,8 +2,8 @@ import { createSignal, onCleanup } from 'solid-js';
 import { RESEND_TIMEOUT } from '../constant';
 import { LoginHelperStep } from '../model';
 
-export const createLoginHelperForm = (startStep: LoginHelperStep) => {
-  const [step, setStep] = createSignal<LoginHelperStep>(startStep);
+export const createLoginHelperForm = () => {
+  const [step, setStep] = createSignal<LoginHelperStep>('email');
 
   const [email, setEmail] = createSignal<string>('');
 
