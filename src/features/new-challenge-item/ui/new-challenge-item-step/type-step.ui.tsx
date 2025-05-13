@@ -1,11 +1,10 @@
 import { clsx } from 'clsx';
 import { Accessor, Component } from 'solid-js';
-import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
-import { ChallengeItemType } from '~/shared/model';
+import { ChallengeItemType, RollingDisplayType } from '~/shared/model';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 
 type Props = {
-  displayType: Accessor<NewChallengeItemStepDisplayType>;
+  displayType: Accessor<RollingDisplayType>;
   onNext: (type: ChallengeItemType) => void;
 };
 

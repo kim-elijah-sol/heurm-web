@@ -1,14 +1,13 @@
 import clsx from 'clsx';
 import { Accessor, Component, For } from 'solid-js';
-import { NewChallengeItemStepDisplayType } from '~/entities/new-challenge-item/model';
 import { CHALLENGE_DAY } from '~/shared/constant';
-import { ChallengeDay } from '~/shared/model';
+import { ChallengeDay, RollingDisplayType } from '~/shared/model';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {
   day: Accessor<ChallengeDay[]>;
   onChangeDay: (day: ChallengeDay) => void;
-  displayType: Accessor<NewChallengeItemStepDisplayType>;
+  displayType: Accessor<RollingDisplayType>;
   onNext: () => void;
   onPrev: () => void;
 };

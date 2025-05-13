@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Accessor, Component } from 'solid-js';
-import { JoinStep, JoinStepDisplayType } from '~/entities/join/model';
+import { JoinStep } from '~/entities/join/model';
+import { RollingDisplayType } from '~/shared/model';
 import {
   getJoinGuideTextBoxHeight,
   getJoinStepDisplayClass,
@@ -16,7 +17,7 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
   const joinGuideTextClassName =
     'text-center text-gray-500 font-semibold text-xl transition-all duration-300 absolute whitespace-nowrap absolute top-1/2 left-1/2 -translate-x-1/2';
 
-  const getDisplayType = (step: JoinStep): JoinStepDisplayType => {
+  const getDisplayType = (step: JoinStep): RollingDisplayType => {
     const currentStepValue = getJoinStepValue(props.step());
     const targetStepValue = getJoinStepValue(step);
 

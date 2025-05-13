@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { Accessor, Setter, type Component } from 'solid-js';
-import { JoinStepDisplayType } from '~/entities/join/model';
+import { RollingDisplayType } from '~/shared/model';
 import { Check } from '~/shared/ui';
 import { getJoinStepDisplayClass } from '../../fx';
 
 type Props = {
-  displayType: Accessor<JoinStepDisplayType>;
+  displayType: Accessor<RollingDisplayType>;
   email: Accessor<string>;
   setEmail: Setter<string>;
   isSummitable: Accessor<boolean>;

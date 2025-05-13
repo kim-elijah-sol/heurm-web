@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { Accessor, Component } from 'solid-js';
-import { JoinStepDisplayType } from '~/entities/join/model';
+import { RollingDisplayType } from '~/shared/model';
 import { Login } from '~/shared/ui';
 import { getJoinStepDisplayClass } from '../../fx';
 
 type Props = {
-  displayType: Accessor<JoinStepDisplayType>;
+  displayType: Accessor<RollingDisplayType>;
   onLogin: () => void;
 };
 
