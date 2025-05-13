@@ -70,6 +70,13 @@ export const JoinPanel: Component<Props> = (props) => {
               setVerifyCode={setVerifyCode}
               displayType={getDisplayType('verify')}
             />
+
+            <JoinForm.Done
+              displayType={getDisplayType('done')}
+              onLogin={() => {
+                close();
+              }}
+            />
           </JoinForm>
         </div>
       )}
