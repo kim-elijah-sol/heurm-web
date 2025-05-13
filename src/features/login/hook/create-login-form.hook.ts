@@ -1,3 +1,4 @@
+import { useNavigate } from '@solidjs/router';
 import { createSignal } from 'solid-js';
 import {
   loginFormValidator,
@@ -8,6 +9,8 @@ export const createLoginForm = () => {
   const [email, setEmail] = createSignal<string>('');
 
   const [password, setPassword] = createSignal<string>('');
+
+  const navigate = useNavigate();
 
   const submitErrorMessage = () => {
     const loginFormValid = loginFormValidator.safeParse({
@@ -39,7 +42,7 @@ export const createLoginForm = () => {
       return;
     }
 
-    console.log('login');
+    navigate('/');
   };
 
   const handleInputEmail = (e: InputEvent & { target: HTMLInputElement }) => {
