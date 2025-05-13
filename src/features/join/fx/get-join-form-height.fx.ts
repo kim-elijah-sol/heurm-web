@@ -1,6 +1,6 @@
-import { JoinStep } from '~/entities/join/model';
+import { LoginHelperStep } from '~/shared/model';
 
-export const getJoinFormHeight = (step: JoinStep) => {
+export const getJoinFormHeight = (step: LoginHelperStep) => {
   if (step === 'password') return 208;
 
   if (step === 'done') return 68;

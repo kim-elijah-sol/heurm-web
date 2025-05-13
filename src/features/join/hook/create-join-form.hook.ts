@@ -1,46 +1,20 @@
-import { createSignal, onCleanup } from 'solid-js';
-import { JoinStep } from '~/entities/join/model';
+import { createLoginHelperForm } from '~/shared/hook';
 import { getJoinFormHeight } from '../fx';
 
 export const createJoinForm = () => {
-  const RESEND_TIMEOUT = 60;
-
-  const [step, setStep] = createSignal<JoinStep>('email');
-
-  const [email, setEmail] = createSignal<string>('');
-
-  const [password, setPassword] = createSignal<string>('');
-
-  const [verifyCode, setVerifyCode] = createSignal<string>('');
-
-  const [restResendSecond, setRestResendSecond] =
-    createSignal<number>(RESEND_TIMEOUT);
-
-  const [timerId, setTimerId] = createSignal<number | null>(null);
-
-  const startCountDown = () => {
-    setRestResendSecond(RESEND_TIMEOUT);
-
-    const id = setInterval(() => {
-      setRestResendSecond((prev) => {
-        if (prev <= 1) {
-          clearInterval(id);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    setTimerId(id);
-  };
-
-  onCleanup(() => {
-    if (timerId()) clearInterval(timerId()!);
-  });
-
-  const handleResend = () => {
-    startCountDown();
-  };
+  const {
+    step,
+    setStep,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    verifyCode,
+    setVerifyCode,
+    restResendSecond,
+    handleResend,
+    startCountDown,
+  } = createLoginHelperForm('email');
 
   const joinFormHeight = () => getJoinFormHeight(step());
 

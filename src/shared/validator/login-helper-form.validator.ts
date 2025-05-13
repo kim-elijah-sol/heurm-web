@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { emailValidator, passwordValidator } from '~/shared/validator';
 
-export const joinFormValidator = z.object({
+export const loginHelperFormValidator = z.object({
   email: emailValidator,
   password: passwordValidator,
   verifyCode: z

@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { Accessor, Setter, type Component } from 'solid-js';
-import { joinFormValidator } from '~/entities/join/validator';
 import { RollingDisplayType } from '~/shared/model';
 import { Check } from '~/shared/ui';
+import { loginFormValidator } from '~/shared/validator';
 import { getJoinStepDisplayClass } from '../../fx';
 
 type Props = {
@@ -16,7 +16,9 @@ export const PasswordStep: Component<Props> = (props) => {
   const conditionBaseClassName = 'flex-1 whitespace-nowrap text-sm';
 
   const getConditionClassName = (issue: string) => {
-    const result = joinFormValidator.shape.password.safeParse(props.password());
+    const result = loginFormValidator.shape.password.safeParse(
+      props.password()
+    );
     const issues = result.success
       ? []
       : result.error.issues.map((i) => i.message);

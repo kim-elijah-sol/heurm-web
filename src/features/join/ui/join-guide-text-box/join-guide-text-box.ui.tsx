@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Accessor, Component } from 'solid-js';
-import { JoinStep } from '~/entities/join/model';
+import { LoginHelperStep } from '~/shared/model';
 import {
   getJoinGuideTextBoxHeight,
   getJoinStepDisplayClass,
@@ -9,7 +9,7 @@ import {
 import './join-guide-text-box.ui.css';
 
 type Props = {
-  step: Accessor<JoinStep>;
+  step: Accessor<LoginHelperStep>;
 };
 
 export const JoinGuideTextBox: Component<Props> = (props) => {

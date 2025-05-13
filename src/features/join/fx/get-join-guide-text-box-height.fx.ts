@@ -1,7 +1,7 @@
-import { JoinStep } from '~/entities/join/model';
+import { LoginHelperStep } from '~/shared/model';
 
-export const getJoinGuideTextBoxHeight = (step: JoinStep) => {
-  const messageLine: { [key in JoinStep]: number } = {
+export const getJoinGuideTextBoxHeight = (step: LoginHelperStep) => {
+  const messageLine: { [key in LoginHelperStep]: number } = {
     email: 1,
     password: 2,
     verify: 2,

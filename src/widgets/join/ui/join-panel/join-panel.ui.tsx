@@ -1,9 +1,9 @@
 import { Component } from 'solid-js';
-import { joinFormValidator } from '~/entities/join/validator';
 import { getJoinStepDisplayType } from '~/features/join/fx';
 import { createJoinForm } from '~/features/join/hook';
 import { JoinBanner, JoinForm, JoinGuideTextBox } from '~/features/join/ui';
 import { BluredPanel, X } from '~/shared/ui';
+import { loginHelperFormValidator } from '~/shared/validator/login-helper-form.validator';
 
 type Props = {
   close: () => void;
@@ -43,7 +43,7 @@ export const JoinPanel: Component<Props> = (props) => {
           <JoinForm onSubmit={handleSubmit} height={joinFormHeight}>
             <JoinForm.Email
               isSummitable={() =>
-                joinFormValidator.shape.email.safeParse(email()).success
+                loginHelperFormValidator.shape.email.safeParse(email()).success
               }
               email={email}
               setEmail={setEmail}
@@ -52,7 +52,8 @@ export const JoinPanel: Component<Props> = (props) => {
 
             <JoinForm.Password
               isSummitable={() =>
-                joinFormValidator.shape.password.safeParse(password()).success
+                loginHelperFormValidator.shape.password.safeParse(password())
+                  .success
               }
               password={password}
               setPassword={setPassword}
@@ -63,8 +64,9 @@ export const JoinPanel: Component<Props> = (props) => {
               restResendSecond={restResendSecond}
               onResend={handleResend}
               isSummitable={() =>
-                joinFormValidator.shape.verifyCode.safeParse(verifyCode())
-                  .success
+                loginHelperFormValidator.shape.verifyCode.safeParse(
+                  verifyCode()
+                ).success
               }
               verifyCode={verifyCode}
               setVerifyCode={setVerifyCode}
