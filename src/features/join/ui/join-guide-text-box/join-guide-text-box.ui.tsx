@@ -1,7 +1,11 @@
 import clsx from 'clsx';
 import { Accessor, Component } from 'solid-js';
 import { JoinStep, JoinStepDisplayType } from '~/entities/join/model';
-import { getJoinStepDisplayClass, getJoinStepValue } from '../../fx';
+import {
+  getJoinGuideTextBoxHeight,
+  getJoinStepDisplayClass,
+  getJoinStepValue,
+} from '../../fx';
 import './join-guide-text-box.ui.css';
 
 type Props = {
@@ -27,7 +31,7 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
     <div
       class='join-guide-text-box overflow-y-hidden transition-all duration-300 w-full relative mb-10'
       style={{
-        height: props.step() === 'email' ? '28px' : '56px',
+        height: `${getJoinGuideTextBoxHeight(props.step())}px`,
       }}
     >
       <p
@@ -57,6 +61,20 @@ export const JoinGuideTextBox: Component<Props> = (props) => {
         Enter the code
         <br />
         we've sent to your email
+      </p>
+      <p
+        class={clsx(
+          joinGuideTextClassName,
+          getJoinStepDisplayClass(getDisplayType('done'))
+        )}
+      >
+        Thanks for join
+        <br />
+        Win Yourself!
+        <br />
+        Let’s start building
+        <br />
+        your winning habits today!
       </p>
     </div>
   );
