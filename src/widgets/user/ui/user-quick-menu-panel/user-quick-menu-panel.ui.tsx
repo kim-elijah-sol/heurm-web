@@ -4,6 +4,7 @@ import { Logout, Panel, ShieldCheck, UserRoundPen } from '~/shared/ui';
 
 type Props = {
   close: () => void;
+  onClickUserSetting: () => void;
 };
 
 export const UserQuickMenuPanel: Component<Props> = (props) => {
@@ -28,6 +29,7 @@ export const UserQuickMenuPanel: Component<Props> = (props) => {
                 buttonBaseClassName,
                 'bg-blue-400 active:bg-blue-500'
               )}
+              onClick={props.onClickUserSetting}
             >
               <UserRoundPen />
             </button>
