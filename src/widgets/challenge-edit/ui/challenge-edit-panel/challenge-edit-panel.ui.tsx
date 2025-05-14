@@ -13,7 +13,6 @@ import {
   ChallengeEditItem,
   ChallengeEditNewItemButton,
   ChallengeEditNoChallengeItem,
-  ChallengeEditSaveButton,
   ChallengeEditTop,
 } from '~/features/challenge-edit/ui';
 import { createBoolean } from '~/shared/hook';
@@ -134,7 +133,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             <ChallengeEditDeleteButton />
           </div>
 
-          <ChallengeEditSaveButton color={color} />
+          <Panel.CTAButton color={color}>Save</Panel.CTAButton>
         </>
       )}
     </Panel.Slide>
