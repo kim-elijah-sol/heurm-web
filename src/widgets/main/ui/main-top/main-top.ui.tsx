@@ -1,6 +1,6 @@
 import { HelloUser, UserAvatar } from '~/features/main/ui';
 import { createBoolean } from '~/shared/hook';
-import { UserQuickMenuPanel } from '~/widgets/user-quick-menu/ui';
+import { UserQuickMenuPanel } from '~/widgets/user/ui';
 
 export const MainTop = () => {
   const [isUserQuickMenuPanel, open, close] = createBoolean();
