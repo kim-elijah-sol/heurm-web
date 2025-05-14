@@ -1,5 +1,5 @@
-import { createLoginHelperForm } from '~/shared/hook';
-import { getJoinFormHeight } from '../fx';
+import { getLoginHelperFormHeight } from '~/features/login-helper/fx';
+import { createLoginHelperForm } from '~/features/login-helper/hook';
 
 export const createJoinForm = () => {
   const {
@@ -16,7 +16,7 @@ export const createJoinForm = () => {
     startCountDown,
   } = createLoginHelperForm();
 
-  const joinFormHeight = () => getJoinFormHeight(step());
+  const formHeight = () => getLoginHelperFormHeight(step());
 
   const handleSubmit = () => {
     if (step() === 'email') {
@@ -33,7 +33,7 @@ export const createJoinForm = () => {
     step,
     email,
     setEmail,
-    joinFormHeight,
+    formHeight,
     handleSubmit,
     password,
     setPassword,

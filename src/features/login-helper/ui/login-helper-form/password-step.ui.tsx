@@ -3,7 +3,7 @@ import { Accessor, Setter, type Component } from 'solid-js';
 import { RollingDisplayType } from '~/shared/model';
 import { Check } from '~/shared/ui';
 import { loginFormValidator } from '~/shared/validator';
-import { getJoinStepDisplayClass } from '../../fx';
+import { getLoginHelperFormStepDisplayClass } from '../../fx';
 
 type Props = {
   displayType: Accessor<RollingDisplayType>;
@@ -32,7 +32,7 @@ export const PasswordStep: Component<Props> = (props) => {
     <div
       class={clsx(
         'flex flex-col items-center transition-all duration-300 gap-8 absolute top-1/2 left-1/2 -translate-x-1/2 w-full',
-        getJoinStepDisplayClass(props.displayType())
+        getLoginHelperFormStepDisplayClass(props.displayType())
       )}
     >
       <div class='flex flex-col gap-2 w-full'>

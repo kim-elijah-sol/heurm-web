@@ -1,5 +1,5 @@
 import { Accessor, children, type Component, type JSX } from 'solid-js';
-import './join-form.ui.css';
+import './login-helper-form.ui.css';
 
 type Props = {
   height: Accessor<number>;
@@ -7,7 +7,7 @@ type Props = {
   onSubmit: (e: SubmitEvent) => void;
 };
 
-export const JoinForm: Component<Props> = (props) => {
+export const LoginHelperForm: Component<Props> = (props) => {
   const resolved = children(() => props.children);
 
   return (
@@ -17,7 +17,7 @@ export const JoinForm: Component<Props> = (props) => {
 
         props.onSubmit(e);
       }}
-      class='relative w-full transition-all duration-300 overflow-y-hidden join-form'
+      class='relative w-full transition-all duration-300 overflow-y-hidden login-helper-form'
       style={{
         height: `${props.height()}px`,
       }}

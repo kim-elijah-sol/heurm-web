@@ -1,4 +1,4 @@
-import { LoginHelperStep } from '~/shared/model';
+import { LoginHelperStep } from '~/entities/login-helper/model';
 
 export const getJoinStepValue = (step: LoginHelperStep) => {
   const stepValueMap: { [key in LoginHelperStep]: number } = {

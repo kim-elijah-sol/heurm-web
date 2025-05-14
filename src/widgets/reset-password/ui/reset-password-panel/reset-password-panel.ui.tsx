@@ -1,9 +1,10 @@
 import { Component } from 'solid-js';
-import { JoinForm } from '~/features/join/ui';
-import { getResetPasswordStepDisplayType } from '~/features/reset-password/fx';
+import { loginHelperFormValidator } from '~/entities/login-helper/validator';
+import { getLoginHelperStepDisplayType } from '~/features/login-helper/fx';
+import { LoginHelperBanner, LoginHelperForm } from '~/features/login-helper/ui';
+import { getResetPasswordStepValue } from '~/features/reset-password/fx';
 import { createResetPasswordForm } from '~/features/reset-password/hook/create-reset-password-form.hook';
 import { BluredPanel, X } from '~/shared/ui';
-import { loginHelperFormValidator } from '~/shared/validator/login-helper-form.validator';
 
 type Props = {
   close: () => void;
@@ -16,7 +17,7 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
     setEmail,
     password,
     setPassword,
-    resetPasswordFormHeight,
+    formHeight,
     handleSubmit,
     verifyCode,
     setVerifyCode,
@@ -36,19 +37,30 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
             <X />
           </button>
 
-          <JoinForm onSubmit={handleSubmit} height={resetPasswordFormHeight}>
-            <JoinForm.Email
+          <LoginHelperBanner>
+            No Worries,
+            <br />
+            Regain Access to
+            <br />
+            Your Account
+          </LoginHelperBanner>
+
+          <LoginHelperForm onSubmit={handleSubmit} height={formHeight}>
+            <LoginHelperForm.Email
               isSummitable={() =>
                 loginHelperFormValidator.shape.email.safeParse(email()).success
               }
               email={email}
               setEmail={setEmail}
               displayType={() =>
-                getResetPasswordStepDisplayType(step(), 'email')
+                getLoginHelperStepDisplayType(
+                  step(),
+                  'email'
+                )(getResetPasswordStepValue)
               }
             />
 
-            <JoinForm.Verify
+            <LoginHelperForm.Verify
               restResendSecond={restResendSecond}
               onResend={handleResend}
               isSummitable={() =>
@@ -59,11 +71,14 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
               verifyCode={verifyCode}
               setVerifyCode={setVerifyCode}
               displayType={() =>
-                getResetPasswordStepDisplayType(step(), 'verify')
+                getLoginHelperStepDisplayType(
+                  step(),
+                  'verify'
+                )(getResetPasswordStepValue)
               }
             />
 
-            <JoinForm.Password
+            <LoginHelperForm.Password
               isSummitable={() =>
                 loginHelperFormValidator.shape.password.safeParse(password())
                   .success
@@ -71,19 +86,25 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
               password={password}
               setPassword={setPassword}
               displayType={() =>
-                getResetPasswordStepDisplayType(step(), 'password')
+                getLoginHelperStepDisplayType(
+                  step(),
+                  'password'
+                )(getResetPasswordStepValue)
               }
             />
 
-            <JoinForm.Done
+            <LoginHelperForm.Done
               displayType={() =>
-                getResetPasswordStepDisplayType(step(), 'done')
+                getLoginHelperStepDisplayType(
+                  step(),
+                  'done'
+                )(getResetPasswordStepValue)
               }
               onLogin={() => {
                 close();
               }}
             />
-          </JoinForm>
+          </LoginHelperForm>
         </div>
       )}
     </BluredPanel>

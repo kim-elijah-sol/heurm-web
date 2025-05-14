@@ -1,10 +1,10 @@
 import { DoneStep } from './done-step.ui';
 import { EmailStep } from './email-step.ui';
-import { JoinForm as _JoinForm } from './join-form.ui';
+import { LoginHelperForm as _LoginHelperForm } from './login-helper-form.ui';
 import { PasswordStep } from './password-step.ui';
 import { VerifyStep } from './verify-step.ui';
 
-export const JoinForm = Object.assign(_JoinForm, {
+export const LoginHelperForm = Object.assign(_LoginHelperForm, {
   Email: EmailStep,
   Password: PasswordStep,
   Verify: VerifyStep,

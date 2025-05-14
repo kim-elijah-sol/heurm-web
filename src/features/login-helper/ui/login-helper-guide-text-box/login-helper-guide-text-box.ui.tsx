@@ -1,0 +1,85 @@
+import clsx from 'clsx';
+import {
+  Accessor,
+  Component,
+  createEffect,
+  createSignal,
+  JSX,
+  on,
+} from 'solid-js';
+import { LoginHelperStep } from '~/entities/login-helper/model';
+import {
+  getLoginHelperFormStepDisplayClass,
+  getLoginHelperStepDisplayType,
+} from '~/features/login-helper/fx';
+import './login-helper-guide-text-box.ui.css';
+
+type Props = {
+  step: Accessor<LoginHelperStep>;
+  getStepValue: (step: LoginHelperStep) => number;
+
+  email: JSX.Element;
+  password: JSX.Element;
+  verify: JSX.Element;
+  done: JSX.Element;
+};
+
+export const LoginHelperGuideTextBox: Component<Props> = (props) => {
+  const loginHelperGuideTextClassName =
+    'text-center text-gray-500 font-semibold text-xl transition-all duration-300 absolute whitespace-nowrap absolute top-1/2 left-1/2 -translate-x-1/2';
+
+  const [height, setHeight] = createSignal<number>(0);
+
+  const getStepDisplayType = (step: LoginHelperStep) =>
+    getLoginHelperStepDisplayType(props.step(), step)(props.getStepValue);
+
+  createEffect(
+    on(props.step, () => {
+      setHeight(
+        document.querySelector('.login-helper-guide-text-current')!.clientHeight
+      );
+    })
+  );
+
+  return (
+    <div
+      class='login-helper-guide-text-box overflow-y-hidden transition-all duration-300 w-full relative mb-10'
+      style={{
+        height: `${height()}px`,
+      }}
+    >
+      <p
+        class={clsx(
+          loginHelperGuideTextClassName,
+          getLoginHelperFormStepDisplayClass(getStepDisplayType('email'))
+        )}
+      >
+        {props.email}
+      </p>
+      <p
+        class={clsx(
+          loginHelperGuideTextClassName,
+          getLoginHelperFormStepDisplayClass(getStepDisplayType('password'))
+        )}
+      >
+        {props.password}
+      </p>
+      <p
+        class={clsx(
+          loginHelperGuideTextClassName,
+          getLoginHelperFormStepDisplayClass(getStepDisplayType('verify'))
+        )}
+      >
+        {props.verify}
+      </p>
+      <p
+        class={clsx(
+          loginHelperGuideTextClassName,
+          getLoginHelperFormStepDisplayClass(getStepDisplayType('done'))
+        )}
+      >
+        {props.done}
+      </p>
+    </div>
+  );
+};

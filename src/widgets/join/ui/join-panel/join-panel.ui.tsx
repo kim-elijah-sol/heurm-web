@@ -1,9 +1,14 @@
 import { Component } from 'solid-js';
-import { getJoinStepDisplayType } from '~/features/join/fx';
+import { loginHelperFormValidator } from '~/entities/login-helper/validator';
+import { getJoinStepValue } from '~/features/join/fx';
 import { createJoinForm } from '~/features/join/hook';
-import { JoinBanner, JoinForm, JoinGuideTextBox } from '~/features/join/ui';
+import { getLoginHelperStepDisplayType } from '~/features/login-helper/fx';
+import {
+  LoginHelperBanner,
+  LoginHelperForm,
+  LoginHelperGuideTextBox,
+} from '~/features/login-helper/ui';
 import { BluredPanel, X } from '~/shared/ui';
-import { loginHelperFormValidator } from '~/shared/validator/login-helper-form.validator';
 
 type Props = {
   close: () => void;
@@ -16,7 +21,7 @@ export const JoinPanel: Component<Props> = (props) => {
     setEmail,
     password,
     setPassword,
-    joinFormHeight,
+    formHeight,
     handleSubmit,
     verifyCode,
     setVerifyCode,
@@ -36,31 +41,71 @@ export const JoinPanel: Component<Props> = (props) => {
             <X />
           </button>
 
-          <JoinBanner />
+          <LoginHelperBanner>
+            Join is
+            <br />
+            First Win!
+          </LoginHelperBanner>
 
-          <JoinGuideTextBox step={step} />
+          <LoginHelperGuideTextBox
+            step={step}
+            getStepValue={getJoinStepValue}
+            email={<>Enter your join email</>}
+            password={
+              <>
+                Set a password to
+                <br />
+                secure your account
+              </>
+            }
+            verify={
+              <>
+                Enter the code
+                <br />
+                we've sent to your email
+              </>
+            }
+            done={
+              <>
+                Thanks for join
+                <br />
+                Win Yourself!
+                <br />
+                Let’s start building
+                <br />
+                your winning habits today!
+              </>
+            }
+          />
 
-          <JoinForm onSubmit={handleSubmit} height={joinFormHeight}>
-            <JoinForm.Email
+          <LoginHelperForm onSubmit={handleSubmit} height={formHeight}>
+            <LoginHelperForm.Email
               isSummitable={() =>
                 loginHelperFormValidator.shape.email.safeParse(email()).success
               }
               email={email}
               setEmail={setEmail}
-              displayType={() => getJoinStepDisplayType(step(), 'email')}
+              displayType={() =>
+                getLoginHelperStepDisplayType(step(), 'email')(getJoinStepValue)
+              }
             />
 
-            <JoinForm.Password
+            <LoginHelperForm.Password
               isSummitable={() =>
                 loginHelperFormValidator.shape.password.safeParse(password())
                   .success
               }
               password={password}
               setPassword={setPassword}
-              displayType={() => getJoinStepDisplayType(step(), 'password')}
+              displayType={() =>
+                getLoginHelperStepDisplayType(
+                  step(),
+                  'password'
+                )(getJoinStepValue)
+              }
             />
 
-            <JoinForm.Verify
+            <LoginHelperForm.Verify
               restResendSecond={restResendSecond}
               onResend={handleResend}
               isSummitable={() =>
@@ -70,16 +115,23 @@ export const JoinPanel: Component<Props> = (props) => {
               }
               verifyCode={verifyCode}
               setVerifyCode={setVerifyCode}
-              displayType={() => getJoinStepDisplayType(step(), 'verify')}
+              displayType={() =>
+                getLoginHelperStepDisplayType(
+                  step(),
+                  'verify'
+                )(getJoinStepValue)
+              }
             />
 
-            <JoinForm.Done
-              displayType={() => getJoinStepDisplayType(step(), 'done')}
+            <LoginHelperForm.Done
+              displayType={() =>
+                getLoginHelperStepDisplayType(step(), 'done')(getJoinStepValue)
+              }
               onLogin={() => {
                 close();
               }}
             />
-          </JoinForm>
+          </LoginHelperForm>
         </div>
       )}
     </BluredPanel>
