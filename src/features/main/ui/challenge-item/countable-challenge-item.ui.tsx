@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Component, createEffect, createSignal, splitProps } from 'solid-js';
 import { CountableChallengeItem } from '~/shared/model';
-import { Ban, Check, Loader, Panel, X } from '~/shared/ui';
+import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
 type Props = CountableChallengeItem & {
   onChange: (count: number | null) => void;
@@ -70,12 +70,7 @@ export const Countable: Component<Props> = (originProps) => {
         >
           {(close) => (
             <div class='w-full h-full flex flex-col items-center justify-center relative touch-none'>
-              <button
-                onClick={close}
-                class='p-2 rounded-[35%] transition-all active:scale-90 bg-red-500 absolute right-6 top-6'
-              >
-                <X />
-              </button>
+              <Panel.CloseButton onClick={close} />
 
               <p class='text-[24px] text-slate-600 mb-4 font-semibold'>
                 {challengeItem.targetCount.toLocaleString()}

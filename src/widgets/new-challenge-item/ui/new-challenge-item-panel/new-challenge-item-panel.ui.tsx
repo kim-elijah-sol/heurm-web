@@ -2,7 +2,7 @@ import { Component } from 'solid-js';
 import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
 import { NewChallengeItemStep } from '~/features/new-challenge-item/ui';
 import { ChallengeItem } from '~/shared/model';
-import { Panel, X } from '~/shared/ui';
+import { Panel } from '~/shared/ui';
 import './new-challenge-item-step.ui.css';
 
 type Props = {
@@ -28,12 +28,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
     <Panel.Blured close={props.close} autoClose={false}>
       {(close) => (
         <div class='w-full h-full relative'>
-          <button
-            onClick={close}
-            class='p-2 rounded-[35%] transition-all active:scale-90 bg-red-400 absolute right-6 top-6 active:bg-red-500'
-          >
-            <X />
-          </button>
+          <Panel.CloseButton onClick={close} />
 
           <NewChallengeItemStep.Type
             displayType={getDisplayType('type')}

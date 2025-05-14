@@ -5,7 +5,7 @@ import {
   NewChallengeCTAButton,
   NewChallengeTitleInput,
 } from '~/features/new-challenge/ui';
-import { ChallengeColorSelect, Panel, X } from '~/shared/ui';
+import { ChallengeColorSelect, Panel } from '~/shared/ui';
 
 type Props = {
   close: () => void;
@@ -40,13 +40,7 @@ export const NewChallengePanel: Component<Props> = (props) => {
           }
           class='w-full h-full touch-none flex flex-col justify-between px-4 pb-4 pt-[152px]'
         >
-          <button
-            type='button'
-            onClick={close}
-            class='p-2 rounded-[35%] transition-all active:scale-90 bg-red-500 absolute right-6 top-6'
-          >
-            <X />
-          </button>
+          <Panel.CloseButton onClick={close} />
 
           <div>
             <NewChallengeTitleInput

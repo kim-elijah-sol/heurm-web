@@ -8,7 +8,7 @@ import {
 } from '~/features/login-helper/ui';
 import { getResetPasswordStepValue } from '~/features/reset-password/fx';
 import { createResetPasswordForm } from '~/features/reset-password/hook/create-reset-password-form.hook';
-import { Panel, X } from '~/shared/ui';
+import { Panel } from '~/shared/ui';
 
 type Props = {
   close: () => void;
@@ -33,13 +33,7 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
     <Panel.Blured close={props.close} autoClose={false}>
       {(close) => (
         <div class='w-full h-full touch-none flex flex-col items-center justify-center px-4'>
-          <button
-            type='button'
-            onClick={close}
-            class='p-2 rounded-[35%] transition-all active:scale-90 active:bg-red-600 bg-red-500 absolute right-6 top-6'
-          >
-            <X />
-          </button>
+          <Panel.CloseButton onClick={close} />
 
           <LoginHelperBanner>
             No Worries,
