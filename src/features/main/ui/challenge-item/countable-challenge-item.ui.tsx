@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Component, createEffect, createSignal, splitProps } from 'solid-js';
 import { CountableChallengeItem } from '~/shared/model';
-import { Ban, BluredPanel, Check, Loader, X } from '~/shared/ui';
+import { Ban, Check, Loader, Panel, X } from '~/shared/ui';
 
 type Props = CountableChallengeItem & {
   onChange: (count: number | null) => void;
@@ -64,7 +64,7 @@ export const Countable: Component<Props> = (originProps) => {
         <p class='w-6 text-center'>{challengeResultText()}</p>
       </div>
       {isBluredPanelShow() && (
-        <BluredPanel
+        <Panel.Blured
           autoClose={false}
           close={() => setIsBluredPanelShow(false)}
         >
@@ -106,7 +106,7 @@ export const Countable: Component<Props> = (originProps) => {
               </button>
             </div>
           )}
-        </BluredPanel>
+        </Panel.Blured>
       )}
     </>
   );

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Component } from 'solid-js';
-import { BluredPanel, Logout, ShieldCheck, UserRoundPen } from '~/shared/ui';
+import { Logout, Panel, ShieldCheck, UserRoundPen } from '~/shared/ui';
 
 type Props = {
   close: () => void;
@@ -11,7 +11,7 @@ export const UserQuickMenuPanel: Component<Props> = (props) => {
     'p-6 rounded-[35%] transition-all active:scale-90';
 
   return (
-    <BluredPanel close={props.close}>
+    <Panel.Blured close={props.close}>
       {() => (
         <div class='w-full h-full flex flex-col items-center justify-center gap-8 touch-none'>
           <div class='flex gap-12'>
@@ -40,6 +40,6 @@ export const UserQuickMenuPanel: Component<Props> = (props) => {
           </button>
         </div>
       )}
-    </BluredPanel>
+    </Panel.Blured>
   );
 };

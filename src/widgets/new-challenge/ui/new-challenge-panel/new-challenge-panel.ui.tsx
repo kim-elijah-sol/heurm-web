@@ -5,7 +5,7 @@ import {
   NewChallengeCTAButton,
   NewChallengeTitleInput,
 } from '~/features/new-challenge/ui';
-import { BluredPanel, ChallengeColorSelect, X } from '~/shared/ui';
+import { ChallengeColorSelect, Panel, X } from '~/shared/ui';
 
 type Props = {
   close: () => void;
@@ -24,7 +24,7 @@ export const NewChallengePanel: Component<Props> = (props) => {
   const { addNewChallenge } = useChallenges;
 
   return (
-    <BluredPanel close={props.close} autoClose={false}>
+    <Panel.Blured close={props.close} autoClose={false}>
       {(close) => (
         <form
           onSubmit={(e) =>
@@ -60,6 +60,6 @@ export const NewChallengePanel: Component<Props> = (props) => {
           <NewChallengeCTAButton disabled={submitDisabled} color={color} />
         </form>
       )}
-    </BluredPanel>
+    </Panel.Blured>
   );
 };

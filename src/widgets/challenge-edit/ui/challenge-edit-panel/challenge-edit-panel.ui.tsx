@@ -22,7 +22,7 @@ import {
   ChallengeItem,
   CountableChallengeItem,
 } from '~/shared/model';
-import { ChallengeColorSelect, SlidePanel } from '~/shared/ui';
+import { ChallengeColorSelect, Panel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item/ui';
 
 type Props = {
@@ -59,7 +59,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
   });
 
   return (
-    <SlidePanel close={props.close}>
+    <Panel.Slide close={props.close}>
       {(close) => (
         <>
           <ChallengeEditTop close={close} title={title} setTitle={setTitle} />
@@ -137,6 +137,6 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
           <ChallengeEditSaveButton color={color} />
         </>
       )}
-    </SlidePanel>
+    </Panel.Slide>
   );
 };

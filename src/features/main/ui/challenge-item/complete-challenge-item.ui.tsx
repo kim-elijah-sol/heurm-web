@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Component, createSignal, splitProps } from 'solid-js';
 import { CompleteChallengeItem } from '~/shared/model';
-import { Ban, BluredPanel, Check, Loader } from '~/shared/ui';
+import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
 type Props = CompleteChallengeItem & {
   onChange: (isCompleted: boolean | null) => void;
@@ -43,7 +43,7 @@ export const Complete: Component<Props> = (originProps) => {
         <p class='w-6 text-center'>{challengeResultText()}</p>
       </div>
       {isBluredPanelShow() && (
-        <BluredPanel close={() => setIsBluredPanelShow(false)}>
+        <Panel.Blured close={() => setIsBluredPanelShow(false)}>
           {() => (
             <div class='w-full h-full flex flex-col items-center justify-center gap-8 touch-none'>
               <div class='flex gap-12'>
@@ -77,7 +77,7 @@ export const Complete: Component<Props> = (originProps) => {
               </button>
             </div>
           )}
-        </BluredPanel>
+        </Panel.Blured>
       )}
     </>
   );

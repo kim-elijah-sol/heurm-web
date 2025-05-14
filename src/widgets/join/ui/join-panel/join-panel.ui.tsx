@@ -8,7 +8,7 @@ import {
   LoginHelperForm,
   LoginHelperGuideTextBox,
 } from '~/features/login-helper/ui';
-import { BluredPanel, X } from '~/shared/ui';
+import { Panel, X } from '~/shared/ui';
 
 type Props = {
   close: () => void;
@@ -30,7 +30,7 @@ export const JoinPanel: Component<Props> = (props) => {
   } = createJoinForm();
 
   return (
-    <BluredPanel close={props.close} autoClose={false}>
+    <Panel.Blured close={props.close} autoClose={false}>
       {(close) => (
         <div class='w-full h-full touch-none flex flex-col items-center justify-center px-4'>
           <button
@@ -134,6 +134,6 @@ export const JoinPanel: Component<Props> = (props) => {
           </LoginHelperForm>
         </div>
       )}
-    </BluredPanel>
+    </Panel.Blured>
   );
 };
