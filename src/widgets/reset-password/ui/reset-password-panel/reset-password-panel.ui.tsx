@@ -1,7 +1,11 @@
 import { Component } from 'solid-js';
 import { loginHelperFormValidator } from '~/entities/login-helper/validator';
 import { getLoginHelperStepDisplayType } from '~/features/login-helper/fx';
-import { LoginHelperBanner, LoginHelperForm } from '~/features/login-helper/ui';
+import {
+  LoginHelperBanner,
+  LoginHelperForm,
+  LoginHelperGuideTextBox,
+} from '~/features/login-helper/ui';
 import { getResetPasswordStepValue } from '~/features/reset-password/fx';
 import { createResetPasswordForm } from '~/features/reset-password/hook/create-reset-password-form.hook';
 import { BluredPanel, X } from '~/shared/ui';
@@ -44,6 +48,39 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
             <br />
             Your Account
           </LoginHelperBanner>
+
+          <LoginHelperGuideTextBox
+            step={step}
+            getStepValue={getResetPasswordStepValue}
+            email={
+              <>
+                Enter the email address
+                <br />
+                linked to your account
+              </>
+            }
+            verify={
+              <>
+                Enter the code
+                <br />
+                we've sent to your email
+              </>
+            }
+            password={
+              <>
+                Set a new password to
+                <br />
+                secure your account
+              </>
+            }
+            done={
+              <>
+                You can now log in
+                <br />
+                with your new password
+              </>
+            }
+          />
 
           <LoginHelperForm onSubmit={handleSubmit} height={formHeight}>
             <LoginHelperForm.Email
