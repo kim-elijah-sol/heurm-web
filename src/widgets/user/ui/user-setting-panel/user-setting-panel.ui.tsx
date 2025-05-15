@@ -23,7 +23,7 @@ export const UserSettingPanel: Component<Props> = (props) => {
                 <p class='mb-3 ml-1 font-semibold text-gray-500'>Your Name</p>
                 <input
                   type='text'
-                  class='font-semibold text-xl py-2 px-3 rounded-[12px] bg-slate-100 transition-all duration-300 w-full focus:bg-slate-200'
+                  class='font-semibold text-md py-3 px-4 rounded-[12px] bg-slate-100 transition-all duration-300 w-full focus:bg-slate-200'
                 />
               </div>
 
@@ -34,7 +34,14 @@ export const UserSettingPanel: Component<Props> = (props) => {
                 <input
                   type='password'
                   maxlength={16}
-                  class='font-semibold text-xl py-2 px-3 rounded-[12px] bg-slate-100 transition-all duration-300 w-full focus:bg-slate-200'
+                  class='font-semibold text-md py-3 px-4 rounded-[12px] bg-slate-100 transition-all duration-300 w-full focus:bg-slate-200 mb-2'
+                  placeholder='current password'
+                />
+                <input
+                  type='password'
+                  maxlength={16}
+                  class='font-semibold text-md py-3 px-4 rounded-[12px] bg-slate-100 transition-all duration-300 w-full focus:bg-slate-200'
+                  placeholder='new password'
                 />
               </div>
             </div>
