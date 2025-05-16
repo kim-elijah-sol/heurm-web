@@ -1,5 +1,5 @@
 import { Component } from 'solid-js';
-import { Panel, X } from '~/shared/ui';
+import { Panel, Trash2, X } from '~/shared/ui';
 
 type Props = {
   close: () => void;
@@ -11,13 +11,35 @@ export const UserSettingPanel: Component<Props> = (props) => {
       {(close) => (
         <div class='flex-1 pb-20'>
           <div class='w-full min-h-full flex flex-col justify-between'>
-            <div class='flex flex-col gap-4'>
+            <div class='flex flex-col gap-4 items-center'>
               <button
                 onClick={close}
                 class='p-[10px] rounded-[35%] transition-all bg-red-400 active:bg-red-500 active:scale-95 self-end'
               >
                 <X size={24} />
               </button>
+
+              <div
+                class='relative'
+                onClick={() => console.log('profile update')}
+              >
+                <img
+                  class='rounded-[35%] w-20 h-20 transition-all duration-300 active:scale-95'
+                  src='https://avatars.githubusercontent.com/u/86874556?v=4'
+                  alt=''
+                />
+
+                <button
+                  class='absolute -right-1 -top-1 p-1 rounded-full bg-gray-400 transition-all duration-300 active:scale-90'
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    console.log('profile remove');
+                  }}
+                >
+                  <Trash2 />
+                </button>
+              </div>
 
               <div class='w-full'>
                 <p class='mb-3 ml-1 font-semibold text-gray-500'>Your Name</p>
