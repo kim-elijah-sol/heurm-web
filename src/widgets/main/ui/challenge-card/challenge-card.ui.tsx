@@ -9,7 +9,7 @@ import {
   CompleteChallengeItem,
   CountableChallengeItem,
 } from '~/shared/model';
-import { Menu } from '~/shared/ui';
+import { ChartLine, Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
 
 type Props = {
@@ -27,11 +27,15 @@ type Props = {
 };
 
 export const ChallengeCard: Component<Props> = (props) => {
-  const [isChallengeEditPanel, open, _close] = createBoolean();
+  const [
+    isChallengeEditPanel,
+    openChallengeEditPanel,
+    closeChallengeEditPanel,
+  ] = createBoolean();
 
   const close = () => {
     newChallengeItemPanelOpen = false;
-    _close();
+    closeChallengeEditPanel();
   };
 
   let newChallengeItemPanelOpen = false;
@@ -41,6 +45,9 @@ export const ChallengeCard: Component<Props> = (props) => {
       'pl-4 pr-3 py-2 flex items-center justify-between',
       CHALLENGE_BG_COLOR[props.color()]
     );
+
+  const topButtonClassName =
+    'p-1 rounded-[35%] transition-all active:bg-[#FFFFFF30] active:scale-90';
 
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color()]);
@@ -55,12 +62,14 @@ export const ChallengeCard: Component<Props> = (props) => {
     <div class='overflow-hidden rounded-xl'>
       <div class={topClassName()}>
         <p class='font-semibold text-white'>{props.title()}</p>
-        <button
-          class='p-1 rounded-[35%] transition-all active:bg-[#FFFFFF30] active:scale-90'
-          onClick={open}
-        >
-          <Menu />
-        </button>
+        <div class='flex gap-[6px]'>
+          <button class={topButtonClassName}>
+            <ChartLine />
+          </button>
+          <button class={topButtonClassName} onClick={openChallengeEditPanel}>
+            <Menu />
+          </button>
+        </div>
         {isChallengeEditPanel() && (
           <ChallengeEditPanel
             title={props.title}
