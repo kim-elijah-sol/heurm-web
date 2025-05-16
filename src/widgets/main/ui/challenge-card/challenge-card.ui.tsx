@@ -8,6 +8,7 @@ import {
   ChallengeItem as ChallengeItemType,
   CompleteChallengeItem,
   CountableChallengeItem,
+  Nullable,
 } from '~/shared/model';
 import { ChartLine, Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
@@ -18,11 +19,11 @@ type Props = {
   challengeItems: Accessor<(ChallengeItemType & { id: number })[]>;
   onChangeCompleteItem: (
     challengeItemId: number,
-    isCompleted: boolean | null
+    isCompleted: Nullable<boolean>
   ) => void;
   onChangeCountableItem: (
     challengeItemId: number,
-    count: number | null
+    count: Nullable<number>
   ) => void;
 };
 
@@ -52,10 +53,10 @@ export const ChallengeCard: Component<Props> = (props) => {
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color()]);
 
-  const handleChangeComplete = (id: number, isCompleted: boolean | null) =>
+  const handleChangeComplete = (id: number, isCompleted: Nullable<boolean>) =>
     props.onChangeCompleteItem(id, isCompleted);
 
-  const handleChangeCountable = (id: number, count: number | null) =>
+  const handleChangeCountable = (id: number, count: Nullable<number>) =>
     props.onChangeCountableItem(id, count);
 
   return (

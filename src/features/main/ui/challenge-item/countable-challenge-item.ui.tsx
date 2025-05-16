@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { Component, createEffect, createSignal, splitProps } from 'solid-js';
-import { CountableChallengeItem } from '~/shared/model';
+import { CountableChallengeItem, Nullable } from '~/shared/model';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
 type Props = CountableChallengeItem & {
-  onChange: (count: number | null) => void;
+  onChange: (count: Nullable<number>) => void;
 };
 
 export const Countable: Component<Props> = (originProps) => {
@@ -14,7 +14,7 @@ export const Countable: Component<Props> = (originProps) => {
 
   const [value, setValue] = createSignal(originProps.count?.toString() ?? '');
 
-  const getChallengeResult = (count: number | null) => {
+  const getChallengeResult = (count: Nullable<number>) => {
     if (count === null) return null;
     if (challengeItem.type === 'over' && count >= challengeItem.targetCount)
       return true;

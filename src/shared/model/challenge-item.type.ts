@@ -1,4 +1,4 @@
-import { ChallengeDay } from '~/shared/model';
+import { ChallengeDay, Nullable } from '~/shared/model';
 
 type ChallengeItemBase = {
   name: string;
@@ -7,12 +7,12 @@ type ChallengeItemBase = {
 
 type CountableType = {
   targetCount: number;
-  count: number | null;
+  count: Nullable<number>;
 };
 
 type CompletableType = {
   type: 'complete';
-  isCompleted: boolean | null;
+  isCompleted: Nullable<boolean>;
 };
 
 export type CompleteChallengeItem = ChallengeItemBase & CompletableType;

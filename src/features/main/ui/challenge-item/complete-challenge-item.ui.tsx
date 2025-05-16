@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { Component, createSignal, splitProps } from 'solid-js';
-import { CompleteChallengeItem } from '~/shared/model';
+import { CompleteChallengeItem, Nullable } from '~/shared/model';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
 type Props = CompleteChallengeItem & {
-  onChange: (isCompleted: boolean | null) => void;
+  onChange: (isCompleted: Nullable<boolean>) => void;
 };
 
 export const Complete: Component<Props> = (originProps) => {

@@ -1,6 +1,6 @@
 import { createMemo, createRoot, createSignal } from 'solid-js';
 import { CHALLENGE_DAY } from '~/shared/constant';
-import { ChallengeColor, ChallengeItem } from '~/shared/model';
+import { ChallengeColor, ChallengeItem, Nullable } from '~/shared/model';
 
 type Challenge = {
   id: number;
@@ -109,7 +109,7 @@ export const useChallenges = createRoot(() => {
 
   const handleChangeComplete =
     (challengeId: number) =>
-    (challengeItemId: number, isCompleted: boolean | null) => {
+    (challengeItemId: number, isCompleted: Nullable<boolean>) => {
       setChallenges(
         challenges().map((challenge) =>
           challenge.id === challengeId
@@ -131,7 +131,7 @@ export const useChallenges = createRoot(() => {
 
   const handleChangeCountable =
     (challengeId: number) =>
-    (challengeItemId: number, count: number | null) => {
+    (challengeItemId: number, count: Nullable<number>) => {
       setChallenges(
         challenges().map((challenge) =>
           challenge.id === challengeId
