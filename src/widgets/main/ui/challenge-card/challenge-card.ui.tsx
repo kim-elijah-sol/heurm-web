@@ -111,7 +111,7 @@ export const ChallengeCard: Component<Props> = (props) => {
             color={() => props.color()}
             onClick={() => {
               newChallengeItemPanelOpen = true;
-              open();
+              openChallengeEditPanel();
             }}
           />
         )}
