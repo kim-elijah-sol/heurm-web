@@ -48,6 +48,7 @@ type ColorItemProps = {
 const ColorItem = (props: ColorItemProps) => {
   return (
     <button
+      type='button'
       onClick={() => props.setColor(props.color())}
       class={clsx(
         'w-10 h-10 rounded-[35%] flex items-center justify-center transition-all active:scale-90',
