@@ -37,6 +37,7 @@ export const UserSettingPanel: Component<Props> = (props) => {
                   type='password'
                   maxlength={16}
                   placeholder='current password'
+                  class='mb-2'
                 />
                 <UserSettingForm.Input
                   type='password'
