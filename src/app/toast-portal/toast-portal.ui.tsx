@@ -21,7 +21,7 @@ export const ToastPortal = () => {
 
     setTimeout(() => {
       setToasts((toasts) => toasts.filter(({ id }) => id !== toast.id));
-    }, 3000);
+    }, 5000);
   };
 
   onMount(() => {
