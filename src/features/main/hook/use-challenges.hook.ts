@@ -1,5 +1,6 @@
 import { createMemo, createRoot, createSignal } from 'solid-js';
 import { CHALLENGE_DAY } from '~/shared/constant';
+import { getDay } from '~/shared/fx';
 import { toast } from '~/shared/lib';
 import { ChallengeColor, ChallengeItem, Nullable } from '~/shared/model';
 
@@ -8,6 +9,11 @@ type Challenge = {
   title: string;
   color: ChallengeColor;
   challengeItems: (ChallengeItem & { id: number })[];
+};
+
+type TodayChallenge = Challenge & {
+  challengeItemCount: number;
+  originalChallengeItemCount: number;
 };
 
 export const useChallenges = createRoot(() => {
@@ -108,6 +114,23 @@ export const useChallenges = createRoot(() => {
     },
   ]);
 
+  const todayChallenge = createMemo<TodayChallenge[]>(() => {
+    return challenges().map((challenge) => {
+      const todayValue = new Date().getDay();
+
+      const todayChallengeItems = challenge.challengeItems.filter(
+        (challengeItem) => challengeItem.day.includes(getDay(todayValue))
+      );
+
+      return {
+        ...challenge,
+        challengeItems: todayChallengeItems,
+        challengeItemCount: todayChallengeItems.length,
+        originalChallengeItemCount: challenge.challengeItems.length,
+      };
+    });
+  });
+
   const handleChangeComplete =
     (challengeId: number) =>
     (challengeItemId: number, isCompleted: Nullable<boolean>) => {
@@ -153,7 +176,7 @@ export const useChallenges = createRoot(() => {
     };
 
   const progressChallengeItemCount = createMemo(() =>
-    challenges().reduce(
+    todayChallenge().reduce(
       (acc, current) =>
         acc +
         current.challengeItems.filter((it) =>
@@ -164,7 +187,7 @@ export const useChallenges = createRoot(() => {
   );
 
   const winChallengeItemCount = createMemo(() =>
-    challenges().reduce(
+    todayChallenge().reduce(
       (acc, current) =>
         acc +
         current.challengeItems.filter((it) =>
@@ -180,7 +203,7 @@ export const useChallenges = createRoot(() => {
 
   const loseChallengeItemCount = createMemo(
     () =>
-      challenges().reduce(
+      todayChallenge().reduce(
         (acc, current) => acc + current.challengeItems.length,
         0
       ) -
@@ -194,7 +217,7 @@ export const useChallenges = createRoot(() => {
   };
 
   return {
-    challenges,
+    challenges: todayChallenge,
     handleChangeComplete,
     handleChangeCountable,
     progressChallengeItemCount,
