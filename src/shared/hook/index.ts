@@ -1,1 +1,1 @@
-export * from './create-boolean';
+export * from './create-boolean.hook';
