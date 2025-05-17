@@ -5,3 +5,4 @@ export * from './challenge-item-type.type';
 export * from './challenge-item.type';
 export * from './nullable.type';
 export * from './rolling-display-type.type';
+export * from './toast.type';
