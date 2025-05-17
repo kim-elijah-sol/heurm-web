@@ -1,5 +1,6 @@
 import { createMemo, createRoot, createSignal } from 'solid-js';
 import { CHALLENGE_DAY } from '~/shared/constant';
+import { toast } from '~/shared/lib';
 import { ChallengeColor, ChallengeItem, Nullable } from '~/shared/model';
 
 type Challenge = {
@@ -187,8 +188,10 @@ export const useChallenges = createRoot(() => {
       progressChallengeItemCount()
   );
 
-  const addNewChallenge = (challenge: Challenge) =>
+  const addNewChallenge = (challenge: Challenge) => {
+    toast.open(`🎉 '${challenge.title}' Challenge is added!`);
     setChallenges([...challenges(), challenge]);
+  };
 
   return {
     challenges,

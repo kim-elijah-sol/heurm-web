@@ -1,8 +1,10 @@
 import { clsx } from 'clsx';
 import { Accessor, Component, For, Match, Switch } from 'solid-js';
+import { LOSE_WRITING, WIN_WRITING } from '~/entities/main/constant';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
+import { toast } from '~/shared/lib';
 import {
   ChallengeColor,
   ChallengeItem as ChallengeItemType,
@@ -89,17 +91,66 @@ export const ChallengeCard: Component<Props> = (props) => {
                 <Match when={challengeItem.type === 'complete'}>
                   <ChallengeItem.Complete
                     {...(challengeItem as CompleteChallengeItem)}
-                    onChange={(isCompleted) =>
-                      handleChangeComplete(challengeItem.id, isCompleted)
-                    }
+                    onChange={(isCompleted) => {
+                      if (isCompleted === true) {
+                        const winWriting =
+                          WIN_WRITING[
+                            Math.floor(Math.random() * WIN_WRITING.length)
+                          ];
+
+                        toast.open(
+                          `🎉 great! '${challengeItem.name}' challenge is complete!<br/>${winWriting}`
+                        );
+                      } else if (isCompleted === false) {
+                        const loseWriting =
+                          LOSE_WRITING[
+                            Math.floor(Math.random() * LOSE_WRITING.length)
+                          ];
+
+                        toast.open(loseWriting);
+                      }
+                      handleChangeComplete(challengeItem.id, isCompleted);
+                    }}
                   />
                 </Match>
                 <Match when={challengeItem.type !== 'complete'}>
                   <ChallengeItem.Countable
                     {...(challengeItem as CountableChallengeItem)}
-                    onChange={(count) =>
-                      handleChangeCountable(challengeItem.id, count)
-                    }
+                    onChange={(count) => {
+                      const result = (() => {
+                        const { type, targetCount } =
+                          challengeItem as CountableChallengeItem;
+
+                        if (count === null) return null;
+
+                        if (type === 'over' && count >= targetCount)
+                          return true;
+                        if (type === 'under' && count <= targetCount)
+                          return true;
+
+                        return false;
+                      })();
+
+                      if (result === true) {
+                        const winWriting =
+                          WIN_WRITING[
+                            Math.floor(Math.random() * WIN_WRITING.length)
+                          ];
+
+                        toast.open(
+                          `🎉 great! '${challengeItem.name}' challenge is complete!<br/>${winWriting}`
+                        );
+                      } else if (result === false) {
+                        const loseWriting =
+                          LOSE_WRITING[
+                            Math.floor(Math.random() * LOSE_WRITING.length)
+                          ];
+
+                        toast.open(loseWriting);
+                      }
+
+                      handleChangeCountable(challengeItem.id, count);
+                    }}
                   />
                 </Match>
               </Switch>

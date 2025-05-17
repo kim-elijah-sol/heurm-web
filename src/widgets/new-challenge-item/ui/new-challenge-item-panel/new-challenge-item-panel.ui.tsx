@@ -1,6 +1,7 @@
 import { Component } from 'solid-js';
 import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
 import { NewChallengeItemStep } from '~/features/new-challenge-item/ui';
+import { toast } from '~/shared/lib';
 import { ChallengeItem } from '~/shared/model';
 import { Panel } from '~/shared/ui';
 import './new-challenge-item-step.ui.css';
@@ -75,6 +76,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
               const _type = type();
 
               if (_type === null) return;
+
+              toast.open(`🎉 '${name()}' is added!`);
 
               if (_type === 'complete') {
                 props.onSubmit({
