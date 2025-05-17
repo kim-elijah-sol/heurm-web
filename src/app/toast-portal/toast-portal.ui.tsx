@@ -17,8 +17,6 @@ export const ToastPortal = () => {
       text,
     };
 
-    if (toasts().some((toast) => toast.text === text)) return;
-
     setToasts((toasts) => toasts.concat(toast));
 
     setTimeout(() => {
