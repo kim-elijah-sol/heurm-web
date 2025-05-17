@@ -27,6 +27,7 @@ type Props = {
     challengeItemId: number,
     count: Nullable<number>
   ) => void;
+  originalChallengeItemCount: Accessor<number>;
 };
 
 export const ChallengeCard: Component<Props> = (props) => {
@@ -157,15 +158,20 @@ export const ChallengeCard: Component<Props> = (props) => {
             );
           }}
         </For>
-        {props.challengeItems().length === 0 && (
-          <NoChallengeItem
-            color={() => props.color()}
-            onClick={() => {
-              newChallengeItemPanelOpen = true;
-              openChallengeEditPanel();
-            }}
-          />
-        )}
+        {props.challengeItems().length === 0 &&
+          props.originalChallengeItemCount() === 0 && (
+            <NoChallengeItem
+              color={() => props.color()}
+              onClick={() => {
+                newChallengeItemPanelOpen = true;
+                openChallengeEditPanel();
+              }}
+            />
+          )}
+        {props.challengeItems().length === 0 &&
+          props.originalChallengeItemCount() !== 0 && (
+            <NoChallengeItem.Today color={() => props.color()} />
+          )}
       </div>
     </div>
   );

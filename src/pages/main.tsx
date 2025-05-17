@@ -31,6 +31,9 @@ function Main() {
                   challengeItems={() => challenge.challengeItems}
                   onChangeCompleteItem={handleChangeComplete(challenge.id)}
                   onChangeCountableItem={handleChangeCountable(challenge.id)}
+                  originalChallengeItemCount={() =>
+                    challenge.originalChallengeItemCount
+                  }
                 />
               )}
             </For>

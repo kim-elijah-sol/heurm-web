@@ -12,7 +12,6 @@ type Challenge = {
 };
 
 type TodayChallenge = Challenge & {
-  challengeItemCount: number;
   originalChallengeItemCount: number;
 };
 
@@ -28,7 +27,8 @@ export const useChallenges = createRoot(() => {
           name: '3km running',
           type: 'complete',
           isCompleted: null,
-          day: [...CHALLENGE_DAY],
+          //day: [...CHALLENGE_DAY],
+          day: [],
         },
         {
           id: 3,
@@ -44,7 +44,8 @@ export const useChallenges = createRoot(() => {
           type: 'under',
           targetCount: 15,
           count: null,
-          day: ['TUE', 'THU', 'SAT'],
+          // day: ['TUE', 'THU', 'SAT'],
+          day: [],
         },
       ],
     },
@@ -125,7 +126,6 @@ export const useChallenges = createRoot(() => {
       return {
         ...challenge,
         challengeItems: todayChallengeItems,
-        challengeItemCount: todayChallengeItems.length,
         originalChallengeItemCount: challenge.challengeItems.length,
       };
     });

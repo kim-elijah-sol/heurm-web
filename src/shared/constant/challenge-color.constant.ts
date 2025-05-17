@@ -129,3 +129,14 @@ export const CHALLENGE_ACTIVE_BG_500_COLOR = {
   purple: 'active:bg-purple-500',
   pink: 'active:bg-pink-500',
 } as const;
+
+export const CHALLENGE_TEXT_COLOR_500 = {
+  red: 'text-red-500',
+  green: 'text-green-500',
+  blue: 'text-blue-500',
+  indigo: 'text-indigo-500',
+  teal: 'text-teal-500',
+  yellow: 'text-yellow-500',
+  purple: 'text-purple-500',
+  pink: 'text-pink-500',
+} as const;
