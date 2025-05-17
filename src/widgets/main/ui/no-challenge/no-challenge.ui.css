@@ -1,0 +1,21 @@
+@keyframes no-challenge {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+.no-challenge {
+  background: linear-gradient(to right, #888, #888, #222, #888, #888);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 800% 100%;
+  background-position: 0% 0%;
+  animation: no-challenge 5s ease-in-out infinite;
+}

@@ -6,6 +6,7 @@ import {
   Footer,
   MainTop,
   NewChallengeButton,
+  NoChallenge,
   Overview,
 } from '~/widgets/main/ui';
 
@@ -20,19 +21,24 @@ function Main() {
         <DateSelect />
         <Overview />
 
-        <div class='flex flex-col gap-4 mb-2'>
-          <For each={challenges()}>
-            {(challenge) => (
-              <ChallengeCard
-                title={() => challenge.title}
-                color={() => challenge.color}
-                challengeItems={() => challenge.challengeItems}
-                onChangeCompleteItem={handleChangeComplete(challenge.id)}
-                onChangeCountableItem={handleChangeCountable(challenge.id)}
-              />
-            )}
-          </For>
-        </div>
+        {challenges().length !== 0 ? (
+          <div class='flex flex-col gap-4 mb-2'>
+            <For each={challenges()}>
+              {(challenge) => (
+                <ChallengeCard
+                  title={() => challenge.title}
+                  color={() => challenge.color}
+                  challengeItems={() => challenge.challengeItems}
+                  onChangeCompleteItem={handleChangeComplete(challenge.id)}
+                  onChangeCountableItem={handleChangeCountable(challenge.id)}
+                />
+              )}
+            </For>
+          </div>
+        ) : (
+          <NoChallenge />
+        )}
+
         <NewChallengeButton />
       </div>
       <Footer />

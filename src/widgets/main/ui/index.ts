@@ -3,4 +3,5 @@ export * from './date-select';
 export * from './footer';
 export * from './main-top';
 export * from './new-challenge-button';
+export * from './no-challenge';
 export * from './overview';
