@@ -34,7 +34,22 @@ export const Footer = () => {
         </p>
       </div>
 
-      <p class='mt-6 font-semibold text-slate-400 text-sm text-center'>
+      <div class='flex flex-col gap-2 mt-6'>
+        <a
+          href='/guard/terms-of-use'
+          class='font-extrabold text-slate-600 text-sm text-center'
+        >
+          Terms of Use
+        </a>
+        <a
+          href='/guard/privacy-policy'
+          class='font-extrabold text-slate-600 text-sm text-center'
+        >
+          Privacy Policy
+        </a>
+      </div>
+
+      <p class='mt-8 font-semibold text-slate-400 text-sm text-center'>
         © 2025 Win Yourself. All rights reserved.
       </p>
     </footer>
