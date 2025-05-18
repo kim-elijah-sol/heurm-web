@@ -1,0 +1,34 @@
+@keyframes week-calendar {
+  0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+.week-calendar {
+  animation: week-calendar 0.3s forwards;
+}
+
+@keyframes closing {
+  0% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+}
+
+.closing {
+  animation: closing 0.3s forwards;
+}
+
+.week-calendar-date {
+  width: calc(calc(100vw - 96px) / 7);
+  height: calc(calc(100vw - 96px) / 7);
+}

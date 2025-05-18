@@ -4,6 +4,8 @@ export * from './calendar-range.ui';
 export * from './chart-line.ui';
 export * from './check-check.ui';
 export * from './check.ui';
+export * from './chevron-left.ui';
+export * from './chevron-right.ui';
 export * from './chevrons-down.ui';
 export * from './chevrons-up.ui';
 export * from './key-round.ui';

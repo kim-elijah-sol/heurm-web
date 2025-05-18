@@ -6,4 +6,5 @@ export * from './motivation-card';
 export * from './no-challenge-item';
 export * from './overview-card';
 export * from './user-avatar';
+export * from './week-calendar';
 export * from './week-picker';

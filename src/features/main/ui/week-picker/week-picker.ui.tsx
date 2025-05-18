@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { Accessor, Component } from 'solid-js';
 import { createBoolean } from '~/shared/hook';
 import { CalendarRange } from '~/shared/ui';
+import { WeekCalendar } from '../week-calendar';
 
 type Props = {
   date: Accessor<Date>;
@@ -10,10 +11,20 @@ type Props = {
 };
 
 export const WeekPicker: Component<Props> = (props) => {
-  const [isWeekCalendarOpened, open, close] = createBoolean();
+  const [isWeekCalendarOpened, open, _close] = createBoolean();
+
+  const [isClosing, closeStart, closeEnd] = createBoolean();
+
+  const close = () => {
+    closeStart();
+    setTimeout(() => {
+      closeEnd();
+      _close();
+    }, 300);
+  };
 
   return (
-    <div class='mb-4 flex justify-center'>
+    <div class='mb-4 flex justify-center relative'>
       <div
         onClick={() => (isWeekCalendarOpened() ? close() : open())}
         class={clsx(
@@ -24,6 +35,17 @@ export const WeekPicker: Component<Props> = (props) => {
         <CalendarRange />
         {format(props.date(), 'yyyy.MM.dd')}
       </div>
+      {isWeekCalendarOpened() && (
+        <WeekCalendar
+          date={props.date}
+          onChange={(date) => {
+            props.onChange(date);
+            close();
+          }}
+          isClosing={isClosing}
+          onClose={close}
+        />
+      )}
     </div>
   );
 };
