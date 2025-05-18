@@ -1,39 +1,21 @@
-import { createEffect, For } from 'solid-js';
-import { isSameDate } from '~/features/main/fx';
+import { For } from 'solid-js';
+import { getMidnight, isSameDate } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { DateCard } from '~/features/main/ui';
-import './date-select.ui.css';
 
 export const DateSelect = () => {
-  const { current, setCurrent, dates } = createDateSelect();
-
-  let container: HTMLDivElement;
-
-  createEffect(() => {
-    let scrollX = 0;
-
-    for (const date of dates()) {
-      if (isSameDate(date, current())) {
-        break;
-      }
-
-      scrollX += 60 + 16;
-    }
-
-    container.scrollTo({ left: scrollX, behavior: 'smooth' });
-  });
+  const { current, weeks, setCurrent } = createDateSelect();
 
   return (
-    <div
-      ref={(ref) => (container = ref)}
-      class='wys-date-select-container flex items-center gap-4 overflow-x-auto w-[100vw] ml-[-16px] py-2 h-[124px]'
-    >
-      <For each={dates()}>
+    <div class='flex gap-2 mb-4'>
+      <For each={weeks()}>
         {(date) => (
           <DateCard
             date={() => date}
             isCurrent={() => isSameDate(date, current())}
+            isToday={() => isSameDate(date, getMidnight())}
             onClick={() => setCurrent(date)}
+            status={() => 'pending'}
           />
         )}
       </For>
