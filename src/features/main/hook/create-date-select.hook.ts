@@ -1,31 +1,16 @@
-import { createSignal } from 'solid-js';
+import { createMemo, createSignal } from 'solid-js';
+import { getMidnight, getWeeks } from '../fx';
+
+const [current, _setCurrent] = createSignal<Date>(getMidnight());
 
 export const createDateSelect = () => {
-  const start = new Date('2025-03-21');
+  const weeks = createMemo(() => getWeeks(current()));
 
-  const end = new Date('2025-04-22');
-
-  const [current, setCurrent] = createSignal(new Date('2025-04-22'));
-
-  const dates = () => {
-    const dates = [];
-    let currentDate = new Date(start);
-
-    if (end < start) {
-      return [];
-    }
-
-    while (currentDate <= end) {
-      dates.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    return dates;
-  };
+  const setCurrent = (date: Date) => _setCurrent(getMidnight(date));
 
   return {
     current,
     setCurrent,
-    dates,
+    weeks,
   };
 };
