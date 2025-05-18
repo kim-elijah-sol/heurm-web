@@ -1,10 +1,7 @@
 import { Component } from 'solid-js';
 import { useChallenges } from '~/features/main/hook';
 import { createNewChallengeForm } from '~/features/new-challenge/hook';
-import {
-  NewChallengeCTAButton,
-  NewChallengeTitleInput,
-} from '~/features/new-challenge/ui';
+import { NewChallengeTitleInput } from '~/features/new-challenge/ui';
 import { ChallengeColorSelect, Panel } from '~/shared/ui';
 
 type Props = {
@@ -51,7 +48,13 @@ export const NewChallengePanel: Component<Props> = (props) => {
             <ChallengeColorSelect color={color} setColor={setColor} />
           </div>
 
-          <NewChallengeCTAButton disabled={submitDisabled} color={color} />
+          <Panel.CTAButton
+            type='submit'
+            color={color}
+            disabled={submitDisabled()}
+          >
+            Create
+          </Panel.CTAButton>
         </form>
       )}
     </Panel.Blured>
