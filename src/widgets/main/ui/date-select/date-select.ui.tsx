@@ -1,4 +1,4 @@
-import { For } from 'solid-js';
+import { Index } from 'solid-js';
 import { getMidnight, isSameDate } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { DateCard } from '~/features/main/ui';
@@ -8,17 +8,17 @@ export const DateSelect = () => {
 
   return (
     <div class='flex gap-2 mb-4 justify-between'>
-      <For each={weeks()}>
+      <Index each={weeks()}>
         {(date) => (
           <DateCard
-            date={() => date}
-            isCurrent={() => isSameDate(date, current())}
-            isToday={() => isSameDate(date, getMidnight())}
-            onClick={() => setCurrent(date)}
+            date={date}
+            isCurrent={() => isSameDate(date(), current())}
+            isToday={() => isSameDate(date(), getMidnight())}
+            onClick={() => setCurrent(date())}
             status={() => 'pending'}
           />
         )}
-      </For>
+      </Index>
     </div>
   );
 };
