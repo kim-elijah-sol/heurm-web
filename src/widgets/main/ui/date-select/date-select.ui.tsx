@@ -7,7 +7,7 @@ export const DateSelect = () => {
   const { current, weeks, setCurrent } = createDateSelect();
 
   return (
-    <div class='flex gap-2 mb-4'>
+    <div class='flex gap-2 mb-4 justify-between'>
       <For each={weeks()}>
         {(date) => (
           <DateCard
