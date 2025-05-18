@@ -31,4 +31,6 @@
 .week-calendar-date {
   width: calc(calc(100vw - 96px) / 7);
   height: calc(calc(100vw - 96px) / 7);
+  max-width: 50px;
+  max-height: 50px;
 }
