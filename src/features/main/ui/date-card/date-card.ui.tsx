@@ -1,42 +1,29 @@
-import { clsx } from 'clsx';
+import clsx from 'clsx';
 import type { Accessor, Component, JSX } from 'solid-js';
-import { getDayText } from '../../fx';
+import { ChallengeDayStatus } from '~/entities/main/model';
+import './date-card.ui.css';
 
 type Props = {
   date: Accessor<Date>;
   isCurrent: Accessor<boolean>;
+  isToday: Accessor<boolean>;
   onClick: JSX.CustomEventHandlersCamelCase<HTMLDivElement>['onClick'];
+  status: Accessor<ChallengeDayStatus>;
 };
 
 export const DateCard: Component<Props> = (props) => {
-  const date = () => `${props.date().getMonth() + 1}.${props.date().getDate()}`;
-
-  const dayText = () => getDayText(props.date().getDay());
-
-  const cardClassName = () =>
-    clsx(
-      'flex flex-col items-center rounded-3xl bg-white transition-all shadow-[0_0_8px_4px_rgba(70,70,70,0.05)]',
-      props.isCurrent()
-        ? 'py-6 min-w-[74px] active:scale-[0.95]'
-        : 'py-4 min-w-[60px] opacity-[0.5] active:scale-[0.9]'
-    );
-
-  const dateClassName = () =>
-    clsx(
-      'font-bold transition-all',
-      props.isCurrent() ? 'text-xl mb-4' : 'text-sm mb-3'
-    );
-
-  const dayClassName = () =>
-    clsx(
-      'font-semibold text-slate-600 transition-all',
-      props.isCurrent() ? 'text-xs' : 'text-[10px]'
-    );
-
   return (
-    <div class={cardClassName()} onClick={props.onClick}>
-      <p class={dateClassName()}>{date()}</p>
-      <span class={dayClassName()}>{dayText()}</span>
+    <div
+      class={clsx(
+        'date-card rounded-[35%] text-white font-semibold flex items-center justify-center transition-all duration-300 active:scale-90',
+        props.status() === 'win'
+          ? 'bg-emerald-300 active:bg-emerald-400'
+          : props.status() === 'lose'
+          ? 'bg-rose-300 active:bg-rose-400'
+          : 'bg-gray-300 active:bg-gray-400'
+      )}
+    >
+      {props.date().getDate()}
     </div>
   );
 };
