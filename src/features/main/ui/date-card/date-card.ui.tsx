@@ -15,7 +15,7 @@ export const DateCard: Component<Props> = (props) => {
   return (
     <div
       class={clsx(
-        'date-card rounded-[35%] text-white font-semibold flex items-center justify-center transition-all duration-300 active:scale-90',
+        'date-card relative rounded-[35%] text-white font-semibold flex items-center justify-center transition-all duration-300 active:scale-90',
         props.status() === 'win'
           ? 'bg-emerald-300 active:bg-emerald-400'
           : props.status() === 'lose'
@@ -24,6 +24,10 @@ export const DateCard: Component<Props> = (props) => {
       )}
     >
       {props.date().getDate()}
+
+      {props.isToday() && (
+        <div class='absolute left-1/2 bottom-[6px] -translate-x-1/2 w-1 h-1 rounded-full bg-white' />
+      )}
     </div>
   );
 };
