@@ -1,5 +1,10 @@
 import { Accessor, Component } from 'solid-js';
-import { AnalyticsPanelTop } from '~/features/analytics/ui';
+import {
+  AnalyticsCard,
+  AnalyticsChart,
+  AnalyticsOverviewCard,
+  AnalyticsPanelTop,
+} from '~/features/analytics/ui';
 import { ChallengeColor, ChallengeItem } from '~/shared/model';
 import { Panel } from '~/shared/ui';
 
@@ -16,7 +21,42 @@ export const AnalyticsPanel: Component<Props> = (props) => {
       {(close) => (
         <>
           <AnalyticsPanelTop title={props.title} close={close} />
-          <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20 pt-[60px]'></div>
+          <div class='flex-1 overflow-y-auto overflow-x-visible flex flex-col items-center pb-20 pt-[60px]'>
+            <div class='flex gap-3 w-full'>
+              <AnalyticsOverviewCard title='🏆 Win!' color='green' count={15} />
+              <AnalyticsOverviewCard title='😥 Lose' color='red' count={7} />
+            </div>
+
+            <div class='w-full min-h-[1px] bg-linear-to-r from-white via-slate-300 to-white my-8' />
+
+            <div class='flex flex-col w-full gap-6'>
+              {props.challengeItems().map((it) => (
+                <AnalyticsCard
+                  name={it.name}
+                  type={it.type}
+                  color={props.color()}
+                  targetCount={it.type === 'complete' ? null : it.targetCount}
+                >
+                  {it.type === 'over' && (
+                    <AnalyticsChart.Over
+                      targetCount={it.targetCount}
+                      datas={[190, 205, 185, 200, 205, 210, 205]}
+                      color={props.color()}
+                      name={it.name}
+                    />
+                  )}
+                  {it.type === 'under' && (
+                    <AnalyticsChart.Under
+                      targetCount={it.targetCount}
+                      datas={[16, 18, 15, 17, 14.5, 14, 14.1]}
+                      color={props.color()}
+                      name={it.name}
+                    />
+                  )}
+                </AnalyticsCard>
+              ))}
+            </div>
+          </div>
         </>
       )}
     </Panel.Slide>
