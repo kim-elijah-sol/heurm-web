@@ -20,4 +20,5 @@ export * from './sparkles.ui';
 export * from './trash-2.ui';
 export * from './user-plus.ui';
 export * from './user-round-pen';
+export * from './wand-sparkles.ui';
 export * from './x.ui';
