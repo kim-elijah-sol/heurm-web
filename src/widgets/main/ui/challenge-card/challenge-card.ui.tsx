@@ -13,6 +13,7 @@ import {
   Nullable,
 } from '~/shared/model';
 import { ChartLine, Menu } from '~/shared/ui';
+import { AnalyticsPanel } from '~/widgets/analytics/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
 
 type Props = {
@@ -34,12 +35,15 @@ export const ChallengeCard: Component<Props> = (props) => {
   const [
     isChallengeEditPanel,
     openChallengeEditPanel,
-    closeChallengeEditPanel,
+    _closeChallengeEditPanel,
   ] = createBoolean();
 
-  const close = () => {
+  const [isAnalycisPanel, openAnalycisPanel, closeAnalycisPanel] =
+    createBoolean();
+
+  const closeChallengeEditPanel = () => {
     newChallengeItemPanelOpen = false;
-    closeChallengeEditPanel();
+    _closeChallengeEditPanel();
   };
 
   let newChallengeItemPanelOpen = false;
@@ -67,22 +71,13 @@ export const ChallengeCard: Component<Props> = (props) => {
       <div class={topClassName()}>
         <p class='font-semibold text-white'>{props.title()}</p>
         <div class='flex gap-[6px]'>
-          <button class={topButtonClassName}>
+          <button class={topButtonClassName} onClick={openAnalycisPanel}>
             <ChartLine />
           </button>
           <button class={topButtonClassName} onClick={openChallengeEditPanel}>
             <Menu />
           </button>
         </div>
-        {isChallengeEditPanel() && (
-          <ChallengeEditPanel
-            title={props.title}
-            color={props.color}
-            close={close}
-            challengeItems={props.challengeItems}
-            newChallengeItemPanelOpen={newChallengeItemPanelOpen}
-          />
-        )}
       </div>
       <div class={itemsContainerClassName()}>
         <For each={props.challengeItems()}>
@@ -173,6 +168,25 @@ export const ChallengeCard: Component<Props> = (props) => {
             <NoChallengeItem.Today color={() => props.color()} />
           )}
       </div>
+
+      {isChallengeEditPanel() && (
+        <ChallengeEditPanel
+          title={props.title}
+          color={props.color}
+          close={closeChallengeEditPanel}
+          challengeItems={props.challengeItems}
+          newChallengeItemPanelOpen={newChallengeItemPanelOpen}
+        />
+      )}
+
+      {isAnalycisPanel() && (
+        <AnalyticsPanel
+          title={props.title}
+          color={props.color}
+          close={closeAnalycisPanel}
+          challengeItems={props.challengeItems}
+        />
+      )}
     </div>
   );
 };

@@ -35,7 +35,7 @@ export const useChallenges = createRoot(() => {
           type: 'over',
           targetCount: 200,
           count: null,
-          day: ['MON', 'WED', 'FRI'],
+          day: [...CHALLENGE_DAY],
         },
         {
           id: 4,
@@ -43,7 +43,7 @@ export const useChallenges = createRoot(() => {
           type: 'under',
           targetCount: 15,
           count: null,
-          day: ['TUE', 'THU', 'SAT'],
+          day: [...CHALLENGE_DAY],
         },
       ],
     },
