@@ -1,5 +1,11 @@
 # Win Yourself Journal
 
+# 2025-05-19
+
+확실히 notion 에 task 를 적고 일을 진행하니 속도가 붙는 것 같다.<br>
+FE 에서 남은 태스크를 후딱 쳐내고 Elysia 로 BE 를 개발해 볼 예정이다.<br>
+백엔드에서 제일 중요한 포인트는 timezone 계산이 될 것 같다.
+
 # 2025-05-11
 
 로그인 페이지를 만들다가 이메일 validation 을 해야하는데,<br>
