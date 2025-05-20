@@ -17,6 +17,7 @@ export const CompleteTypeChart: Component<Props> = (props) => {
   return (
     <SolidApexCharts
       type='line'
+      height={150}
       series={[
         {
           data,
@@ -93,8 +94,8 @@ export const CompleteTypeChart: Component<Props> = (props) => {
           },
           padding: {
             top: 0,
-            left: 0,
-            right: 0,
+            left: 16,
+            right: 16,
             bottom: 0,
           },
         },
