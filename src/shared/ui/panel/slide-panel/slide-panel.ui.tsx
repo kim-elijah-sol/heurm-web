@@ -6,6 +6,7 @@ import './slide-panel.ui.css';
 type Props = {
   close: () => void;
   children: (close: () => void) => JSX.Element;
+  class?: string;
 };
 
 export const SlidePanel: Component<Props> = (props) => {
@@ -25,7 +26,8 @@ export const SlidePanel: Component<Props> = (props) => {
       <div
         class={clsx(
           'fixed inset-0 z-50 bg-white wys-slide-panel-animation flex flex-col p-4 touch-none',
-          transition() ? 'wys-slide-panel-fade-out' : ''
+          transition() ? 'wys-slide-panel-fade-out' : '',
+          props.class
         )}
       >
         {resolved()}

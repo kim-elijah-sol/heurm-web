@@ -17,11 +17,11 @@ type Props = {
 
 export const AnalyticsPanel: Component<Props> = (props) => {
   return (
-    <Panel.Slide close={props.close}>
+    <Panel.Slide close={props.close} class='pb-0'>
       {(close) => (
         <>
           <AnalyticsPanelTop title={props.title} close={close} />
-          <div class='flex-1 overflow-y-auto overflow-x-visible flex flex-col items-center pb-20 pt-[60px]'>
+          <div class='flex-1 overflow-y-auto overflow-x-visible flex flex-col items-center pb-4 pt-[60px]'>
             <div class='flex gap-3 w-full'>
               <AnalyticsOverviewCard title='🏆 Win!' color='green' count={15} />
               <AnalyticsOverviewCard title='😥 Lose' color='red' count={7} />
