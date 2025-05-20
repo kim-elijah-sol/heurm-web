@@ -1,13 +1,10 @@
 import { SolidApexCharts } from 'solid-apexcharts';
 import { Component } from 'solid-js';
 import { getYAxisRange } from '~/features/analytics/fx';
-import { ChallengeColor } from '~/shared/model';
 
 type Props = {
   targetCount: number;
   datas: number[];
-  color: ChallengeColor;
-  name: string;
   type: 'over' | 'under';
 };
 
@@ -26,7 +23,6 @@ export const CountableChart: Component<Props> = (props) => {
       type='bar'
       series={[
         {
-          name: props.name,
           data: props.datas,
         },
       ]}
