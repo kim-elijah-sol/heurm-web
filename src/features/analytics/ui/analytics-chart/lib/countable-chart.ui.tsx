@@ -34,7 +34,7 @@ export const CountableChart: Component<Props> = (props) => {
               y: props.targetCount,
               borderColor: 'oklch(74.6% 0.16 232.661)',
               strokeDashArray: 0,
-              borderWidth: 1,
+              borderWidth: 2,
             },
           ],
         },
