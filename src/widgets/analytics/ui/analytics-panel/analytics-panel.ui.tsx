@@ -37,20 +37,21 @@ export const AnalyticsPanel: Component<Props> = (props) => {
                   color={props.color()}
                   targetCount={it.type === 'complete' ? null : it.targetCount}
                 >
+                  {it.type === 'complete' && (
+                    <AnalyticsChart.Complete
+                      datas={[true, false, true, false, false, true, true]}
+                    />
+                  )}
                   {it.type === 'over' && (
                     <AnalyticsChart.Over
                       targetCount={it.targetCount}
                       datas={[190, 205, 185, 200, 205, 210, 205]}
-                      color={props.color()}
-                      name={it.name}
                     />
                   )}
                   {it.type === 'under' && (
                     <AnalyticsChart.Under
                       targetCount={it.targetCount}
                       datas={[16, 18, 15, 17, 14.5, 14, 14.1]}
-                      color={props.color()}
-                      name={it.name}
                     />
                   )}
                 </AnalyticsCard>
