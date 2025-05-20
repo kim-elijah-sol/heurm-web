@@ -8,7 +8,7 @@ type Props = {
 
 export const AnalyticsPanelTop: Component<Props> = (props) => {
   return (
-    <div class='absolute flex items-center justify-between gap-4 left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm'>
+    <div class='absolute flex items-center justify-between gap-4 left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm z-1'>
       <p class='font-semibold text-2xl'>{props.title()}</p>
       <button
         onClick={props.close}
