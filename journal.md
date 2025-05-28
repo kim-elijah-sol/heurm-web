@@ -1,5 +1,10 @@
 # Win Yourself Journal
 
+# 2025-05-28
+
+일단 페이지 디자인은 모두 완료했다.<br>
+이제 server 개발과 api 붙히기를 병행하기로
+
 # 2025-05-20
 
 통계 페이지 내 차트는 apex-charts 로 구성하기로<br>
