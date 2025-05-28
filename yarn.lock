@@ -594,6 +594,18 @@
     postcss "^8.4.41"
     tailwindcss "4.1.4"
 
+"@tanstack/query-core@5.77.2":
+  version "5.77.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.77.2.tgz#a59f34068b96c5888075f04e6bc74b8076a3f97b"
+  integrity sha512-1lqJwPsR6GX6nZFw06erRt518O19tWU6Q+x0fJUygl4lxHCYF2nhzBPwLKk2NPjYOrpR0K567hxPc5K++xDe9Q==
+
+"@tanstack/solid-query@^5.77.2":
+  version "5.77.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/solid-query/-/solid-query-5.77.2.tgz#65f41b5306a2af300e63feff35d701625024061c"
+  integrity sha512-UQZj9P5kjfEq0f/TmvFZPmeF19BwE9AaOK4c1jQCyl0Ct3d9b1gsHmIq6w33mtEk3+bTW3X3g/mBVj/BHa9FtQ==
+  dependencies:
+    "@tanstack/query-core" "5.77.2"
+
 "@tybys/wasm-util@^0.9.0":
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/@tybys/wasm-util/-/wasm-util-0.9.0.tgz#3e75eb00604c8d6db470bf18c37b7d984a0e3355"
