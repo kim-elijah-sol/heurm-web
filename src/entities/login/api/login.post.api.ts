@@ -19,7 +19,6 @@ export const postLogin = async (request: LoginRequest) => {
       const loginResponseParse = loginResponseSchema.safeParse(response.data);
 
       if (loginResponseParse.success === false) {
-        console.log(loginResponseParse);
         throw loginResponseParse.error;
       }
 

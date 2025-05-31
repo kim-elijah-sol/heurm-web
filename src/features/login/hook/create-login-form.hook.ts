@@ -1,9 +1,8 @@
 import { useNavigate } from '@solidjs/router';
 import { createSignal } from 'solid-js';
-import {
-  loginFormValidator,
-  unsafeLoginFormValidator,
-} from '~/shared/validator';
+import { useLoginMutation } from '~/entities/login/mutation';
+import { STORAGE_KEYS } from '~/shared/constant';
+import { unsafeLoginFormValidator } from '~/shared/validator';
 
 export const createLoginForm = () => {
   const [email, setEmail] = createSignal<string>('');
@@ -12,18 +11,15 @@ export const createLoginForm = () => {
 
   const navigate = useNavigate();
 
-  const submitErrorMessage = () => {
-    const loginFormValid = loginFormValidator.safeParse({
-      email: email(),
-      password: password(),
-    });
+  const { mutate } = useLoginMutation(async (response) => {
+    const { accessToken, refreshToken, clientId } = response.data;
 
-    if (loginFormValid.success === false) {
-      return loginFormValid.error.errors[0].message;
-    }
+    localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+    localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+    localStorage.setItem(STORAGE_KEYS.CLIENT_ID, clientId);
 
-    return null;
-  };
+    navigate('/');
+  });
 
   const submitDisabled = () => {
     return (
@@ -37,12 +33,10 @@ export const createLoginForm = () => {
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
 
-    if (submitErrorMessage()) {
-      alert(submitErrorMessage());
-      return;
-    }
-
-    navigate('/');
+    mutate({
+      email: email(),
+      password: password(),
+    });
   };
 
   const handleInputEmail = (e: InputEvent & { target: HTMLInputElement }) => {
