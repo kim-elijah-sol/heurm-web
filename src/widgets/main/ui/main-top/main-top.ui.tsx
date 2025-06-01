@@ -1,3 +1,4 @@
+import { userQueries } from '~/entities/user';
 import { HelloUser, UserAvatar } from '~/features/main/ui';
 import { createBoolean } from '~/shared/hook';
 import { UserQuickMenuPanel, UserSettingPanel } from '~/widgets/user/ui';
@@ -12,11 +13,13 @@ export const MainTop = () => {
   const [isUserSettingPanel, openUserSettingPanel, closeUserSettingPanel] =
     createBoolean();
 
+  const profile = userQueries.useProfileQuery();
+
   return (
     <div class='flex items-center justify-between mb-4'>
-      <HelloUser userName={() => 'Sol'} />
+      <HelloUser userName={() => profile.data?.name} />
       <UserAvatar
-        src={() => 'https://avatars.githubusercontent.com/u/86874556?v=4'}
+        src={() => profile.data?.profileImage ?? undefined}
         onClick={openUserQuickMenuPanel}
       />
       {isUserQuickMenuPanel() && (
