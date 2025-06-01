@@ -4,7 +4,15 @@ import {
 } from '@tanstack/solid-query';
 import { Component, JSX } from 'solid-js';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+    },
+  },
+});
 
 type Props = {
   children: JSX.Element;
