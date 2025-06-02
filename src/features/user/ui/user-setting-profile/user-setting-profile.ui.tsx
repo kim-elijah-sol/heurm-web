@@ -1,24 +1,50 @@
-import { Trash2 } from '~/shared/ui';
+import { Accessor, Component, JSX } from 'solid-js';
+import { Nullable } from '~/shared/model';
+import { Trash2, UserRound } from '~/shared/ui';
 
-export const UserSettingProfile = () => {
+type Props = {
+  profileImage: Accessor<Nullable<string>>;
+  onUploadProfileImage: JSX.ChangeEventHandlerUnion<HTMLInputElement, Event>;
+  onRemoveProfileImage: () => void;
+};
+
+export const UserSettingProfile: Component<Props> = (props) => {
+  const profileImage = () => props.profileImage();
+
+  let inputFile: HTMLInputElement;
+
   return (
-    <div class='relative' onClick={() => console.log('profile update')}>
-      <img
-        class='rounded-[35%] w-20 h-20 transition-all duration-300 active:scale-95'
-        src='https://avatars.githubusercontent.com/u/86874556?v=4'
-        alt=''
+    <div class='relative' onClick={() => inputFile.click()}>
+      <div class='rounded-[35%] overflow-hidden w-20 h-20 transition-all duration-300 active:scale-95'>
+        {profileImage() ? (
+          <img class='w-full h-full' src={profileImage()!} alt='' />
+        ) : (
+          <div class='w-full h-full bg-linear-150 from-gray-300 to-gray-300/65 flex items-center justify-center'>
+            <UserRound size={40} />
+          </div>
+        )}
+      </div>
+
+      {profileImage() !== null && (
+        <button
+          class='absolute -right-1 -top-1 p-1 rounded-full bg-gray-400 transition-all duration-300 active:scale-90'
+          onClick={(e) => {
+            e.stopPropagation();
+
+            props.onRemoveProfileImage();
+          }}
+        >
+          <Trash2 />
+        </button>
+      )}
+
+      <input
+        ref={(el) => (inputFile = el)}
+        type='file'
+        accept='image/*'
+        class='hidden'
+        onChange={props.onUploadProfileImage}
       />
-
-      <button
-        class='absolute -right-1 -top-1 p-1 rounded-full bg-gray-400 transition-all duration-300 active:scale-90'
-        onClick={(e) => {
-          e.stopPropagation();
-
-          console.log('profile remove');
-        }}
-      >
-        <Trash2 />
-      </button>
     </div>
   );
 };

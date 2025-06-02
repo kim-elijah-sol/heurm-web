@@ -1,4 +1,5 @@
 import { Component } from 'solid-js';
+import { createUserSettingForm } from '~/features/user/hook';
 import {
   UserSettingCancelAccountButton,
   UserSettingForm,
@@ -11,6 +12,19 @@ type Props = {
 };
 
 export const UserSettingPanel: Component<Props> = (props) => {
+  const {
+    name,
+    setName,
+    profileImage,
+    handleUploadProfileImage,
+    handleRemoveProfileImage,
+    currentPassword,
+    setCurrentPassword,
+    newPassword,
+    setNewPassword,
+    submitDisalbed,
+  } = createUserSettingForm();
+
   return (
     <Panel.Slide close={props.close}>
       {(close) => (
@@ -24,11 +38,19 @@ export const UserSettingPanel: Component<Props> = (props) => {
                 <X size={24} />
               </button>
 
-              <UserSettingProfile />
+              <UserSettingProfile
+                profileImage={profileImage}
+                onRemoveProfileImage={handleRemoveProfileImage}
+                onUploadProfileImage={handleUploadProfileImage}
+              />
 
               <UserSettingForm>
                 <UserSettingForm.Label>Your Name</UserSettingForm.Label>
-                <UserSettingForm.Input type='text' />
+                <UserSettingForm.Input
+                  type='text'
+                  value={name()}
+                  onInput={(e) => setName(e.target.value)}
+                />
               </UserSettingForm>
 
               <UserSettingForm>
@@ -38,11 +60,15 @@ export const UserSettingPanel: Component<Props> = (props) => {
                   maxlength={16}
                   placeholder='current password'
                   class='mb-2'
+                  value={currentPassword()}
+                  onInput={(e) => setCurrentPassword(e.target.value)}
                 />
                 <UserSettingForm.Input
                   type='password'
                   maxlength={16}
                   placeholder='new password'
+                  value={newPassword()}
+                  onInput={(e) => setNewPassword(e.target.value)}
                 />
               </UserSettingForm>
             </div>
@@ -50,7 +76,9 @@ export const UserSettingPanel: Component<Props> = (props) => {
             <UserSettingCancelAccountButton />
           </div>
 
-          <Panel.CTAButton color={() => 'green'}>Save</Panel.CTAButton>
+          <Panel.CTAButton disabled={submitDisalbed()} color={() => 'green'}>
+            Save
+          </Panel.CTAButton>
         </div>
       )}
     </Panel.Slide>
