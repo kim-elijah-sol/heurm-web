@@ -1,6 +1,6 @@
 import { Accessor, Component, JSX } from 'solid-js';
 import { Nullable } from '~/shared/model';
-import { Trash2, UserRound } from '~/shared/ui';
+import { ServerImage, Trash2, UserRound } from '~/shared/ui';
 
 type Props = {
   profileImage: Accessor<Nullable<string>>;
@@ -17,7 +17,11 @@ export const UserSettingProfile: Component<Props> = (props) => {
     <div class='relative' onClick={() => inputFile.click()}>
       <div class='rounded-[35%] overflow-hidden w-20 h-20 transition-all duration-300 active:scale-95'>
         {profileImage() ? (
-          <img class='w-full h-full' src={profileImage()!} alt='' />
+          profileImage()!.includes('/uploads') ? (
+            <ServerImage class='w-full h-full' src={profileImage()!} alt='' />
+          ) : (
+            <img class='w-full h-full' src={profileImage()!} alt='' />
+          )
         ) : (
           <div class='w-full h-full bg-linear-150 from-gray-300 to-gray-300/65 flex items-center justify-center'>
             <UserRound size={40} />

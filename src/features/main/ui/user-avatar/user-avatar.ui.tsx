@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Accessor, Component } from 'solid-js';
-import { UserRound } from '~/shared/ui';
+import { ServerImage, UserRound } from '~/shared/ui';
 
 type Props = {
   src: Accessor<string | undefined>;
@@ -20,7 +20,7 @@ export const UserAvatar: Component<Props> = (props) => {
         )}
       >
         {src() ? (
-          <img src={props.src()} alt='' class='w-full h-full' />
+          <ServerImage src={props.src()!} alt='' class='w-full h-full' />
         ) : (
           <div class='w-full h-full bg-linear-150 from-gray-300 to-gray-300/65 flex items-center justify-center'>
             <UserRound />
