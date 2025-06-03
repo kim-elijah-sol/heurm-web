@@ -23,6 +23,7 @@ export const UserSettingPanel: Component<Props> = (props) => {
     newPassword,
     setNewPassword,
     submitDisalbed,
+    handleSubmit,
   } = createUserSettingForm();
 
   return (
@@ -76,7 +77,11 @@ export const UserSettingPanel: Component<Props> = (props) => {
             <UserSettingCancelAccountButton />
           </div>
 
-          <Panel.CTAButton disabled={submitDisalbed()} color={() => 'green'}>
+          <Panel.CTAButton
+            onClick={handleSubmit}
+            disabled={submitDisalbed()}
+            color={() => 'green'}
+          >
             Save
           </Panel.CTAButton>
         </div>

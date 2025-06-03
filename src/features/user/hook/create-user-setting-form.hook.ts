@@ -1,10 +1,17 @@
 import { createEffect, createSignal, JSX } from 'solid-js';
 import { userQueries, userValidator } from '~/entities/user';
+import { toast } from '~/shared/lib';
 import { Nullable } from '~/shared/model';
 import { passwordValidator } from '~/shared/validator';
 
 export const createUserSettingForm = () => {
   const profile = userQueries.useProfileQuery();
+
+  const updateProfile = userQueries.useProfileMutation(() => {
+    profile.refetch();
+
+    toast.open('Success to update your profile!');
+  });
 
   const [name, setName] = createSignal('');
 
@@ -45,6 +52,17 @@ export const createUserSettingForm = () => {
     })();
   };
 
+  const handleSubmit = () => {
+    if (!submitDisalbed()) {
+      updateProfile.mutate({
+        name: name(),
+        profileFile: profileFile(),
+        currentPassword: currentPassword() || undefined,
+        newPassword: newPassword() || undefined,
+      });
+    }
+  };
+
   const handleUploadProfileImage: JSX.ChangeEventHandlerUnion<
     HTMLInputElement,
     Event
@@ -61,6 +79,9 @@ export const createUserSettingForm = () => {
     if (profile.data) {
       setName(profile.data.name);
       setProfileImage(profile.data.profileImage);
+      setProfileFile(null);
+      setCurrentPassword('');
+      setNewPassword('');
     }
   });
 
@@ -75,5 +96,6 @@ export const createUserSettingForm = () => {
     newPassword,
     setNewPassword,
     submitDisalbed,
+    handleSubmit,
   };
 };
