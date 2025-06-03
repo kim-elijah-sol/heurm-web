@@ -10,7 +10,7 @@ export const userSettingFormSchema = z.object({
   name: z
     .string()
     .min(2, { message: 'Name must be at least 2 characters long' }),
-  profileImage: z.instanceof(File).optional().nullable(),
-  currentPassword: z.string(),
-  newPassword: z.string(),
+  profileFile: z.instanceof(File).optional().nullable(),
+  currentPassword: z.string().optional(),
+  newPassword: z.string().optional(),
 });

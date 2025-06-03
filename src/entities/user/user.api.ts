@@ -1,5 +1,5 @@
 import { https } from '~/shared/lib';
-import { ProfileResponse } from './user.type';
+import { ProfileResponse, UserSettingForm } from './user.type';
 import { profileResponseSchema } from './user.validator';
 
 export const getProfile = () =>
@@ -12,3 +12,19 @@ export const getProfile = () =>
 
     return response.data;
   });
+
+export const updateProfile = async (data: UserSettingForm) => {
+  const formData = new FormData();
+
+  for (const _key of Object.keys(data)) {
+    const key = _key as keyof UserSettingForm;
+
+    if (data[key]) {
+      formData.append(key, data[key]!);
+    }
+  }
+
+  return https.patch('/user/profile', formData).then((response) => {
+    return response.data;
+  });
+};
