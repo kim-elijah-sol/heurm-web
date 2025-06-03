@@ -23,9 +23,12 @@ export const createUserSettingForm = () => {
 
   const [newPassword, setNewPassword] = createSignal('');
 
+  const [isProfileImageRemove, setIsProfileImageRemove] = createSignal(false);
+
   const handleRemoveProfileImage = () => {
     setProfileImage(null);
     setProfileFile(null);
+    setIsProfileImageRemove(true);
   };
 
   const submitDisalbed = () => {
@@ -36,6 +39,7 @@ export const createUserSettingForm = () => {
           profileFile: profileFile(),
           currentPassword: currentPassword(),
           newPassword: newPassword(),
+          isProfileImageRemove: isProfileImageRemove(),
         }).success === true
       ) {
         if (currentPassword().length > 0) {
@@ -56,9 +60,10 @@ export const createUserSettingForm = () => {
     if (!submitDisalbed()) {
       updateProfile.mutate({
         name: name(),
-        profileFile: profileFile(),
+        profileFile: profileFile() ?? undefined,
         currentPassword: currentPassword() || undefined,
         newPassword: newPassword() || undefined,
+        isProfileImageRemove: isProfileImageRemove() || undefined,
       });
     }
   };
@@ -72,6 +77,7 @@ export const createUserSettingForm = () => {
     if (file) {
       setProfileFile(file);
       setProfileImage(URL.createObjectURL(file));
+      setIsProfileImageRemove(false);
     }
   };
 
@@ -79,6 +85,7 @@ export const createUserSettingForm = () => {
     if (profile.data) {
       setName(profile.data.name);
       setProfileImage(profile.data.profileImage);
+      setIsProfileImageRemove(false);
       setProfileFile(null);
       setCurrentPassword('');
       setNewPassword('');
