@@ -13,4 +13,5 @@ export const userSettingFormSchema = z.object({
   profileFile: z.instanceof(File).optional().nullable(),
   currentPassword: z.string().optional(),
   newPassword: z.string().optional(),
+  isProfileImageRemove: z.boolean().optional(),
 });
