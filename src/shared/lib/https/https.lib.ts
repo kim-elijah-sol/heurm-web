@@ -19,7 +19,7 @@ https.interceptors.response.use(undefined, async (error) => {
   if (
     isAxiosError(error) &&
     error.response?.status === 401 &&
-    error.response?.data === 'Access token is incorrect'
+    error.response?.data === 'Access token is expired'
   ) {
     const refreshResult = await https.post('/user/refresh', {
       refreshToken: localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN),
