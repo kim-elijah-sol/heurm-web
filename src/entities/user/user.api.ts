@@ -19,8 +19,8 @@ export const updateProfile = async (data: UserSettingForm) => {
   for (const _key of Object.keys(data)) {
     const key = _key as keyof UserSettingForm;
 
-    if (data[key]) {
-      formData.append(key, data[key]!);
+    if (data[key] !== undefined) {
+      formData.append(key, data[key] as any);
     }
   }
 
