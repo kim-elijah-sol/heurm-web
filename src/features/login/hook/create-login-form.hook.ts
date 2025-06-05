@@ -18,7 +18,7 @@ export const createLoginForm = () => {
     localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
     localStorage.setItem(STORAGE_KEYS.CLIENT_ID, clientId);
 
-    navigate('/');
+    navigate('/', { replace: true });
   });
 
   const submitDisabled = () => {
