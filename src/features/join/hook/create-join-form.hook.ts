@@ -29,13 +29,16 @@ export const createJoinForm = () => {
     setStep('password');
   });
 
+  const join = joinQueries.joinMutation(() => {
+    setStep('done');
+  });
+
   const formHeight = () => getLoginHelperFormHeight(step());
 
   const handleSubmit = () => {
     if (step() === 'email') handleSendVerifyEmail();
     else if (step() === 'verify') handleVerify();
-    else {
-    }
+    else handleJoin();
   };
 
   const handleSendVerifyEmail = () => {
@@ -50,7 +53,15 @@ export const createJoinForm = () => {
     });
   };
 
-  const handleJoin = () => {};
+  const handleJoin = () => {
+    join.mutate({
+      email: email(),
+      id: id(),
+      password: password(),
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      timezoneOffset: new Date().getTimezoneOffset(),
+    });
+  };
 
   return {
     step,
