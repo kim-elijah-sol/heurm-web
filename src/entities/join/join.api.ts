@@ -1,9 +1,12 @@
 import { https } from '~/shared/lib';
 import {
+  joinResponseSchema,
   verifyEmailResponseSchema,
   verifyEmailSendResponseSchema,
 } from './join.schema';
 import {
+  JoinRequest,
+  JoinResponse,
   VerifyEmailRequest,
   VerifyEmailResponse,
   VerifyEmailSendRequest,
@@ -37,3 +40,14 @@ export const postVerifyEmail = (body: VerifyEmailRequest) =>
 
       return response.data;
     });
+
+export const postJoin = (body: JoinRequest) =>
+  https.post<JoinResponse>('/user/join', body).then((response) => {
+    const parseResult = joinResponseSchema.safeParse(response.data);
+
+    if (parseResult.success === false) {
+      throw parseResult.error;
+    }
+
+    return response.data;
+  });

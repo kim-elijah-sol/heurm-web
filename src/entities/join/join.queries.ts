@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/solid-query';
 import { toastAtError } from '~/shared/fx';
-import { postVerifyEmail, postVerifyEmailSend } from './join.api';
+import { postJoin, postVerifyEmail, postVerifyEmailSend } from './join.api';
 
 export const verifyEmailSendMutation = (
   onSuccess: (data: Awaited<ReturnType<typeof postVerifyEmailSend>>) => void
@@ -18,6 +18,16 @@ export const verifyEmailMutation = (
   useMutation(() => ({
     mutationKey: ['postVerifyEmail'],
     mutationFn: postVerifyEmail,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));
+
+export const joinMutation = (
+  onSuccess: (data: Awaited<ReturnType<typeof postJoin>>) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['postJoin'],
+    mutationFn: postJoin,
     onSuccess,
     onError: (error) => toastAtError(error),
   }));

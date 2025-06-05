@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import {
+  joinRequestSchema,
+  joinResponseSchema,
   verifyEmailRequestSchema,
   verifyEmailResponseSchema,
   verifyEmailSendRequestSchema,
@@ -17,3 +19,7 @@ export type VerifyEmailSendResponse = z.infer<
 export type VerifyEmailRequest = z.infer<typeof verifyEmailRequestSchema>;
 
 export type VerifyEmailResponse = z.infer<typeof verifyEmailResponseSchema>;
+
+export type JoinRequest = z.infer<typeof joinRequestSchema>;
+
+export type JoinResponse = z.infer<typeof joinResponseSchema>;
