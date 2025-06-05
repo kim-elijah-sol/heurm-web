@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/solid-query';
+import { toastAtError } from '~/shared/fx';
 import { postVerifyEmailSend } from './join.api';
 
 export const verifyEmailSendMutation = (
@@ -8,4 +9,5 @@ export const verifyEmailSendMutation = (
     mutationKey: ['postVerifyEmailSend'],
     mutationFn: postVerifyEmailSend,
     onSuccess,
+    onError: (error) => toastAtError(error),
   }));
