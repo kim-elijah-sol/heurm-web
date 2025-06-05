@@ -12,6 +12,8 @@ export const createLoginHelperForm = () => {
 
   const [verifyCode, setVerifyCode] = createSignal<string>('');
 
+  const [id, setId] = createSignal<string>('');
+
   const [restResendSecond, setRestResendSecond] =
     createSignal<number>(RESEND_TIMEOUT);
 
@@ -46,6 +48,8 @@ export const createLoginHelperForm = () => {
     setStep,
     email,
     setEmail,
+    id,
+    setId,
     password,
     setPassword,
     verifyCode,

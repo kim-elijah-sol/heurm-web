@@ -1,3 +1,4 @@
+import { joinQueries } from '~/entities/join';
 import { getLoginHelperFormHeight } from '~/features/login-helper/fx';
 import { createLoginHelperForm } from '~/features/login-helper/hook';
 
@@ -7,6 +8,8 @@ export const createJoinForm = () => {
     setStep,
     email,
     setEmail,
+    id,
+    setId,
     password,
     setPassword,
     verifyCode,
@@ -16,18 +19,28 @@ export const createJoinForm = () => {
     startCountDown,
   } = createLoginHelperForm();
 
+  const verifyEmailSend = joinQueries.verifyEmailSendMutation(({ id }) => {
+    setId(id);
+    setStep('verify');
+    startCountDown();
+  });
+
   const formHeight = () => getLoginHelperFormHeight(step());
 
   const handleSubmit = () => {
-    if (step() === 'email') {
-      setStep('password');
-    } else if (step() === 'password') {
-      setStep('verify');
-      startCountDown();
+    if (step() === 'email') handleSendVerifyEmail();
+    else if (step() === 'verify') {
     } else {
-      setStep('done');
     }
   };
+
+  const handleSendVerifyEmail = () => {
+    verifyEmailSend.mutate({ email: email() });
+  };
+
+  const handleVerify = () => {};
+
+  const handleJoin = () => {};
 
   return {
     step,
