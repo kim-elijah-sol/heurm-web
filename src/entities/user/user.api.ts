@@ -1,6 +1,6 @@
 import { https } from '~/shared/lib';
-import { ProfileResponse, UserSettingForm } from './user.type';
-import { profileResponseSchema } from './user.validator';
+import { LogoutRequest, ProfileResponse, UserSettingForm } from './user.type';
+import { logoutResponseSchema, profileResponseSchema } from './user.validator';
 
 export const getProfile = () =>
   https.get<ProfileResponse>('/user/profile').then((response) => {
@@ -28,3 +28,18 @@ export const updateProfile = async (data: UserSettingForm) => {
     return response.data;
   });
 };
+
+export const deleteLogout = (data: LogoutRequest) =>
+  https
+    .delete('/user/logout', {
+      data,
+    })
+    .then((response) => {
+      const parseResult = logoutResponseSchema.safeParse(response.data);
+
+      if (parseResult.success === false) {
+        throw parseResult.error;
+      }
+
+      return response.data;
+    });

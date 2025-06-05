@@ -15,3 +15,11 @@ export const userSettingFormSchema = z.object({
   newPassword: z.string().optional(),
   isProfileImageRemove: z.boolean().optional(),
 });
+
+export const logoutRequestSchema = z.object({
+  refreshToken: z.string(),
+});
+
+export const logoutResponseSchema = z.object({
+  result: z.boolean(),
+});
