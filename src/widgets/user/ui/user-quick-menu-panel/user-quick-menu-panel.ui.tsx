@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { Component } from 'solid-js';
+import { createLogout } from '~/features/user/hook';
 import { Logout, Panel, ShieldCheck, UserRoundPen } from '~/shared/ui';
 
 type Props = {
@@ -8,6 +9,8 @@ type Props = {
 };
 
 export const UserQuickMenuPanel: Component<Props> = (props) => {
+  const handleLogout = createLogout();
+
   const buttonBaseClassName =
     'p-6 rounded-[35%] transition-all active:scale-90';
 
@@ -37,6 +40,7 @@ export const UserQuickMenuPanel: Component<Props> = (props) => {
 
           <button
             class={clsx(buttonBaseClassName, 'bg-rose-400 active:bg-rose-500')}
+            onClick={handleLogout}
           >
             <Logout />
           </button>
