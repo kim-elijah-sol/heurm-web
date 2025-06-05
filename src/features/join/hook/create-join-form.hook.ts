@@ -25,12 +25,16 @@ export const createJoinForm = () => {
     startCountDown();
   });
 
+  const verifyEmail = joinQueries.verifyEmailMutation(() => {
+    setStep('password');
+  });
+
   const formHeight = () => getLoginHelperFormHeight(step());
 
   const handleSubmit = () => {
     if (step() === 'email') handleSendVerifyEmail();
-    else if (step() === 'verify') {
-    } else {
+    else if (step() === 'verify') handleVerify();
+    else {
     }
   };
 
@@ -38,7 +42,13 @@ export const createJoinForm = () => {
     verifyEmailSend.mutate({ email: email() });
   };
 
-  const handleVerify = () => {};
+  const handleVerify = () => {
+    verifyEmail.mutate({
+      email: email(),
+      id: id(),
+      code: verifyCode(),
+    });
+  };
 
   const handleJoin = () => {};
 
