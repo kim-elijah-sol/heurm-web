@@ -1,5 +1,5 @@
 import { Accessor, Component, createMemo } from 'solid-js';
-import { HELLO_WRITING } from '~/entities/main/constant';
+import { mainConstant } from '~/entities/main';
 
 type Props = {
   userName: Accessor<string | undefined>;
@@ -7,7 +7,9 @@ type Props = {
 
 export const HelloUser: Component<Props> = (props) => {
   const helloWriting = createMemo(() => {
-    return HELLO_WRITING[Math.floor(Math.random() * HELLO_WRITING.length)];
+    return mainConstant.HELLO_WRITING[
+      Math.floor(Math.random() * mainConstant.HELLO_WRITING.length)
+    ];
   });
 
   const userName = () => props.userName();

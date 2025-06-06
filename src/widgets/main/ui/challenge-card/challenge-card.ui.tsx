@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { Accessor, Component, For, Match, Switch } from 'solid-js';
-import { LOSE_WRITING, WIN_WRITING } from '~/entities/main/constant';
+import { mainConstant } from '~/entities/main';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
@@ -90,8 +90,10 @@ export const ChallengeCard: Component<Props> = (props) => {
                     onChange={(isCompleted) => {
                       if (isCompleted === true) {
                         const winWriting =
-                          WIN_WRITING[
-                            Math.floor(Math.random() * WIN_WRITING.length)
+                          mainConstant.WIN_WRITING[
+                            Math.floor(
+                              Math.random() * mainConstant.WIN_WRITING.length
+                            )
                           ];
 
                         toast.open(
@@ -99,8 +101,10 @@ export const ChallengeCard: Component<Props> = (props) => {
                         );
                       } else if (isCompleted === false) {
                         const loseWriting =
-                          LOSE_WRITING[
-                            Math.floor(Math.random() * LOSE_WRITING.length)
+                          mainConstant.LOSE_WRITING[
+                            Math.floor(
+                              Math.random() * mainConstant.LOSE_WRITING.length
+                            )
                           ];
 
                         toast.open(loseWriting);
@@ -129,8 +133,10 @@ export const ChallengeCard: Component<Props> = (props) => {
 
                       if (result === true) {
                         const winWriting =
-                          WIN_WRITING[
-                            Math.floor(Math.random() * WIN_WRITING.length)
+                          mainConstant.WIN_WRITING[
+                            Math.floor(
+                              Math.random() * mainConstant.WIN_WRITING.length
+                            )
                           ];
 
                         toast.open(
@@ -138,8 +144,10 @@ export const ChallengeCard: Component<Props> = (props) => {
                         );
                       } else if (result === false) {
                         const loseWriting =
-                          LOSE_WRITING[
-                            Math.floor(Math.random() * LOSE_WRITING.length)
+                          mainConstant.LOSE_WRITING[
+                            Math.floor(
+                              Math.random() * mainConstant.LOSE_WRITING.length
+                            )
                           ];
 
                         toast.open(loseWriting);

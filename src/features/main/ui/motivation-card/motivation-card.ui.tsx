@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { createSignal, onCleanup, Show } from 'solid-js';
-import { MOTIVATION_WRITING } from '~/entities/main/constant';
+import { mainConstant } from '~/entities/main';
 import './motivation-card.ui.css';
 
 export const MotivationCard = () => {
@@ -12,7 +12,7 @@ export const MotivationCard = () => {
 
   const nextIndex = () => {
     let next = index() + 1;
-    if (next >= MOTIVATION_WRITING.length) next = 0;
+    if (next >= mainConstant.MOTIVATION_WRITING.length) next = 0;
     return next;
   };
 
@@ -42,14 +42,14 @@ export const MotivationCard = () => {
       >
         <p
           class={textClassName}
-          innerHTML={`"${MOTIVATION_WRITING[index()]}"`}
+          innerHTML={`"${mainConstant.MOTIVATION_WRITING[index()]}"`}
         />
       </div>
       <Show when={transition()}>
         <div class={clsx(textBoxClassName, 'wys-motivation-fade-in')}>
           <p
             class={textClassName}
-            innerHTML={`"${MOTIVATION_WRITING[nextIndex()]}"`}
+            innerHTML={`"${mainConstant.MOTIVATION_WRITING[nextIndex()]}"`}
           />
         </div>
       </Show>

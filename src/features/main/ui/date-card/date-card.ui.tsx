@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type { Accessor, Component, JSX } from 'solid-js';
-import { ChallengeDayStatus } from '~/entities/main/model';
+import { MainType } from '~/entities/main';
 import './date-card.ui.css';
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   isCurrent: Accessor<boolean>;
   isToday: Accessor<boolean>;
   onClick: JSX.CustomEventHandlersCamelCase<HTMLDivElement>['onClick'];
-  status: Accessor<ChallengeDayStatus>;
+  status: Accessor<MainType.ChallengeDayStatus>;
 };
 
 export const DateCard: Component<Props> = (props) => {

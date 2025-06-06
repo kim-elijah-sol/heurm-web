@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Accessor, Component, createMemo } from 'solid-js';
-import { NO_CHALLENGE_ITEM_WRITING } from '~/entities/main/constant';
+import { mainConstant } from '~/entities/main';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
@@ -15,8 +15,8 @@ type Props = {
 
 export const NoChallengeItem: Component<Props> = (props) => {
   const noChallengeItemWriting = createMemo(() => {
-    return NO_CHALLENGE_ITEM_WRITING[
-      Math.floor(Math.random() * NO_CHALLENGE_ITEM_WRITING.length)
+    return mainConstant.NO_CHALLENGE_ITEM_WRITING[
+      Math.floor(Math.random() * mainConstant.NO_CHALLENGE_ITEM_WRITING.length)
     ];
   });
 

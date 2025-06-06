@@ -1,11 +1,11 @@
 import { createMemo } from 'solid-js';
-import { NO_CHALLENGE_ITEM_WRITING } from '~/entities/main/constant';
+import { mainConstant } from '~/entities/main';
 import './no-challenge.ui.css';
 
 export const NoChallenge = () => {
   const noChallgneWriting = createMemo(() => {
-    return NO_CHALLENGE_ITEM_WRITING[
-      Math.floor(Math.random() * NO_CHALLENGE_ITEM_WRITING.length)
+    return mainConstant.NO_CHALLENGE_ITEM_WRITING[
+      Math.floor(Math.random() * mainConstant.NO_CHALLENGE_ITEM_WRITING.length)
     ];
   });
 
