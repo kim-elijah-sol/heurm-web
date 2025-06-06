@@ -1,6 +1,5 @@
 import { For } from 'solid-js';
 import { mainQueries } from '~/entities/main';
-import { useChallenges } from '~/features/main/hook';
 import {
   ChallengeCard,
   DateSelect,
@@ -12,10 +11,7 @@ import {
 } from '~/widgets/main/ui';
 
 function Main() {
-  const { challenges, handleChangeComplete, handleChangeCountable } =
-    useChallenges;
-
-  const challenge = mainQueries.challengeQuery();
+  const getChallengeQuery = mainQueries.getChallengeQuery();
 
   return (
     <>
@@ -24,11 +20,11 @@ function Main() {
         <DateSelect />
         <Overview />
 
-        {challenge.isPending ? (
+        {getChallengeQuery.isPending ? (
           <></>
-        ) : challenge.data!.length !== 0 ? (
+        ) : getChallengeQuery.data!.length !== 0 ? (
           <div class='flex flex-col gap-4 mb-2'>
-            <For each={challenge.data}>
+            <For each={getChallengeQuery.data}>
               {(challenge) => (
                 <ChallengeCard
                   id={() => challenge.id}

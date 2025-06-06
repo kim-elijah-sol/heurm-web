@@ -1,48 +1,52 @@
+import { useQueryClient } from '@tanstack/solid-query';
 import { createSignal } from 'solid-js';
-import { newChallengeFormValidator } from '~/entities/new-challenge/validator';
+import {
+  newChallengeQueries,
+  newChallengeSchema,
+} from '~/entities/new-challenge';
+import { toast } from '~/shared/lib';
 import { ChallengeColor } from '~/shared/model';
 
 export const createNewChallengeForm = () => {
+  const queryClient = useQueryClient();
+
   const [title, setTitle] = createSignal<string>('');
 
   const [color, setColor] = createSignal<ChallengeColor>('red');
+
+  const postChallege = newChallengeQueries.postChallengeMutation((data) => {
+    toast.open(`🎉 '${data.title}' Challenge is added!`);
+
+    queryClient.invalidateQueries({
+      queryKey: ['getChallenge'],
+    });
+  });
 
   const handleInputTitle = (e: InputEvent & { target: HTMLInputElement }) => {
     setTitle(e.target.value.trim());
   };
 
-  const formErrorMessage = () => {
-    const newChallengeFormValid = newChallengeFormValidator.safeParse({
+  const submitDisabled = () => {
+    return (
+      newChallengeSchema.postChallengeRequestSchema.safeParse({
+        title: title(),
+        color: color(),
+      }).success === false
+    );
+  };
+
+  const handleSubmit = (callback: () => void) => async (e: SubmitEvent) => {
+    e.preventDefault();
+
+    if (submitDisabled()) return;
+
+    await postChallege.mutateAsync({
       title: title(),
       color: color(),
     });
 
-    if (newChallengeFormValid.success === false) {
-      return newChallengeFormValid.error.errors[0].message;
-    }
-
-    return null;
+    callback();
   };
-
-  const submitDisabled = () => {
-    return formErrorMessage() !== null;
-  };
-
-  const handleSubmit =
-    (e: SubmitEvent) =>
-    (callback: (form: { title: string; color: ChallengeColor }) => void) => {
-      e.preventDefault();
-
-      if (formErrorMessage()) {
-        alert(formErrorMessage());
-        return;
-      }
-
-      callback({
-        title: title(),
-        color: color(),
-      });
-    };
 
   return {
     title,
