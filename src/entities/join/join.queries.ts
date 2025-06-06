@@ -16,7 +16,7 @@ export const verifyEmailMutation = (
   onSuccess: (data: Awaited<ReturnType<typeof postVerifyEmail>>) => void
 ) =>
   useMutation(() => ({
-    mutationKey: ['postVerifyEmail'],
+    mutationKey: ['join/postVerifyEmail'],
     mutationFn: postVerifyEmail,
     onSuccess,
     onError: (error) => toastAtError(error),
