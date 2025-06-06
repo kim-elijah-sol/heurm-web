@@ -31,6 +31,10 @@ export const createResetPasswordForm = () => {
     setStep('password');
   });
 
+  const resetPassword = resetPasswordQueries.resetPasswordMutation(() => {
+    setStep('done');
+  });
+
   const formHeight = () => getLoginHelperFormHeight(step());
 
   const handleSubmit = () => {
@@ -51,7 +55,13 @@ export const createResetPasswordForm = () => {
     });
   };
 
-  const handleResetPassword = () => {};
+  const handleResetPassword = () => {
+    resetPassword.mutate({
+      email: email(),
+      id: id(),
+      newPassword: password(),
+    });
+  };
 
   return {
     step,
