@@ -1,3 +1,5 @@
+export * from './challenge-color.validator';
+export * from './challenge-title.validator';
 export * from './email.validator';
 export * from './login-form.validator';
 export * from './login-password.validator';

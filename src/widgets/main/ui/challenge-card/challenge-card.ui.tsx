@@ -1,34 +1,22 @@
 import { clsx } from 'clsx';
 import { Accessor, Component, For, Match, Switch } from 'solid-js';
 import { mainConstant } from '~/entities/main';
-import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
+import { ChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import {
   ChallengeColor,
-  ChallengeItem as ChallengeItemType,
+  ChallengeItem as TChallengeItem,
   CompleteChallengeItem,
   CountableChallengeItem,
-  Nullable,
 } from '~/shared/model';
 import { ChartLine, Menu } from '~/shared/ui';
-import { AnalyticsPanel } from '~/widgets/analytics/ui';
-import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
 
 type Props = {
+  id: Accessor<string>;
   title: Accessor<string>;
   color: Accessor<ChallengeColor>;
-  challengeItems: Accessor<(ChallengeItemType & { id: number })[]>;
-  onChangeCompleteItem: (
-    challengeItemId: number,
-    isCompleted: Nullable<boolean>
-  ) => void;
-  onChangeCountableItem: (
-    challengeItemId: number,
-    count: Nullable<number>
-  ) => void;
-  originalChallengeItemCount: Accessor<number>;
 };
 
 export const ChallengeCard: Component<Props> = (props) => {
@@ -60,12 +48,6 @@ export const ChallengeCard: Component<Props> = (props) => {
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color()]);
 
-  const handleChangeComplete = (id: number, isCompleted: Nullable<boolean>) =>
-    props.onChangeCompleteItem(id, isCompleted);
-
-  const handleChangeCountable = (id: number, count: Nullable<number>) =>
-    props.onChangeCountableItem(id, count);
-
   return (
     <div class='overflow-hidden rounded-xl'>
       <div class={topClassName()}>
@@ -80,7 +62,7 @@ export const ChallengeCard: Component<Props> = (props) => {
         </div>
       </div>
       <div class={itemsContainerClassName()}>
-        <For each={props.challengeItems()}>
+        <For each={[] as TChallengeItem[]}>
           {(challengeItem) => {
             return (
               <Switch>
@@ -109,7 +91,6 @@ export const ChallengeCard: Component<Props> = (props) => {
 
                         toast.open(loseWriting);
                       }
-                      handleChangeComplete(challengeItem.id, isCompleted);
                     }}
                   />
                 </Match>
@@ -152,8 +133,6 @@ export const ChallengeCard: Component<Props> = (props) => {
 
                         toast.open(loseWriting);
                       }
-
-                      handleChangeCountable(challengeItem.id, count);
                     }}
                   />
                 </Match>
@@ -161,7 +140,7 @@ export const ChallengeCard: Component<Props> = (props) => {
             );
           }}
         </For>
-        {props.challengeItems().length === 0 &&
+        {/* {props.challengeItems().length === 0 &&
           props.originalChallengeItemCount() === 0 && (
             <NoChallengeItem
               color={() => props.color()}
@@ -174,10 +153,10 @@ export const ChallengeCard: Component<Props> = (props) => {
         {props.challengeItems().length === 0 &&
           props.originalChallengeItemCount() !== 0 && (
             <NoChallengeItem.Today color={() => props.color()} />
-          )}
+          )} */}
       </div>
 
-      {isChallengeEditPanel() && (
+      {/* {isChallengeEditPanel() && (
         <ChallengeEditPanel
           title={props.title}
           color={props.color}
@@ -194,7 +173,7 @@ export const ChallengeCard: Component<Props> = (props) => {
           close={closeAnalycisPanel}
           challengeItems={props.challengeItems}
         />
-      )}
+      )} */}
     </div>
   );
 };

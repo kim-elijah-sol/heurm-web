@@ -1,4 +1,5 @@
 import { For } from 'solid-js';
+import { mainQueries } from '~/entities/main';
 import { useChallenges } from '~/features/main/hook';
 import {
   ChallengeCard,
@@ -14,6 +15,8 @@ function Main() {
   const { challenges, handleChangeComplete, handleChangeCountable } =
     useChallenges;
 
+  const challenge = mainQueries.challengeQuery();
+
   return (
     <>
       <div class='p-4 flex flex-col gap-4'>
@@ -21,19 +24,16 @@ function Main() {
         <DateSelect />
         <Overview />
 
-        {challenges().length !== 0 ? (
+        {challenge.isPending ? (
+          <></>
+        ) : challenge.data!.length !== 0 ? (
           <div class='flex flex-col gap-4 mb-2'>
-            <For each={challenges()}>
+            <For each={challenge.data}>
               {(challenge) => (
                 <ChallengeCard
+                  id={() => challenge.id}
                   title={() => challenge.title}
                   color={() => challenge.color}
-                  challengeItems={() => challenge.challengeItems}
-                  onChangeCompleteItem={handleChangeComplete(challenge.id)}
-                  onChangeCountableItem={handleChangeCountable(challenge.id)}
-                  originalChallengeItemCount={() =>
-                    challenge.originalChallengeItemCount
-                  }
                 />
               )}
             </For>
