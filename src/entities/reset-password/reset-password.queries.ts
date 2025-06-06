@@ -1,6 +1,10 @@
 import { useMutation } from '@tanstack/solid-query';
 import { toastAtError } from '~/shared/fx';
-import { postVerifyEmail, postVerifyEmailSend } from './reset-password.api';
+import {
+  patchResetPassword,
+  postVerifyEmail,
+  postVerifyEmailSend,
+} from './reset-password.api';
 
 export const verifyEmailSendMutation = (
   onSuccess: (data: Awaited<ReturnType<typeof postVerifyEmailSend>>) => void
@@ -18,6 +22,16 @@ export const verifyEmailMutation = (
   useMutation(() => ({
     mutationKey: ['reset-password/postVerifyEmail'],
     mutationFn: postVerifyEmail,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));
+
+export const resetPasswordMutation = (
+  onSuccess: (data: Awaited<ReturnType<typeof patchResetPassword>>) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['reset-password'],
+    mutationFn: patchResetPassword,
     onSuccess,
     onError: (error) => toastAtError(error),
   }));

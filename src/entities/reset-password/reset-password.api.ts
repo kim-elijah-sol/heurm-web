@@ -1,9 +1,12 @@
 import { https } from '~/shared/lib';
 import {
+  resetPasswordResponseSchema,
   verifyEmailResponseSchema,
   verifyEmailSendResponseSchema,
 } from './reset-password.schema';
 import {
+  ResetPasswordRequest,
+  ResetPasswordResponse,
   VerifyEmailRequest,
   VerifyEmailResponse,
   VerifyEmailSendRequest,
@@ -33,6 +36,19 @@ export const postVerifyEmail = (body: VerifyEmailRequest) =>
     .post<VerifyEmailResponse>('/user/reset-password/verify-email', body)
     .then((response) => {
       const parseResult = verifyEmailResponseSchema.safeParse(response.data);
+
+      if (parseResult.success === false) {
+        throw parseResult.error;
+      }
+
+      return response.data;
+    });
+
+export const patchResetPassword = (body: ResetPasswordRequest) =>
+  https
+    .patch<ResetPasswordResponse>('/user/reset-password', body)
+    .then((response) => {
+      const parseResult = resetPasswordResponseSchema.safeParse(response.data);
 
       if (parseResult.success === false) {
         throw parseResult.error;
