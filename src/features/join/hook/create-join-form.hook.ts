@@ -15,7 +15,6 @@ export const createJoinForm = () => {
     verifyCode,
     setVerifyCode,
     restResendSecond,
-    handleResend,
     startCountDown,
   } = createLoginHelperForm();
 
@@ -61,6 +60,12 @@ export const createJoinForm = () => {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       timezoneOffset: new Date().getTimezoneOffset(),
     });
+  };
+
+  const handleResend = () => {
+    if (restResendSecond() === 0) {
+      handleSendVerifyEmail();
+    }
   };
 
   return {
