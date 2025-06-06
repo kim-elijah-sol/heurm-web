@@ -1,13 +1,15 @@
 import { z } from 'zod';
 import {
-  challengeResponseItemSchema,
-  challengeResponseSchema,
+  getChallengeResponseItemSchema,
+  getChallengeResponseSchema,
 } from './main.schema';
 
 export type ChallengeDayStatus = 'win' | 'lose' | 'pending';
 
-export type ChallengeResponseItemSchema = z.infer<
-  typeof challengeResponseItemSchema
+export type GetChallengeResponseItemSchema = z.infer<
+  typeof getChallengeResponseItemSchema
 >;
 
-export type ChallengeResponseSchema = z.infer<typeof challengeResponseSchema>;
+export type GetChallengeResponseSchema = z.infer<
+  typeof getChallengeResponseSchema
+>;

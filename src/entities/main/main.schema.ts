@@ -4,10 +4,12 @@ import {
   challengeTitleValidator,
 } from '~/shared/validator';
 
-export const challengeResponseItemSchema = z.object({
+export const getChallengeResponseItemSchema = z.object({
   id: z.string(),
   title: challengeTitleValidator,
   color: challengeColorValidator,
 });
 
-export const challengeResponseSchema = z.array(challengeResponseItemSchema);
+export const getChallengeResponseSchema = z.array(
+  getChallengeResponseItemSchema
+);

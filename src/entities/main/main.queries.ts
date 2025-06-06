@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/solid-query';
 import { getChallenge } from './main.api';
 
-export const challengeQuery = () =>
+export const getChallengeQuery = () =>
   useQuery(() => ({
     queryKey: ['getChallenge'],
     queryFn: getChallenge,
