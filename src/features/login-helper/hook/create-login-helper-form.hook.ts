@@ -39,10 +39,6 @@ export const createLoginHelperForm = () => {
     if (timerId()) clearInterval(timerId()!);
   });
 
-  const handleResend = () => {
-    startCountDown();
-  };
-
   return {
     step,
     setStep,
@@ -55,7 +51,6 @@ export const createLoginHelperForm = () => {
     verifyCode,
     setVerifyCode,
     restResendSecond,
-    handleResend,
     startCountDown,
   };
 };

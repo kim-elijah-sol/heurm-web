@@ -15,7 +15,6 @@ export const createResetPasswordForm = () => {
     verifyCode,
     setVerifyCode,
     restResendSecond,
-    handleResend,
     startCountDown,
   } = createLoginHelperForm();
 
@@ -61,6 +60,12 @@ export const createResetPasswordForm = () => {
       id: id(),
       newPassword: password(),
     });
+  };
+
+  const handleResend = () => {
+    if (restResendSecond() === 0) {
+      handleSendVerifyEmail();
+    }
   };
 
   return {
