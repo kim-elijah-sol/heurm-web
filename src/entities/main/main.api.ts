@@ -1,9 +1,16 @@
 import { https } from '~/shared/lib';
-import { getChallengeResponseSchema } from './main.schema';
-import { GetChallengeResponseSchema } from './main.type';
+import {
+  getChallengeItemByDateResponseSchema,
+  getChallengeResponseSchema,
+} from './main.schema';
+import {
+  GetChallengeItemByDateRequest,
+  GetChallengeItemByDateResponse,
+  GetChallengeResponse,
+} from './main.type';
 
 export const getChallenge = () =>
-  https.get<GetChallengeResponseSchema>('/challenge').then((response) => {
+  https.get<GetChallengeResponse>('/challenge').then((response) => {
     const parseResult = getChallengeResponseSchema.safeParse(response.data);
 
     if (parseResult.success === false) {
@@ -12,3 +19,20 @@ export const getChallenge = () =>
 
     return response.data;
   });
+
+export const getChallengeItemByDate = (params: GetChallengeItemByDateRequest) =>
+  https
+    .get<GetChallengeItemByDateResponse>('/challenge/challenge-item/by-date', {
+      params,
+    })
+    .then((response) => {
+      const parseResult = getChallengeItemByDateResponseSchema.safeParse(
+        response.data
+      );
+
+      if (parseResult.success === false) {
+        throw parseResult.error;
+      }
+
+      return response.data;
+    });

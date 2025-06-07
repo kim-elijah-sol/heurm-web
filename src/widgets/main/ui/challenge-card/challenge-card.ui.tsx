@@ -1,16 +1,20 @@
 import { clsx } from 'clsx';
-import { Accessor, Component, For, Match, Switch } from 'solid-js';
-import { mainConstant } from '~/entities/main';
-import { ChallengeItem } from '~/features/main/ui';
+import { format } from 'date-fns';
+import {
+  Accessor,
+  Component,
+  createEffect,
+  For,
+  Match,
+  Switch,
+} from 'solid-js';
+import { mainConstant, mainQueries } from '~/entities/main';
+import { createDateSelect } from '~/features/main/hook';
+import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import {
-  ChallengeColor,
-  ChallengeItem as TChallengeItem,
-  CompleteChallengeItem,
-  CountableChallengeItem,
-} from '~/shared/model';
+import { ChallengeColor } from '~/shared/model';
 import { ChartLine, Menu } from '~/shared/ui';
 
 type Props = {
@@ -20,6 +24,8 @@ type Props = {
 };
 
 export const ChallengeCard: Component<Props> = (props) => {
+  const { current } = createDateSelect();
+
   const [
     isChallengeEditPanel,
     openChallengeEditPanel,
@@ -36,6 +42,11 @@ export const ChallengeCard: Component<Props> = (props) => {
 
   let newChallengeItemPanelOpen = false;
 
+  const challengeItemByDate = mainQueries.getChallengeItemByDateQuery(() => ({
+    challengeId: props.id(),
+    date: format(current(), 'yyyy-MM-dd'),
+  }));
+
   const topClassName = () =>
     clsx(
       'pl-4 pr-3 py-2 flex items-center justify-between',
@@ -47,6 +58,11 @@ export const ChallengeCard: Component<Props> = (props) => {
 
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color()]);
+
+  createEffect(() => {
+    console.log(current());
+    console.log(challengeItemByDate.data);
+  });
 
   return (
     <div class='overflow-hidden rounded-xl'>
@@ -62,13 +78,18 @@ export const ChallengeCard: Component<Props> = (props) => {
         </div>
       </div>
       <div class={itemsContainerClassName()}>
-        <For each={[] as TChallengeItem[]}>
+        <For each={challengeItemByDate.data?.todayChallengeItems ?? []}>
           {(challengeItem) => {
             return (
               <Switch>
-                <Match when={challengeItem.type === 'complete'}>
+                <Match when={challengeItem.type === 'COMPLETE'}>
                   <ChallengeItem.Complete
-                    {...(challengeItem as CompleteChallengeItem)}
+                    name={challengeItem.name}
+                    isCompleted={
+                      challengeItem.history === null
+                        ? null
+                        : challengeItem.history.complete
+                    }
                     onChange={(isCompleted) => {
                       if (isCompleted === true) {
                         const winWriting =
@@ -94,19 +115,24 @@ export const ChallengeCard: Component<Props> = (props) => {
                     }}
                   />
                 </Match>
-                <Match when={challengeItem.type !== 'complete'}>
+                <Match when={challengeItem.type !== 'COMPLETE'}>
                   <ChallengeItem.Countable
-                    {...(challengeItem as CountableChallengeItem)}
+                    name={challengeItem.name}
+                    targetCount={challengeItem.targetCount!}
+                    count={challengeItem.history?.count ?? null}
+                    type={challengeItem.type as 'OVER' | 'UNDER'}
                     onChange={(count) => {
                       const result = (() => {
-                        const { type, targetCount } =
-                          challengeItem as CountableChallengeItem;
+                        const { type, targetCount } = challengeItem as {
+                          type: 'OVER' | 'UNDER';
+                          targetCount: number;
+                        };
 
                         if (count === null) return null;
 
-                        if (type === 'over' && count >= targetCount)
+                        if (type === 'OVER' && count >= targetCount)
                           return true;
-                        if (type === 'under' && count <= targetCount)
+                        if (type === 'UNDER' && count <= targetCount)
                           return true;
 
                         return false;
@@ -140,8 +166,8 @@ export const ChallengeCard: Component<Props> = (props) => {
             );
           }}
         </For>
-        {/* {props.challengeItems().length === 0 &&
-          props.originalChallengeItemCount() === 0 && (
+        {challengeItemByDate.data?.todayChallengeItems.length === 0 &&
+          challengeItemByDate.data?.originalChallengeItems.length === 0 && (
             <NoChallengeItem
               color={() => props.color()}
               onClick={() => {
@@ -150,10 +176,10 @@ export const ChallengeCard: Component<Props> = (props) => {
               }}
             />
           )}
-        {props.challengeItems().length === 0 &&
-          props.originalChallengeItemCount() !== 0 && (
+        {challengeItemByDate.data?.todayChallengeItems.length === 0 &&
+          challengeItemByDate.data?.originalChallengeItems.length !== 0 && (
             <NoChallengeItem.Today color={() => props.color()} />
-          )} */}
+          )}
       </div>
 
       {/* {isChallengeEditPanel() && (

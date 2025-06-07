@@ -1,9 +1,13 @@
 import clsx from 'clsx';
 import { Component, createEffect, createSignal, splitProps } from 'solid-js';
-import { CountableChallengeItem, Nullable } from '~/shared/model';
+import { Nullable } from '~/shared/model';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
-type Props = CountableChallengeItem & {
+type Props = {
+  type: 'OVER' | 'UNDER';
+  name: string;
+  targetCount: number;
+  count: Nullable<number>;
   onChange: (count: Nullable<number>) => void;
 };
 
@@ -12,40 +16,50 @@ export const Countable: Component<Props> = (originProps) => {
 
   const [rest, challengeItem] = splitProps(originProps, ['onChange']);
 
-  const [value, setValue] = createSignal(originProps.count?.toString() ?? '');
+  const [value, setValue] = createSignal(challengeItem.count?.toString() ?? '');
 
   const getChallengeResult = (count: Nullable<number>) => {
     if (count === null) return null;
-    if (challengeItem.type === 'over' && count >= challengeItem.targetCount)
+    if (challengeItem.type === 'OVER' && count >= challengeItem.targetCount)
       return true;
-    if (challengeItem.type === 'under' && count <= challengeItem.targetCount)
+    if (challengeItem.type === 'UNDER' && count <= challengeItem.targetCount)
       return true;
     return false;
   };
 
   const valueToCount = () => (value() ? Number(value()) : null);
 
-  const challengeResult = () => getChallengeResult(valueToCount());
+  const serverChallengeResult = () => getChallengeResult(challengeItem.count);
+
+  const localChallengeResult = () => getChallengeResult(valueToCount());
 
   const challengeResultText = () =>
-    challengeResult() ? '🎉' : challengeResult() === false ? '❌' : '⏳';
+    serverChallengeResult()
+      ? '🎉'
+      : serverChallengeResult() === false
+      ? '❌'
+      : '⏳';
 
   const icon = () =>
-    challengeResult() ? Check : challengeResult() === false ? Ban : Loader;
-
-  const buttonColor = () =>
-    challengeResult()
-      ? 'bg-emerald-400 active:bg-emerald-500'
-      : challengeResult() === false
-      ? 'bg-rose-400 active:bg-rose-500'
-      : 'bg-blue-400 active:bg-blue-500';
+    serverChallengeResult()
+      ? Check
+      : serverChallengeResult() === false
+      ? Ban
+      : Loader;
 
   const nameTextClass = () =>
-    challengeResult() === null
+    serverChallengeResult() === null
       ? 'text-gray-500 font-medium'
-      : challengeResult()
+      : serverChallengeResult()
       ? 'text-emerald-500 font-bold'
       : 'text-rose-500 font-semibold';
+
+  const buttonColor = () =>
+    localChallengeResult()
+      ? 'bg-emerald-400 active:bg-emerald-500'
+      : localChallengeResult() === false
+      ? 'bg-rose-400 active:bg-rose-500'
+      : 'bg-blue-400 active:bg-blue-500';
 
   createEffect(() => {
     if (isBluredPanelShow()) {

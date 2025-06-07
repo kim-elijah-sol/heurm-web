@@ -1,9 +1,11 @@
 import clsx from 'clsx';
 import { Component, createSignal, splitProps } from 'solid-js';
-import { CompleteChallengeItem, Nullable } from '~/shared/model';
+import { Nullable } from '~/shared/model';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
-type Props = CompleteChallengeItem & {
+type Props = {
+  name: string;
+  isCompleted: Nullable<boolean>;
   onChange: (isCompleted: Nullable<boolean>) => void;
 };
 
