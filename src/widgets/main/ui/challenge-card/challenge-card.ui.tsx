@@ -1,13 +1,6 @@
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
-import {
-  Accessor,
-  Component,
-  createEffect,
-  For,
-  Match,
-  Switch,
-} from 'solid-js';
+import { Accessor, Component, For, Match, Switch } from 'solid-js';
 import { mainConstant, mainQueries } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
@@ -58,11 +51,6 @@ export const ChallengeCard: Component<Props> = (props) => {
 
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color()]);
-
-  createEffect(() => {
-    console.log(current());
-    console.log(challengeItemByDate.data);
-  });
 
   return (
     <div class='overflow-hidden rounded-xl'>
