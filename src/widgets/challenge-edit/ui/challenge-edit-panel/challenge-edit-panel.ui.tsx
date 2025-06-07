@@ -7,6 +7,7 @@ import {
   onMount,
   Switch,
 } from 'solid-js';
+import { challengeEditQueries } from '~/entities/challenge-edit';
 import { createChallengeItemsForm } from '~/features/challenge-edit/hook';
 import {
   ChallengeEditDeleteButton,
@@ -16,20 +17,15 @@ import {
   ChallengeEditTop,
 } from '~/features/challenge-edit/ui';
 import { createBoolean } from '~/shared/hook';
-import {
-  ChallengeColor,
-  ChallengeItem,
-  CountableChallengeItem,
-} from '~/shared/model';
+import { ChallengeColor } from '~/shared/model';
 import { ChallengeColorSelect, Panel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item/ui';
 
 type Props = {
+  challengeId: Accessor<string>;
   title: Accessor<string>;
-  close: () => void;
   color: Accessor<ChallengeColor>;
-  challengeItems: Accessor<(ChallengeItem & { id: number })[]>;
-
+  close: () => void;
   newChallengeItemPanelOpen?: boolean;
 };
 
@@ -41,13 +37,37 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
   const [color, setColor] = createSignal<ChallengeColor>(props.color());
 
+  const challengeItem = challengeEditQueries.getChallengeItemQuery(() => ({
+    challengeId: props.challengeId(),
+  }));
+
   const {
     challengeItems,
     handleChangeDay,
     handleChangeName,
     handleChangeTargetCount,
     handleNewChallengeItem,
-  } = createChallengeItemsForm(props.challengeItems());
+  } = createChallengeItemsForm(
+    () =>
+      challengeItem.data?.map((it) => {
+        if (it.type === 'COMPLETE') {
+          return {
+            type: 'COMPLETE',
+            id: it.id,
+            days: it.days,
+            name: it.name,
+          };
+        }
+
+        return {
+          type: it.type as 'OVER' | 'UNDER',
+          id: it.id,
+          days: it.days,
+          name: it.name,
+          targetCount: it.targetCount!,
+        };
+      }) ?? []
+  );
 
   onMount(() => {
     if (props.newChallengeItemPanelOpen) {
@@ -77,7 +97,9 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
               />
               {isNewChallengeItemPanel() && (
                 <NewChallengeItemPanel
-                  onSubmit={handleNewChallengeItem}
+                  onSubmit={(it) => {
+                    console.log(it);
+                  }}
                   close={newChallengeItemClose}
                 />
               )}
@@ -103,10 +125,10 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                         }
                         deleteButton={<ChallengeEditItem.DeleteButton />}
                         targetCountInput={
-                          it().type !== 'complete' && (
+                          it().type !== 'COMPLETE' && (
                             <ChallengeEditItem.TargetCountInput
                               targetCount={
-                                (it() as CountableChallengeItem).targetCount
+                                (it() as { targetCount: number }).targetCount
                               }
                               onChangeTargetColor={(targetCount) =>
                                 handleChangeTargetCount(it().id, targetCount)
@@ -116,7 +138,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                         }
                         daySelect={
                           <ChallengeEditItem.DaySelect
-                            day={it().day}
+                            day={it().days}
                             onChangeDay={(day) => handleChangeDay(it().id, day)}
                           />
                         }

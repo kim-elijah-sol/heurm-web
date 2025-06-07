@@ -4,14 +4,14 @@ import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 import { capitalize } from '../../fx';
 
 type Props = {
-  type: ChallengeItemType;
+  type: Uppercase<ChallengeItemType>;
 };
 
 export const TypeLabel: Component<Props> = (props) => {
   const TypeIcon =
-    props.type === 'complete'
+    props.type === 'COMPLETE'
       ? CheckCheck
-      : props.type === 'over'
+      : props.type === 'OVER'
       ? ChevronsUp
       : ChevronsDown;
 

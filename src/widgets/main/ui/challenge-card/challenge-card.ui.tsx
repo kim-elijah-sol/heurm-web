@@ -9,6 +9,7 @@ import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import { ChallengeColor } from '~/shared/model';
 import { ChartLine, Menu } from '~/shared/ui';
+import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
 
 type Props = {
   id: Accessor<string>;
@@ -170,17 +171,17 @@ export const ChallengeCard: Component<Props> = (props) => {
           )}
       </div>
 
-      {/* {isChallengeEditPanel() && (
+      {isChallengeEditPanel() && (
         <ChallengeEditPanel
+          challengeId={props.id}
           title={props.title}
           color={props.color}
           close={closeChallengeEditPanel}
-          challengeItems={props.challengeItems}
           newChallengeItemPanelOpen={newChallengeItemPanelOpen}
         />
       )}
 
-      {isAnalycisPanel() && (
+      {/* {isAnalycisPanel() && (
         <AnalyticsPanel
           title={props.title}
           color={props.color}

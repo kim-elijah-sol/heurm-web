@@ -1,12 +1,33 @@
+import { Accessor, createEffect } from 'solid-js';
 import { createStore } from 'solid-js/store';
-import { ChallengeDay, ChallengeItem, ChallengeItemForm } from '~/shared/model';
+import { ChallengeDay } from '~/shared/model';
+
+type Base = {
+  id: string;
+  name: string;
+  days: ChallengeDay[];
+  isNew?: boolean;
+};
+
+type ChallengeItemForm = Base &
+  (
+    | {
+        type: 'COMPLETE';
+      }
+    | {
+        type: 'OVER' | 'UNDER';
+        targetCount: number;
+      }
+  );
 
 export const createChallengeItemsForm = (
-  _challengeItems: ChallengeItemForm[]
+  _challengeItems: Accessor<ChallengeItemForm[]>
 ) => {
-  const [challengeItems, setChallengeItems] = createStore([..._challengeItems]);
+  const [challengeItems, setChallengeItems] = createStore([
+    ..._challengeItems(),
+  ]);
 
-  const handleChangeName = (id: number, name: string) => {
+  const handleChangeName = (id: string, name: string) => {
     setChallengeItems(
       challengeItems.findIndex((it) => it.id === id),
       'name',
@@ -14,16 +35,16 @@ export const createChallengeItemsForm = (
     );
   };
 
-  const handleChangeDay = (id: number, day: ChallengeDay) => {
+  const handleChangeDay = (id: string, day: ChallengeDay) => {
     setChallengeItems(
       challengeItems.findIndex((it) => it.id === id),
-      'day',
+      'days',
       (days) =>
         days.includes(day) ? days.filter((it) => it !== day) : [...days, day]
     );
   };
 
-  const handleChangeTargetCount = (id: number, targetCount: number) => {
+  const handleChangeTargetCount = (id: string, targetCount: number) => {
     setChallengeItems(
       challengeItems.findIndex((it) => it.id === id),
       'targetCount' as any,
@@ -31,15 +52,19 @@ export const createChallengeItemsForm = (
     );
   };
 
-  const handleNewChallengeItem = (challengeItem: ChallengeItem) => {
+  const handleNewChallengeItem = (challengeItem: ChallengeItemForm) => {
     const newChallengeItem: ChallengeItemForm = {
       ...challengeItem,
-      id: new Date().valueOf(),
+      id: new Date().valueOf().toString(),
       isNew: true,
     };
 
     setChallengeItems([newChallengeItem, ...challengeItems]);
   };
+
+  createEffect(() => {
+    setChallengeItems([..._challengeItems()]);
+  });
 
   return {
     challengeItems,
