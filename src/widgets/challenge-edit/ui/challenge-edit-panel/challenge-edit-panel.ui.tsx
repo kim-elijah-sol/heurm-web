@@ -200,7 +200,11 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
               </Match>
             </Switch>
 
-            <ChallengeEditDeleteButton />
+            <ChallengeEditDeleteButton
+              challengeId={props.challengeId}
+              originalTitle={props.title}
+              onDeleted={close}
+            />
           </div>
 
           <Panel.CTAButton color={color} onClick={handleSave(close)}>

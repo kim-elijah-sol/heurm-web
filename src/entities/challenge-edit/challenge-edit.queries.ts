@@ -1,6 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/solid-query';
 import { Accessor } from 'solid-js';
-import { getChallengeItem, patchChallenge } from './challenge-edit.api';
+import { toastAtError } from '~/shared/fx';
+import {
+  deleteChallenge,
+  getChallengeItem,
+  patchChallenge,
+} from './challenge-edit.api';
 import { GetChallengeItemRequest } from './challenge-edit.type';
 
 export const getChallengeItemQuery = (
@@ -15,4 +20,14 @@ export const patchChallengeMutation = () =>
   useMutation(() => ({
     mutationKey: ['patchChallenge'],
     mutationFn: patchChallenge,
+  }));
+
+export const deleteChallengeMutation = (
+  onSuccess: (data: Awaited<ReturnType<typeof deleteChallenge>>) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['deleteChallenge'],
+    mutationFn: deleteChallenge,
+    onSuccess,
+    onError: (error) => toastAtError(error),
   }));

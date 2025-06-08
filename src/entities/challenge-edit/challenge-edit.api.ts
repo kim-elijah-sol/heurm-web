@@ -1,9 +1,11 @@
 import { https } from '~/shared/lib';
 import {
+  deleteChallengeResponseSchema,
   getChallengeItemResponseSchema,
   patchChallengeResponseSchema,
 } from './challenge-edit.schema';
 import {
+  DeleteChallengeRequest,
   GetChallengeItemRequest,
   GetChallengeItemResponse,
   PatchChallengeRequest,
@@ -37,3 +39,20 @@ export const patchChallenge = (body: PatchChallengeRequest) =>
 
     return response.data;
   });
+
+export const deleteChallenge = (data: DeleteChallengeRequest) =>
+  https
+    .delete<PatchChallengeResponse>('/challenge', {
+      data,
+    })
+    .then((response) => {
+      const parseResult = deleteChallengeResponseSchema.safeParse(
+        response.data
+      );
+
+      if (parseResult.success === false) {
+        throw parseResult.error;
+      }
+
+      return response.data;
+    });

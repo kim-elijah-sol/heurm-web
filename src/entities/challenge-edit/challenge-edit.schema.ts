@@ -32,3 +32,11 @@ export const patchChallengeRequestSchema = z.object({
 export const patchChallengeResponseSchema = z.object({
   result: z.boolean(),
 });
+
+export const deleteChallengeRequestSchema = z.object({
+  challengeId: z.string(),
+});
+
+export const deleteChallengeResponseSchema = z.object({
+  result: z.boolean(),
+});
