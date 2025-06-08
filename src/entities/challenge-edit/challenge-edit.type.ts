@@ -3,6 +3,8 @@ import {
   getChallengeItemRequestSchema,
   getChallengeItemResponseItemSchema,
   getChallengeItemResponseSchema,
+  patchChallengeRequestSchema,
+  patchChallengeResponseSchema,
 } from './challenge-edit.schema';
 
 export type GetChallengeItemRequest = z.infer<
@@ -15,4 +17,10 @@ export type GetChallengeItemResponseItem = z.infer<
 
 export type GetChallengeItemResponse = z.infer<
   typeof getChallengeItemResponseSchema
+>;
+
+export type PatchChallengeRequest = z.infer<typeof patchChallengeRequestSchema>;
+
+export type PatchChallengeResponse = z.infer<
+  typeof patchChallengeResponseSchema
 >;

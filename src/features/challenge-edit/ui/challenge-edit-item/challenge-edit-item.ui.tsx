@@ -18,7 +18,7 @@ export const ChallengeEditItem: Component<Props> = (props) => {
     <ChallengeItemColorContext.Provider value={props.color}>
       <div
         class={clsx(
-          'flex flex-col rounded-[12px] p-3',
+          'flex flex-col rounded-[12px] p-3 transition-all',
           CHALLENGE_100_BG_COLOR[props.color()]
         )}
       >

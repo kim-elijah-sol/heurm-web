@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import {
+  challengeColorValidator,
   challengeDayValidator,
   challengeItemTypeValidator,
+  challengeTitleValidator,
 } from '~/shared/validator';
 
 export const getChallengeItemRequestSchema = z.object({
@@ -20,3 +22,13 @@ export const getChallengeItemResponseItemSchema = z.object({
 export const getChallengeItemResponseSchema = z.array(
   getChallengeItemResponseItemSchema
 );
+
+export const patchChallengeRequestSchema = z.object({
+  challengeId: z.string(),
+  title: challengeTitleValidator,
+  color: challengeColorValidator,
+});
+
+export const patchChallengeResponseSchema = z.object({
+  result: z.boolean(),
+});

@@ -1,3 +1,10 @@
 import { z } from 'zod';
 
-export const challengeTitleValidator = z.string().min(2).max(16);
+export const challengeTitleValidator = z
+  .string()
+  .min(2, {
+    message: 'Challenge title must be at least 2 characters long',
+  })
+  .max(16, {
+    message: 'Challenge title must be at most 16 characters long',
+  });

@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/solid-query';
 import {
   Accessor,
   Component,
@@ -8,6 +9,7 @@ import {
   Switch,
 } from 'solid-js';
 import { challengeEditQueries } from '~/entities/challenge-edit';
+import { patchChallengeRequestSchema } from '~/entities/challenge-edit/challenge-edit.schema';
 import { createChallengeItemsForm } from '~/features/challenge-edit/hook';
 import {
   ChallengeEditDeleteButton,
@@ -17,6 +19,7 @@ import {
   ChallengeEditTop,
 } from '~/features/challenge-edit/ui';
 import { createBoolean } from '~/shared/hook';
+import { toast } from '~/shared/lib';
 import { ChallengeColor } from '~/shared/model';
 import { ChallengeColorSelect, Panel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item/ui';
@@ -37,9 +40,13 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
   const [color, setColor] = createSignal<ChallengeColor>(props.color());
 
+  const queryClient = useQueryClient();
+
   const challengeItem = challengeEditQueries.getChallengeItemQuery(() => ({
     challengeId: props.challengeId(),
   }));
+
+  const patchChallenge = challengeEditQueries.patchChallengeMutation();
 
   const {
     challengeItems,
@@ -68,6 +75,47 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
         };
       }) ?? []
   );
+
+  const saveErrorMessage = () => {
+    const patchChallengeRequestParse = patchChallengeRequestSchema.safeParse({
+      challengeId: props.challengeId(),
+      title: title(),
+      color: color(),
+    });
+
+    if (patchChallengeRequestParse.success === false) {
+      return patchChallengeRequestParse.error.errors[0].message;
+    }
+
+    return null;
+  };
+
+  const handlePatchChallenge = async () => {
+    if (title() !== props.title() || color() !== props.color()) {
+      await patchChallenge.mutateAsync({
+        challengeId: props.challengeId(),
+        title: title(),
+        color: color(),
+      });
+    }
+  };
+
+  const handleSave = (callback: () => void) => async () => {
+    if (saveErrorMessage()) {
+      toast.open(saveErrorMessage()!);
+      return;
+    }
+
+    await handlePatchChallenge();
+
+    toast.open(`${title()} challenge has been updated`);
+
+    callback();
+
+    queryClient.invalidateQueries({
+      queryKey: ['getChallenge'],
+    });
+  };
 
   onMount(() => {
     if (props.newChallengeItemPanelOpen) {
@@ -155,7 +203,9 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             <ChallengeEditDeleteButton />
           </div>
 
-          <Panel.CTAButton color={color}>Save</Panel.CTAButton>
+          <Panel.CTAButton color={color} onClick={handleSave(close)}>
+            Save
+          </Panel.CTAButton>
         </>
       )}
     </Panel.Slide>
