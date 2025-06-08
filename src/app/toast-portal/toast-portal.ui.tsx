@@ -12,6 +12,8 @@ export const ToastPortal = () => {
       detail: { text },
     } = event as CustomEvent<{ text: string }>;
 
+    if (toasts().some((toast) => toast.text === text)) return;
+
     const toast: Toast = {
       id: new Date().valueOf(),
       text,
