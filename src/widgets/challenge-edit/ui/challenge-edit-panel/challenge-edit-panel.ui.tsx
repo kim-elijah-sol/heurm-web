@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/solid-query';
+import { format } from 'date-fns';
 import {
   Accessor,
   Component,
@@ -8,8 +9,10 @@ import {
   onMount,
   Switch,
 } from 'solid-js';
-import { challengeEditQueries } from '~/entities/challenge-edit';
-import { patchChallengeRequestSchema } from '~/entities/challenge-edit/challenge-edit.schema';
+import {
+  challengeEditQueries,
+  challengeEditSchema,
+} from '~/entities/challenge-edit';
 import { createChallengeItemsForm } from '~/features/challenge-edit/hook';
 import {
   ChallengeEditDeleteButton,
@@ -18,6 +21,7 @@ import {
   ChallengeEditNoChallengeItem,
   ChallengeEditTop,
 } from '~/features/challenge-edit/ui';
+import { createDateSelect } from '~/features/main/hook';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import { ChallengeColor } from '~/shared/model';
@@ -33,6 +37,8 @@ type Props = {
 };
 
 export const ChallengeEditPanel: Component<Props> = (props) => {
+  const { current } = createDateSelect();
+
   const [isNewChallengeItemPanel, open, newChallengeItemClose] =
     createBoolean();
 
@@ -47,6 +53,8 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
   }));
 
   const patchChallenge = challengeEditQueries.patchChallengeMutation();
+
+  const patchChallengeItem = challengeEditQueries.patchChallengeItemMutation();
 
   const {
     challengeItems,
@@ -76,19 +84,24 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
       }) ?? []
   );
 
-  const saveErrorMessage = () => {
-    const patchChallengeRequestParse = patchChallengeRequestSchema.safeParse({
-      challengeId: props.challengeId(),
-      title: title(),
-      color: color(),
+  const editedChallengeItems = () =>
+    challengeItems.filter((it) => {
+      const targetChallengeItem = challengeItem.data?.find(
+        (_it) => it.id === _it.id
+      );
+
+      if (!targetChallengeItem) return false;
+
+      if (
+        it.name !== targetChallengeItem.name ||
+        it.days.length !== targetChallengeItem.days.length ||
+        !it.days.every((day) => targetChallengeItem.days.includes(day))
+      ) {
+        return true;
+      }
+
+      return false;
     });
-
-    if (patchChallengeRequestParse.success === false) {
-      return patchChallengeRequestParse.error.errors[0].message;
-    }
-
-    return null;
-  };
 
   const handlePatchChallenge = async () => {
     if (title() !== props.title() || color() !== props.color()) {
@@ -97,7 +110,88 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
         title: title(),
         color: color(),
       });
+
+      return true;
     }
+
+    return false;
+  };
+
+  const handlePatchChallengeItem = async () => {
+    if (editedChallengeItems().length > 0) {
+      await Promise.allSettled(
+        editedChallengeItems().map((it) => {
+          const baseData = {
+            challengeId: props.challengeId(),
+            challengeItemId: it.id,
+            name: it.name,
+            type: it.type,
+            days: it.days,
+          };
+
+          if (it.type === 'COMPLETE') {
+            return patchChallengeItem.mutateAsync(baseData);
+          } else {
+            return patchChallengeItem.mutateAsync({
+              ...baseData,
+              targetCount: it.targetCount,
+            });
+          }
+        })
+      );
+
+      return true;
+    }
+
+    return false;
+  };
+
+  const saveErrorMessage = () => {
+    const patchChallengeRequestParse =
+      challengeEditSchema.patchChallengeRequestSchema.safeParse({
+        challengeId: props.challengeId(),
+        title: title(),
+        color: color(),
+      });
+
+    if (patchChallengeRequestParse.success === false) {
+      return patchChallengeRequestParse.error.errors[0].message;
+    }
+
+    if (editedChallengeItems().length > 0) {
+      const patchChallengeItemRequestParse = editedChallengeItems().map(
+        (it) => {
+          const baseData = {
+            challengeId: props.challengeId(),
+            challengeItemId: it.id,
+            name: it.name,
+            type: it.type,
+            days: it.days,
+          };
+
+          if (it.type === 'COMPLETE') {
+            return challengeEditSchema.patchChallengeItemRequestSchema.safeParse(
+              baseData
+            );
+          } else {
+            return challengeEditSchema.patchChallengeItemRequestSchema.safeParse(
+              {
+                ...baseData,
+                targetCount: it.targetCount,
+              }
+            );
+          }
+        }
+      );
+
+      return (
+        patchChallengeItemRequestParse.find(
+          (parseResult) => parseResult.success === false
+        )?.error?.errors[0].message ?? null
+      );
+    }
+
+    return null;
   };
 
   const handleSave = (callback: () => void) => async () => {
@@ -106,15 +200,34 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
       return;
     }
 
-    await handlePatchChallenge();
+    let challengeHit = false;
+
+    let challengeItemHit = false;
+
+    if (await handlePatchChallenge()) challengeHit = true;
+
+    if (await handlePatchChallengeItem()) challengeItemHit = true;
 
     toast.open(`${title()} challenge has been updated`);
 
     callback();
 
-    queryClient.invalidateQueries({
-      queryKey: ['getChallenge'],
-    });
+    if (challengeHit) {
+      queryClient.invalidateQueries({
+        queryKey: ['getChallenge'],
+      });
+    }
+
+    if (challengeItemHit) {
+      queryClient.invalidateQueries({
+        queryKey: [
+          'getChallengeItemByDate',
+          props.challengeId(),
+          format(current(), 'yyyy-MM-dd'),
+        ],
+      });
+      challengeItem.refetch();
+    }
   };
 
   onMount(() => {

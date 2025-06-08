@@ -1,5 +1,5 @@
 export * from './challenge-color.validator';
-export * from './challenge-day.validator';
+export * from './challenge-item-day.validator';
 export * from './challenge-item-type.validator';
 export * from './challenge-title.validator';
 export * from './date.validator';

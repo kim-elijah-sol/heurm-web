@@ -5,6 +5,7 @@ import {
   deleteChallenge,
   getChallengeItem,
   patchChallenge,
+  patchChallengeItem,
 } from './challenge-edit.api';
 import { GetChallengeItemRequest } from './challenge-edit.type';
 
@@ -29,5 +30,12 @@ export const deleteChallengeMutation = (
     mutationKey: ['deleteChallenge'],
     mutationFn: deleteChallenge,
     onSuccess,
+    onError: (error) => toastAtError(error),
+  }));
+
+export const patchChallengeItemMutation = () =>
+  useMutation(() => ({
+    mutationKey: ['patchChallengeItem'],
+    mutationFn: patchChallengeItem,
     onError: (error) => toastAtError(error),
   }));

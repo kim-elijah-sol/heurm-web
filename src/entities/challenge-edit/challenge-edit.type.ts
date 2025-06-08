@@ -5,6 +5,8 @@ import {
   getChallengeItemRequestSchema,
   getChallengeItemResponseItemSchema,
   getChallengeItemResponseSchema,
+  patchChallengeItemRequestSchema,
+  patchChallengeItemResponseSchema,
   patchChallengeRequestSchema,
   patchChallengeResponseSchema,
 } from './challenge-edit.schema';
@@ -33,4 +35,12 @@ export type DeleteChallengeRequest = z.infer<
 
 export type DeleteChallengeResponse = z.infer<
   typeof deleteChallengeResponseSchema
+>;
+
+export type PatchChallengeItemRequest = z.infer<
+  typeof patchChallengeItemRequestSchema
+>;
+
+export type PatchChallengeItemResponse = z.infer<
+  typeof patchChallengeItemResponseSchema
 >;
