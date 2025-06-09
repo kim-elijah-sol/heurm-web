@@ -6,6 +6,7 @@ import {
   getChallengeItem,
   patchChallenge,
   patchChallengeItem,
+  postChallengeItem,
 } from './challenge-edit.api';
 import { GetChallengeItemRequest } from './challenge-edit.type';
 
@@ -37,5 +38,12 @@ export const patchChallengeItemMutation = () =>
   useMutation(() => ({
     mutationKey: ['patchChallengeItem'],
     mutationFn: patchChallengeItem,
+    onError: (error) => toastAtError(error),
+  }));
+
+export const postChallengeItemMutation = () =>
+  useMutation(() => ({
+    mutationKey: ['postChallengeItem'],
+    mutationFn: postChallengeItem,
     onError: (error) => toastAtError(error),
   }));

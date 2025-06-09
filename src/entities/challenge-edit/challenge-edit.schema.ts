@@ -54,3 +54,38 @@ export const patchChallengeItemRequestSchema = z.object({
 export const patchChallengeItemResponseSchema = z.object({
   result: z.boolean(),
 });
+
+const challengeItemFormBaseSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  days: challengeDayItemValidator,
+  isNew: z.boolean().optional(),
+  isDelete: z.boolean().optional(),
+});
+
+const completeChallengeItemSchema = challengeItemFormBaseSchema.extend({
+  type: z.literal('COMPLETE'),
+});
+
+const countableChallengeItemSchema = challengeItemFormBaseSchema.extend({
+  type: z.union([z.literal('OVER'), z.literal('UNDER')]),
+  targetCount: z.number(),
+});
+
+export const challengeItemFormSchema = z.union([
+  completeChallengeItemSchema,
+  countableChallengeItemSchema,
+]);
+
+export const postChallengeItemRequestSchema = z.object({
+  challengeId: z.string(),
+  name: z.string(),
+  type: challengeItemTypeValidator,
+  days: challengeDayItemValidator,
+  targetCount: z.number().optional().nullable(),
+  unit: z.string().optional().nullable(),
+});
+
+export const postChallengeItemResponseSchema = z.object({
+  id: z.string(),
+});

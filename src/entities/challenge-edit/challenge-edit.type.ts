@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import {
+  challengeItemFormSchema,
   deleteChallengeRequestSchema,
   deleteChallengeResponseSchema,
   getChallengeItemRequestSchema,
@@ -9,6 +10,8 @@ import {
   patchChallengeItemResponseSchema,
   patchChallengeRequestSchema,
   patchChallengeResponseSchema,
+  postChallengeItemRequestSchema,
+  postChallengeItemResponseSchema,
 } from './challenge-edit.schema';
 
 export type GetChallengeItemRequest = z.infer<
@@ -43,4 +46,14 @@ export type PatchChallengeItemRequest = z.infer<
 
 export type PatchChallengeItemResponse = z.infer<
   typeof patchChallengeItemResponseSchema
+>;
+
+export type ChallengeItemForm = z.infer<typeof challengeItemFormSchema>;
+
+export type PostChallengeItemRequest = z.infer<
+  typeof postChallengeItemRequestSchema
+>;
+
+export type PostChallengeItemResponse = z.infer<
+  typeof postChallengeItemResponseSchema
 >;

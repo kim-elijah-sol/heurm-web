@@ -11,7 +11,8 @@ import { createChallengeItemDay } from './create-challenge-item-day.hook';
 export const createNewChallengeItemForm = () => {
   const [step, setStep] = createSignal<NewChallengeItemStepType>('type');
 
-  const [type, setType] = createSignal<Nullable<ChallengeItemType>>(null);
+  const [type, setType] =
+    createSignal<Nullable<Uppercase<ChallengeItemType>>>(null);
 
   const [name, setName] = createSignal<string>('');
 

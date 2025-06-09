@@ -4,6 +4,7 @@ import {
   getChallengeItemResponseSchema,
   patchChallengeItemResponseSchema,
   patchChallengeResponseSchema,
+  postChallengeItemResponseSchema,
 } from './challenge-edit.schema';
 import {
   DeleteChallengeRequest,
@@ -14,6 +15,8 @@ import {
   PatchChallengeItemResponse,
   PatchChallengeRequest,
   PatchChallengeResponse,
+  PostChallengeItemRequest,
+  PostChallengeItemResponse,
 } from './challenge-edit.type';
 
 export const getChallengeItem = (params: GetChallengeItemRequest) =>
@@ -66,6 +69,21 @@ export const patchChallengeItem = (body: PatchChallengeItemRequest) =>
     .patch<PatchChallengeItemResponse>('/challenge/challenge-item', body)
     .then((response) => {
       const parseResult = patchChallengeItemResponseSchema.safeParse(
+        response.data
+      );
+
+      if (parseResult.success === false) {
+        throw parseResult.error;
+      }
+
+      return response.data;
+    });
+
+export const postChallengeItem = (body: PostChallengeItemRequest) =>
+  https
+    .post<PostChallengeItemResponse>('/challenge/challenge-item', body)
+    .then((response) => {
+      const parseResult = postChallengeItemResponseSchema.safeParse(
         response.data
       );
 

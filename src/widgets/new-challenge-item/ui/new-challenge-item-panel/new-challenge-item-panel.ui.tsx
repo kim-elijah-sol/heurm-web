@@ -1,13 +1,13 @@
 import { Component } from 'solid-js';
+import { ChallengeEditType } from '~/entities/challenge-edit';
 import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
 import { NewChallengeItemStep } from '~/features/new-challenge-item/ui';
 import { toast } from '~/shared/lib';
-import { ChallengeItem } from '~/shared/model';
 import { Panel } from '~/shared/ui';
 import './new-challenge-item-step.ui.css';
 
 type Props = {
-  onSubmit: (challengeItem: ChallengeItem) => void;
+  onSubmit: (challengeItem: ChallengeEditType.ChallengeItemForm) => void;
   close: () => void;
 };
 
@@ -45,7 +45,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
             displayType={getDisplayType('name')}
             onPrev={() => setStep('type')}
             onNext={() => {
-              if (type() === 'complete') {
+              if (type() === 'COMPLETE') {
                 setStep('day');
               } else {
                 setStep('count');
@@ -66,7 +66,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
             day={day}
             onChangeDay={handleChangeDay}
             onPrev={() => {
-              if (type() === 'complete') {
+              if (type() === 'COMPLETE') {
                 setStep('name');
               } else {
                 setStep('count');
@@ -79,20 +79,24 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 
               toast.open(`🎉 '${name()}' is added!`);
 
-              if (_type === 'complete') {
+              const id = new Date().valueOf().toString();
+
+              if (_type === 'COMPLETE') {
                 props.onSubmit({
-                  type: 'complete',
-                  isCompleted: null,
+                  id,
+                  type: 'COMPLETE',
                   name: name(),
-                  day: day(),
+                  days: day(),
+                  isNew: true,
                 });
               } else {
                 props.onSubmit({
+                  id,
                   type: _type,
                   targetCount: Number(count()),
-                  count: null,
                   name: name(),
-                  day: day(),
+                  days: day(),
+                  isNew: true,
                 });
               }
               close();

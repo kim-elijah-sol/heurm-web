@@ -56,11 +56,14 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
   const patchChallengeItem = challengeEditQueries.patchChallengeItemMutation();
 
+  const postChallengeItem = challengeEditQueries.postChallengeItemMutation();
+
   const {
-    challengeItems,
+    challengeItems: _challengeItems,
     handleChangeDay,
     handleChangeName,
     handleChangeTargetCount,
+    handleDeleteChallengeItem,
     handleNewChallengeItem,
   } = createChallengeItemsForm(
     () =>
@@ -84,8 +87,11 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
       }) ?? []
   );
 
+  const challengeItems = () =>
+    _challengeItems.filter((it) => it.isDelete !== true);
+
   const editedChallengeItems = () =>
-    challengeItems.filter((it) => {
+    challengeItems().filter((it) => {
       const targetChallengeItem = challengeItem.data?.find(
         (_it) => it.id === _it.id
       );
@@ -102,6 +108,8 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
       return false;
     });
+
+  const newChallengeItems = () => challengeItems().filter((it) => it.isNew);
 
   const handlePatchChallenge = async () => {
     if (title() !== props.title() || color() !== props.color()) {
@@ -146,7 +154,35 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
     return false;
   };
 
-  const saveErrorMessage = () => {
+  const handlePostChallengeItem = async () => {
+    if (newChallengeItems().length > 0) {
+      await Promise.allSettled(
+        newChallengeItems().map((it) => {
+          const baseData = {
+            challengeId: props.challengeId(),
+            name: it.name,
+            type: it.type,
+            days: it.days,
+          };
+
+          if (it.type === 'COMPLETE') {
+            return postChallengeItem.mutateAsync(baseData);
+          } else {
+            return postChallengeItem.mutateAsync({
+              ...baseData,
+              targetCount: it.targetCount,
+            });
+          }
+        })
+      );
+
+      return true;
+    }
+
+    return false;
+  };
+
+  const getPatchChallengeRequestErrorMessage = () => {
     const patchChallengeRequestParse =
       challengeEditSchema.patchChallengeRequestSchema.safeParse({
         challengeId: props.challengeId(),
@@ -158,6 +194,10 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
       return patchChallengeRequestParse.error.errors[0].message;
     }
 
+    return null;
+  };
+
+  const getPatchChallengeItemRequestErrorMessage = () => {
     if (editedChallengeItems().length > 0) {
       const patchChallengeItemRequestParse = editedChallengeItems().map(
         (it) => {
@@ -194,6 +234,63 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
     return null;
   };
 
+  const getPostChallengeItemRequestErrorMessage = () => {
+    if (newChallengeItems().length > 0) {
+      const postChallengeItemRequestParse = newChallengeItems().map((it) => {
+        const baseData = {
+          challengeId: props.challengeId(),
+          name: it.name,
+          type: it.type,
+          days: it.days,
+        };
+
+        if (it.type === 'COMPLETE') {
+          return challengeEditSchema.postChallengeItemRequestSchema.safeParse(
+            baseData
+          );
+        } else {
+          return challengeEditSchema.postChallengeItemRequestSchema.safeParse({
+            ...baseData,
+            targetCount: it.targetCount,
+          });
+        }
+      });
+
+      return (
+        postChallengeItemRequestParse.find(
+          (parseResult) => parseResult.success === false
+        )?.error?.errors[0].message ?? null
+      );
+    }
+
+    return null;
+  };
+
+  const saveErrorMessage = () => {
+    const patchChallengeRequestErrorMessage =
+      getPatchChallengeRequestErrorMessage();
+
+    if (patchChallengeRequestErrorMessage) {
+      return patchChallengeRequestErrorMessage;
+    }
+
+    const patchChallengeItemRequestErrorMessage =
+      getPatchChallengeItemRequestErrorMessage();
+
+    if (patchChallengeItemRequestErrorMessage) {
+      return patchChallengeItemRequestErrorMessage;
+    }
+
+    const postChallengeItemRequestErrorMessage =
+      getPostChallengeItemRequestErrorMessage();
+
+    if (postChallengeItemRequestErrorMessage) {
+      return postChallengeItemRequestErrorMessage;
+    }
+
+    return null;
+  };
+
   const handleSave = (callback: () => void) => async () => {
     if (saveErrorMessage()) {
       toast.open(saveErrorMessage()!);
@@ -207,6 +304,8 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
     if (await handlePatchChallenge()) challengeHit = true;
 
     if (await handlePatchChallengeItem()) challengeItemHit = true;
+
+    if (await handlePostChallengeItem()) challengeItemHit = true;
 
     toast.open(`${title()} challenge has been updated`);
 
@@ -254,12 +353,12 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             <div class='flex justify-center mb-4'>
               <ChallengeEditNewItemButton
                 onClick={open}
-                pulse={() => challengeItems.length === 0}
+                pulse={() => challengeItems().length === 0}
               />
               {isNewChallengeItemPanel() && (
                 <NewChallengeItemPanel
                   onSubmit={(it) => {
-                    console.log(it);
+                    handleNewChallengeItem(it);
                   }}
                   close={newChallengeItemClose}
                 />
@@ -267,9 +366,9 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             </div>
 
             <Switch>
-              <Match when={challengeItems.length > 0}>
+              <Match when={challengeItems().length > 0}>
                 <div class='w-full flex flex-col gap-4 mb-4'>
-                  <Index each={challengeItems}>
+                  <Index each={challengeItems()}>
                     {(it) => (
                       <ChallengeEditItem
                         color={color}
@@ -284,7 +383,11 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                         typeLabel={
                           <ChallengeEditItem.TypeLabel type={it().type} />
                         }
-                        deleteButton={<ChallengeEditItem.DeleteButton />}
+                        deleteButton={
+                          <ChallengeEditItem.DeleteButton
+                            onDelete={() => handleDeleteChallengeItem(it().id)}
+                          />
+                        }
                         targetCountInput={
                           it().type !== 'COMPLETE' && (
                             <ChallengeEditItem.TargetCountInput
@@ -308,7 +411,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                   </Index>
                 </div>
               </Match>
-              <Match when={challengeItems.length === 0}>
+              <Match when={challengeItems().length === 0}>
                 <ChallengeEditNoChallengeItem color={color} />
               </Match>
             </Switch>

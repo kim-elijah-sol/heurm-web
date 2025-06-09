@@ -1,27 +1,10 @@
 import { Accessor, createEffect } from 'solid-js';
 import { createStore } from 'solid-js/store';
+import { ChallengeEditType } from '~/entities/challenge-edit';
 import { ChallengeDay } from '~/shared/model';
 
-type Base = {
-  id: string;
-  name: string;
-  days: ChallengeDay[];
-  isNew?: boolean;
-};
-
-type ChallengeItemForm = Base &
-  (
-    | {
-        type: 'COMPLETE';
-      }
-    | {
-        type: 'OVER' | 'UNDER';
-        targetCount: number;
-      }
-  );
-
 export const createChallengeItemsForm = (
-  _challengeItems: Accessor<ChallengeItemForm[]>
+  _challengeItems: Accessor<ChallengeEditType.ChallengeItemForm[]>
 ) => {
   const [challengeItems, setChallengeItems] = createStore([
     ..._challengeItems(),
@@ -52,8 +35,24 @@ export const createChallengeItemsForm = (
     );
   };
 
-  const handleNewChallengeItem = (challengeItem: ChallengeItemForm) => {
-    const newChallengeItem: ChallengeItemForm = {
+  const handleDeleteChallengeItem = (id: string) => {
+    const targetChallengeItemIndex = challengeItems.findIndex(
+      (it) => it.id === id
+    );
+
+    if (challengeItems[targetChallengeItemIndex].isNew) {
+      setChallengeItems((challengeItems) =>
+        challengeItems.filter((it) => it.id !== id)
+      );
+    } else {
+      setChallengeItems(targetChallengeItemIndex, 'isDelete', true);
+    }
+  };
+
+  const handleNewChallengeItem = (
+    challengeItem: ChallengeEditType.ChallengeItemForm
+  ) => {
+    const newChallengeItem: ChallengeEditType.ChallengeItemForm = {
       ...challengeItem,
       id: new Date().valueOf().toString(),
       isNew: true,
@@ -71,6 +70,7 @@ export const createChallengeItemsForm = (
     handleChangeDay,
     handleChangeName,
     handleChangeTargetCount,
+    handleDeleteChallengeItem,
     handleNewChallengeItem,
   };
 };
