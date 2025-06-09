@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const passwordValidator = z
+export const passwordSchema = z
   .string()
   .min(8, { message: 'Password must be at least 8 characters long' })
   .max(16, { message: 'Password must be at most 16 characters long' })

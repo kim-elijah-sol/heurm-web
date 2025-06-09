@@ -1,15 +1,15 @@
 import { z } from 'zod';
 import {
-  challengeColorValidator,
-  challengeItemTypeValidator,
-  challengeTitleValidator,
-  dateValidator,
-} from '~/shared/validator';
+  challengeColorSchema,
+  challengeItemTypeSchema,
+  challengeTitleSchema,
+  dateSchema,
+} from '~/shared/schema';
 
 export const getChallengeResponseItemSchema = z.object({
   id: z.string(),
-  title: challengeTitleValidator,
-  color: challengeColorValidator,
+  title: challengeTitleSchema,
+  color: challengeColorSchema,
 });
 
 export const getChallengeResponseSchema = z.array(
@@ -18,7 +18,7 @@ export const getChallengeResponseSchema = z.array(
 
 export const getChallengeItemByDateRequestSchema = z.object({
   challengeId: z.string(),
-  date: dateValidator,
+  date: dateSchema,
 });
 
 export const getChallengeItemByDateResponseItemHistorySchema = z.object({
@@ -30,7 +30,7 @@ export const getChallengeItemByDateResponseItemHistorySchema = z.object({
 export const getChallengeItemByDateResponseItemSchema = z.object({
   id: z.string(),
   name: z.string(),
-  type: challengeItemTypeValidator,
+  type: challengeItemTypeSchema,
   targetCount: z.number().nullable(),
   unit: z.string().nullable(),
   history: getChallengeItemByDateResponseItemHistorySchema.nullable(),

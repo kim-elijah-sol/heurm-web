@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import {
-  challengeColorValidator,
-  challengeDayItemValidator,
-  challengeItemTypeValidator,
-  challengeTitleValidator,
-} from '~/shared/validator';
+  challengeColorSchema,
+  challengeDayItemSchema,
+  challengeItemTypeSchema,
+  challengeTitleSchema,
+} from '~/shared/schema';
 
 export const getChallengeItemRequestSchema = z.object({
   challengeId: z.string(),
@@ -13,8 +13,8 @@ export const getChallengeItemRequestSchema = z.object({
 export const getChallengeItemResponseItemSchema = z.object({
   id: z.string(),
   name: z.string(),
-  days: challengeDayItemValidator,
-  type: challengeItemTypeValidator,
+  days: challengeDayItemSchema,
+  type: challengeItemTypeSchema,
   targetCount: z.number().nullable(),
   unit: z.string().nullable(),
 });
@@ -25,8 +25,8 @@ export const getChallengeItemResponseSchema = z.array(
 
 export const patchChallengeRequestSchema = z.object({
   challengeId: z.string(),
-  title: challengeTitleValidator,
-  color: challengeColorValidator,
+  title: challengeTitleSchema,
+  color: challengeColorSchema,
 });
 
 export const patchChallengeResponseSchema = z.object({
@@ -45,8 +45,8 @@ export const patchChallengeItemRequestSchema = z.object({
   challengeId: z.string(),
   challengeItemId: z.string(),
   name: z.string(),
-  type: challengeItemTypeValidator,
-  days: challengeDayItemValidator,
+  type: challengeItemTypeSchema,
+  days: challengeDayItemSchema,
   targetCount: z.number().optional().nullable(),
   unit: z.string().optional().nullable(),
 });
@@ -58,7 +58,7 @@ export const patchChallengeItemResponseSchema = z.object({
 const challengeItemFormBaseSchema = z.object({
   id: z.string(),
   name: z.string(),
-  days: challengeDayItemValidator,
+  days: challengeDayItemSchema,
   isNew: z.boolean().optional(),
   isDelete: z.boolean().optional(),
 });
@@ -80,8 +80,8 @@ export const challengeItemFormSchema = z.union([
 export const postChallengeItemRequestSchema = z.object({
   challengeId: z.string(),
   name: z.string(),
-  type: challengeItemTypeValidator,
-  days: challengeDayItemValidator,
+  type: challengeItemTypeSchema,
+  days: challengeDayItemSchema,
   targetCount: z.number().optional().nullable(),
   unit: z.string().optional().nullable(),
 });

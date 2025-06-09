@@ -1,8 +1,8 @@
 import { createEffect, createSignal, JSX } from 'solid-js';
 import { userQueries, userSchema } from '~/entities/user';
 import { toast } from '~/shared/lib';
+import { passwordSchema } from '~/shared/schema';
 import { Nullable } from '~/shared/types';
-import { passwordValidator } from '~/shared/validator';
 
 export const createUserSettingForm = () => {
   const profile = userQueries.getUserProfileQuery();
@@ -44,8 +44,8 @@ export const createUserSettingForm = () => {
       ) {
         if (currentPassword().length > 0) {
           return (
-            passwordValidator.safeParse(currentPassword()).success === true &&
-            passwordValidator.safeParse(newPassword()).success === true
+            passwordSchema.safeParse(currentPassword()).success === true &&
+            passwordSchema.safeParse(newPassword()).success === true
           );
         } else {
           return currentPassword().length + newPassword().length === 0;

@@ -1,12 +1,8 @@
 import { z } from 'zod';
-import {
-  emailValidator,
-  passwordValidator,
-  verifyCodeValidator
-} from '~/shared/validator';
+import { emailSchema, passwordSchema, verifyCodeSchema } from '~/shared/schema';
 
 export const postVerifyEmailSendRequestSchema = z.object({
-  email: emailValidator,
+  email: emailSchema,
 });
 
 export const postVerifyEmailSendResponseSchema = z.object({
@@ -14,9 +10,9 @@ export const postVerifyEmailSendResponseSchema = z.object({
 });
 
 export const postVerifyEmailRequestSchema = z.object({
-  code: verifyCodeValidator,
+  code: verifyCodeSchema,
   id: z.string(),
-  email: emailValidator,
+  email: emailSchema,
 });
 
 export const postVerifyEmailResponseSchema = z.object({
@@ -24,9 +20,9 @@ export const postVerifyEmailResponseSchema = z.object({
 });
 
 export const postJoinRequestSchema = z.object({
-  email: emailValidator,
+  email: emailSchema,
   id: z.string(),
-  password: passwordValidator,
+  password: passwordSchema,
   timezone: z.string(),
   timezoneOffset: z.number(),
 });

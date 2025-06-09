@@ -1,15 +1,12 @@
 import { z } from 'zod';
-import {
-  challengeColorValidator,
-  challengeTitleValidator,
-} from '~/shared/validator';
+import { challengeColorSchema, challengeTitleSchema } from '~/shared/schema';
 
 export const postChallengeRequestSchema = z.object({
-  title: challengeTitleValidator,
-  color: challengeColorValidator,
+  title: challengeTitleSchema,
+  color: challengeColorSchema,
 });
 
 export const postChallengeResponseSchema = z.object({
-  title: challengeTitleValidator,
+  title: challengeTitleSchema,
   id: z.string(),
 });

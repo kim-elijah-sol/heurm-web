@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { emailValidator, passwordValidator } from '~/shared/validator';
+import { emailSchema, passwordSchema } from '~/shared/schema';
 
 export const postLoginRequestSchema = z.object({
-  email: emailValidator,
-  password: passwordValidator,
+  email: emailSchema,
+  password: passwordSchema,
 });
 
 export const postLoginResponseSchema = z.object({
