@@ -1,7 +1,7 @@
 import { createEffect, createSignal, JSX } from 'solid-js';
 import { userQueries, userSchema } from '~/entities/user';
 import { toast } from '~/shared/lib';
-import { Nullable } from '~/shared/model';
+import { Nullable } from '~/shared/types';
 import { passwordValidator } from '~/shared/validator';
 
 export const createUserSettingForm = () => {

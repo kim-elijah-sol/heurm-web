@@ -5,7 +5,7 @@ import {
   AnalyticsOverviewCard,
   AnalyticsPanelTop,
 } from '~/features/analytics/ui';
-import { ChallengeColor, ChallengeItem } from '~/shared/model';
+import { ChallengeColor, ChallengeItem } from '~/shared/types';
 import { Panel } from '~/shared/ui';
 
 type Props = {

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { Accessor, children, Component, JSX } from 'solid-js';
 import { ChallengeEditContext } from '~/entities/challenge-edit';
 import { CHALLENGE_100_BG_COLOR } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/model';
+import { ChallengeColor } from '~/shared/types';
 
 type Props = {
   color: Accessor<ChallengeColor>;

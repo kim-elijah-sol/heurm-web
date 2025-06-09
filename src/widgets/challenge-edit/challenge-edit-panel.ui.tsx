@@ -24,7 +24,7 @@ import {
 import { createDateSelect } from '~/features/main/hook';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import { ChallengeColor } from '~/shared/model';
+import { ChallengeColor } from '~/shared/types';
 import { ChallengeColorSelect, Panel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item';
 

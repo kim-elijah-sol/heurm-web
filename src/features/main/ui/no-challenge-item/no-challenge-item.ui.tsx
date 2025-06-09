@@ -5,7 +5,7 @@ import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
 } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/model';
+import { ChallengeColor } from '~/shared/types';
 import { Plus } from '~/shared/ui';
 
 type Props = {

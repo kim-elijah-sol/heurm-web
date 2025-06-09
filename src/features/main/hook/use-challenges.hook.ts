@@ -2,7 +2,7 @@ import { createMemo, createRoot, createSignal } from 'solid-js';
 import { CHALLENGE_DAY } from '~/shared/constant';
 import { getDay } from '~/shared/fx';
 import { toast } from '~/shared/lib';
-import { ChallengeColor, ChallengeItem, Nullable } from '~/shared/model';
+import { ChallengeColor, ChallengeItem, Nullable } from '~/shared/types';
 
 type Challenge = {
   id: number;

@@ -6,7 +6,7 @@ import {
   CHALLENGE_ACTIVE_BG_200_COLOR,
   CHALLENGE_DAY,
 } from '~/shared/constant';
-import { ChallengeDay } from '~/shared/model';
+import { ChallengeDay } from '~/shared/types';
 
 type Props = {
   day: ChallengeDay[];

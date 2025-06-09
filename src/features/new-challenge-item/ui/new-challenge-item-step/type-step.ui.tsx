@@ -1,6 +1,6 @@
 import { clsx } from 'clsx';
 import { Accessor, Component } from 'solid-js';
-import { ChallengeItemType, RollingDisplayType } from '~/shared/model';
+import { ChallengeItemType, RollingDisplayType } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 
 type Props = {

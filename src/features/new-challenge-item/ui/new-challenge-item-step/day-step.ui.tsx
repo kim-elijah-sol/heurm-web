@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Accessor, Component, For } from 'solid-js';
 import { CHALLENGE_DAY } from '~/shared/constant';
-import { ChallengeDay, RollingDisplayType } from '~/shared/model';
+import { ChallengeDay, RollingDisplayType } from '~/shared/types';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {

@@ -1,6 +1,6 @@
 import { createSignal, onCleanup } from 'solid-js';
 import { loginHelperConstant, LoginHelperType } from '~/entities/login-helper';
-import { Nullable } from '~/shared/model';
+import { Nullable } from '~/shared/types';
 
 export const createLoginHelperForm = () => {
   const [step, setStep] =

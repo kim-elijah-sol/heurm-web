@@ -5,7 +5,7 @@ import {
   newChallengeSchema,
 } from '~/entities/new-challenge';
 import { toast } from '~/shared/lib';
-import { ChallengeColor } from '~/shared/model';
+import { ChallengeColor } from '~/shared/types';
 
 export const createNewChallengeForm = () => {
   const queryClient = useQueryClient();

@@ -5,7 +5,7 @@ import {
   CHALLENGE_BORDER_COLOR_200,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/model';
+import { ChallengeColor } from '~/shared/types';
 
 type Props = {
   color: ChallengeColor;

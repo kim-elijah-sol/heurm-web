@@ -4,7 +4,7 @@ import {
   ChallengeItemType,
   Nullable,
   RollingDisplayType,
-} from '~/shared/model';
+} from '~/shared/types';
 import { getStepValue } from '../fx';
 import { createChallengeItemDay } from './create-challenge-item-day.hook';
 

@@ -5,7 +5,7 @@ import {
   CHALLENGE_ACTIVE_BG_500_COLOR,
   CHALLENGE_FROM_300_BG_COLOR,
 } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/model';
+import { ChallengeColor } from '~/shared/types';
 
 type Props = Omit<JSX.IntrinsicElements['button'], 'color'> & {
   color: Accessor<ChallengeColor>;

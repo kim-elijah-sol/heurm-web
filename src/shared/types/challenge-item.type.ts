@@ -1,4 +1,4 @@
-import { ChallengeDay, Nullable } from '~/shared/model';
+import { ChallengeDay, Nullable } from '~/shared/types';
 
 type ChallengeItemBase = {
   name: string;

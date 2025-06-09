@@ -1,7 +1,7 @@
 import { createSignal, onCleanup, onMount } from 'solid-js';
 import { For, Portal } from 'solid-js/web';
 import { ADD_TOAST_EVENT_NAME } from '~/shared/constant';
-import { Toast } from '~/shared/model';
+import { Toast } from '~/shared/types';
 import { ToastItem } from '~/shared/ui';
 
 export const ToastPortal = () => {
