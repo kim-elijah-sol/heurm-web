@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { NewChallengeItemStepType } from '~/entities/new-challenge-item/model';
+import { NewChallengeItemType } from '~/entities/new-challenge-item';
 import {
   ChallengeItemType,
   Nullable,
@@ -9,7 +9,8 @@ import { getStepValue } from '../fx';
 import { createChallengeItemDay } from './create-challenge-item-day.hook';
 
 export const createNewChallengeItemForm = () => {
-  const [step, setStep] = createSignal<NewChallengeItemStepType>('type');
+  const [step, setStep] =
+    createSignal<NewChallengeItemType.NewChallengeItemStepType>('type');
 
   const [type, setType] =
     createSignal<Nullable<Uppercase<ChallengeItemType>>>(null);
@@ -21,7 +22,8 @@ export const createNewChallengeItemForm = () => {
   const [day, handleChangeDay] = createChallengeItemDay();
 
   const getDisplayType =
-    (_step: NewChallengeItemStepType) => (): RollingDisplayType => {
+    (_step: NewChallengeItemType.NewChallengeItemStepType) =>
+    (): RollingDisplayType => {
       const currentStepValue = getStepValue(step());
       const targetStepValue = getStepValue(_step);
 
