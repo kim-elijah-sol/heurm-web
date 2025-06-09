@@ -1,25 +1,29 @@
 import { z } from 'zod';
 import {
-  joinRequestSchema,
-  joinResponseSchema,
-  verifyEmailRequestSchema,
-  verifyEmailResponseSchema,
-  verifyEmailSendRequestSchema,
-  verifyEmailSendResponseSchema,
+  postJoinRequestSchema,
+  postJoinResponseSchema,
+  postVerifyEmailRequestSchema,
+  postVerifyEmailResponseSchema,
+  postVerifyEmailSendRequestSchema,
+  postVerifyEmailSendResponseSchema,
 } from './join.schema';
 
-export type VerifyEmailSendRequest = z.infer<
-  typeof verifyEmailSendRequestSchema
+export type PostVerifyEmailSendRequest = z.infer<
+  typeof postVerifyEmailSendRequestSchema
 >;
 
-export type VerifyEmailSendResponse = z.infer<
-  typeof verifyEmailSendResponseSchema
+export type PostVerifyEmailSendResponse = z.infer<
+  typeof postVerifyEmailSendResponseSchema
 >;
 
-export type VerifyEmailRequest = z.infer<typeof verifyEmailRequestSchema>;
+export type PostVerifyEmailRequest = z.infer<
+  typeof postVerifyEmailRequestSchema
+>;
 
-export type VerifyEmailResponse = z.infer<typeof verifyEmailResponseSchema>;
+export type PostVerifyEmailResponse = z.infer<
+  typeof postVerifyEmailResponseSchema
+>;
 
-export type JoinRequest = z.infer<typeof joinRequestSchema>;
+export type PostJoinRequest = z.infer<typeof postJoinRequestSchema>;
 
-export type JoinResponse = z.infer<typeof joinResponseSchema>;
+export type PostJoinResponse = z.infer<typeof postJoinResponseSchema>;

@@ -18,17 +18,17 @@ export const createJoinForm = () => {
     startCountDown,
   } = createLoginHelperForm();
 
-  const verifyEmailSend = joinQueries.verifyEmailSendMutation(({ id }) => {
+  const verifyEmailSend = joinQueries.postVerifyEmailSendMutation(({ id }) => {
     setId(id);
     setStep('verify');
     startCountDown();
   });
 
-  const verifyEmail = joinQueries.verifyEmailMutation(() => {
+  const verifyEmail = joinQueries.postVerifyEmailMutation(() => {
     setStep('password');
   });
 
-  const join = joinQueries.joinMutation(() => {
+  const join = joinQueries.postJoinMutation(() => {
     setStep('done');
   });
 

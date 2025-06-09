@@ -2,28 +2,28 @@ import { z } from 'zod';
 import {
   emailValidator,
   passwordValidator,
-  verifyCodeValidator,
+  verifyCodeValidator
 } from '~/shared/validator';
 
-export const verifyEmailSendRequestSchema = z.object({
+export const postVerifyEmailSendRequestSchema = z.object({
   email: emailValidator,
 });
 
-export const verifyEmailSendResponseSchema = z.object({
+export const postVerifyEmailSendResponseSchema = z.object({
   id: z.string(),
 });
 
-export const verifyEmailRequestSchema = z.object({
+export const postVerifyEmailRequestSchema = z.object({
   code: verifyCodeValidator,
   id: z.string(),
   email: emailValidator,
 });
 
-export const verifyEmailResponseSchema = z.object({
+export const postVerifyEmailResponseSchema = z.object({
   result: z.boolean(),
 });
 
-export const joinRequestSchema = z.object({
+export const postJoinRequestSchema = z.object({
   email: emailValidator,
   id: z.string(),
   password: passwordValidator,
@@ -31,6 +31,6 @@ export const joinRequestSchema = z.object({
   timezoneOffset: z.number(),
 });
 
-export const joinResponseSchema = z.object({
+export const postJoinResponseSchema = z.object({
   result: z.boolean(),
 });
