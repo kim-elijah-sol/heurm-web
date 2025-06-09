@@ -89,3 +89,12 @@ export const postChallengeItemRequestSchema = z.object({
 export const postChallengeItemResponseSchema = z.object({
   id: z.string(),
 });
+
+export const deleteChallengeItemRequestSchema = z.object({
+  challengeId: z.string(),
+  challengeItemId: z.string(),
+});
+
+export const deleteChallengeItemResponseSchema = z.object({
+  result: z.boolean(),
+});

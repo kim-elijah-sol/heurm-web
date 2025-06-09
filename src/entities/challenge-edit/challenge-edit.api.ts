@@ -1,5 +1,6 @@
 import { https } from '~/shared/lib';
 import {
+  deleteChallengeItemResponseSchema,
   deleteChallengeResponseSchema,
   getChallengeItemResponseSchema,
   patchChallengeItemResponseSchema,
@@ -7,6 +8,8 @@ import {
   postChallengeItemResponseSchema,
 } from './challenge-edit.schema';
 import {
+  DeleteChallengeItemRequest,
+  DeleteChallengeItemResponse,
   DeleteChallengeRequest,
   DeleteChallengeResponse,
   GetChallengeItemRequest,
@@ -24,72 +27,33 @@ export const getChallengeItem = (params: GetChallengeItemRequest) =>
     .get<GetChallengeItemResponse>('/challenge/challenge-item', {
       params,
     })
-    .then((response) => {
-      const parseResult = getChallengeItemResponseSchema.safeParse(
-        response.data
-      );
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(getChallengeItemResponseSchema));
 
 export const patchChallenge = (body: PatchChallengeRequest) =>
-  https.patch<PatchChallengeResponse>('/challenge', body).then((response) => {
-    const parseResult = patchChallengeResponseSchema.safeParse(response.data);
-
-    if (parseResult.success === false) {
-      throw parseResult.error;
-    }
-
-    return response.data;
-  });
+  https
+    .patch<PatchChallengeResponse>('/challenge', body)
+    .then(https.validateResponse(patchChallengeResponseSchema));
 
 export const deleteChallenge = (data: DeleteChallengeRequest) =>
   https
     .delete<DeleteChallengeResponse>('/challenge', {
       data,
     })
-    .then((response) => {
-      const parseResult = deleteChallengeResponseSchema.safeParse(
-        response.data
-      );
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(deleteChallengeResponseSchema));
 
 export const patchChallengeItem = (body: PatchChallengeItemRequest) =>
   https
     .patch<PatchChallengeItemResponse>('/challenge/challenge-item', body)
-    .then((response) => {
-      const parseResult = patchChallengeItemResponseSchema.safeParse(
-        response.data
-      );
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(patchChallengeItemResponseSchema));
 
 export const postChallengeItem = (body: PostChallengeItemRequest) =>
   https
     .post<PostChallengeItemResponse>('/challenge/challenge-item', body)
-    .then((response) => {
-      const parseResult = postChallengeItemResponseSchema.safeParse(
-        response.data
-      );
+    .then(https.validateResponse(postChallengeItemResponseSchema));
 
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+export const deleteChallengeItem = (data: DeleteChallengeItemRequest) =>
+  https
+    .delete<DeleteChallengeItemResponse>('/challenge/challenge-item', {
+      data,
+    })
+    .then(https.validateResponse(deleteChallengeItemResponseSchema));

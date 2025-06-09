@@ -3,6 +3,7 @@ import { Accessor } from 'solid-js';
 import { toastAtError } from '~/shared/fx';
 import {
   deleteChallenge,
+  deleteChallengeItem,
   getChallengeItem,
   patchChallenge,
   patchChallengeItem,
@@ -45,5 +46,12 @@ export const postChallengeItemMutation = () =>
   useMutation(() => ({
     mutationKey: ['postChallengeItem'],
     mutationFn: postChallengeItem,
+    onError: (error) => toastAtError(error),
+  }));
+
+export const deleteChallengeItemMutation = () =>
+  useMutation(() => ({
+    mutationKey: ['deleteChallengeItem'],
+    mutationFn: deleteChallengeItem,
     onError: (error) => toastAtError(error),
   }));

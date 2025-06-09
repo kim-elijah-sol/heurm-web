@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import {
   challengeItemFormSchema,
+  deleteChallengeItemRequestSchema,
+  deleteChallengeItemResponseSchema,
   deleteChallengeRequestSchema,
   deleteChallengeResponseSchema,
   getChallengeItemRequestSchema,
@@ -56,4 +58,12 @@ export type PostChallengeItemRequest = z.infer<
 
 export type PostChallengeItemResponse = z.infer<
   typeof postChallengeItemResponseSchema
+>;
+
+export type DeleteChallengeItemRequest = z.infer<
+  typeof deleteChallengeItemRequestSchema
+>;
+
+export type DeleteChallengeItemResponse = z.infer<
+  typeof deleteChallengeItemResponseSchema
 >;

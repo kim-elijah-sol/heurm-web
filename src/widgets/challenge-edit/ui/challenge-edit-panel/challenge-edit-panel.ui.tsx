@@ -58,6 +58,9 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
   const postChallengeItem = challengeEditQueries.postChallengeItemMutation();
 
+  const deleteChallengeItem =
+    challengeEditQueries.deleteChallengeItemMutation();
+
   const {
     challengeItems: _challengeItems,
     handleChangeDay,
@@ -111,6 +114,9 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
   const newChallengeItems = () => challengeItems().filter((it) => it.isNew);
 
+  const deleteChallengeItems = () =>
+    _challengeItems.filter((it) => it.isDelete);
+
   const handlePatchChallenge = async () => {
     if (title() !== props.title() || color() !== props.color()) {
       await patchChallenge.mutateAsync({
@@ -125,7 +131,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
     return false;
   };
 
-  const handlePatchChallengeItem = async () => {
+  const handlePatchChallengeItems = async () => {
     if (editedChallengeItems().length > 0) {
       await Promise.allSettled(
         editedChallengeItems().map((it) => {
@@ -154,7 +160,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
     return false;
   };
 
-  const handlePostChallengeItem = async () => {
+  const handlePostChallengeItems = async () => {
     if (newChallengeItems().length > 0) {
       await Promise.allSettled(
         newChallengeItems().map((it) => {
@@ -173,6 +179,23 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
               targetCount: it.targetCount,
             });
           }
+        })
+      );
+
+      return true;
+    }
+
+    return false;
+  };
+
+  const handleDeleteChallengeItems = async () => {
+    if (deleteChallengeItems().length > 0) {
+      await Promise.allSettled(
+        deleteChallengeItems().map((it) => {
+          return deleteChallengeItem.mutateAsync({
+            challengeId: props.challengeId(),
+            challengeItemId: it.id,
+          });
         })
       );
 
@@ -303,9 +326,11 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
     if (await handlePatchChallenge()) challengeHit = true;
 
-    if (await handlePatchChallengeItem()) challengeItemHit = true;
+    if (await handlePatchChallengeItems()) challengeItemHit = true;
 
-    if (await handlePostChallengeItem()) challengeItemHit = true;
+    if (await handlePostChallengeItems()) challengeItemHit = true;
+
+    if (await handleDeleteChallengeItems()) challengeItemHit = true;
 
     toast.open(`${title()} challenge has been updated`);
 
