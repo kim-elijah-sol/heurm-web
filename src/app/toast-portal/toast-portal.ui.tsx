@@ -1,5 +1,5 @@
-import { createSignal, onCleanup, onMount } from 'solid-js';
-import { For, Portal } from 'solid-js/web';
+import { createSignal, For, onCleanup, onMount } from 'solid-js';
+import { Portal } from 'solid-js/web';
 import { ADD_TOAST_EVENT_NAME } from '~/shared/constant';
 import { Toast } from '~/shared/types';
 import { ToastItem } from '~/shared/ui';
