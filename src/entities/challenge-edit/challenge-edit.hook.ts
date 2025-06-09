@@ -1,5 +1,5 @@
 import { useContext } from 'solid-js';
-import { ChallengeItemColorContext } from './challenge-item-color.context';
+import { ChallengeItemColorContext } from './challenge-edit.context';
 
 export const useChallengeItemColor = () => {
   const challengeItemColor = useContext(ChallengeItemColorContext);

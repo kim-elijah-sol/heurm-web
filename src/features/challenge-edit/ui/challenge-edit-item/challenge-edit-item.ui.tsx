@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Accessor, children, Component, JSX } from 'solid-js';
-import { ChallengeItemColorContext } from '~/entities/challenge-edit/context';
+import { ChallengeEditContext } from '~/entities/challenge-edit';
 import { CHALLENGE_100_BG_COLOR } from '~/shared/constant';
 import { ChallengeColor } from '~/shared/model';
 
@@ -15,7 +15,9 @@ type Props = {
 
 export const ChallengeEditItem: Component<Props> = (props) => {
   return (
-    <ChallengeItemColorContext.Provider value={props.color}>
+    <ChallengeEditContext.ChallengeItemColorContext.Provider
+      value={props.color}
+    >
       <div
         class={clsx(
           'flex flex-col rounded-[12px] p-3 transition-all',
@@ -35,6 +37,6 @@ export const ChallengeEditItem: Component<Props> = (props) => {
           : null}
         {children(() => props.daySelect)()}
       </div>
-    </ChallengeItemColorContext.Provider>
+    </ChallengeEditContext.ChallengeItemColorContext.Provider>
   );
 };

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Component } from 'solid-js';
-import { useChallengeItemColor } from '~/entities/challenge-edit/context';
+import { challengeEditHook } from '~/entities/challenge-edit';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const DeleteButton: Component<Props> = (props) => {
-  const color = useChallengeItemColor();
+  const color = challengeEditHook.useChallengeItemColor();
 
   return (
     <button

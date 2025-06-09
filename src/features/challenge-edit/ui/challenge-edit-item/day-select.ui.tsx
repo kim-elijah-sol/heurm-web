@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Component, For } from 'solid-js';
-import { useChallengeItemColor } from '~/entities/challenge-edit/context';
+import { challengeEditHook } from '~/entities/challenge-edit';
 import {
   CHALLENGE_300_BG_COLOR,
   CHALLENGE_ACTIVE_BG_200_COLOR,
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const DaySelect: Component<Props> = (props) => {
-  const color = useChallengeItemColor();
+  const color = challengeEditHook.useChallengeItemColor();
 
   return (
     <div class='flex justify-between'>
