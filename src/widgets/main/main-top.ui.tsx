@@ -1,7 +1,7 @@
 import { userQueries } from '~/entities/user';
 import { HelloUser, UserAvatar } from '~/features/main/ui';
 import { createBoolean } from '~/shared/hook';
-import { UserQuickMenuPanel, UserSettingPanel } from '~/widgets/user/ui';
+import { UserQuickMenuPanel, UserSettingPanel } from '~/widgets/user';
 
 export const MainTop = () => {
   const [

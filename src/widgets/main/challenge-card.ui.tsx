@@ -9,7 +9,7 @@ import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import { ChallengeColor } from '~/shared/model';
 import { ChartLine, Menu } from '~/shared/ui';
-import { ChallengeEditPanel } from '~/widgets/challenge-edit/ui';
+import { ChallengeEditPanel } from '~/widgets/challenge-edit';
 
 type Props = {
   id: Accessor<string>;

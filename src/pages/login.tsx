@@ -1,5 +1,5 @@
 import { LoginBanner } from '~/features/login/ui';
-import { LoginForm, LoginHelper } from '~/widgets/login/ui';
+import { LoginForm, LoginHelper } from '~/widgets/login';
 
 function Login() {
   return (

@@ -26,7 +26,7 @@ import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import { ChallengeColor } from '~/shared/model';
 import { ChallengeColorSelect, Panel } from '~/shared/ui';
-import { NewChallengeItemPanel } from '~/widgets/new-challenge-item/ui';
+import { NewChallengeItemPanel } from '~/widgets/new-challenge-item';
 
 type Props = {
   challengeId: Accessor<string>;

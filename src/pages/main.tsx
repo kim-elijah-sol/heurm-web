@@ -8,7 +8,7 @@ import {
   NewChallengeButton,
   NoChallenge,
   Overview,
-} from '~/widgets/main/ui';
+} from '~/widgets/main';
 
 function Main() {
   const getChallengeQuery = mainQueries.getChallengeQuery();

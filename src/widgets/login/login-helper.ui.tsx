@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { createBoolean } from '~/shared/hook';
 import { KeyRound, UserPlus } from '~/shared/ui';
-import { JoinPanel } from '~/widgets/join/ui';
-import { ResetPasswordPanel } from '~/widgets/reset-password/ui';
+import { JoinPanel } from '~/widgets/join';
+import { ResetPasswordPanel } from '~/widgets/reset-password';
 
 export const LoginHelper = () => {
   const [isJoinPanel, openJoinPanel, closeJoinPanel] = createBoolean();
