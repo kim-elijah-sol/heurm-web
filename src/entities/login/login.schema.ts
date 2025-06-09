@@ -1,6 +1,12 @@
 import { z } from 'zod';
+import { emailValidator, passwordValidator } from '~/shared/validator';
 
-export const loginResponseSchema = z.object({
+export const postLoginRequestSchema = z.object({
+  email: emailValidator,
+  password: passwordValidator,
+});
+
+export const postLoginResponseSchema = z.object({
   accessToken: z.string({
     message: 'access token is not provided.<br>Please retry or contact us',
   }),

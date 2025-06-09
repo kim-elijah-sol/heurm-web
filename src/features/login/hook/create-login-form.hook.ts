@@ -1,8 +1,8 @@
 import { useNavigate } from '@solidjs/router';
 import { createSignal } from 'solid-js';
-import { useLoginMutation } from '~/entities/login/mutation';
+import { loginQueries, loginSchema } from '~/entities/login';
 import { STORAGE_KEYS } from '~/shared/constant';
-import { unsafeLoginFormValidator } from '~/shared/validator';
+import { toast } from '~/shared/lib';
 
 export const createLoginForm = () => {
   const [email, setEmail] = createSignal<string>('');
@@ -11,7 +11,7 @@ export const createLoginForm = () => {
 
   const navigate = useNavigate();
 
-  const { mutate } = useLoginMutation(
+  const postLogin = loginQueries.postLoginMutation(
     async ({ accessToken, refreshToken, clientId }) => {
       localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
       localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
@@ -22,18 +22,34 @@ export const createLoginForm = () => {
   );
 
   const submitDisabled = () => {
-    return (
-      unsafeLoginFormValidator.safeParse({
-        email: email(),
-        password: password(),
-      }).success === false
-    );
+    return email().length === 0 || password().length === 0;
+  };
+
+  const getPostLoginRequestErrorMessage = () => {
+    const postLoginRequestParse = loginSchema.postLoginRequestSchema.safeParse({
+      email: email(),
+      password: password(),
+    });
+
+    if (postLoginRequestParse.success === false) {
+      return postLoginRequestParse.error.errors[0].message;
+    }
+
+    return null;
   };
 
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
 
-    mutate({
+    const postLoginRequestErrorMessage = getPostLoginRequestErrorMessage();
+
+    if (postLoginRequestErrorMessage) {
+      toast.open(postLoginRequestErrorMessage);
+
+      return;
+    }
+
+    postLogin.mutate({
       email: email(),
       password: password(),
     });

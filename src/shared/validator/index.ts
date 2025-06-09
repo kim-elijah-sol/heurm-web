@@ -4,7 +4,5 @@ export * from './challenge-item-type.validator';
 export * from './challenge-title.validator';
 export * from './date.validator';
 export * from './email.validator';
-export * from './login-form.validator';
-export * from './login-password.validator';
 export * from './password.validator';
 export * from './verify-code.validator';
