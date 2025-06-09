@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-export const profileResponseSchema = z.object({
+export const getUserProfileResponseSchema = z.object({
   name: z.string(),
   email: z.string(),
   profileImage: z.string().nullable(),
 });
 
-export const userSettingFormSchema = z.object({
+export const patchUserProfileRequestSchema = z.object({
   name: z
     .string()
     .min(2, { message: 'Name must be at least 2 characters long' }),
@@ -16,10 +16,14 @@ export const userSettingFormSchema = z.object({
   isProfileImageRemove: z.boolean().optional(),
 });
 
-export const logoutRequestSchema = z.object({
+export const patchUserProfileResponseSchema = z.object({
+  result: z.boolean(),
+});
+
+export const deleteLogoutRequestSchema = z.object({
   refreshToken: z.string(),
 });
 
-export const logoutResponseSchema = z.object({
+export const deleteLogoutResponseSchema = z.object({
   result: z.boolean(),
 });

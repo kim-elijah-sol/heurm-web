@@ -1,36 +1,41 @@
 import { https } from '~/shared/lib';
 import {
-  LogoutRequest,
-  LogoutResponse,
-  ProfileResponse,
-  UserSettingForm,
+  deleteLogoutResponseSchema,
+  getUserProfileResponseSchema,
+  patchUserProfileResponseSchema,
+} from './user.schema';
+import {
+  DeleteLogoutRequest,
+  DeleteLogoutResponse,
+  GetUserProfileResponse,
+  PatchUserProfileRequest,
+  PatchUserProfileResponse,
 } from './user.type';
-import { logoutResponseSchema, profileResponseSchema } from './user.validator';
 
-export const getProfile = () =>
+export const getUserProfile = () =>
   https
-    .get<ProfileResponse>('/user/profile')
-    .then(https.validateResponse(profileResponseSchema));
+    .get<GetUserProfileResponse>('/user/profile')
+    .then(https.validateResponse(getUserProfileResponseSchema));
 
-export const updateProfile = async (data: UserSettingForm) => {
+export const patchUserProfile = async (data: PatchUserProfileRequest) => {
   const formData = new FormData();
 
   for (const _key of Object.keys(data)) {
-    const key = _key as keyof UserSettingForm;
+    const key = _key as keyof PatchUserProfileRequest;
 
     if (data[key] !== undefined) {
       formData.append(key, data[key] as any);
     }
   }
 
-  return https.patch('/user/profile', formData).then((response) => {
-    return response.data;
-  });
+  return https
+    .patch<PatchUserProfileResponse>('/user/profile', formData)
+    .then(https.validateResponse(patchUserProfileResponseSchema));
 };
 
-export const deleteLogout = (data: LogoutRequest) =>
+export const deleteLogout = (data: DeleteLogoutRequest) =>
   https
-    .delete<LogoutResponse>('/user/logout', {
+    .delete<DeleteLogoutResponse>('/user/logout', {
       data,
     })
-    .then(https.validateResponse(logoutResponseSchema));
+    .then(https.validateResponse(deleteLogoutResponseSchema));

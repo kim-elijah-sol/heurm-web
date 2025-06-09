@@ -13,7 +13,7 @@ export const MainTop = () => {
   const [isUserSettingPanel, openUserSettingPanel, closeUserSettingPanel] =
     createBoolean();
 
-  const profile = userQueries.useProfileQuery();
+  const profile = userQueries.getUserProfileQuery();
 
   return (
     <div class='flex items-center justify-between mb-4'>

@@ -1,16 +1,18 @@
 import { useMutation, useQuery } from '@tanstack/solid-query';
-import { deleteLogout, getProfile, updateProfile } from './user.api';
+import { deleteLogout, getUserProfile, patchUserProfile } from './user.api';
 
-export const useProfileQuery = () =>
+export const getUserProfileQuery = () =>
   useQuery(() => ({
-    queryKey: ['profile'],
-    queryFn: getProfile,
+    queryKey: ['getUserProfile'],
+    queryFn: getUserProfile,
   }));
 
-export const useProfileMutation = (onSuccess: () => void) =>
+export const patchUserProfileMutation = (
+  onSuccess: (data: Awaited<ReturnType<typeof patchUserProfile>>) => void
+) =>
   useMutation(() => ({
-    mutationKey: ['updateProfile'],
-    mutationFn: updateProfile,
+    mutationKey: ['patchUserProfile'],
+    mutationFn: patchUserProfile,
     onSuccess,
   }));
 
