@@ -5,30 +5,30 @@ import {
   verifyCodeValidator,
 } from '~/shared/validator';
 
-export const verifyEmailSendRequestSchema = z.object({
+export const postVerifyEmailSendRequestSchema = z.object({
   email: emailValidator,
 });
 
-export const verifyEmailSendResponseSchema = z.object({
+export const postVerifyEmailSendResponseSchema = z.object({
   id: z.string(),
 });
 
-export const verifyEmailRequestSchema = z.object({
+export const postVerifyEmailRequestSchema = z.object({
   code: verifyCodeValidator,
   id: z.string(),
   email: emailValidator,
 });
 
-export const verifyEmailResponseSchema = z.object({
+export const postVerifyEmailResponseSchema = z.object({
   result: z.boolean(),
 });
 
-export const resetPasswordRequestSchema = z.object({
+export const patchResetPasswordRequestSchema = z.object({
   email: emailValidator,
   id: z.string(),
   newPassword: passwordValidator,
 });
 
-export const resetPasswordResponseSchema = z.object({
+export const patchResetPasswordResponseSchema = z.object({
   result: z.boolean(),
 });

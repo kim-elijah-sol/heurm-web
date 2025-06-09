@@ -79,7 +79,7 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
           <LoginHelperForm onSubmit={handleSubmit} height={formHeight}>
             <LoginHelperForm.Email
               isSummitable={() =>
-                resetPasswordSchema.resetPasswordRequestSchema.shape.email.safeParse(
+                resetPasswordSchema.patchResetPasswordRequestSchema.shape.email.safeParse(
                   email()
                 ).success
               }
@@ -97,7 +97,7 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
               restResendSecond={restResendSecond}
               onResend={handleResend}
               isSummitable={() =>
-                resetPasswordSchema.verifyEmailRequestSchema.shape.code.safeParse(
+                resetPasswordSchema.postVerifyEmailRequestSchema.shape.code.safeParse(
                   verifyCode()
                 ).success
               }
@@ -113,7 +113,7 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
 
             <LoginHelperForm.Password
               isSummitable={() =>
-                resetPasswordSchema.resetPasswordRequestSchema.shape.newPassword.safeParse(
+                resetPasswordSchema.patchResetPasswordRequestSchema.shape.newPassword.safeParse(
                   password()
                 ).success
               }

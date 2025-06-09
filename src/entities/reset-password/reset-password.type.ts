@@ -1,25 +1,33 @@
 import { z } from 'zod';
 import {
-  resetPasswordRequestSchema,
-  resetPasswordResponseSchema,
-  verifyEmailRequestSchema,
-  verifyEmailResponseSchema,
-  verifyEmailSendRequestSchema,
-  verifyEmailSendResponseSchema,
+  patchResetPasswordRequestSchema,
+  patchResetPasswordResponseSchema,
+  postVerifyEmailRequestSchema,
+  postVerifyEmailResponseSchema,
+  postVerifyEmailSendRequestSchema,
+  postVerifyEmailSendResponseSchema,
 } from './reset-password.schema';
 
-export type VerifyEmailSendRequest = z.infer<
-  typeof verifyEmailSendRequestSchema
+export type PostVerifyEmailSendRequest = z.infer<
+  typeof postVerifyEmailSendRequestSchema
 >;
 
-export type VerifyEmailSendResponse = z.infer<
-  typeof verifyEmailSendResponseSchema
+export type PostVerifyEmailSendResponse = z.infer<
+  typeof postVerifyEmailSendResponseSchema
 >;
 
-export type VerifyEmailRequest = z.infer<typeof verifyEmailRequestSchema>;
+export type PostVerifyEmailRequest = z.infer<
+  typeof postVerifyEmailRequestSchema
+>;
 
-export type VerifyEmailResponse = z.infer<typeof verifyEmailResponseSchema>;
+export type PostVerifyEmailResponse = z.infer<
+  typeof postVerifyEmailResponseSchema
+>;
 
-export type ResetPasswordRequest = z.infer<typeof resetPasswordRequestSchema>;
+export type PatchResetPasswordRequest = z.infer<
+  typeof patchResetPasswordRequestSchema
+>;
 
-export type ResetPasswordResponse = z.infer<typeof resetPasswordResponseSchema>;
+export type PatchResetPasswordResponse = z.infer<
+  typeof patchResetPasswordResponseSchema
+>;

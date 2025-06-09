@@ -6,7 +6,7 @@ import {
   postVerifyEmailSend,
 } from './reset-password.api';
 
-export const verifyEmailSendMutation = (
+export const postVerifyEmailSendMutation = (
   onSuccess: (data: Awaited<ReturnType<typeof postVerifyEmailSend>>) => void
 ) =>
   useMutation(() => ({
@@ -16,7 +16,7 @@ export const verifyEmailSendMutation = (
     onError: (error) => toastAtError(error),
   }));
 
-export const verifyEmailMutation = (
+export const postVerifyEmailMutation = (
   onSuccess: (data: Awaited<ReturnType<typeof postVerifyEmail>>) => void
 ) =>
   useMutation(() => ({
@@ -26,7 +26,7 @@ export const verifyEmailMutation = (
     onError: (error) => toastAtError(error),
   }));
 
-export const resetPasswordMutation = (
+export const patchResetPasswordMutation = (
   onSuccess: (data: Awaited<ReturnType<typeof patchResetPassword>>) => void
 ) =>
   useMutation(() => ({

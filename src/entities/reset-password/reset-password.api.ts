@@ -1,32 +1,32 @@
 import { https } from '~/shared/lib';
 import {
-  resetPasswordResponseSchema,
-  verifyEmailResponseSchema,
-  verifyEmailSendResponseSchema,
+  patchResetPasswordResponseSchema,
+  postVerifyEmailResponseSchema,
+  postVerifyEmailSendResponseSchema,
 } from './reset-password.schema';
 import {
-  ResetPasswordRequest,
-  ResetPasswordResponse,
-  VerifyEmailRequest,
-  VerifyEmailResponse,
-  VerifyEmailSendRequest,
-  VerifyEmailSendResponse,
+  PatchResetPasswordRequest,
+  PatchResetPasswordResponse,
+  PostVerifyEmailRequest,
+  PostVerifyEmailResponse,
+  PostVerifyEmailSendRequest,
+  PostVerifyEmailSendResponse,
 } from './reset-password.type';
 
-export const postVerifyEmailSend = (body: VerifyEmailSendRequest) =>
+export const postVerifyEmailSend = (body: PostVerifyEmailSendRequest) =>
   https
-    .post<VerifyEmailSendResponse>(
+    .post<PostVerifyEmailSendResponse>(
       '/user/reset-password/verify-email-send',
       body
     )
-    .then(https.validateResponse(verifyEmailSendResponseSchema));
+    .then(https.validateResponse(postVerifyEmailSendResponseSchema));
 
-export const postVerifyEmail = (body: VerifyEmailRequest) =>
+export const postVerifyEmail = (body: PostVerifyEmailRequest) =>
   https
-    .post<VerifyEmailResponse>('/user/reset-password/verify-email', body)
-    .then(https.validateResponse(verifyEmailResponseSchema));
+    .post<PostVerifyEmailResponse>('/user/reset-password/verify-email', body)
+    .then(https.validateResponse(postVerifyEmailResponseSchema));
 
-export const patchResetPassword = (body: ResetPasswordRequest) =>
+export const patchResetPassword = (body: PatchResetPasswordRequest) =>
   https
-    .patch<ResetPasswordResponse>('/user/reset-password', body)
-    .then(https.validateResponse(resetPasswordResponseSchema));
+    .patch<PatchResetPasswordResponse>('/user/reset-password', body)
+    .then(https.validateResponse(patchResetPasswordResponseSchema));

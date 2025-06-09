@@ -18,7 +18,7 @@ export const createResetPasswordForm = () => {
     startCountDown,
   } = createLoginHelperForm();
 
-  const verifyEmailSend = resetPasswordQueries.verifyEmailSendMutation(
+  const verifyEmailSend = resetPasswordQueries.postVerifyEmailSendMutation(
     ({ id }) => {
       setId(id);
       setStep('verify');
@@ -26,11 +26,11 @@ export const createResetPasswordForm = () => {
     }
   );
 
-  const verifyEmail = resetPasswordQueries.verifyEmailMutation(() => {
+  const verifyEmail = resetPasswordQueries.postVerifyEmailMutation(() => {
     setStep('password');
   });
 
-  const resetPassword = resetPasswordQueries.resetPasswordMutation(() => {
+  const resetPassword = resetPasswordQueries.patchResetPasswordMutation(() => {
     setStep('done');
   });
 
