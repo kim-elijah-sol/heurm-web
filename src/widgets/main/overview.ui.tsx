@@ -1,4 +1,3 @@
-import { useChallenges } from '~/features/main/hook';
 import {
   InProgressCard,
   MotivationCard,
@@ -6,21 +5,15 @@ import {
 } from '~/features/main/ui';
 
 export const Overview = () => {
-  const {
-    progressChallengeItemCount,
-    winChallengeItemCount,
-    loseChallengeItemCount,
-  } = useChallenges;
-
   return (
     <div class='mb-3'>
       <div class='flex gap-3 mb-3'>
-        <InProgressCard count={() => progressChallengeItemCount()} />
+        <InProgressCard count={() => 10} />
         <MotivationCard />
       </div>
       <div class='flex gap-3'>
-        <OverviewCard type='win' count={() => winChallengeItemCount()} />
-        <OverviewCard type='lose' count={() => loseChallengeItemCount()} />
+        <OverviewCard type='win' count={() => 3} />
+        <OverviewCard type='lose' count={() => 1} />
       </div>
     </div>
   );
