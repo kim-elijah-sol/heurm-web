@@ -1,5 +1,5 @@
 import { Component } from 'solid-js';
-import { loginHelperFormValidator } from '~/entities/login-helper/validator';
+import { resetPasswordSchema } from '~/entities/reset-password';
 import { getLoginHelperStepDisplayType } from '~/features/login-helper/fx';
 import {
   LoginHelperBanner,
@@ -79,7 +79,9 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
           <LoginHelperForm onSubmit={handleSubmit} height={formHeight}>
             <LoginHelperForm.Email
               isSummitable={() =>
-                loginHelperFormValidator.shape.email.safeParse(email()).success
+                resetPasswordSchema.resetPasswordRequestSchema.shape.email.safeParse(
+                  email()
+                ).success
               }
               email={email}
               setEmail={setEmail}
@@ -95,7 +97,7 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
               restResendSecond={restResendSecond}
               onResend={handleResend}
               isSummitable={() =>
-                loginHelperFormValidator.shape.verifyCode.safeParse(
+                resetPasswordSchema.verifyEmailRequestSchema.shape.code.safeParse(
                   verifyCode()
                 ).success
               }
@@ -111,8 +113,9 @@ export const ResetPasswordPanel: Component<Props> = (props) => {
 
             <LoginHelperForm.Password
               isSummitable={() =>
-                loginHelperFormValidator.shape.password.safeParse(password())
-                  .success
+                resetPasswordSchema.resetPasswordRequestSchema.shape.newPassword.safeParse(
+                  password()
+                ).success
               }
               password={password}
               setPassword={setPassword}

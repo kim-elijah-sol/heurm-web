@@ -1,6 +1,8 @@
-import { LoginHelperStep } from '~/entities/login-helper/model';
+import { LoginHelperType } from '~/entities/login-helper';
 
-export const getLoginHelperFormHeight = (step: LoginHelperStep) => {
+export const getLoginHelperFormHeight = (
+  step: LoginHelperType.LoginHelperStep
+) => {
   if (step === 'password') return 208;
 
   if (step === 'done') return 68;

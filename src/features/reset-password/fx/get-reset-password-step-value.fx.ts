@@ -1,7 +1,9 @@
-import { LoginHelperStep } from '~/entities/login-helper/model';
+import { LoginHelperType } from '~/entities/login-helper';
 
-export const getResetPasswordStepValue = (step: LoginHelperStep) => {
-  const stepValueMap: { [key in LoginHelperStep]: number } = {
+export const getResetPasswordStepValue = (
+  step: LoginHelperType.LoginHelperStep
+) => {
+  const stepValueMap: { [key in LoginHelperType.LoginHelperStep]: number } = {
     email: 0,
     verify: 1,
     password: 2,

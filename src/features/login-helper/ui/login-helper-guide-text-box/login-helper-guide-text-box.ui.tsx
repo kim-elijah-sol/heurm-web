@@ -7,7 +7,7 @@ import {
   JSX,
   on,
 } from 'solid-js';
-import { LoginHelperStep } from '~/entities/login-helper/model';
+import { LoginHelperType } from '~/entities/login-helper';
 import {
   getLoginHelperFormStepDisplayClass,
   getLoginHelperStepDisplayType,
@@ -15,8 +15,8 @@ import {
 import './login-helper-guide-text-box.ui.css';
 
 type Props = {
-  step: Accessor<LoginHelperStep>;
-  getStepValue: (step: LoginHelperStep) => number;
+  step: Accessor<LoginHelperType.LoginHelperStep>;
+  getStepValue: (step: LoginHelperType.LoginHelperStep) => number;
 
   email: JSX.Element;
   password: JSX.Element;
@@ -30,7 +30,7 @@ export const LoginHelperGuideTextBox: Component<Props> = (props) => {
 
   const [height, setHeight] = createSignal<number>(0);
 
-  const getStepDisplayType = (step: LoginHelperStep) =>
+  const getStepDisplayType = (step: LoginHelperType.LoginHelperStep) =>
     getLoginHelperStepDisplayType(props.step(), step)(props.getStepValue);
 
   createEffect(

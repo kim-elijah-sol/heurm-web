@@ -1,9 +1,14 @@
-import { LoginHelperStep } from '~/entities/login-helper/model';
+import { LoginHelperType } from '~/entities/login-helper';
 import { RollingDisplayType } from '~/shared/model';
 
 export const getLoginHelperStepDisplayType =
-  (currentStep: LoginHelperStep, targetStep: LoginHelperStep) =>
-  (getStepValue: (step: LoginHelperStep) => number): RollingDisplayType => {
+  (
+    currentStep: LoginHelperType.LoginHelperStep,
+    targetStep: LoginHelperType.LoginHelperStep
+  ) =>
+  (
+    getStepValue: (step: LoginHelperType.LoginHelperStep) => number
+  ): RollingDisplayType => {
     const currentStepValue = getStepValue(currentStep);
     const targetStepValue = getStepValue(targetStep);
 

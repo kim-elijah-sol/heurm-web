@@ -1,5 +1,5 @@
 import { Component } from 'solid-js';
-import { loginHelperFormValidator } from '~/entities/login-helper/validator';
+import { joinSchema } from '~/entities/join';
 import { getJoinStepValue } from '~/features/join/fx';
 import { createJoinForm } from '~/features/join/hook';
 import { getLoginHelperStepDisplayType } from '~/features/login-helper/fx';
@@ -75,7 +75,8 @@ export const JoinPanel: Component<Props> = (props) => {
           <LoginHelperForm onSubmit={handleSubmit} height={formHeight}>
             <LoginHelperForm.Email
               isSummitable={() =>
-                loginHelperFormValidator.shape.email.safeParse(email()).success
+                joinSchema.postJoinRequestSchema.shape.email.safeParse(email())
+                  .success
               }
               email={email}
               setEmail={setEmail}
@@ -86,8 +87,9 @@ export const JoinPanel: Component<Props> = (props) => {
 
             <LoginHelperForm.Password
               isSummitable={() =>
-                loginHelperFormValidator.shape.password.safeParse(password())
-                  .success
+                joinSchema.postJoinRequestSchema.shape.password.safeParse(
+                  password()
+                ).success
               }
               password={password}
               setPassword={setPassword}
@@ -103,7 +105,7 @@ export const JoinPanel: Component<Props> = (props) => {
               restResendSecond={restResendSecond}
               onResend={handleResend}
               isSummitable={() =>
-                loginHelperFormValidator.shape.verifyCode.safeParse(
+                joinSchema.postVerifyEmailRequestSchema.shape.code.safeParse(
                   verifyCode()
                 ).success
               }

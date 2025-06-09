@@ -1,10 +1,10 @@
 import { createSignal, onCleanup } from 'solid-js';
-import { RESEND_TIMEOUT } from '~/entities/login-helper/constant';
-import { LoginHelperStep } from '~/entities/login-helper/model';
+import { loginHelperConstant, LoginHelperType } from '~/entities/login-helper';
 import { Nullable } from '~/shared/model';
 
 export const createLoginHelperForm = () => {
-  const [step, setStep] = createSignal<LoginHelperStep>('email');
+  const [step, setStep] =
+    createSignal<LoginHelperType.LoginHelperStep>('email');
 
   const [email, setEmail] = createSignal<string>('');
 
@@ -14,13 +14,14 @@ export const createLoginHelperForm = () => {
 
   const [id, setId] = createSignal<string>('');
 
-  const [restResendSecond, setRestResendSecond] =
-    createSignal<number>(RESEND_TIMEOUT);
+  const [restResendSecond, setRestResendSecond] = createSignal<number>(
+    loginHelperConstant.RESEND_TIMEOUT
+  );
 
   const [timerId, setTimerId] = createSignal<Nullable<number>>(null);
 
   const startCountDown = () => {
-    setRestResendSecond(RESEND_TIMEOUT);
+    setRestResendSecond(loginHelperConstant.RESEND_TIMEOUT);
 
     const id = setInterval(() => {
       setRestResendSecond((prev) => {
