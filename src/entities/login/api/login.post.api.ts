@@ -15,15 +15,7 @@ export const postLogin = async (request: LoginRequest) => {
 
   return https
     .post<LoginResponse>('/user/login', request)
-    .then((response) => {
-      const loginResponseParse = loginResponseSchema.safeParse(response.data);
-
-      if (loginResponseParse.success === false) {
-        throw loginResponseParse.error;
-      }
-
-      return response;
-    })
+    .then(https.validateResponse(loginResponseSchema))
     .catch((error) => {
       toastAtError(error);
 

@@ -16,38 +16,14 @@ import {
 export const postVerifyEmailSend = (body: VerifyEmailSendRequest) =>
   https
     .post<VerifyEmailSendResponse>('/user/join/verify-email-send', body)
-    .then((response) => {
-      const parseResult = verifyEmailSendResponseSchema.safeParse(
-        response.data
-      );
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(verifyEmailSendResponseSchema));
 
 export const postVerifyEmail = (body: VerifyEmailRequest) =>
   https
     .post<VerifyEmailResponse>('/user/join/verify-email', body)
-    .then((response) => {
-      const parseResult = verifyEmailResponseSchema.safeParse(response.data);
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(verifyEmailResponseSchema));
 
 export const postJoin = (body: JoinRequest) =>
-  https.post<JoinResponse>('/user/join', body).then((response) => {
-    const parseResult = joinResponseSchema.safeParse(response.data);
-
-    if (parseResult.success === false) {
-      throw parseResult.error;
-    }
-
-    return response.data;
-  });
+  https
+    .post<JoinResponse>('/user/join', body)
+    .then(https.validateResponse(joinResponseSchema));

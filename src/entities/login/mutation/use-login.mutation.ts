@@ -1,10 +1,8 @@
 import { useMutation } from '@tanstack/solid-query';
-import { AxiosResponse } from 'axios';
 import { postLogin } from '../api';
-import { LoginResponse } from '../model';
 
 export const useLoginMutation = (
-  onSuccess: (response: AxiosResponse<LoginResponse>) => Promise<void>
+  onSuccess: (data: Awaited<ReturnType<typeof postLogin>>) => void
 ) =>
   useMutation(() => ({
     mutationFn: postLogin,

@@ -1,17 +1,16 @@
 import { https } from '~/shared/lib';
-import { LogoutRequest, ProfileResponse, UserSettingForm } from './user.type';
+import {
+  LogoutRequest,
+  LogoutResponse,
+  ProfileResponse,
+  UserSettingForm,
+} from './user.type';
 import { logoutResponseSchema, profileResponseSchema } from './user.validator';
 
 export const getProfile = () =>
-  https.get<ProfileResponse>('/user/profile').then((response) => {
-    const profileResponseParse = profileResponseSchema.safeParse(response.data);
-
-    if (profileResponseParse.success === false) {
-      throw profileResponseParse.error;
-    }
-
-    return response.data;
-  });
+  https
+    .get<ProfileResponse>('/user/profile')
+    .then(https.validateResponse(profileResponseSchema));
 
 export const updateProfile = async (data: UserSettingForm) => {
   const formData = new FormData();
@@ -31,15 +30,7 @@ export const updateProfile = async (data: UserSettingForm) => {
 
 export const deleteLogout = (data: LogoutRequest) =>
   https
-    .delete('/user/logout', {
+    .delete<LogoutResponse>('/user/logout', {
       data,
     })
-    .then((response) => {
-      const parseResult = logoutResponseSchema.safeParse(response.data);
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(logoutResponseSchema));

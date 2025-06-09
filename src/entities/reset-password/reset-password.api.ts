@@ -19,40 +19,14 @@ export const postVerifyEmailSend = (body: VerifyEmailSendRequest) =>
       '/user/reset-password/verify-email-send',
       body
     )
-    .then((response) => {
-      const parseResult = verifyEmailSendResponseSchema.safeParse(
-        response.data
-      );
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(verifyEmailSendResponseSchema));
 
 export const postVerifyEmail = (body: VerifyEmailRequest) =>
   https
     .post<VerifyEmailResponse>('/user/reset-password/verify-email', body)
-    .then((response) => {
-      const parseResult = verifyEmailResponseSchema.safeParse(response.data);
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(verifyEmailResponseSchema));
 
 export const patchResetPassword = (body: ResetPasswordRequest) =>
   https
     .patch<ResetPasswordResponse>('/user/reset-password', body)
-    .then((response) => {
-      const parseResult = resetPasswordResponseSchema.safeParse(response.data);
-
-      if (parseResult.success === false) {
-        throw parseResult.error;
-      }
-
-      return response.data;
-    });
+    .then(https.validateResponse(resetPasswordResponseSchema));

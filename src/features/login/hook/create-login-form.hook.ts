@@ -11,15 +11,15 @@ export const createLoginForm = () => {
 
   const navigate = useNavigate();
 
-  const { mutate } = useLoginMutation(async (response) => {
-    const { accessToken, refreshToken, clientId } = response.data;
+  const { mutate } = useLoginMutation(
+    async ({ accessToken, refreshToken, clientId }) => {
+      localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+      localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+      localStorage.setItem(STORAGE_KEYS.CLIENT_ID, clientId);
 
-    localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
-    localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
-    localStorage.setItem(STORAGE_KEYS.CLIENT_ID, clientId);
-
-    navigate('/', { replace: true });
-  });
+      navigate('/', { replace: true });
+    }
+  );
 
   const submitDisabled = () => {
     return (
