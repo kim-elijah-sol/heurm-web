@@ -148,6 +148,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             name: it.name,
             type: it.type,
             days: it.days,
+            date: format(new Date(), 'yyyy-MM-dd'),
           };
 
           if (it.type === 'COMPLETE') {
@@ -237,6 +238,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             name: it.name,
             type: it.type,
             days: it.days,
+            date: format(new Date(), 'yyyy-MM-dd'),
           };
 
           if (it.type === 'COMPLETE') {

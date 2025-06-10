@@ -4,6 +4,7 @@ import {
   challengeDayItemSchema,
   challengeItemTypeSchema,
   challengeTitleSchema,
+  dateSchema,
 } from '~/shared/schema';
 
 export const getChallengeItemRequestSchema = z.object({
@@ -47,6 +48,7 @@ export const patchChallengeItemRequestSchema = z.object({
   name: z.string(),
   type: challengeItemTypeSchema,
   days: challengeDayItemSchema,
+  date: dateSchema,
   targetCount: z.number().optional().nullable(),
   unit: z.string().optional().nullable(),
 });
