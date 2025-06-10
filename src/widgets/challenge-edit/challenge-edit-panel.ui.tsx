@@ -109,6 +109,13 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
         return true;
       }
 
+      if (
+        it.type !== 'COMPLETE' &&
+        it.targetCount !== targetChallengeItem.targetCount
+      ) {
+        return true;
+      }
+
       return false;
     });
 
