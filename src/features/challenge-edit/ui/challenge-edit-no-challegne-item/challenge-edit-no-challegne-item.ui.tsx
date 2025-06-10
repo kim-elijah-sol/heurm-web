@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import { type Accessor, type Component, createMemo } from 'solid-js';
+import { createMemo, type Accessor, type Component } from 'solid-js';
 import { mainConstant } from '~/entities/main';
 import { CHALLENGE_50_BG_COLOR } from '~/shared/constant';
+import { getRandomItem } from '~/shared/fx';
 import type { ChallengeColor } from '~/shared/types';
 
 type Props = {
@@ -9,11 +10,9 @@ type Props = {
 };
 
 export const ChallengeEditNoChallengeItem: Component<Props> = (props) => {
-  const noChallengeItemWriting = createMemo(() => {
-    return mainConstant.NO_CHALLENGE_ITEM_WRITING[
-      Math.floor(Math.random() * mainConstant.NO_CHALLENGE_ITEM_WRITING.length)
-    ];
-  });
+  const noChallengeItemWriting = createMemo(() =>
+    getRandomItem(mainConstant.NO_CHALLENGE_ITEM_WRITING)
+  );
 
   return (
     <div

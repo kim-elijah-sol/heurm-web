@@ -5,6 +5,7 @@ import { mainConstant, mainQueries } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
+import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { ChallengeColor } from '~/shared/types';
@@ -53,6 +54,10 @@ export const ChallengeCard: Component<Props> = (props) => {
   const itemsContainerClassName = () =>
     clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color()]);
 
+  const getWinWriting = () => getRandomItem(mainConstant.WIN_WRITING);
+
+  const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
+
   return (
     <div class='overflow-hidden rounded-xl'>
       <div class={topClassName()}>
@@ -81,25 +86,13 @@ export const ChallengeCard: Component<Props> = (props) => {
                     }
                     onChange={(isCompleted) => {
                       if (isCompleted === true) {
-                        const winWriting =
-                          mainConstant.WIN_WRITING[
-                            Math.floor(
-                              Math.random() * mainConstant.WIN_WRITING.length
-                            )
-                          ];
-
                         toast.open(
-                          `🎉 great! '${challengeItem.name}' challenge is complete!<br/>${winWriting}`
+                          `🎉 great! '${
+                            challengeItem.name
+                          }' challenge is complete!<br/>${getWinWriting()}`
                         );
                       } else if (isCompleted === false) {
-                        const loseWriting =
-                          mainConstant.LOSE_WRITING[
-                            Math.floor(
-                              Math.random() * mainConstant.LOSE_WRITING.length
-                            )
-                          ];
-
-                        toast.open(loseWriting);
+                        toast.open(getLoseWriting());
                       }
                     }}
                   />
@@ -128,25 +121,13 @@ export const ChallengeCard: Component<Props> = (props) => {
                       })();
 
                       if (result === true) {
-                        const winWriting =
-                          mainConstant.WIN_WRITING[
-                            Math.floor(
-                              Math.random() * mainConstant.WIN_WRITING.length
-                            )
-                          ];
-
                         toast.open(
-                          `🎉 great! '${challengeItem.name}' challenge is complete!<br/>${winWriting}`
+                          `🎉 great! '${
+                            challengeItem.name
+                          }' challenge is complete!<br/>${getWinWriting()}`
                         );
                       } else if (result === false) {
-                        const loseWriting =
-                          mainConstant.LOSE_WRITING[
-                            Math.floor(
-                              Math.random() * mainConstant.LOSE_WRITING.length
-                            )
-                          ];
-
-                        toast.open(loseWriting);
+                        toast.open(getLoseWriting());
                       }
                     }}
                   />

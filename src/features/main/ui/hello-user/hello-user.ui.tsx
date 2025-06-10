@@ -1,16 +1,15 @@
 import { createMemo, type Accessor, type Component } from 'solid-js';
 import { mainConstant } from '~/entities/main';
+import { getRandomItem } from '~/shared/fx';
 
 type Props = {
   userName: Accessor<string | undefined>;
 };
 
 export const HelloUser: Component<Props> = (props) => {
-  const helloWriting = createMemo(() => {
-    return mainConstant.HELLO_WRITING[
-      Math.floor(Math.random() * mainConstant.HELLO_WRITING.length)
-    ];
-  });
+  const helloWriting = createMemo(() =>
+    getRandomItem(mainConstant.HELLO_WRITING)
+  );
 
   const userName = () => props.userName();
 

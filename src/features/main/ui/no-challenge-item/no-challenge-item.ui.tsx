@@ -5,6 +5,7 @@ import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
 } from '~/shared/constant';
+import { getRandomItem } from '~/shared/fx';
 import type { ChallengeColor } from '~/shared/types';
 import { Plus } from '~/shared/ui';
 
@@ -14,11 +15,9 @@ type Props = {
 };
 
 export const NoChallengeItem: Component<Props> = (props) => {
-  const noChallengeItemWriting = createMemo(() => {
-    return mainConstant.NO_CHALLENGE_ITEM_WRITING[
-      Math.floor(Math.random() * mainConstant.NO_CHALLENGE_ITEM_WRITING.length)
-    ];
-  });
+  const noChallengeItemWriting = createMemo(() =>
+    getRandomItem(mainConstant.NO_CHALLENGE_ITEM_WRITING)
+  );
 
   return (
     <div class='flex flex-col items-center justify-center p-4'>
