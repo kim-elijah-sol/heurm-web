@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
-import { NewChallengeItemType } from '~/entities/new-challenge-item';
-import {
+import { type NewChallengeItemType } from '~/entities/new-challenge-item';
+import type {
   ChallengeItemType,
   Nullable,
   RollingDisplayType,

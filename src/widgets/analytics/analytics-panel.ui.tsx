@@ -1,11 +1,11 @@
-import { Accessor, Component } from 'solid-js';
+import { type Accessor, type Component } from 'solid-js';
 import {
   AnalyticsCard,
   AnalyticsChart,
   AnalyticsOverviewCard,
   AnalyticsPanelTop,
 } from '~/features/analytics/ui';
-import { ChallengeColor, ChallengeItem } from '~/shared/types';
+import type { ChallengeColor, ChallengeItem } from '~/shared/types';
 import { Panel } from '~/shared/ui';
 
 type Props = {

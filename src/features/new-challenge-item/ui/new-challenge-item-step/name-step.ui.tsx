@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import { Accessor, Component, Setter } from 'solid-js';
-import { RollingDisplayType } from '~/shared/types';
+import { type Accessor, type Component, type Setter } from 'solid-js';
+import type { RollingDisplayType } from '~/shared/types';
 import { ArrowLeft, Check } from '~/shared/ui';
 
 type Props = {

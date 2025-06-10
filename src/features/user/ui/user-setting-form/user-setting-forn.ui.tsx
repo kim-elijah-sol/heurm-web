@@ -1,4 +1,4 @@
-import { children, Component, JSX } from 'solid-js';
+import { children, type Component, type JSX } from 'solid-js';
 
 type Props = {
   children: JSX.Element;

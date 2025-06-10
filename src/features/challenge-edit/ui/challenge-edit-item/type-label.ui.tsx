@@ -1,5 +1,5 @@
-import { Component } from 'solid-js';
-import { ChallengeItemType } from '~/shared/types';
+import { type Component } from 'solid-js';
+import type { ChallengeItemType } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 import { capitalize } from '../../fx';
 

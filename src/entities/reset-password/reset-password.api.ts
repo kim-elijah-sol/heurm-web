@@ -4,7 +4,7 @@ import {
   postVerifyEmailResponseSchema,
   postVerifyEmailSendResponseSchema,
 } from './reset-password.schema';
-import {
+import type {
   PatchResetPasswordRequest,
   PatchResetPasswordResponse,
   PostVerifyEmailRequest,

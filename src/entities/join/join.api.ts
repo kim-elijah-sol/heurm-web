@@ -4,7 +4,7 @@ import {
   postVerifyEmailResponseSchema,
   postVerifyEmailSendResponseSchema,
 } from './join.schema';
-import {
+import type {
   PostJoinRequest,
   PostJoinResponse,
   PostVerifyEmailRequest,

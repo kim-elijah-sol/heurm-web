@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import { X } from '../../icons';
 
 type Props = {

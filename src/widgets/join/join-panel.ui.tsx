@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import { joinSchema } from '~/entities/join';
 import { getJoinStepValue } from '~/features/join/fx';
 import { createJoinForm } from '~/features/join/hook';

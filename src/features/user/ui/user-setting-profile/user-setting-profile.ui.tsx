@@ -1,5 +1,5 @@
-import { Accessor, Component, JSX } from 'solid-js';
-import { Nullable } from '~/shared/types';
+import { type Accessor, type Component, type JSX } from 'solid-js';
+import type { Nullable } from '~/shared/types';
 import { ServerImage, Trash2, UserRound } from '~/shared/ui';
 
 type Props = {

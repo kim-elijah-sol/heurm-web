@@ -4,7 +4,7 @@ import {
   getUserProfileResponseSchema,
   patchUserProfileResponseSchema,
 } from './user.schema';
-import {
+import type {
   DeleteLogoutRequest,
   DeleteLogoutResponse,
   GetUserProfileResponse,

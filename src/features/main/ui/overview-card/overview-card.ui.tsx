@@ -1,5 +1,5 @@
 import { clsx } from 'clsx';
-import { Accessor, Component } from 'solid-js';
+import { type Accessor, type Component } from 'solid-js';
 
 type Props = {
   type: 'win' | 'lose';

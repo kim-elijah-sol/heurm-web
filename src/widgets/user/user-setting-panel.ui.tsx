@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import { createUserSettingForm } from '~/features/user/hook';
 import {
   UserSettingCancelAccountButton,

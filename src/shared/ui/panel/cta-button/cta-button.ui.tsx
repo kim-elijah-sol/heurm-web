@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { Accessor, Component, JSX, splitProps } from 'solid-js';
+import { splitProps, type Accessor, type Component, type JSX } from 'solid-js';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
   CHALLENGE_FROM_300_BG_COLOR,
 } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/types';
+import type { ChallengeColor } from '~/shared/types';
 
 type Props = Omit<JSX.IntrinsicElements['button'], 'color'> & {
   color: Accessor<ChallengeColor>;

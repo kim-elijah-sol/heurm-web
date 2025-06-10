@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/solid-query';
-import { Accessor } from 'solid-js';
+import { type Accessor } from 'solid-js';
 import { getChallenge, getChallengeItemByDate } from './main.api';
-import { GetChallengeItemByDateRequest } from './main.type';
+import type { GetChallengeItemByDateRequest } from './main.type';
 
 export const getChallengeQuery = () =>
   useQuery(() => ({

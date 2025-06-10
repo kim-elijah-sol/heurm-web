@@ -1,4 +1,4 @@
-import { RollingDisplayType } from '~/shared/types';
+import type { RollingDisplayType } from '~/shared/types';
 
 export const getLoginHelperFormStepDisplayClass = (
   displayType: RollingDisplayType

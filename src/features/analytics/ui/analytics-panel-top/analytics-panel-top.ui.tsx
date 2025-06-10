@@ -1,4 +1,4 @@
-import { Accessor, Component } from 'solid-js';
+import { type Accessor, type Component } from 'solid-js';
 import { X } from '~/shared/ui';
 
 type Props = {

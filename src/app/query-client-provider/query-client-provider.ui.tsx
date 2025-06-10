@@ -2,7 +2,7 @@ import {
   QueryClient,
   QueryClientProvider as TanStackQueryClientProvider,
 } from '@tanstack/solid-query';
-import { Component, JSX } from 'solid-js';
+import { type Component, type JSX } from 'solid-js';
 
 const queryClient = new QueryClient({
   defaultOptions: {

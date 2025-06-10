@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import { createLogout } from '~/features/user/hook';
 import { Logout, Panel, ShieldCheck, UserRoundPen } from '~/shared/ui';
 

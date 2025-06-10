@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import { createNewChallengeForm } from '~/features/new-challenge/hook';
 import { NewChallengeTitleInput } from '~/features/new-challenge/ui';
 import { ChallengeColorSelect, Panel } from '~/shared/ui';

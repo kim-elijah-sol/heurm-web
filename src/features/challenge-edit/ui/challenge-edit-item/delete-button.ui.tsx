@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import { challengeEditHook } from '~/entities/challenge-edit';
 import {
   CHALLENGE_400_BG_COLOR,

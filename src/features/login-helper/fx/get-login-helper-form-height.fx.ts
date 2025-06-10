@@ -1,4 +1,4 @@
-import { LoginHelperType } from '~/entities/login-helper';
+import { type LoginHelperType } from '~/entities/login-helper';
 
 export const getLoginHelperFormHeight = (
   step: LoginHelperType.LoginHelperStep

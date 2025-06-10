@@ -1,5 +1,5 @@
-import { AxiosResponse } from 'axios';
-import { ZodType } from 'zod';
+import { type AxiosResponse } from 'axios';
+import { type ZodType } from 'zod';
 
 export const validateResponse =
   <Z extends ZodType<any, any>>(zodSchema: Z) =>

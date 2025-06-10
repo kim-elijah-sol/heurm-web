@@ -1,4 +1,4 @@
-import { NewChallengeItemType } from '~/entities/new-challenge-item';
+import { type NewChallengeItemType } from '~/entities/new-challenge-item';
 
 export const getStepValue = (
   step: NewChallengeItemType.NewChallengeItemStepType

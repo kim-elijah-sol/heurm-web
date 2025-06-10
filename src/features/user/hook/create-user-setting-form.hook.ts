@@ -1,8 +1,8 @@
-import { createEffect, createSignal, JSX } from 'solid-js';
+import { createEffect, createSignal, type JSX } from 'solid-js';
 import { userQueries, userSchema } from '~/entities/user';
 import { toast } from '~/shared/lib';
 import { passwordSchema } from '~/shared/schema';
-import { Nullable } from '~/shared/types';
+import type { Nullable } from '~/shared/types';
 
 export const createUserSettingForm = () => {
   const profile = userQueries.getUserProfileQuery();

@@ -1,4 +1,4 @@
-import { ChallengeDay, Nullable } from '~/shared/types';
+import type { ChallengeDay, Nullable } from '~/shared/types';
 
 type ChallengeItemBase = {
   name: string;

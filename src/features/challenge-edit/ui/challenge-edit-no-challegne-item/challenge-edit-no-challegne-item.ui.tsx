@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import { Accessor, Component, createMemo } from 'solid-js';
+import { type Accessor, type Component, createMemo } from 'solid-js';
 import { mainConstant } from '~/entities/main';
 import { CHALLENGE_50_BG_COLOR } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/types';
+import type { ChallengeColor } from '~/shared/types';
 
 type Props = {
   color: Accessor<ChallengeColor>;

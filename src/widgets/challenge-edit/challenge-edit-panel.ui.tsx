@@ -1,13 +1,13 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import { format } from 'date-fns';
 import {
-  Accessor,
-  Component,
   createSignal,
   Index,
   Match,
   onMount,
   Switch,
+  type Accessor,
+  type Component,
 } from 'solid-js';
 import {
   challengeEditQueries,
@@ -24,7 +24,7 @@ import {
 import { createDateSelect } from '~/features/main/hook';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import { ChallengeColor } from '~/shared/types';
+import type { ChallengeColor } from '~/shared/types';
 import { ChallengeColorSelect, Panel } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item';
 

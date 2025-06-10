@@ -1,12 +1,12 @@
 import clsx from 'clsx';
-import { Component, For } from 'solid-js';
+import { type Component, For } from 'solid-js';
 import { challengeEditHook } from '~/entities/challenge-edit';
 import {
   CHALLENGE_300_BG_COLOR,
   CHALLENGE_ACTIVE_BG_200_COLOR,
   CHALLENGE_DAY,
 } from '~/shared/constant';
-import { ChallengeDay } from '~/shared/types';
+import type { ChallengeDay } from '~/shared/types';
 
 type Props = {
   day: ChallengeDay[];

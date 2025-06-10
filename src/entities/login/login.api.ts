@@ -1,6 +1,6 @@
 import { https } from '~/shared/lib';
 import { postLoginResponseSchema } from './login.schema';
-import { PostLoginRequest, PostLoginResponse } from './login.type';
+import type { PostLoginRequest, PostLoginResponse } from './login.type';
 
 export const postLogin = async (request: PostLoginRequest) =>
   https

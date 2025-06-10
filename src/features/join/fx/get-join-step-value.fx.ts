@@ -1,4 +1,4 @@
-import { LoginHelperType } from '~/entities/login-helper';
+import { type LoginHelperType } from '~/entities/login-helper';
 
 export const getJoinStepValue = (step: LoginHelperType.LoginHelperStep) => {
   const stepValueMap: { [key in LoginHelperType.LoginHelperStep]: number } = {

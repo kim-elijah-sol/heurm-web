@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import type { Accessor, Component, JSX } from 'solid-js';
-import { MainType } from '~/entities/main';
+import { type Accessor, type Component, type JSX } from 'solid-js';
+import { type MainType } from '~/entities/main';
 import './date-card.ui.css';
 
 type Props = {

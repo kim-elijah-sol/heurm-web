@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import { Accessor, children, Component, JSX } from 'solid-js';
+import { type Accessor, children, type Component, type JSX } from 'solid-js';
 import { ChallengeEditContext } from '~/entities/challenge-edit';
 import { CHALLENGE_100_BG_COLOR } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/types';
+import type { ChallengeColor } from '~/shared/types';
 
 type Props = {
   color: Accessor<ChallengeColor>;

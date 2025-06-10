@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
-import { Accessor, Component, createSignal } from 'solid-js';
+import { type Accessor, type Component, createSignal } from 'solid-js';
 import { challengeEditQueries } from '~/entities/challenge-edit';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';

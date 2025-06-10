@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import { Accessor, Component } from 'solid-js';
-import { RollingDisplayType } from '~/shared/types';
+import { type Accessor, type Component } from 'solid-js';
+import type { RollingDisplayType } from '~/shared/types';
 import { Login } from '~/shared/ui';
 import { getLoginHelperFormStepDisplayClass } from '../../fx';
 

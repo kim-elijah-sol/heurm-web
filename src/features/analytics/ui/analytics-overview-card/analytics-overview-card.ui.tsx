@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import {
   CHALLENGE_50_BG_COLOR,
   CHALLENGE_BORDER_COLOR_200,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/types';
+import type { ChallengeColor } from '~/shared/types';
 
 type Props = {
   color: ChallengeColor;

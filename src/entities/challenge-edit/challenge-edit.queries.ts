@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/solid-query';
-import { Accessor } from 'solid-js';
+import { type Accessor } from 'solid-js';
 import { toastAtError } from '~/shared/fx';
 import {
   deleteChallenge,
@@ -9,7 +9,7 @@ import {
   patchChallengeItem,
   postChallengeItem,
 } from './challenge-edit.api';
-import { GetChallengeItemRequest } from './challenge-edit.type';
+import type { GetChallengeItemRequest } from './challenge-edit.type';
 
 export const getChallengeItemQuery = (
   params: Accessor<GetChallengeItemRequest>

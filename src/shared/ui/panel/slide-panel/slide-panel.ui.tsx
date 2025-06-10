@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { children, Component, createSignal, JSX } from 'solid-js';
+import { children, createSignal, type Component, type JSX } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import './slide-panel.ui.css';
 

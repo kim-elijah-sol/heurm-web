@@ -1,4 +1,4 @@
-import { Component, JSX, splitProps } from 'solid-js';
+import { splitProps, type Component, type JSX } from 'solid-js';
 
 type ImgProps = JSX.IntrinsicElements['img'];
 

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import { Component, createSignal, splitProps } from 'solid-js';
-import { Nullable } from '~/shared/types';
+import { createSignal, splitProps, type Component } from 'solid-js';
+import type { Nullable } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
 type Props = {

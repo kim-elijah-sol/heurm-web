@@ -1,5 +1,5 @@
-import { LoginHelperType } from '~/entities/login-helper';
-import { RollingDisplayType } from '~/shared/types';
+import { type LoginHelperType } from '~/entities/login-helper';
+import type { RollingDisplayType } from '~/shared/types';
 
 export const getLoginHelperStepDisplayType =
   (

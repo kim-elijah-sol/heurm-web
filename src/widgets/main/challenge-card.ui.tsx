@@ -1,13 +1,13 @@
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
-import { Accessor, Component, For, Match, Switch } from 'solid-js';
+import { For, Match, Switch, type Accessor, type Component } from 'solid-js';
 import { mainConstant, mainQueries } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import { ChallengeColor } from '~/shared/types';
+import type { ChallengeColor } from '~/shared/types';
 import { ChartLine, Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit';
 

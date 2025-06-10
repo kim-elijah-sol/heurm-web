@@ -7,7 +7,7 @@ import {
   patchChallengeResponseSchema,
   postChallengeItemResponseSchema,
 } from './challenge-edit.schema';
-import {
+import type {
   DeleteChallengeItemRequest,
   DeleteChallengeItemResponse,
   DeleteChallengeRequest,

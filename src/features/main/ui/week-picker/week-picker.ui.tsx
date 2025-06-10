@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
-import { Accessor, Component } from 'solid-js';
+import { type Accessor, type Component } from 'solid-js';
 import { createBoolean } from '~/shared/hook';
 import { CalendarRange } from '~/shared/ui';
 import { WeekCalendar } from '../week-calendar';

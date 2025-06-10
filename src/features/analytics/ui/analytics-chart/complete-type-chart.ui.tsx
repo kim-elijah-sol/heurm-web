@@ -1,5 +1,5 @@
 import { SolidApexCharts } from 'solid-apexcharts';
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 
 type Props = {
   datas: boolean[];

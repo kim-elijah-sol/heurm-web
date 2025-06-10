@@ -5,7 +5,11 @@ import {
   CHALLENGE_100_BG_COLOR,
   CHALLENGE_300_BG_COLOR,
 } from '~/shared/constant';
-import { ChallengeColor, ChallengeItemType, Nullable } from '~/shared/types';
+import type {
+  ChallengeColor,
+  ChallengeItemType,
+  Nullable,
+} from '~/shared/types';
 import {
   CheckCheck,
   ChevronsDown,

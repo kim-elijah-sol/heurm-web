@@ -3,7 +3,7 @@ import {
   getChallengeItemByDateResponseSchema,
   getChallengeResponseSchema,
 } from './main.schema';
-import {
+import type {
   GetChallengeItemByDateRequest,
   GetChallengeItemByDateResponse,
   GetChallengeResponse,

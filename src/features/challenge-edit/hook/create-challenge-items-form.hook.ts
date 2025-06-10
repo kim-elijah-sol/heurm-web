@@ -1,7 +1,7 @@
-import { Accessor, createEffect } from 'solid-js';
+import { type Accessor, createEffect } from 'solid-js';
 import { createStore } from 'solid-js/store';
-import { ChallengeEditType } from '~/entities/challenge-edit';
-import { ChallengeDay } from '~/shared/types';
+import { type ChallengeEditType } from '~/entities/challenge-edit';
+import type { ChallengeDay } from '~/shared/types';
 
 export const createChallengeItemsForm = (
   _challengeItems: Accessor<ChallengeEditType.ChallengeItemForm[]>

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Component, JSX, splitProps } from 'solid-js';
+import { splitProps, type Component, type JSX } from 'solid-js';
 
 type InputProps = JSX.IntrinsicElements['input'];
 

@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import { ChallengeEditType } from '~/entities/challenge-edit';
 import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
 import { NewChallengeItemStep } from '~/features/new-challenge-item/ui';

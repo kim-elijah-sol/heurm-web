@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import {
-  Accessor,
-  Component,
   createEffect,
   createSignal,
-  JSX,
   on,
+  type Accessor,
+  type Component,
+  type JSX,
 } from 'solid-js';
-import { LoginHelperType } from '~/entities/login-helper';
+import { type LoginHelperType } from '~/entities/login-helper';
 import {
   getLoginHelperFormStepDisplayClass,
   getLoginHelperStepDisplayType,

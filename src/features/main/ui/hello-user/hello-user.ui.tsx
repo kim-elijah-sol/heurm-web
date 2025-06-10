@@ -1,4 +1,4 @@
-import { Accessor, Component, createMemo } from 'solid-js';
+import { createMemo, type Accessor, type Component } from 'solid-js';
 import { mainConstant } from '~/entities/main';
 
 type Props = {

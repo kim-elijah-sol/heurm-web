@@ -1,5 +1,10 @@
 import clsx from 'clsx';
-import { Accessor, Component, createMemo, createSignal } from 'solid-js';
+import {
+  createMemo,
+  createSignal,
+  type Accessor,
+  type Component,
+} from 'solid-js';
 import { ChevronLeft, ChevronRight, X } from '~/shared/ui';
 import { getMidnight, isSameDate } from '../../fx';
 import './week-calendar.ui.css';

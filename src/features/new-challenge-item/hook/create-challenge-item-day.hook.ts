@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { ChallengeDay } from '~/shared/types';
+import type { ChallengeDay } from '~/shared/types';
 
 export const createChallengeItemDay = (defaulyDay?: ChallengeDay[]) => {
   const [day, setDay] = createSignal<ChallengeDay[]>(defaulyDay ?? []);

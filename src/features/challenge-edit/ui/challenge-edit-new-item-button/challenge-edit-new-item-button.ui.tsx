@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor, Component } from 'solid-js';
+import { type Accessor, type Component } from 'solid-js';
 import { Plus } from '~/shared/ui';
 import './challenge-edit-new-item-button.ui.css';
 

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import { Accessor, Component, For, Setter } from 'solid-js';
+import { For, type Accessor, type Component, type Setter } from 'solid-js';
 import { CHALLENGE_BG_COLOR, CHALLENGE_COLOR } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/types';
+import type { ChallengeColor } from '~/shared/types';
 import { Check } from '~/shared/ui';
 
 type Props = {
