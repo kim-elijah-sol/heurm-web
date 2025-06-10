@@ -40,3 +40,29 @@ export const getChallengeItemByDateResponseSchema = z.object({
   originalChallengeItems: z.array(getChallengeItemByDateResponseItemSchema),
   todayChallengeItems: z.array(getChallengeItemByDateResponseItemSchema),
 });
+
+const postHistoryRequestBaseSchema = z.object({
+  challengeId: z.string(),
+  challengeItemId: z.string(),
+  date: dateSchema,
+});
+
+export const postHistoryRequestCompleteSchema =
+  postHistoryRequestBaseSchema.extend({
+    complete: z.boolean().nullable().optional(),
+  });
+
+export const postHistoryRequestCountableSchema =
+  postHistoryRequestBaseSchema.extend({
+    count: z.number().nullable().optional(),
+    targetCount: z.number().nullable().optional(),
+  });
+
+export const postHistoryRequestSchema = z.union([
+  postHistoryRequestCompleteSchema,
+  postHistoryRequestCountableSchema,
+]);
+
+export const postHistoryResponseSchema = z.object({
+  id: z.string(),
+});

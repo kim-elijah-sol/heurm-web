@@ -2,11 +2,14 @@ import { https } from '~/shared/lib';
 import {
   getChallengeItemByDateResponseSchema,
   getChallengeResponseSchema,
+  postHistoryResponseSchema,
 } from './main.schema';
 import type {
   GetChallengeItemByDateRequest,
   GetChallengeItemByDateResponse,
   GetChallengeResponse,
+  PostHistoryRequest,
+  PostHistoryResponse,
 } from './main.type';
 
 export const getChallenge = () =>
@@ -20,3 +23,8 @@ export const getChallengeItemByDate = (params: GetChallengeItemByDateRequest) =>
       params,
     })
     .then(https.validateResponse(getChallengeItemByDateResponseSchema));
+
+export const postHistory = (body: PostHistoryRequest) =>
+  https
+    .post<PostHistoryResponse>('/history', body)
+    .then(https.validateResponse(postHistoryResponseSchema));

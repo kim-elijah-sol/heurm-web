@@ -42,6 +42,10 @@ export const ChallengeCard: Component<Props> = (props) => {
     date: format(current(), 'yyyy-MM-dd'),
   }));
 
+  const postHistory = mainQueries.postHistoryMutation(() => {
+    challengeItemByDate.refetch();
+  });
+
   const topClassName = () =>
     clsx(
       'pl-4 pr-3 py-2 flex items-center justify-between',
@@ -90,6 +94,13 @@ export const ChallengeCard: Component<Props> = (props) => {
                       } else if (isCompleted === false) {
                         toast.open(getLoseWriting());
                       }
+
+                      postHistory.mutate({
+                        challengeId: props.id(),
+                        challengeItemId: challengeItem.id,
+                        date: format(current(), 'yyyy-MM-dd'),
+                        complete: isCompleted,
+                      });
                     }}
                   />
                 </Match>
@@ -103,8 +114,12 @@ export const ChallengeCard: Component<Props> = (props) => {
                     count={challengeItem.history?.count ?? null}
                     type={challengeItem.type as 'OVER' | 'UNDER'}
                     onChange={(count) => {
+                      const targetCount =
+                        challengeItem.history?.targetCount ??
+                        challengeItem.targetCount!;
+
                       const result = (() => {
-                        const { type, targetCount } = challengeItem as {
+                        const { type } = challengeItem as {
                           type: 'OVER' | 'UNDER';
                           targetCount: number;
                         };
@@ -128,6 +143,14 @@ export const ChallengeCard: Component<Props> = (props) => {
                       } else if (result === false) {
                         toast.open(getLoseWriting());
                       }
+
+                      postHistory.mutate({
+                        challengeId: props.id(),
+                        challengeItemId: challengeItem.id,
+                        date: format(current(), 'yyyy-MM-dd'),
+                        count,
+                        targetCount,
+                      });
                     }}
                   />
                 </Match>

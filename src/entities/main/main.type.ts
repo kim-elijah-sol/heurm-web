@@ -6,6 +6,10 @@ import {
   getChallengeItemByDateResponseSchema,
   getChallengeResponseItemSchema,
   getChallengeResponseSchema,
+  postHistoryRequestCompleteSchema,
+  postHistoryRequestCountableSchema,
+  postHistoryRequestSchema,
+  postHistoryResponseSchema,
 } from './main.schema';
 
 export type ChallengeDayStatus = 'win' | 'lose' | 'pending';
@@ -31,3 +35,15 @@ export type GetChallengeItemByDateResponseItem = z.infer<
 export type GetChallengeItemByDateResponse = z.infer<
   typeof getChallengeItemByDateResponseSchema
 >;
+
+export type PostHistoryCompleteRequest = z.infer<
+  typeof postHistoryRequestCompleteSchema
+>;
+
+export type PostHistoryCountableRequest = z.infer<
+  typeof postHistoryRequestCountableSchema
+>;
+
+export type PostHistoryRequest = z.infer<typeof postHistoryRequestSchema>;
+
+export type PostHistoryResponse = z.infer<typeof postHistoryResponseSchema>;
