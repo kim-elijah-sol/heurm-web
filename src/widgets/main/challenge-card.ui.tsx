@@ -79,11 +79,7 @@ export const ChallengeCard: Component<Props> = (props) => {
                 <Match when={challengeItem.type === 'COMPLETE'}>
                   <ChallengeItem.Complete
                     name={challengeItem.name}
-                    isCompleted={
-                      challengeItem.history === null
-                        ? null
-                        : challengeItem.history.complete
-                    }
+                    isCompleted={challengeItem.history?.complete ?? null}
                     onChange={(isCompleted) => {
                       if (isCompleted === true) {
                         toast.open(
@@ -100,7 +96,10 @@ export const ChallengeCard: Component<Props> = (props) => {
                 <Match when={challengeItem.type !== 'COMPLETE'}>
                   <ChallengeItem.Countable
                     name={challengeItem.name}
-                    targetCount={challengeItem.targetCount!}
+                    targetCount={
+                      challengeItem.history?.targetCount ??
+                      challengeItem.targetCount!
+                    }
                     count={challengeItem.history?.count ?? null}
                     type={challengeItem.type as 'OVER' | 'UNDER'}
                     onChange={(count) => {
