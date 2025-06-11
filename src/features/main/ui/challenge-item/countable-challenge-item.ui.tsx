@@ -46,9 +46,9 @@ export const Countable: Component<Props> = (originProps) => {
       : '⏳';
 
   const icon = () =>
-    serverChallengeResult()
+    localChallengeResult()
       ? Check
-      : serverChallengeResult() === false
+      : localChallengeResult() === false
       ? Ban
       : Loader;
 
