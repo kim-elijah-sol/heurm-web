@@ -4,10 +4,14 @@ import { toastAtError } from '~/shared/fx';
 import {
   getChallenge,
   getChallengeItemByDate,
+  getChallengeOverview,
   patchHistory,
   postHistory,
 } from './main.api';
-import type { GetChallengeItemByDateRequest } from './main.type';
+import type {
+  GetChallengeItemByDateRequest,
+  GetChallengeOverviewRequest,
+} from './main.type';
 
 export const getChallengeQuery = () =>
   useQuery(() => ({
@@ -41,4 +45,12 @@ export const patchHistoryMutation = (
     mutationFn: patchHistory,
     onSuccess,
     onError: (error) => toastAtError(error),
+  }));
+
+export const getChallengeOverviewQuery = (
+  params: Accessor<GetChallengeOverviewRequest>
+) =>
+  useQuery(() => ({
+    queryKey: ['getChallengeOverview', params().date],
+    queryFn: () => getChallengeOverview(params()),
   }));

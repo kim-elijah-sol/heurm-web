@@ -4,6 +4,8 @@ import {
   getChallengeItemByDateResponseItemHistorySchema,
   getChallengeItemByDateResponseItemSchema,
   getChallengeItemByDateResponseSchema,
+  getChallengeOverviewRequestSchema,
+  getChallengeOverviewResponseSchema,
   getChallengeResponseItemSchema,
   getChallengeResponseSchema,
   patchHistoryRequestCompleteSchema,
@@ -63,3 +65,11 @@ export type PatchHistoryCountableRequest = z.infer<
 export type PatchHistoryRequest = z.infer<typeof patchHistoryRequestSchema>;
 
 export type PatchHistoryResponse = z.infer<typeof patchHistoryResponseSchema>;
+
+export type GetChallengeOverviewRequest = z.infer<
+  typeof getChallengeOverviewRequestSchema
+>;
+
+export type GetChallengeOverviewResponse = z.infer<
+  typeof getChallengeOverviewResponseSchema
+>;

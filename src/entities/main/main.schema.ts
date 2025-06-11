@@ -93,3 +93,13 @@ export const patchHistoryRequestSchema = z.union([
 export const patchHistoryResponseSchema = z.object({
   id: z.string(),
 });
+
+export const getChallengeOverviewRequestSchema = z.object({
+  date: dateSchema,
+});
+
+export const getChallengeOverviewResponseSchema = z.object({
+  inProgress: z.number(),
+  win: z.number(),
+  lose: z.number(),
+});

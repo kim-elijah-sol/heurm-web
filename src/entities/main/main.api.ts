@@ -1,6 +1,7 @@
 import { https } from '~/shared/lib';
 import {
   getChallengeItemByDateResponseSchema,
+  getChallengeOverviewResponseSchema,
   getChallengeResponseSchema,
   patchHistoryResponseSchema,
   postHistoryResponseSchema,
@@ -8,6 +9,8 @@ import {
 import type {
   GetChallengeItemByDateRequest,
   GetChallengeItemByDateResponse,
+  GetChallengeOverviewRequest,
+  GetChallengeOverviewResponse,
   GetChallengeResponse,
   PatchHistoryRequest,
   PatchHistoryResponse,
@@ -36,3 +39,10 @@ export const patchHistory = (body: PatchHistoryRequest) =>
   https
     .patch<PatchHistoryResponse>('/history', body)
     .then(https.validateResponse(patchHistoryResponseSchema));
+
+export const getChallengeOverview = (params: GetChallengeOverviewRequest) =>
+  https
+    .get<GetChallengeOverviewResponse>('/challenge/overview', {
+      params,
+    })
+    .then(https.validateResponse(getChallengeOverviewResponseSchema));
