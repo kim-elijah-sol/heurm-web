@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/solid-query';
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
 import { For, Match, Switch, type Accessor, type Component } from 'solid-js';
@@ -37,6 +38,8 @@ export const ChallengeCard: Component<Props> = (props) => {
 
   let newChallengeItemPanelOpen = false;
 
+  const queryClient = useQueryClient();
+
   const challengeItemByDate = mainQueries.getChallengeItemByDateQuery(() => ({
     challengeId: props.id(),
     date: format(current(), 'yyyy-MM-dd'),
@@ -44,10 +47,16 @@ export const ChallengeCard: Component<Props> = (props) => {
 
   const postHistory = mainQueries.postHistoryMutation(() => {
     challengeItemByDate.refetch();
+    queryClient.invalidateQueries({
+      queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
+    });
   });
 
   const patchHistory = mainQueries.patchHistoryMutation(() => {
     challengeItemByDate.refetch();
+    queryClient.invalidateQueries({
+      queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
+    });
   });
 
   const topClassName = () =>

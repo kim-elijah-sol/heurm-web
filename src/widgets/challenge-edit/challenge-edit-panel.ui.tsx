@@ -359,6 +359,9 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
           format(current(), 'yyyy-MM-dd'),
         ],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
+      });
       challengeItem.refetch();
     }
   };

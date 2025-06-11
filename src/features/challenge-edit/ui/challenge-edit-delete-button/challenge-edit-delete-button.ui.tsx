@@ -1,7 +1,9 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
-import { type Accessor, type Component, createSignal } from 'solid-js';
+import { format } from 'date-fns';
+import { createSignal, type Accessor, type Component } from 'solid-js';
 import { challengeEditQueries } from '~/entities/challenge-edit';
+import { createDateSelect } from '~/features/main/hook';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 
@@ -14,6 +16,8 @@ type Props = {
 };
 
 export const ChallengeEditDeleteButton: Component<Props> = (props) => {
+  const { current } = createDateSelect();
+
   const [isDeleteConfirm, open, _close] = createBoolean();
 
   const [transition, setTransition] = createSignal(false);
@@ -38,6 +42,10 @@ export const ChallengeEditDeleteButton: Component<Props> = (props) => {
 
     queryClient.invalidateQueries({
       queryKey: ['getChallenge'],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
     });
 
     close(props.onDeleted);
