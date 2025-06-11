@@ -46,6 +46,10 @@ export const ChallengeCard: Component<Props> = (props) => {
     challengeItemByDate.refetch();
   });
 
+  const patchHistory = mainQueries.patchHistoryMutation(() => {
+    challengeItemByDate.refetch();
+  });
+
   const topClassName = () =>
     clsx(
       'pl-4 pr-3 py-2 flex items-center justify-between',
@@ -95,12 +99,21 @@ export const ChallengeCard: Component<Props> = (props) => {
                         toast.open(getLoseWriting());
                       }
 
-                      postHistory.mutate({
-                        challengeId: props.id(),
-                        challengeItemId: challengeItem.id,
-                        date: format(current(), 'yyyy-MM-dd'),
-                        complete: isCompleted,
-                      });
+                      if (challengeItem.history === null) {
+                        postHistory.mutate({
+                          challengeId: props.id(),
+                          challengeItemId: challengeItem.id,
+                          date: format(current(), 'yyyy-MM-dd'),
+                          complete: isCompleted,
+                        });
+                      } else {
+                        patchHistory.mutate({
+                          challengeId: props.id(),
+                          challengeItemId: challengeItem.id,
+                          id: challengeItem.history.id,
+                          complete: isCompleted,
+                        });
+                      }
                     }}
                   />
                 </Match>
@@ -144,13 +157,24 @@ export const ChallengeCard: Component<Props> = (props) => {
                         toast.open(getLoseWriting());
                       }
 
-                      postHistory.mutate({
-                        challengeId: props.id(),
-                        challengeItemId: challengeItem.id,
-                        date: format(current(), 'yyyy-MM-dd'),
-                        count,
-                        targetCount,
-                      });
+                      if (challengeItem.history === null) {
+                        postHistory.mutate({
+                          challengeId: props.id(),
+                          challengeItemId: challengeItem.id,
+                          date: format(current(), 'yyyy-MM-dd'),
+                          count,
+                          targetCount,
+                        });
+                      } else {
+                        patchHistory.mutate({
+                          challengeId: props.id(),
+                          challengeItemId: challengeItem.id,
+                          id: challengeItem.history.id,
+
+                          count,
+                          targetCount,
+                        });
+                      }
                     }}
                   />
                 </Match>

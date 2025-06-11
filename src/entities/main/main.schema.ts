@@ -22,6 +22,7 @@ export const getChallengeItemByDateRequestSchema = z.object({
 });
 
 export const getChallengeItemByDateResponseItemHistorySchema = z.object({
+  id: z.string(),
   complete: z.boolean().nullable(),
   count: z.number().nullable(),
   targetCount: z.number().nullable(),
@@ -64,5 +65,31 @@ export const postHistoryRequestSchema = z.union([
 ]);
 
 export const postHistoryResponseSchema = z.object({
+  id: z.string(),
+});
+
+const patchHistoryRequestBaseSchema = postHistoryRequestBaseSchema
+  .omit({ date: true })
+  .extend({
+    id: z.string(),
+  });
+
+export const patchHistoryRequestCompleteSchema =
+  patchHistoryRequestBaseSchema.extend({
+    complete: z.boolean().nullable().optional(),
+  });
+
+export const patchHistoryRequestCountableSchema =
+  patchHistoryRequestBaseSchema.extend({
+    count: z.number().nullable().optional(),
+    targetCount: z.number().nullable().optional(),
+  });
+
+export const patchHistoryRequestSchema = z.union([
+  patchHistoryRequestCompleteSchema,
+  patchHistoryRequestCountableSchema,
+]);
+
+export const patchHistoryResponseSchema = z.object({
   id: z.string(),
 });

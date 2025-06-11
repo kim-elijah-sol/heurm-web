@@ -6,6 +6,10 @@ import {
   getChallengeItemByDateResponseSchema,
   getChallengeResponseItemSchema,
   getChallengeResponseSchema,
+  patchHistoryRequestCompleteSchema,
+  patchHistoryRequestCountableSchema,
+  patchHistoryRequestSchema,
+  patchHistoryResponseSchema,
   postHistoryRequestCompleteSchema,
   postHistoryRequestCountableSchema,
   postHistoryRequestSchema,
@@ -47,3 +51,15 @@ export type PostHistoryCountableRequest = z.infer<
 export type PostHistoryRequest = z.infer<typeof postHistoryRequestSchema>;
 
 export type PostHistoryResponse = z.infer<typeof postHistoryResponseSchema>;
+
+export type PatchHistoryCompleteRequest = z.infer<
+  typeof patchHistoryRequestCompleteSchema
+>;
+
+export type PatchHistoryCountableRequest = z.infer<
+  typeof patchHistoryRequestCountableSchema
+>;
+
+export type PatchHistoryRequest = z.infer<typeof patchHistoryRequestSchema>;
+
+export type PatchHistoryResponse = z.infer<typeof patchHistoryResponseSchema>;
