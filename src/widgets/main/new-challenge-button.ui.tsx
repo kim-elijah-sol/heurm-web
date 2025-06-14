@@ -10,10 +10,10 @@ export const NewChallengeButton = () => {
     <>
       <div class='flex justify-center'>
         <button
-          class='p-3 rounded-[35%] transition-all active:scale-90 wys-new-challenge-button'
+          class='p-3 rounded-[42%] transition-all active:scale-90 wys-new-challenge-button'
           onClick={open}
         >
-          <Plus />
+          <Plus size={32} />
         </button>
       </div>
       {isNewChallengePanel() && <NewChallengePanel close={close} />}
