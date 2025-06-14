@@ -72,6 +72,7 @@ const completeChallengeItemSchema = challengeItemFormBaseSchema.extend({
 const countableChallengeItemSchema = challengeItemFormBaseSchema.extend({
   type: z.union([z.literal('OVER'), z.literal('UNDER')]),
   targetCount: z.number(),
+  unit: z.string(),
 });
 
 export const challengeItemFormSchema = z.union([

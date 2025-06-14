@@ -19,6 +19,8 @@ export const createNewChallengeItemForm = () => {
 
   const [count, setCount] = createSignal<string>('');
 
+  const [unit, setUnit] = createSignal<string>('');
+
   const [day, handleChangeDay] = createChallengeItemDay();
 
   const getDisplayType =
@@ -42,6 +44,8 @@ export const createNewChallengeItemForm = () => {
     setName,
     count,
     setCount,
+    unit,
+    setUnit,
     day,
     handleChangeDay,
     getDisplayType,

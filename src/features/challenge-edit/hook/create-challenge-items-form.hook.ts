@@ -1,4 +1,4 @@
-import { type Accessor, createEffect } from 'solid-js';
+import { createEffect, type Accessor } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { type ChallengeEditType } from '~/entities/challenge-edit';
 import type { ChallengeDay } from '~/shared/types';
@@ -32,6 +32,14 @@ export const createChallengeItemsForm = (
       challengeItems.findIndex((it) => it.id === id),
       'targetCount' as any,
       targetCount
+    );
+  };
+
+  const handleChangeUnit = (id: string, unit: string) => {
+    setChallengeItems(
+      challengeItems.findIndex((it) => it.id === id),
+      'unit' as any,
+      unit
     );
   };
 
@@ -70,6 +78,7 @@ export const createChallengeItemsForm = (
     handleChangeDay,
     handleChangeName,
     handleChangeTargetCount,
+    handleChangeUnit,
     handleDeleteChallengeItem,
     handleNewChallengeItem,
   };

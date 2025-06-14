@@ -1,5 +1,6 @@
 .wys-new-challenge-item-step {
   @apply absolute left-[50%] top-[50%] pointer-events-none opacity-0;
+  width: calc(100vw - 32px);
   transition: 0.3s;
 }
 

@@ -8,7 +8,9 @@ type Props = {
 };
 
 export const TypeLabel: Component<Props> = (props) => {
-  const TypeIcon =
+  console.log(props.type);
+
+  const getTypeIcon = () =>
     props.type === 'COMPLETE'
       ? CheckCheck
       : props.type === 'OVER'
@@ -17,7 +19,11 @@ export const TypeLabel: Component<Props> = (props) => {
 
   return (
     <div class='flex items-center gap-1'>
-      <TypeIcon className='stroke-gray-400' size={16} strokeWidth={2} />
+      {getTypeIcon()({
+        size: 16,
+        strokeWidth: 2,
+        className: 'stroke-gray-400',
+      })}
       <span class='font-semibold text-[12px] text-gray-400'>
         {capitalize(props.type)} Type
       </span>

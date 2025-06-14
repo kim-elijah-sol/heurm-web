@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import { format } from 'date-fns';
 import {
+  createEffect,
   createSignal,
   Index,
   Match,
@@ -86,6 +87,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
           days: it.days,
           name: it.name,
           targetCount: it.targetCount!,
+          unit: it.unit ?? '',
         };
       }) ?? []
   );
@@ -157,6 +159,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             return patchChallengeItem.mutateAsync({
               ...baseData,
               targetCount: it.targetCount,
+              unit: it.unit,
             });
           }
         })
@@ -185,6 +188,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             return postChallengeItem.mutateAsync({
               ...baseData,
               targetCount: it.targetCount,
+              unit: it.unit,
             });
           }
         })
@@ -250,6 +254,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
               {
                 ...baseData,
                 targetCount: it.targetCount,
+                unit: it.unit,
               }
             );
           }
@@ -284,6 +289,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
           return challengeEditSchema.postChallengeItemRequestSchema.safeParse({
             ...baseData,
             targetCount: it.targetCount,
+            unit: it.unit,
           });
         }
       });
@@ -372,6 +378,10 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
         open();
       }, 300);
     }
+  });
+
+  createEffect(() => {
+    console.log(challengeItems());
   });
 
   return (

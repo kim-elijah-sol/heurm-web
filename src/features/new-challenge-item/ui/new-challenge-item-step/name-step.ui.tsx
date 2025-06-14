@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { type Accessor, type Component, type Setter } from 'solid-js';
 import type { RollingDisplayType } from '~/shared/types';
-import { ArrowLeft, Check } from '~/shared/ui';
+import { ArrowLeft, Check, GlassInput } from '~/shared/ui';
 
 type Props = {
   name: Accessor<string>;
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const NameStep: Component<Props> = (props) => {
-  const buttonBaseClassName = 'p-6 rounded-[35%] transition-all';
+  const buttonBaseClassName = 'p-5 rounded-[42%] transition-all';
 
   const disabled = () => props.name().trim().length === 0;
 
@@ -23,15 +23,15 @@ export const NameStep: Component<Props> = (props) => {
         `wys-new-challenge-item-step-${props.displayType()}`
       )}
     >
-      <input
+      <GlassInput
         type='text'
-        class='text-slate-800 text-3xl h-10 font-semibold placeholder:text-gray-400 text-center'
+        class='text-slate-800 text-2xl h-16 font-semibold placeholder:text-gray-400 text-center w-full'
         placeholder='Challenge Item Name'
         value={props.name()}
         onInput={(e) => props.setName(e.target.value)}
       />
 
-      <div class='flex gap-12'>
+      <div class='flex gap-10'>
         <button
           class={clsx(
             buttonBaseClassName,
@@ -39,7 +39,7 @@ export const NameStep: Component<Props> = (props) => {
           )}
           onClick={props.onPrev}
         >
-          <ArrowLeft />
+          <ArrowLeft size={40} />
         </button>
 
         <button
@@ -47,12 +47,12 @@ export const NameStep: Component<Props> = (props) => {
           class={clsx(
             buttonBaseClassName,
             disabled()
-              ? 'bg-gray-500'
+              ? 'bg-gray-300'
               : 'bg-green-400 active:bg-green-500 active:scale-90'
           )}
           onClick={props.onNext}
         >
-          <Check />
+          <Check size={40} />
         </button>
       </div>
     </div>

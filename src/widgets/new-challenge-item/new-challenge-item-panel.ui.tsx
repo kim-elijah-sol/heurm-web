@@ -20,6 +20,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
     setName,
     count,
     setCount,
+    unit,
+    setUnit,
     day,
     handleChangeDay,
     getDisplayType,
@@ -56,6 +58,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
           <NewChallengeItemStep.Count
             count={count}
             setCount={setCount}
+            unit={unit}
+            setUnit={setUnit}
             displayType={getDisplayType('count')}
             onPrev={() => setStep('name')}
             onNext={() => setStep('day')}
@@ -94,6 +98,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   id,
                   type: _type,
                   targetCount: Number(count()),
+                  unit: unit(),
                   name: name(),
                   days: day(),
                   isNew: true,
