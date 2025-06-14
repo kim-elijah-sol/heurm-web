@@ -19,8 +19,15 @@ https.interceptors.response.use(undefined, async (error) => {
   if (
     isAxiosError(error) &&
     error.response?.status === 401 &&
-    error.response?.data === 'Access token is expired'
+    error.config?.url !== '/user/login'
   ) {
+    if (error.response?.data !== 'Access token is expired') {
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+      localStorage.removeItem(STORAGE_KEYS.CLIENT_ID);
+      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+      window.location.replace('/login');
+    }
+
     const refreshResult = await https.post('/user/refresh', {
       refreshToken: localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN),
       clientId: localStorage.getItem(STORAGE_KEYS.CLIENT_ID),
