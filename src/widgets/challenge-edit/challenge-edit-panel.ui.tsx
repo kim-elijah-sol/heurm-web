@@ -67,6 +67,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
     handleChangeDay,
     handleChangeName,
     handleChangeTargetCount,
+    handleChangeUnit,
     handleDeleteChallengeItem,
     handleNewChallengeItem,
   } = createChallengeItemsForm(
@@ -443,6 +444,16 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                               }
                               onChangeTargetColor={(targetCount) =>
                                 handleChangeTargetCount(it().id, targetCount)
+                              }
+                            />
+                          )
+                        }
+                        unitInput={
+                          it().type !== 'COMPLETE' && (
+                            <ChallengeEditItem.UnitInput
+                              unit={(it() as { unit: string }).unit}
+                              onChangeUnit={(unit) =>
+                                handleChangeUnit(it().id, unit)
                               }
                             />
                           )

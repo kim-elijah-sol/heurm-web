@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { type Accessor, children, type Component, type JSX } from 'solid-js';
+import { children, type Accessor, type Component, type JSX } from 'solid-js';
 import { ChallengeEditContext } from '~/entities/challenge-edit';
 import { CHALLENGE_100_BG_COLOR } from '~/shared/constant';
 import type { ChallengeColor } from '~/shared/types';
@@ -10,6 +10,7 @@ type Props = {
   typeLabel: JSX.Element;
   deleteButton: JSX.Element;
   targetCountInput?: JSX.Element;
+  unitInput?: JSX.Element;
   daySelect: JSX.Element;
 };
 
@@ -32,9 +33,14 @@ export const ChallengeEditItem: Component<Props> = (props) => {
           </div>
           {children(() => props.deleteButton)()}
         </div>
-        {props.targetCountInput
-          ? children(() => props.targetCountInput)()
-          : null}
+        {props.targetCountInput || props.unitInput ? (
+          <div class='mb-6 flex gap-2'>
+            {props.targetCountInput
+              ? children(() => props.targetCountInput)()
+              : null}
+            {props.unitInput ? children(() => props.unitInput)() : null}
+          </div>
+        ) : null}
         {children(() => props.daySelect)()}
       </div>
     </ChallengeEditContext.ChallengeItemColorContext.Provider>

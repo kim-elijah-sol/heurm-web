@@ -4,6 +4,7 @@ import { DeleteButton } from './delete-button.ui';
 import { NameInput } from './name-input.ui';
 import { TargetCountInput } from './target-count-input.ui';
 import { TypeLabel } from './type-label.ui';
+import { UnitInput } from './unit-input.ui';
 
 export const ChallengeEditItem = Object.assign(_ChallengeEditItem, {
   NameInput,
@@ -11,4 +12,5 @@ export const ChallengeEditItem = Object.assign(_ChallengeEditItem, {
   DeleteButton,
   DaySelect,
   TargetCountInput,
+  UnitInput,
 });
