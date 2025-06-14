@@ -51,7 +51,7 @@ const ColorItem = (props: ColorItemProps) => {
       type='button'
       onClick={() => props.setColor(props.color())}
       class={clsx(
-        'w-10 h-10 rounded-[35%] flex items-center justify-center transition-all active:scale-90',
+        'w-10 h-10 rounded-[42%] flex items-center justify-center transition-all active:scale-90',
         CHALLENGE_BG_COLOR[props.color()]
       )}
     >

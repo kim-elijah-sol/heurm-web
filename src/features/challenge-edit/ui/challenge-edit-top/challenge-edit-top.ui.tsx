@@ -32,11 +32,11 @@ export const ChallengeEditTop: Component<Props> = (props) => {
   });
 
   return (
-    <div class='absolute flex items-center justify-between gap-4 left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm'>
+    <div class='absolute flex items-center justify-between left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm'>
       <input
         id='title-input'
         type='text'
-        class='font-semibold text-xl py-2 px-3 rounded-[12px] bg-slate-100 transition-all wys-challenge-edit-top-input'
+        class='font-semibold text-xl py-2 px-3 rounded-[18px] bg-slate-100 transition-all wys-challenge-edit-top-input'
         value={titleValue()}
         onInput={(e) => setTitleValue(e.target.value)}
         onBlur={() => {
@@ -69,13 +69,13 @@ export const ChallengeEditTop: Component<Props> = (props) => {
           }
         }}
         class={clsx(
-          'p-[10px] rounded-[35%] transition-all active:scale-[.95]',
+          'p-[7px] rounded-[42%] transition-all active:scale-[.95]',
           isFocused()
             ? 'bg-green-400 active:bg-green-500'
             : 'bg-red-400 active:bg-red-500'
         )}
       >
-        {isFocused() ? <Check size={24} /> : <X size={24} />}
+        {isFocused() ? <Check size={30} /> : <X size={30} />}
       </button>
       <p
         class='font-semibold text-xl py-2 px-3 rounded-[12px] bg-slate-100 transition-all w-fit fixed left-[-3141592px] top-[-3141592px]'
