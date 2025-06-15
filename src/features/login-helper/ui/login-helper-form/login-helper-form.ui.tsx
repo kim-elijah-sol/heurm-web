@@ -17,7 +17,7 @@ export const LoginHelperForm: Component<Props> = (props) => {
 
         props.onSubmit(e);
       }}
-      class='relative w-full transition-all duration-300 overflow-y-hidden login-helper-form'
+      class='relative w-full transition-all duration-300 login-helper-form'
       style={{
         height: `${props.height()}px`,
       }}

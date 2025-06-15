@@ -20,7 +20,7 @@ export const DoneStep: Component<Props> = (props) => {
       <button
         type='button'
         onClick={props.onLogin}
-        class='p-4 rounded-[35%] transition-all bg-green-400 active:bg-green-500 active:scale-90'
+        class='p-5 rounded-[42%] transition-all bg-green-400 active:bg-green-500 active:scale-90'
       >
         <Login />
       </button>

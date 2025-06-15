@@ -3,9 +3,9 @@ import { type LoginHelperType } from '~/entities/login-helper';
 export const getLoginHelperFormHeight = (
   step: LoginHelperType.LoginHelperStep
 ) => {
-  if (step === 'password') return 208;
+  if (step === 'password') return 220;
 
-  if (step === 'done') return 68;
+  if (step === 'done') return 72;
 
-  return 156;
+  return 168;
 };

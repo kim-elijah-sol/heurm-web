@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { type Accessor, type Component, type Setter } from 'solid-js';
 import { loginSchema } from '~/entities/login';
 import type { RollingDisplayType } from '~/shared/types';
-import { Check } from '~/shared/ui';
+import { Check, GlassInput } from '~/shared/ui';
 import { getLoginHelperFormStepDisplayClass } from '../../fx';
 
 type Props = {
@@ -36,9 +36,9 @@ export const PasswordStep: Component<Props> = (props) => {
       )}
     >
       <div class='flex flex-col gap-2 w-full'>
-        <input
+        <GlassInput
           type='password'
-          class='text-slate-800 text-xl h-14 font-semibold w-full placeholder:text-gray-400 text-center bg-gray-200/50 rounded-[12px] backdrop-blur-md'
+          class='text-slate-800 text-xl h-16 font-semibold w-full placeholder:text-gray-400 text-center'
           placeholder='password'
           value={props.password()}
           onInput={(e) => props.setPassword(e.target.value)}
@@ -92,7 +92,7 @@ export const PasswordStep: Component<Props> = (props) => {
         type='submit'
         disabled={!props.isSummitable()}
         class={clsx(
-          'p-4 rounded-[35%] transition-all',
+          'p-[18px] rounded-[42%] transition-all',
           !props.isSummitable()
             ? 'bg-gray-300'
             : 'bg-green-400 active:bg-green-500 active:scale-90'

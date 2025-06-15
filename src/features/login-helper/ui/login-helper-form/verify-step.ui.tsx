@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { type Accessor, type Component, type Setter } from 'solid-js';
 import type { RollingDisplayType } from '~/shared/types';
-import { Check, Send } from '~/shared/ui';
+import { Check, GlassInput, Send } from '~/shared/ui';
 import { getLoginHelperFormStepDisplayClass } from '../../fx';
 
 type Props = {
@@ -27,9 +27,9 @@ export const VerifyStep: Component<Props> = (props) => {
         getLoginHelperFormStepDisplayClass(props.displayType())
       )}
     >
-      <input
-        type='string'
-        class='text-slate-800 text-2xl h-14 font-semibold w-full placeholder:text-gray-400 text-center bg-gray-200/50 rounded-[12px] backdrop-blur-md'
+      <GlassInput
+        type='text'
+        class='text-slate-800 text-2xl h-16 font-semibold w-full placeholder:text-gray-400 text-center'
         placeholder='verify code (6-digit)'
         value={props.verifyCode()}
         onInput={(e) =>
@@ -43,7 +43,7 @@ export const VerifyStep: Component<Props> = (props) => {
           type='button'
           disabled={!isResenable()}
           class={clsx(
-            'p-4 rounded-[35%] transition-all bg-gray-300 overflow-hidden relative',
+            'p-[18px] rounded-[42%] transition-all bg-gray-300 overflow-hidden relative',
             isResenable() && 'active:scale-90'
           )}
           onClick={props.onResend}
@@ -61,7 +61,7 @@ export const VerifyStep: Component<Props> = (props) => {
           type='submit'
           disabled={!props.isSummitable()}
           class={clsx(
-            'p-4 rounded-[35%] transition-all',
+            'p-[18px] rounded-[42%] transition-all',
             !props.isSummitable()
               ? 'bg-gray-300'
               : 'bg-green-400 active:bg-green-500 active:scale-90'
