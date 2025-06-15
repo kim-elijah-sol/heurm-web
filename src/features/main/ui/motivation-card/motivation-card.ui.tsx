@@ -33,7 +33,7 @@ export const MotivationCard = () => {
   const textClassName = 'font-bold text-center text-emerald-800 text-sm';
 
   return (
-    <div class='relative flex-1 h-[98px] border rounded-lg p-3 bg-emerald-50 border-emerald-200 shadow-[0_0_8px_4px_rgba(70,70,70,0.05)] overflow-hidden'>
+    <div class='relative flex-1 h-[98px] border rounded-2xl p-3 bg-emerald-50 border-emerald-200 shadow-[0_0_8px_4px_rgba(70,70,70,0.05)] overflow-hidden'>
       <div
         class={clsx(
           textBoxClassName,
