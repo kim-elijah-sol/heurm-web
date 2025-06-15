@@ -8,8 +8,6 @@ type Props = {
 };
 
 export const TypeLabel: Component<Props> = (props) => {
-  console.log(props.type);
-
   const getTypeIcon = () =>
     props.type === 'COMPLETE'
       ? CheckCheck

@@ -1,7 +1,6 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import { format } from 'date-fns';
 import {
-  createEffect,
   createSignal,
   Index,
   Match,
@@ -379,10 +378,6 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
         open();
       }, 300);
     }
-  });
-
-  createEffect(() => {
-    console.log(challengeItems());
   });
 
   return (
