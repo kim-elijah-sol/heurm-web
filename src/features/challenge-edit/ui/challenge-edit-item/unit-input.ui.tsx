@@ -20,7 +20,7 @@ export const UnitInput: Component<Props> = (props) => {
       value={props.unit}
       onInput={(e) => props.onChangeUnit(e.target.value)}
       class={clsx(
-        'font-semibold px-3 py-2 rounded-[12px] w-[30%] transition-all',
+        'font-semibold px-3 py-2 rounded-[16px] w-[30%] transition-all',
         CHALLENGE_200_BG_COLOR[color()],
         CHALLENGE_FOCUS_BG_300_COLOR[color()]
       )}

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { type Component, For } from 'solid-js';
+import { For, type Component } from 'solid-js';
 import { challengeEditHook } from '~/entities/challenge-edit';
 import {
   CHALLENGE_300_BG_COLOR,
@@ -23,7 +23,7 @@ export const DaySelect: Component<Props> = (props) => {
           <button
             onClick={() => props.onChangeDay(it)}
             class={clsx(
-              'w-8 h-8 transition-all active:scale-90 rounded-[35%]',
+              'w-9 h-9 transition-all active:scale-90 rounded-[42%]',
               CHALLENGE_ACTIVE_BG_200_COLOR[color()],
               props.day.includes(it)
                 ? clsx(

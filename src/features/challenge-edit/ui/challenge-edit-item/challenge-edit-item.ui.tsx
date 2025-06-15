@@ -21,12 +21,12 @@ export const ChallengeEditItem: Component<Props> = (props) => {
     >
       <div
         class={clsx(
-          'flex flex-col rounded-[12px] p-3 transition-all',
+          'flex flex-col rounded-[22px] p-3 transition-all',
           CHALLENGE_100_BG_COLOR[props.color()]
         )}
       >
-        <div class='flex items-start justify-between mb-4'>
-          <div class='flex flex-col gap-1 pl-1'>
+        <div class='flex items-start justify-between mb-4 gap-2'>
+          <div class='flex flex-col gap-1 w-full'>
             {children(() => props.nameInput)()}
 
             {children(() => props.typeLabel)()}
@@ -34,7 +34,7 @@ export const ChallengeEditItem: Component<Props> = (props) => {
           {children(() => props.deleteButton)()}
         </div>
         {props.targetCountInput || props.unitInput ? (
-          <div class='mb-6 flex gap-2'>
+          <div class='mb-4 flex gap-2'>
             {props.targetCountInput
               ? children(() => props.targetCountInput)()
               : null}

@@ -18,7 +18,7 @@ export const DeleteButton: Component<Props> = (props) => {
     <button
       onClick={props.onDelete}
       class={clsx(
-        'p-1 rounded-[35%] transition-all active:scale-90',
+        'p-2 rounded-[42%] transition-all active:scale-90',
         CHALLENGE_400_BG_COLOR[color()],
         CHALLENGE_ACTIVE_BG_500_COLOR[color()]
       )}
