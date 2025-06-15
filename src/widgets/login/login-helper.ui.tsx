@@ -14,7 +14,7 @@ export const LoginHelper = () => {
   ] = createBoolean();
 
   const buttonBaseClassName =
-    'p-4 rounded-[35%] transition-all active:scale-95';
+    'p-5 rounded-[42%] transition-all active:scale-95';
 
   return (
     <div class='w-full flex justify-center gap-6'>
