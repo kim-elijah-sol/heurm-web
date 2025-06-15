@@ -11,6 +11,11 @@
 
 .week-calendar {
   animation: week-calendar 0.3s forwards;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
+    inset 0 4px 20px rgba(255, 255, 255, 0.3);
 }
 
 @keyframes closing {
@@ -33,4 +38,17 @@
   height: calc(calc(100vw - 96px) / 7);
   max-width: 50px;
   max-height: 50px;
+}
+
+.week-calendar-date.clickable {
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.week-calendar-date.clickable:active {
+  transform: scale(0.9);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 6px 24px rgba(31, 38, 135, 0.2),
+    inset 0 1px 8px rgba(255, 255, 255, 0.3);
 }

@@ -77,21 +77,21 @@ export const WeekCalendar: Component<Props> = (props) => {
   return (
     <div
       class={clsx(
-        'week-calendar absolute top-full w-full p-2 rounded-xl bg-white/70 backdrop-blur-sm z-20 shadow-[0_0_12px_4px_rgba(50,50,50,0.1)] flex flex-col gap-3',
+        'week-calendar absolute top-full w-full p-2 rounded-2xl z-20 flex flex-col gap-3',
         props.isClosing() && 'closing'
       )}
     >
       <button
         type='button'
         onClick={props.onClose}
-        class='p-1 rounded-[35%] transition-all active:scale-95 active:bg-red-600 bg-red-500 self-end'
+        class='p-1 rounded-[42%] transition-all active:scale-95 active:bg-red-600 bg-red-500 self-end'
       >
         <X size={24} />
       </button>
 
       <div class='flex items-center justify-between text-slate-700'>
         <button
-          class='p-1 rounded-[35%] transition-all active:scale-95 active:bg-slate-200'
+          class='p-1 rounded-[42%] transition-all active:scale-95 active:bg-slate-200'
           onClick={handlePrevMonth}
         >
           <ChevronLeft />
@@ -102,7 +102,7 @@ export const WeekCalendar: Component<Props> = (props) => {
         </p>
 
         <button
-          class='p-1 rounded-[35%] transition-all active:scale-95 active:bg-slate-200'
+          class='p-1 rounded-[42%] transition-all active:scale-95 active:bg-slate-200'
           onClick={handleNextMonth}
         >
           <ChevronRight />
@@ -118,7 +118,7 @@ export const WeekCalendar: Component<Props> = (props) => {
               return (
                 <div
                   onClick={() => props.onChange(date)}
-                  class='relative flex items-center justify-center week-calendar-date rounded-[35%] font-semibold text-slate-800 transition-all duration-200 active:bg-gray-200 active:scale-95'
+                  class='relative flex items-center justify-center week-calendar-date clickable rounded-[42%] font-semibold text-slate-800 transition-all duration-200'
                 >
                   {date.getDate()}
 

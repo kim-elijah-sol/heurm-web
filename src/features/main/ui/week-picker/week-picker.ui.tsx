@@ -28,7 +28,7 @@ export const WeekPicker: Component<Props> = (props) => {
       <div
         onClick={() => (isWeekCalendarOpened() ? close() : open())}
         class={clsx(
-          'font-semibold px-2 py-1 rounded-[10px] transition-all duration-200 active:scale-[98%] active:bg-slate-200 flex items-center gap-[6px]',
+          'font-semibold px-2 py-1 rounded-[14px] transition-all duration-200 active:scale-[98%] active:bg-slate-200 flex items-center gap-[6px]',
           isWeekCalendarOpened() ? 'text-slate-900' : 'text-slate-500'
         )}
       >
