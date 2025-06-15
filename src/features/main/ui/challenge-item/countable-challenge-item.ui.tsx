@@ -108,7 +108,7 @@ export const Countable: Component<Props> = (originProps) => {
 
               <button
                 class={clsx(
-                  'p-6 rounded-[35%] transition-all active:scale-90',
+                  'p-5 rounded-[42%] transition-all active:scale-90',
                   buttonColor()
                 )}
                 onClick={() => {
@@ -116,7 +116,7 @@ export const Countable: Component<Props> = (originProps) => {
                   close();
                 }}
               >
-                {icon()({})}
+                {icon()({ size: 40 })}
               </button>
             </div>
           )}

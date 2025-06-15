@@ -22,7 +22,7 @@ export const Complete: Component<Props> = (originProps) => {
       : '❌';
 
   const buttonBaseClassName =
-    'p-6 rounded-[35%] transition-all active:scale-90';
+    'p-5 rounded-[42%] transition-all active:scale-90';
 
   return (
     <>
@@ -47,8 +47,8 @@ export const Complete: Component<Props> = (originProps) => {
       {isBluredPanelShow() && (
         <Panel.Blured close={() => setIsBluredPanelShow(false)}>
           {() => (
-            <div class='w-full h-full flex flex-col items-center justify-center gap-8 touch-none'>
-              <div class='flex gap-12'>
+            <div class='w-full h-full flex flex-col items-center justify-center gap-6 touch-none'>
+              <div class='flex gap-10'>
                 <button
                   class={clsx(
                     buttonBaseClassName,
@@ -56,7 +56,7 @@ export const Complete: Component<Props> = (originProps) => {
                   )}
                   on:click={() => rest.onChange(false)}
                 >
-                  <Ban />
+                  <Ban size={40} />
                 </button>
                 <button
                   class={clsx(
@@ -65,7 +65,7 @@ export const Complete: Component<Props> = (originProps) => {
                   )}
                   on:click={() => rest.onChange(true)}
                 >
-                  <Check />
+                  <Check size={40} />
                 </button>
               </div>
               <button
@@ -75,7 +75,7 @@ export const Complete: Component<Props> = (originProps) => {
                 )}
                 on:click={() => rest.onChange(null)}
               >
-                <Loader />
+                <Loader size={40} />
               </button>
             </div>
           )}
