@@ -34,9 +34,9 @@ export const UserSettingPanel: Component<Props> = (props) => {
             <div class='flex flex-col gap-4 items-center'>
               <button
                 onClick={close}
-                class='p-[10px] rounded-[35%] transition-all bg-red-400 active:bg-red-500 active:scale-95 self-end'
+                class='p-2 rounded-[42%] transition-all bg-red-400 active:bg-red-500 active:scale-95 self-end'
               >
-                <X size={24} />
+                <X size={28} />
               </button>
 
               <UserSettingProfile
