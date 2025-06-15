@@ -27,12 +27,12 @@ export const NoChallengeItem: Component<Props> = (props) => {
       <button
         onClick={props.onClick}
         class={clsx(
-          'p-3 rounded-[35%] transition-all active:scale-90',
+          'p-3 rounded-[42%] transition-all active:scale-90',
           CHALLENGE_400_BG_COLOR[props.color()],
           CHALLENGE_ACTIVE_BG_500_COLOR[props.color()]
         )}
       >
-        <Plus />
+        <Plus size={30} />
       </button>
     </div>
   );

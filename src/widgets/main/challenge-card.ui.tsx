@@ -66,17 +66,20 @@ export const ChallengeCard: Component<Props> = (props) => {
     );
 
   const topButtonClassName =
-    'p-1 rounded-[35%] transition-all active:bg-[#FFFFFF30] active:scale-90';
+    'p-1 rounded-[42%] transition-all active:bg-[#FFFFFF30] active:scale-90';
 
   const itemsContainerClassName = () =>
-    clsx('p-2 flex flex-col gap-3', CHALLENGE_100_BG_COLOR[props.color()]);
+    clsx(
+      'px-2 py-3 flex flex-col gap-3',
+      CHALLENGE_100_BG_COLOR[props.color()]
+    );
 
   const getWinWriting = () => getRandomItem(mainConstant.WIN_WRITING);
 
   const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
 
   return (
-    <div class='overflow-hidden rounded-xl'>
+    <div class='overflow-hidden rounded-2xl'>
       <div class={topClassName()}>
         <p class='font-semibold text-white'>{props.title()}</p>
         <div class='flex gap-[6px]'>
