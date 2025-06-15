@@ -12,7 +12,7 @@ export const UserQuickMenuPanel: Component<Props> = (props) => {
   const handleLogout = createLogout();
 
   const buttonBaseClassName =
-    'p-6 rounded-[35%] transition-all active:scale-90';
+    'p-6 rounded-[42%] transition-all active:scale-90';
 
   return (
     <Panel.Blured close={props.close}>

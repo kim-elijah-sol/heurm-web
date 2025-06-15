@@ -15,7 +15,7 @@ export const UserAvatar: Component<Props> = (props) => {
       <div
         onClick={props.onClick}
         class={clsx(
-          'w-12 h-12 rounded-[35%] overflow-hidden border-gray-300 transition-all duration-300 active:scale-90',
+          'w-14 h-14 rounded-[42%] overflow-hidden border-gray-300 transition-all duration-300 active:scale-90',
           src() ? 'border' : ''
         )}
       >

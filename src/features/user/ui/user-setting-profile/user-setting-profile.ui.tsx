@@ -15,7 +15,7 @@ export const UserSettingProfile: Component<Props> = (props) => {
 
   return (
     <div class='relative' onClick={() => inputFile.click()}>
-      <div class='rounded-[35%] overflow-hidden w-20 h-20 transition-all duration-300 active:scale-95 border border-gray-300'>
+      <div class='rounded-[42%] overflow-hidden w-20 h-20 transition-all duration-300 active:scale-95 border border-gray-300'>
         {profileImage() ? (
           profileImage()!.includes('/uploads') ? (
             <ServerImage class='w-full h-full' src={profileImage()!} alt='' />
