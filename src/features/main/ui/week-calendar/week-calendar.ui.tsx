@@ -7,6 +7,7 @@ import {
 } from 'solid-js';
 import { ChevronLeft, ChevronRight, X } from '~/shared/ui';
 import { getMidnight, isSameDate } from '../../fx';
+import { createDateSelect } from '../../hook';
 import './week-calendar.ui.css';
 
 type Props = {
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export const WeekCalendar: Component<Props> = (props) => {
+  const { current } = createDateSelect();
+
   const [year, setYear] = createSignal(props.date().getFullYear());
 
   const [month, setMonth] = createSignal(props.date().getMonth() + 1);
@@ -118,7 +121,10 @@ export const WeekCalendar: Component<Props> = (props) => {
               return (
                 <div
                   onClick={() => props.onChange(date)}
-                  class='relative flex items-center justify-center week-calendar-date clickable rounded-[42%] font-semibold text-slate-800 transition-all duration-200'
+                  class={clsx(
+                    'relative flex items-center justify-center week-calendar-date clickable rounded-[42%] font-semibold text-slate-800 transition-all duration-200',
+                    isSameDate(date, getMidnight(current())) ? 'selected' : ''
+                  )}
                 >
                   {date.getDate()}
 
