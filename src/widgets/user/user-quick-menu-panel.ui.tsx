@@ -17,8 +17,8 @@ export const UserQuickMenuPanel: Component<Props> = (props) => {
   return (
     <Panel.Blured close={props.close}>
       {() => (
-        <div class='w-full h-full flex flex-col items-center justify-center gap-8 touch-none'>
-          <div class='flex gap-12'>
+        <div class='w-full h-full flex flex-col items-center justify-center gap-6 touch-none'>
+          <div class='flex gap-10'>
             <button
               class={clsx(
                 buttonBaseClassName,
