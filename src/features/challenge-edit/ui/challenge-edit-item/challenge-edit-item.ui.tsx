@@ -26,7 +26,7 @@ export const ChallengeEditItem: Component<Props> = (props) => {
         )}
       >
         <div class='flex items-start justify-between mb-4 gap-2'>
-          <div class='flex flex-col gap-1 w-full'>
+          <div class='flex flex-col gap-2 w-full'>
             {children(() => props.nameInput)()}
 
             {children(() => props.typeLabel)()}
