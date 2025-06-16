@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import {
   createEffect,
   createSignal,
+  on,
   type Accessor,
   type Component,
   type Setter,
@@ -24,12 +25,13 @@ export const ChallengeEditTop: Component<Props> = (props) => {
 
   const [isFocused, setIsFocused] = createSignal(false);
 
-  createEffect(() => {
-    props.title();
-    setTitleWidth(
-      document.querySelector('#title-width-tracker')?.clientWidth ?? 0
-    );
-  });
+  createEffect(
+    on(props.title, () => {
+      setTitleWidth(
+        document.querySelector('#title-width-tracker')?.clientWidth ?? 0
+      );
+    })
+  );
 
   return (
     <div class='absolute flex items-center justify-between left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm'>
