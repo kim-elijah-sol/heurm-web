@@ -13,20 +13,27 @@ export const DateSelect = () => {
     end: format(weeks()[weeks().length - 1], 'yyyy-MM-dd'),
   }));
 
+  const data = () => getHistoryByWeek.data;
+
   return (
     <div class='mb-4'>
       <WeekPicker date={current} onChange={setCurrent} />
       <div class='flex gap-2 justify-between'>
         <Index each={weeks()}>
-          {(date) => (
-            <DateCard
-              date={date}
-              isCurrent={() => isSameDate(date(), current())}
-              isToday={() => isSameDate(date(), getMidnight())}
-              onClick={() => setCurrent(date())}
-              status={() => 'pending'}
-            />
-          )}
+          {(date) => {
+            const formatedDate = () => format(date(), 'yyyy-MM-dd');
+
+            return (
+              <DateCard
+                date={date}
+                isCurrent={() => isSameDate(date(), current())}
+                isToday={() => isSameDate(date(), getMidnight())}
+                onClick={() => setCurrent(date())}
+                win={() => data()?.[formatedDate()]?.win ?? 0}
+                all={() => data()?.[formatedDate()]?.all ?? 0}
+              />
+            );
+          }}
         </Index>
       </div>
     </div>

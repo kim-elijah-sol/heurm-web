@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { type Accessor, type Component, type JSX } from 'solid-js';
-import { type MainType } from '~/entities/main';
 import './date-card.ui.css';
 
 type Props = {
@@ -8,32 +7,39 @@ type Props = {
   isCurrent: Accessor<boolean>;
   isToday: Accessor<boolean>;
   onClick: JSX.CustomEventHandlersCamelCase<HTMLDivElement>['onClick'];
-  status: Accessor<MainType.ChallengeDayStatus>;
+  all: Accessor<number>;
+  win: Accessor<number>;
 };
 
 export const DateCard: Component<Props> = (props) => {
   return (
     <div
       class={clsx(
-        'date-card relative rounded-[42%] text-white text-lg font-semibold flex items-center justify-center transition-all duration-300 active:scale-90',
-        props.status() === 'win'
-          ? props.isCurrent()
-            ? 'bg-emerald-400 active:bg-emerald-500'
-            : 'bg-emerald-300 active:bg-emerald-400'
-          : props.status() === 'lose'
-          ? props.isCurrent()
-            ? 'bg-rose-400 active:bg-rose-500'
-            : 'bg-rose-300 active:bg-rose-400'
-          : props.isCurrent()
+        'date-card relative rounded-[42%] flex overflow-hidden items-center justify-center transition-all duration-300 active:scale-90',
+        props.isCurrent()
           ? 'bg-gray-400 active:bg-gray-500'
           : 'bg-gray-300 active:bg-gray-400'
       )}
       onClick={props.onClick}
     >
-      {props.date().getDate()}
+      <p class='text-white text-lg font-semibold z-2'>
+        {props.date().getDate()}
+      </p>
 
       {props.isToday() && (
-        <div class='absolute left-1/2 bottom-[6px] -translate-x-1/2 w-1 h-1 rounded-full bg-white' />
+        <div class='absolute left-1/2 bottom-[6px] -translate-x-1/2 w-1 h-1 rounded-full bg-white z-2' />
+      )}
+
+      {props.all() > 0 && (
+        <div
+          style={{
+            height: `${(props.win() / props.all()) * 100}%`,
+          }}
+          class={clsx(
+            'absolute left-0 right-0 bottom-0 z-0 transition-all',
+            props.isCurrent() ? 'bg-emerald-400' : 'bg-emerald-300'
+          )}
+        />
       )}
     </div>
   );
