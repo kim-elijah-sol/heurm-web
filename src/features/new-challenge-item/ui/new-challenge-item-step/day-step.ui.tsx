@@ -3,6 +3,7 @@ import { For, type Accessor, type Component } from 'solid-js';
 import { CHALLENGE_DAY } from '~/shared/constant';
 import type { ChallengeDay, RollingDisplayType } from '~/shared/types';
 import { ArrowLeft, Check } from '~/shared/ui';
+import './day-step.ui.css';
 
 type Props = {
   day: Accessor<ChallengeDay[]>;
@@ -16,9 +17,9 @@ export const DayStep: Component<Props> = (props) => {
   const buttonBaseClassName = 'p-5 rounded-[42%] transition-all';
 
   const dayClassName =
-    'w-12 h-12 text-2xl bg-gray-50/25 transition-all active:scale-90 rounded-[35%] shadow-sm active:shadow-md';
+    'w-12 h-12 text-2xl bg-gray-100/25 transition-all active:scale-90 rounded-[42%] shadow-sm active:shadow-md border border-white/0';
 
-  const activeDayClassName = 'font-black bg-gray-100';
+  const activeDayClassName = 'font-black day-selected';
 
   const weekdayActiveClassName = 'text-gray-700';
 
