@@ -368,6 +368,9 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
       queryClient.invalidateQueries({
         queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['getHistoryByWeek'],
+      });
       challengeItem.refetch();
     }
   };

@@ -48,6 +48,10 @@ export const ChallengeEditDeleteButton: Component<Props> = (props) => {
       queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
     });
 
+    queryClient.invalidateQueries({
+      queryKey: ['getHistoryByWeek'],
+    });
+
     close(props.onDeleted);
   });
 

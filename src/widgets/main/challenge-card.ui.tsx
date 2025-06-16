@@ -45,19 +45,23 @@ export const ChallengeCard: Component<Props> = (props) => {
     date: format(current(), 'yyyy-MM-dd'),
   }));
 
-  const postHistory = mainQueries.postHistoryMutation(() => {
-    challengeItemByDate.refetch();
-    queryClient.invalidateQueries({
-      queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
-    });
-  });
+  const postHistory = mainQueries.postHistoryMutation(() =>
+    refreshRelativeQuery()
+  );
 
-  const patchHistory = mainQueries.patchHistoryMutation(() => {
+  const patchHistory = mainQueries.patchHistoryMutation(() =>
+    refreshRelativeQuery()
+  );
+
+  const refreshRelativeQuery = () => {
     challengeItemByDate.refetch();
     queryClient.invalidateQueries({
       queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
     });
-  });
+    queryClient.invalidateQueries({
+      queryKey: ['getHistoryByWeek'],
+    });
+  };
 
   const topClassName = () =>
     clsx(
