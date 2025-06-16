@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/solid-query';
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/solid-query';
 import { type Accessor } from 'solid-js';
 import { toastAtError } from '~/shared/fx';
 import {
@@ -55,6 +55,7 @@ export const getChallengeOverviewQuery = (
   useQuery(() => ({
     queryKey: ['getChallengeOverview', params().date],
     queryFn: () => getChallengeOverview(params()),
+    placeholderData: keepPreviousData,
   }));
 
 export const getHistoryByWeekQuery = (
