@@ -1,10 +1,17 @@
+import { format } from 'date-fns';
 import { Index } from 'solid-js';
+import { mainQueries } from '~/entities/main';
 import { getMidnight, isSameDate } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { DateCard, WeekPicker } from '~/features/main/ui';
 
 export const DateSelect = () => {
   const { current, weeks, setCurrent } = createDateSelect();
+
+  const getHistoryByWeek = mainQueries.getHistoryByWeekQuery(() => ({
+    start: format(weeks()[0], 'yyyy-MM-dd'),
+    end: format(weeks()[weeks().length - 1], 'yyyy-MM-dd'),
+  }));
 
   return (
     <div class='mb-4'>

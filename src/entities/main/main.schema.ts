@@ -103,3 +103,18 @@ export const getChallengeOverviewResponseSchema = z.object({
   win: z.number(),
   lose: z.number(),
 });
+
+export const getHistoryByWeekRequestSchema = z.object({
+  start: dateSchema,
+  end: dateSchema,
+});
+
+export const getHistoryByWeekResponseObjectSchema = z.object({
+  all: z.number().int().min(0),
+  win: z.number().int().min(0),
+});
+
+export const getHistoryByWeekResponseSchema = z.record(
+  z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  getHistoryByWeekResponseObjectSchema
+);

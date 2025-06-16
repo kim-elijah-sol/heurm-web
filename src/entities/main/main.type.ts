@@ -8,6 +8,9 @@ import {
   getChallengeOverviewResponseSchema,
   getChallengeResponseItemSchema,
   getChallengeResponseSchema,
+  getHistoryByWeekRequestSchema,
+  getHistoryByWeekResponseObjectSchema,
+  getHistoryByWeekResponseSchema,
   patchHistoryRequestCompleteSchema,
   patchHistoryRequestCountableSchema,
   patchHistoryRequestSchema,
@@ -72,4 +75,16 @@ export type GetChallengeOverviewRequest = z.infer<
 
 export type GetChallengeOverviewResponse = z.infer<
   typeof getChallengeOverviewResponseSchema
+>;
+
+export type GetHistoryByWeekRequest = z.infer<
+  typeof getHistoryByWeekRequestSchema
+>;
+
+export type GetHistoryByWeekResponseObject = z.infer<
+  typeof getHistoryByWeekResponseObjectSchema
+>;
+
+export type GetHistoryByWeekResponse = z.infer<
+  typeof getHistoryByWeekResponseSchema
 >;

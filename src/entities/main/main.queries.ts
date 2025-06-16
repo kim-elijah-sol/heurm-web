@@ -5,12 +5,14 @@ import {
   getChallenge,
   getChallengeItemByDate,
   getChallengeOverview,
+  getHistoryByWeek,
   patchHistory,
   postHistory,
 } from './main.api';
 import type {
   GetChallengeItemByDateRequest,
   GetChallengeOverviewRequest,
+  GetHistoryByWeekRequest,
 } from './main.type';
 
 export const getChallengeQuery = () =>
@@ -53,4 +55,12 @@ export const getChallengeOverviewQuery = (
   useQuery(() => ({
     queryKey: ['getChallengeOverview', params().date],
     queryFn: () => getChallengeOverview(params()),
+  }));
+
+export const getHistoryByWeekQuery = (
+  params: Accessor<GetHistoryByWeekRequest>
+) =>
+  useQuery(() => ({
+    queryKey: ['getHistoryByWeek', params().start, params().end],
+    queryFn: () => getHistoryByWeek(params()),
   }));

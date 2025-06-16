@@ -3,6 +3,7 @@ import {
   getChallengeItemByDateResponseSchema,
   getChallengeOverviewResponseSchema,
   getChallengeResponseSchema,
+  getHistoryByWeekResponseSchema,
   patchHistoryResponseSchema,
   postHistoryResponseSchema,
 } from './main.schema';
@@ -12,6 +13,8 @@ import type {
   GetChallengeOverviewRequest,
   GetChallengeOverviewResponse,
   GetChallengeResponse,
+  GetHistoryByWeekRequest,
+  GetHistoryByWeekResponse,
   PatchHistoryRequest,
   PatchHistoryResponse,
   PostHistoryRequest,
@@ -46,3 +49,10 @@ export const getChallengeOverview = (params: GetChallengeOverviewRequest) =>
       params,
     })
     .then(https.validateResponse(getChallengeOverviewResponseSchema));
+
+export const getHistoryByWeek = (params: GetHistoryByWeekRequest) =>
+  https
+    .get<GetHistoryByWeekResponse>('/history/by-week', {
+      params,
+    })
+    .then(https.validateResponse(getHistoryByWeekResponseSchema));
