@@ -109,9 +109,12 @@ export const getHistoryByWeekRequestSchema = z.object({
   end: dateSchema,
 });
 
+const getHistoryByWeekResponseObjectEntitySchema = z.number().int().min(0);
+
 export const getHistoryByWeekResponseObjectSchema = z.object({
-  all: z.number().int().min(0),
-  win: z.number().int().min(0),
+  all: getHistoryByWeekResponseObjectEntitySchema,
+  win: getHistoryByWeekResponseObjectEntitySchema,
+  lose: getHistoryByWeekResponseObjectEntitySchema,
 });
 
 export const getHistoryByWeekResponseSchema = z.record(
