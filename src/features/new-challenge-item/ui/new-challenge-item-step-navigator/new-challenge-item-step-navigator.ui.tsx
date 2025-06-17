@@ -7,7 +7,7 @@ type Props = {
 
 export const NewChallengeItemStepNavigator: Component<Props> = (props) => {
   return (
-    <div class='absolute top-0 left-0 right-0 flex gap-2 px-2 pt-2'>
+    <div class='absolute top-0 left-0 right-0 flex gap-2 px-2 pt-2 pointer-events-none'>
       {Array.from({ length: props.maxStep() }).map((_, index) => {
         const step = () => index + 1;
 
