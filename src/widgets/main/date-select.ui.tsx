@@ -17,7 +17,9 @@ export const DateSelect = () => {
 
   return (
     <div class='mb-4'>
-      <WeekPicker date={current} onChange={setCurrent} />
+      <div class='mb-4 flex justify-center relative'>
+        <WeekPicker date={current} onChange={setCurrent} />
+      </div>
       <div class='flex gap-2 justify-between'>
         <Index each={weeks()}>
           {(date) => {

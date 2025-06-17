@@ -24,7 +24,7 @@ export const WeekPicker: Component<Props> = (props) => {
   };
 
   return (
-    <div class='mb-4 flex justify-center relative'>
+    <>
       <div
         onClick={() => (isWeekCalendarOpened() ? close() : open())}
         class={clsx(
@@ -46,6 +46,6 @@ export const WeekPicker: Component<Props> = (props) => {
           onClose={close}
         />
       )}
-    </div>
+    </>
   );
 };
