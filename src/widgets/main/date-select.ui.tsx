@@ -29,8 +29,9 @@ export const DateSelect = () => {
                 isCurrent={() => isSameDate(date(), current())}
                 isToday={() => isSameDate(date(), getMidnight())}
                 onClick={() => setCurrent(date())}
-                win={() => data()?.[formatedDate()]?.win ?? 0}
                 all={() => data()?.[formatedDate()]?.all ?? 0}
+                win={() => data()?.[formatedDate()]?.win ?? 0}
+                lose={() => data()?.[formatedDate()]?.lose ?? 0}
               />
             );
           }}
