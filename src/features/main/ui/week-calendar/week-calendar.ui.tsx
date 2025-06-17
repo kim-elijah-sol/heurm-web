@@ -5,12 +5,13 @@ import {
   type Accessor,
   type Component,
 } from 'solid-js';
+import type { Nullable } from '~/shared/types';
 import { ChevronLeft, ChevronRight, X } from '~/shared/ui';
 import { getMidnight, isSameDate } from '../../fx';
 import './week-calendar.ui.css';
 
 type Props = {
-  date: Accessor<Date>;
+  date: Accessor<Nullable<Date>>;
   onChange: (date: Date) => void;
   isClosing: Accessor<boolean>;
   onClose: () => void;
@@ -18,9 +19,11 @@ type Props = {
 };
 
 export const WeekCalendar: Component<Props> = (props) => {
-  const [year, setYear] = createSignal(props.date().getFullYear());
+  const current = () => props.date() ?? new Date();
 
-  const [month, setMonth] = createSignal(props.date().getMonth() + 1);
+  const [year, setYear] = createSignal(current().getFullYear());
+
+  const [month, setMonth] = createSignal(current().getMonth() + 1);
 
   const handlePrevMonth = () => {
     let prevMonth = month() - 1;
@@ -139,7 +142,7 @@ export const WeekCalendar: Component<Props> = (props) => {
                   class={clsx(
                     'relative flex items-center justify-center week-calendar-date clickable rounded-[42%] font-semibold transition-all duration-200',
                     textColor,
-                    isSameDate(date, getMidnight(props.date()))
+                    props.date() && isSameDate(date, getMidnight(props.date()!))
                       ? 'selected'
                       : ''
                   )}
