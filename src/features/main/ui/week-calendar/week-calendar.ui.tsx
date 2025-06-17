@@ -115,11 +115,28 @@ export const WeekCalendar: Component<Props> = (props) => {
             {week.map((date) => {
               if (date === null) return <div class='week-calendar-date' />;
 
+              const day = date.getDay();
+
+              const textColor =
+                day === 0
+                  ? 'text-rose-600'
+                  : day === 6
+                  ? 'text-blue-600'
+                  : 'text-slate-800';
+
+              const dotColor =
+                day === 0
+                  ? 'bg-rose-600'
+                  : day === 6
+                  ? 'bg-blue-600'
+                  : 'bg-slate-800';
+
               return (
                 <div
                   onClick={() => props.onChange(date)}
                   class={clsx(
-                    'relative flex items-center justify-center week-calendar-date clickable rounded-[42%] font-semibold text-slate-800 transition-all duration-200',
+                    'relative flex items-center justify-center week-calendar-date clickable rounded-[42%] font-semibold transition-all duration-200',
+                    textColor,
                     isSameDate(date, getMidnight(props.date()))
                       ? 'selected'
                       : ''
@@ -128,7 +145,12 @@ export const WeekCalendar: Component<Props> = (props) => {
                   {date.getDate()}
 
                   {isSameDate(date, getMidnight()) && (
-                    <div class='absolute left-1/2 bottom-1 -translate-x-1/2 w-1 h-1 rounded-full bg-slate-800' />
+                    <div
+                      class={clsx(
+                        'absolute left-1/2 bottom-1 -translate-x-1/2 w-1 h-1 rounded-full',
+                        dotColor
+                      )}
+                    />
                   )}
                 </div>
               );
