@@ -8,6 +8,7 @@ import { WeekCalendar } from '../week-calendar';
 type Props = {
   date: Accessor<Date>;
   onChange: (date: Date) => void;
+  pickerClass?: Accessor<string>;
 };
 
 export const WeekPicker: Component<Props> = (props) => {
@@ -44,6 +45,7 @@ export const WeekPicker: Component<Props> = (props) => {
           }}
           isClosing={isClosing}
           onClose={close}
+          class={props.pickerClass}
         />
       )}
     </>

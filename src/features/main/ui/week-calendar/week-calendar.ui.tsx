@@ -14,6 +14,7 @@ type Props = {
   onChange: (date: Date) => void;
   isClosing: Accessor<boolean>;
   onClose: () => void;
+  class?: Accessor<string>;
 };
 
 export const WeekCalendar: Component<Props> = (props) => {
@@ -78,7 +79,8 @@ export const WeekCalendar: Component<Props> = (props) => {
     <div
       class={clsx(
         'week-calendar absolute top-full w-full p-2 rounded-2xl z-20 flex flex-col gap-3',
-        props.isClosing() && 'closing'
+        props.isClosing() && 'closing',
+        props.class?.()
       )}
     >
       <button
