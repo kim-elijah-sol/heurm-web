@@ -1,7 +1,10 @@
-import { type Component } from 'solid-js';
+import { type Accessor, type Component } from 'solid-js';
 import { ChallengeEditType } from '~/entities/challenge-edit';
 import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
-import { NewChallengeItemStep } from '~/features/new-challenge-item/ui';
+import {
+  NewChallengeItemStep,
+  NewChallengeItemStepNavigator,
+} from '~/features/new-challenge-item/ui';
 import { toast } from '~/shared/lib';
 import { Panel } from '~/shared/ui';
 import './new-challenge-item-step.ui.css';
@@ -25,6 +28,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
     day,
     handleChangeDay,
     getDisplayType,
+    maxStep,
+    currentStep,
   } = createNewChallengeItemForm();
 
   return (
@@ -32,6 +37,13 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
       {(close) => (
         <div class='w-full h-full relative'>
           <Panel.CloseButton onClick={close} />
+
+          {maxStep() !== null && (
+            <NewChallengeItemStepNavigator
+              maxStep={maxStep as Accessor<number>}
+              currentStep={currentStep}
+            />
+          )}
 
           <NewChallengeItemStep.Type
             displayType={getDisplayType('type')}

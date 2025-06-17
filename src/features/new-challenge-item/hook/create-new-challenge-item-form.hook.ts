@@ -36,6 +36,23 @@ export const createNewChallengeItemForm = () => {
         : 'ready';
     };
 
+  const maxStep = () => {
+    if (step() !== 'type') {
+      if (type() === 'COMPLETE') return 2;
+      return 3;
+    }
+
+    return null;
+  };
+
+  const currentStep = () => {
+    if (type() === 'COMPLETE') {
+      return step() === 'name' ? 1 : 2;
+    } else {
+      return step() === 'name' ? 1 : step() === 'count' ? 2 : 3;
+    }
+  };
+
   return {
     setStep,
     type,
@@ -49,5 +66,7 @@ export const createNewChallengeItemForm = () => {
     day,
     handleChangeDay,
     getDisplayType,
+    maxStep,
+    currentStep,
   };
 };
