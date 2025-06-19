@@ -1,5 +1,10 @@
 # Win Yourself Journal
 
+# 2025-06-19
+
+server 쪽 챌린지 아이템을 수정해야한다.<br>
+이에 따라 잠시 홀딩해두고 FE 는 화면 자체가 많이 바뀔듯
+
 # 2025-06-16
 
 날짜별 Win Progress 개발을 마쳤다.<br>
