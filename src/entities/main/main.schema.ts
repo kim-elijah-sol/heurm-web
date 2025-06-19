@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import {
   challengeColorSchema,
-  challengeItemTypeSchema,
   challengeTitleSchema,
   dateSchema,
 } from '~/shared/schema';
@@ -15,32 +14,6 @@ export const getChallengeResponseItemSchema = z.object({
 export const getChallengeResponseSchema = z.array(
   getChallengeResponseItemSchema
 );
-
-export const getChallengeItemByDateRequestSchema = z.object({
-  challengeId: z.string(),
-  date: dateSchema,
-});
-
-export const getChallengeItemByDateResponseItemHistorySchema = z.object({
-  id: z.string(),
-  complete: z.boolean().nullable(),
-  count: z.number().nullable(),
-  targetCount: z.number().nullable(),
-});
-
-export const getChallengeItemByDateResponseItemSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  type: challengeItemTypeSchema,
-  targetCount: z.number().nullable(),
-  unit: z.string().nullable(),
-  history: getChallengeItemByDateResponseItemHistorySchema.nullable(),
-});
-
-export const getChallengeItemByDateResponseSchema = z.object({
-  originalChallengeItems: z.array(getChallengeItemByDateResponseItemSchema),
-  todayChallengeItems: z.array(getChallengeItemByDateResponseItemSchema),
-});
 
 const postHistoryRequestBaseSchema = z.object({
   challengeId: z.string(),
@@ -93,31 +66,3 @@ export const patchHistoryRequestSchema = z.union([
 export const patchHistoryResponseSchema = z.object({
   id: z.string(),
 });
-
-export const getChallengeOverviewRequestSchema = z.object({
-  date: dateSchema,
-});
-
-export const getChallengeOverviewResponseSchema = z.object({
-  inProgress: z.number(),
-  win: z.number(),
-  lose: z.number(),
-});
-
-export const getHistoryByWeekRequestSchema = z.object({
-  start: dateSchema,
-  end: dateSchema,
-});
-
-const getHistoryByWeekResponseObjectEntitySchema = z.number().int().min(0);
-
-export const getHistoryByWeekResponseObjectSchema = z.object({
-  all: getHistoryByWeekResponseObjectEntitySchema,
-  win: getHistoryByWeekResponseObjectEntitySchema,
-  lose: getHistoryByWeekResponseObjectEntitySchema,
-});
-
-export const getHistoryByWeekResponseSchema = z.record(
-  z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  getHistoryByWeekResponseObjectSchema
-);

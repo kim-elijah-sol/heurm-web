@@ -1,10 +1,9 @@
-import { useQueryClient } from '@tanstack/solid-query';
 import { clsx } from 'clsx';
 import { format } from 'date-fns';
 import { For, Match, Switch, type Accessor, type Component } from 'solid-js';
 import { mainConstant, mainQueries } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
-import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
+import { ChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
@@ -38,30 +37,13 @@ export const ChallengeCard: Component<Props> = (props) => {
 
   let newChallengeItemPanelOpen = false;
 
-  const queryClient = useQueryClient();
+  const postHistory = mainQueries.postHistoryMutation(() => {
+    //
+  });
 
-  const challengeItemByDate = mainQueries.getChallengeItemByDateQuery(() => ({
-    challengeId: props.id(),
-    date: format(current(), 'yyyy-MM-dd'),
-  }));
-
-  const postHistory = mainQueries.postHistoryMutation(() =>
-    refreshRelativeQuery()
-  );
-
-  const patchHistory = mainQueries.patchHistoryMutation(() =>
-    refreshRelativeQuery()
-  );
-
-  const refreshRelativeQuery = () => {
-    challengeItemByDate.refetch();
-    queryClient.invalidateQueries({
-      queryKey: ['getChallengeOverview', format(current(), 'yyyy-MM-dd')],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ['getHistoryByWeek'],
-    });
-  };
+  const patchHistory = mainQueries.patchHistoryMutation(() => {
+    //
+  });
 
   const topClassName = () =>
     clsx(
@@ -96,7 +78,7 @@ export const ChallengeCard: Component<Props> = (props) => {
         </div>
       </div>
       <div class={itemsContainerClassName()}>
-        <For each={challengeItemByDate.data?.todayChallengeItems ?? []}>
+        <For each={[] as any}>
           {(challengeItem) => {
             return (
               <Switch>
@@ -198,7 +180,7 @@ export const ChallengeCard: Component<Props> = (props) => {
             );
           }}
         </For>
-        {challengeItemByDate.data?.todayChallengeItems.length === 0 &&
+        {/* {challengeItemByDate.data?.todayChallengeItems.length === 0 &&
           challengeItemByDate.data?.originalChallengeItems.length === 0 && (
             <NoChallengeItem
               color={() => props.color()}
@@ -211,7 +193,7 @@ export const ChallengeCard: Component<Props> = (props) => {
         {challengeItemByDate.data?.todayChallengeItems.length === 0 &&
           challengeItemByDate.data?.originalChallengeItems.length !== 0 && (
             <NoChallengeItem.Today color={() => props.color()} />
-          )}
+          )} */}
       </div>
 
       {isChallengeEditPanel() && (
