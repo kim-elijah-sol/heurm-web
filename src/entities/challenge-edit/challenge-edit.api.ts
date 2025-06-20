@@ -24,7 +24,7 @@ import type {
 
 export const getChallengeItem = (params: GetChallengeItemRequest) =>
   https
-    .get<GetChallengeItemResponse>('/challenge/challenge-item', {
+    .get<GetChallengeItemResponse>('/challenge-item', {
       params,
     })
     .then(https.validateResponse(getChallengeItemResponseSchema));
@@ -43,17 +43,17 @@ export const deleteChallenge = (data: DeleteChallengeRequest) =>
 
 export const patchChallengeItem = (body: PatchChallengeItemRequest) =>
   https
-    .patch<PatchChallengeItemResponse>('/challenge/challenge-item', body)
+    .patch<PatchChallengeItemResponse>('/challenge-item', body)
     .then(https.validateResponse(patchChallengeItemResponseSchema));
 
 export const postChallengeItem = (body: PostChallengeItemRequest) =>
   https
-    .post<PostChallengeItemResponse>('/challenge/challenge-item', body)
+    .post<PostChallengeItemResponse>('/challenge-item', body)
     .then(https.validateResponse(postChallengeItemResponseSchema));
 
 export const deleteChallengeItem = (data: DeleteChallengeItemRequest) =>
   https
-    .delete<DeleteChallengeItemResponse>('/challenge/challenge-item', {
+    .delete<DeleteChallengeItemResponse>('/challenge-item', {
       data,
     })
     .then(https.validateResponse(deleteChallengeItemResponseSchema));
