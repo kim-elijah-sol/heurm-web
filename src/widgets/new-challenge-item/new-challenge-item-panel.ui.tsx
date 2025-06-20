@@ -19,7 +19,7 @@ type Props = {
 
 export const NewChallengeItemPanel: Component<Props> = (props) => {
   const inputBaseClassName =
-    'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200';
+    'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
 
   const [name, setName] = createSignal<string>('');
 
@@ -52,6 +52,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                 class={inputBaseClassName}
                 value={name()}
                 onInput={(e) => setName(e.target.value)}
+                placeholder='Challenge Item Name'
               />
             </Form.Wrapper>
             <Form.Wrapper>
@@ -134,6 +135,25 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                 ></div>
               </div>
             </Form.Wrapper>
+            {type() !== 'COMPLETE' && (
+              <Form.Wrapper>
+                <Form.Label>Target Count &nbsp;&&nbsp; Unit</Form.Label>
+                <div class='flex w-full gap-2'>
+                  <input
+                    type='text'
+                    class={clsx(inputBaseClassName, 'flex-2')}
+                    placeholder='Target Count'
+                  />
+                  <input
+                    type='text'
+                    class={clsx(inputBaseClassName, 'flex-1')}
+                    placeholder='Unit'
+                  />
+                </div>
+              </Form.Wrapper>
+            )}
+
+            <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white mt-2 mb-8' />
           </div>
 
           <Panel.CTAButton color={props.color}>Add</Panel.CTAButton>
@@ -146,7 +166,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 const Form = {
   Wrapper: (props: { children: JSX.Element }) => {
     return (
-      <div class='flex flex-col gap-2 mb-4 w-full'>
+      <div class='flex flex-col gap-2 mb-6 w-full'>
         {children(() => props.children)()}
       </div>
     );
