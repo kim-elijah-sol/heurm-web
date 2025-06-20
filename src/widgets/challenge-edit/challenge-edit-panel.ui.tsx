@@ -407,6 +407,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                     handleNewChallengeItem(it);
                   }}
                   close={newChallengeItemClose}
+                  color={color}
                 />
               )}
             </div>
