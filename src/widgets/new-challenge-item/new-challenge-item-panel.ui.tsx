@@ -7,7 +7,7 @@ import {
   type JSX,
 } from 'solid-js';
 import { ChallengeEditType } from '~/entities/challenge-edit';
-import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
+import { NewChallengeItemRadio } from '~/features/new-challenge-item/ui';
 import type { ChallengeColor, ChallengeItemType } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, Panel, X } from '~/shared/ui';
 
@@ -26,7 +26,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   const [type, setType] =
     createSignal<Uppercase<ChallengeItemType>>('COMPLETE');
 
-  const typeIndicatorLevel = () =>
+  const typeStep = () =>
     type() === 'COMPLETE' ? 0 : type() === 'OVER' ? 1 : 2;
 
   return (
@@ -57,83 +57,47 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
             </Form.Wrapper>
             <Form.Wrapper>
               <Form.Label>Type</Form.Label>
-              <div class='flex relative w-full h-14 bg-slate-100 rounded-[24px] p-[6px] gap-2'>
-                <label
-                  for='complete'
-                  class={clsx(
-                    'flex-1 flex items-center justify-center rounded-[18px] transition-all active:bg-slate-200/70 active:scale-95 z-2',
-                    type() === 'COMPLETE'
-                      ? CHALLENGE_TEXT_COLOR_500[props.color()]
-                      : 'text-gray-600'
-                  )}
+              <NewChallengeItemRadio step={typeStep}>
+                <NewChallengeItemRadio.Item
+                  color={props.color}
+                  checked={() => type() === 'COMPLETE'}
+                  onChange={() => setType('COMPLETE')}
+                  name='challenge-item-type'
+                  id='complete'
                 >
-                  <input
-                    type='radio'
-                    name='challenge-item-type'
-                    id='complete'
-                    class='hidden'
-                    onChange={() => setType('COMPLETE')}
-                  />
                   <CheckCheck
                     size={28}
                     stroke='currentColor'
                     className='transition-all'
                   />
-                </label>
-                <label
-                  for='over'
-                  class={clsx(
-                    'flex-1 flex items-center justify-center rounded-[18px] transition-all active:bg-slate-200/70 active:scale-95 z-2',
-                    type() === 'OVER'
-                      ? CHALLENGE_TEXT_COLOR_500[props.color()]
-                      : 'text-gray-600'
-                  )}
+                </NewChallengeItemRadio.Item>
+                <NewChallengeItemRadio.Item
+                  color={props.color}
+                  checked={() => type() === 'OVER'}
+                  onChange={() => setType('OVER')}
+                  name='challenge-item-type'
+                  id='over'
                 >
-                  <input
-                    type='radio'
-                    name='challenge-item-type'
-                    id='over'
-                    class='hidden'
-                    onChange={() => setType('OVER')}
-                  />
                   <ChevronsUp
                     size={28}
                     stroke='currentColor'
                     className='transition-all'
                   />
-                </label>
-                <label
-                  for='under'
-                  class={clsx(
-                    'flex-1 flex items-center justify-center rounded-[18px] transition-all active:bg-slate-200/70 active:scale-95 z-2',
-                    type() === 'UNDER'
-                      ? CHALLENGE_TEXT_COLOR_500[props.color()]
-                      : 'text-gray-600'
-                  )}
+                </NewChallengeItemRadio.Item>
+                <NewChallengeItemRadio.Item
+                  color={props.color}
+                  checked={() => type() === 'UNDER'}
+                  onChange={() => setType('UNDER')}
+                  name='challenge-item-type'
+                  id='under'
                 >
-                  <input
-                    type='radio'
-                    name='challenge-item-type'
-                    id='under'
-                    class='hidden'
-                    onChange={() => setType('UNDER')}
-                  />
                   <ChevronsDown
                     size={28}
                     stroke='currentColor'
                     className='transition-all'
                   />
-                </label>
-                <div
-                  class='absolute top-[6px] bottom-[6px] bg-slate-200 transition-all duration-300 rounded-[18px]'
-                  style={{
-                    width: 'calc(calc(100% - 28px) / 3)',
-                    left: `calc(calc(calc(calc(100% - 28px) / 3) * ${typeIndicatorLevel()}) + ${
-                      typeIndicatorLevel() * 8 + 6
-                    }px)`,
-                  }}
-                ></div>
-              </div>
+                </NewChallengeItemRadio.Item>
+              </NewChallengeItemRadio>
             </Form.Wrapper>
             {type() !== 'COMPLETE' && (
               <Form.Wrapper>
@@ -154,6 +118,10 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
             )}
 
             <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white mt-2 mb-8' />
+
+            <Form.Wrapper>
+              <Form.Label>Interval Type</Form.Label>
+            </Form.Wrapper>
           </div>
 
           <Panel.CTAButton color={props.color}>Add</Panel.CTAButton>

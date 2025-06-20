@@ -1,0 +1,26 @@
+import { type Accessor, type Component, type JSX, children } from 'solid-js';
+
+type Props = {
+  children: JSX.Element;
+  step: Accessor<number>;
+};
+
+export const NewChallengeItemRadio: Component<Props> = (props) => {
+  const count = () =>
+    Array.isArray(props.children) ? props.children.length : 1;
+
+  return (
+    <div class='flex relative w-full h-14 bg-slate-100 rounded-[24px] p-[6px] gap-2'>
+      {children(() => props.children)()}
+      <div
+        class='absolute top-[6px] bottom-[6px] bg-slate-200 transition-all duration-300 rounded-[18px]'
+        style={{
+          width: `calc(calc(100% - 28px) / ${count()})`,
+          left: `calc(calc(calc(calc(100% - 28px) / ${count()}) * ${props.step()}) + ${
+            props.step() * 8 + 6
+          }px)`,
+        }}
+      ></div>
+    </div>
+  );
+};
