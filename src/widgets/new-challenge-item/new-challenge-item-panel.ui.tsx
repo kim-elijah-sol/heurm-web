@@ -8,7 +8,11 @@ import {
 } from 'solid-js';
 import { ChallengeEditType } from '~/entities/challenge-edit';
 import { NewChallengeItemRadio } from '~/features/new-challenge-item/ui';
-import type { ChallengeColor, ChallengeItemType } from '~/shared/types';
+import type {
+  ChallengeColor,
+  ChallengeItemIntervalType,
+  ChallengeItemType,
+} from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, Panel, X } from '~/shared/ui';
 
 type Props = {
@@ -16,6 +20,13 @@ type Props = {
   close: () => void;
   color: Accessor<ChallengeColor>;
 };
+
+const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
+  'DAILY',
+  'WEEKLY',
+  'MONTHLY',
+  'YEARLY',
+];
 
 export const NewChallengeItemPanel: Component<Props> = (props) => {
   const inputBaseClassName =
@@ -28,6 +39,11 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 
   const typeStep = () =>
     type() === 'COMPLETE' ? 0 : type() === 'OVER' ? 1 : 2;
+
+  const [intervalType, setIntervalType] =
+    createSignal<ChallengeItemIntervalType>('DAILY');
+
+  const intervalTypeStep = () => INTERVAL_TYPES.indexOf(intervalType());
 
   return (
     <Panel.Slide close={props.close}>
@@ -121,6 +137,19 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 
             <Form.Wrapper>
               <Form.Label>Interval Type</Form.Label>
+              <NewChallengeItemRadio step={intervalTypeStep}>
+                {INTERVAL_TYPES.map((it) => (
+                  <NewChallengeItemRadio.Item
+                    color={props.color}
+                    checked={() => intervalType() === it}
+                    onChange={() => setIntervalType(it)}
+                    name='challenge-item-interval-type'
+                    id={it.toLowerCase()}
+                  >
+                    <p class='font-semibold text-sm'>{it}</p>
+                  </NewChallengeItemRadio.Item>
+                ))}
+              </NewChallengeItemRadio>
             </Form.Wrapper>
           </div>
 
