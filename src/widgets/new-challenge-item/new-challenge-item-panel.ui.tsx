@@ -12,8 +12,11 @@ import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import type {
   ChallengeColor,
   ChallengeItemIntervalType,
+  ChallengeItemMonthlyPattern,
   ChallengeItemRepeatType,
   ChallengeItemType,
+  ChallengeItemWeeklyPattern,
+  ChallengeItemYearlyPattern,
 } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, Panel, X } from '~/shared/ui';
 
@@ -31,6 +34,21 @@ const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
 ];
 
 const REPEAT_TYPES: ChallengeItemRepeatType[] = ['EVERY', 'N', 'NM'];
+
+const WEEKLY_PATTERNS: ChallengeItemWeeklyPattern[] = [
+  'Every Day',
+  'Select Day',
+];
+
+const MONTHLY_PATTERNS: ChallengeItemMonthlyPattern[] = [
+  'Every Week',
+  'Select Date',
+  'Select Week',
+];
+const YEARLY_PATTERNS: ChallengeItemYearlyPattern[] = [
+  'Every Month',
+  'Select Month',
+];
 
 export const NewChallengeItemPanel: Component<Props> = (props) => {
   const inputBaseClassName =
@@ -57,6 +75,21 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   const [repeat, setRepeat] = createSignal<string>('');
 
   const [rest, setRest] = createSignal<string>('');
+
+  const [weeklyPattern, setWeeklyPattern] =
+    createSignal<ChallengeItemWeeklyPattern>('Every Day');
+
+  const weeklyPatternStep = () => WEEKLY_PATTERNS.indexOf(weeklyPattern());
+
+  const [monthlyPattern, setMonthlyPattern] =
+    createSignal<ChallengeItemMonthlyPattern>('Every Week');
+
+  const monthlyPatternStep = () => MONTHLY_PATTERNS.indexOf(monthlyPattern());
+
+  const [yearlyPattern, setYearlyPattern] =
+    createSignal<ChallengeItemYearlyPattern>('Every Month');
+
+  const yearlyPatternStep = () => YEARLY_PATTERNS.indexOf(yearlyPattern());
 
   const repeatUnit = () =>
     ((
@@ -190,6 +223,87 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                 ))}
               </NewChallengeItemRadio>
             </Form.Wrapper>
+
+            {intervalType() !== 'DAILY' && (
+              <>
+                <Form.Wrapper>
+                  <Form.Label>Interval Pattern</Form.Label>
+
+                  <div class='flex items-center gap-2'>
+                    <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
+                      Yearly
+                    </p>
+
+                    <NewChallengeItemRadio
+                      step={yearlyPatternStep}
+                      class='flex-1'
+                    >
+                      {YEARLY_PATTERNS.map((it) => (
+                        <NewChallengeItemRadio.Item
+                          color={props.color}
+                          checked={() => yearlyPattern() === it}
+                          onClick={() => setYearlyPattern(it)}
+                          name='challenge-item-yearly-pattern'
+                          id={it.toLowerCase().replace(' ', '-')}
+                        >
+                          <p class='font-semibold text-[0.75rem]'>{it}</p>
+                        </NewChallengeItemRadio.Item>
+                      ))}
+                    </NewChallengeItemRadio>
+                  </div>
+
+                  <div class='flex items-center gap-2'>
+                    <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
+                      Monthly
+                    </p>
+
+                    <NewChallengeItemRadio
+                      step={monthlyPatternStep}
+                      class='flex-1'
+                    >
+                      {MONTHLY_PATTERNS.map((it) => (
+                        <NewChallengeItemRadio.Item
+                          color={props.color}
+                          checked={() => monthlyPattern() === it}
+                          onClick={() => setMonthlyPattern(it)}
+                          name='challenge-item-monthly-pattern'
+                          id={it.toLowerCase().replace(' ', '-')}
+                        >
+                          <p class='font-semibold text-[0.75rem] text-center'>
+                            {it}
+                          </p>
+                        </NewChallengeItemRadio.Item>
+                      ))}
+                    </NewChallengeItemRadio>
+                  </div>
+
+                  <div class='flex items-center gap-2'>
+                    <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
+                      Weekly
+                    </p>
+
+                    <NewChallengeItemRadio
+                      step={weeklyPatternStep}
+                      class='flex-1'
+                    >
+                      {WEEKLY_PATTERNS.map((it) => (
+                        <NewChallengeItemRadio.Item
+                          color={props.color}
+                          checked={() => weeklyPattern() === it}
+                          onClick={() => setWeeklyPattern(it)}
+                          name='challenge-item-weekly-pattern'
+                          id={it.toLowerCase().replace(' ', '-')}
+                        >
+                          <p class='font-semibold text-[0.75rem]'>{it}</p>
+                        </NewChallengeItemRadio.Item>
+                      ))}
+                    </NewChallengeItemRadio>
+                  </div>
+                </Form.Wrapper>
+
+                <Form.Divider />
+              </>
+            )}
 
             <Form.Wrapper>
               <Form.Label>Repeat Type</Form.Label>
