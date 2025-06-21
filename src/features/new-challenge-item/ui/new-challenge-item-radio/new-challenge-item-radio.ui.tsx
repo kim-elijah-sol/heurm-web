@@ -1,8 +1,10 @@
-import { type Accessor, type Component, type JSX, children } from 'solid-js';
+import clsx from 'clsx';
+import { children, type Accessor, type Component, type JSX } from 'solid-js';
 
 type Props = {
   children: JSX.Element;
   step: Accessor<number>;
+  class?: string;
 };
 
 export const NewChallengeItemRadio: Component<Props> = (props) => {
@@ -20,7 +22,12 @@ export const NewChallengeItemRadio: Component<Props> = (props) => {
   const spacing = () => paddingX + gapTotal();
 
   return (
-    <div class='flex relative w-full h-14 bg-slate-100 rounded-[24px] p-[6px] gap-2'>
+    <div
+      class={clsx(
+        'flex relative w-full h-14 bg-slate-100 rounded-[24px] p-[6px] gap-2',
+        props.class
+      )}
+    >
       {children(() => props.children)()}
       <div
         class='absolute top-[6px] bottom-[6px] bg-slate-200 transition-all duration-300 rounded-[18px]'
