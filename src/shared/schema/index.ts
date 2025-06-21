@@ -1,6 +1,7 @@
 export * from './challenge-color.schema';
 export * from './challenge-item-day.schema';
 export * from './challenge-item-interval-type.schema';
+export * from './challenge-item-repeat-type.schema';
 export * from './challenge-item-type.schema';
 export * from './challenge-title.schema';
 export * from './date.schema';

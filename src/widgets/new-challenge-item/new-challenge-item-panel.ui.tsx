@@ -11,6 +11,7 @@ import { NewChallengeItemRadio } from '~/features/new-challenge-item/ui';
 import type {
   ChallengeColor,
   ChallengeItemIntervalType,
+  ChallengeItemRepeatType,
   ChallengeItemType,
 } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, Panel, X } from '~/shared/ui';
@@ -27,6 +28,8 @@ const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
   'MONTHLY',
   'YEARLY',
 ];
+
+const REPEAT_TYPES: ChallengeItemRepeatType[] = ['EVERY', 'N', 'NM'];
 
 export const NewChallengeItemPanel: Component<Props> = (props) => {
   const inputBaseClassName =
@@ -45,11 +48,50 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 
   const intervalTypeStep = () => INTERVAL_TYPES.indexOf(intervalType());
 
+  const [repeatType, setRepeatType] =
+    createSignal<ChallengeItemRepeatType>('EVERY');
+
+  const repeatTypeStep = () => REPEAT_TYPES.indexOf(repeatType());
+
+  const everyRadioText = () => {
+    const unit = (
+      {
+        DAILY: 'Day',
+        WEEKLY: 'Week',
+        MONTHLY: 'Month',
+        YEARLY: 'Year',
+      } as const
+    )[intervalType()];
+
+    return `Every ${unit}`;
+  };
+
+  const nRadioText = () => {
+    const unit = (
+      {
+        DAILY: 'Day',
+        WEEKLY: 'Week',
+        MONTHLY: 'Month',
+        YEARLY: 'Year',
+      } as const
+    )[intervalType()];
+
+    return `Every N ${unit}`;
+  };
+
+  const getRepeatRadioText = (repeatType: ChallengeItemRepeatType) => {
+    return repeatType === 'EVERY'
+      ? everyRadioText()
+      : repeatType === 'N'
+      ? nRadioText()
+      : 'N on, M off';
+  };
+
   return (
     <Panel.Slide close={props.close}>
       {(close) => (
         <>
-          <div class='absolute flex items-center justify-between left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm'>
+          <div class='absolute flex items-center justify-between left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm z-10'>
             <p class='font-semibold text-2xl'>
               {name().trim().length > 0 ? name().trim() : 'New Challenge Item'}
             </p>
@@ -60,7 +102,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
               <X size={30} />
             </button>
           </div>
-          <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20 pt-[72px]'>
+          <div class='overflow-y-auto items-center pb-20 pt-[72px]'>
             <Form.Wrapper>
               <Form.Label>Name</Form.Label>
               <input
@@ -133,7 +175,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
               </Form.Wrapper>
             )}
 
-            <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white mt-2 mb-8' />
+            <Form.Divider />
 
             <Form.Wrapper>
               <Form.Label>Interval Type</Form.Label>
@@ -147,6 +189,25 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     id={it.toLowerCase()}
                   >
                     <p class='font-semibold text-sm'>{it}</p>
+                  </NewChallengeItemRadio.Item>
+                ))}
+              </NewChallengeItemRadio>
+            </Form.Wrapper>
+
+            <Form.Wrapper>
+              <Form.Label>Repeat Type</Form.Label>
+              <NewChallengeItemRadio step={repeatTypeStep}>
+                {REPEAT_TYPES.map((it) => (
+                  <NewChallengeItemRadio.Item
+                    color={props.color}
+                    checked={() => repeatType() === it}
+                    onChange={() => setRepeatType(it)}
+                    name='challenge-item-repeat-type'
+                    id={it.toLowerCase()}
+                  >
+                    <p class='font-semibold text-sm'>
+                      {getRepeatRadioText(it)}
+                    </p>
                   </NewChallengeItemRadio.Item>
                 ))}
               </NewChallengeItemRadio>
@@ -175,4 +236,7 @@ const Form = {
       </p>
     );
   },
+  Divider: () => (
+    <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white mt-2 mb-8' />
+  ),
 };
