@@ -8,6 +8,7 @@ import {
 } from 'solid-js';
 import { ChallengeEditType } from '~/entities/challenge-edit';
 import { NewChallengeItemRadio } from '~/features/new-challenge-item/ui';
+import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import type {
   ChallengeColor,
   ChallengeItemIntervalType,
@@ -53,31 +54,23 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 
   const repeatTypeStep = () => REPEAT_TYPES.indexOf(repeatType());
 
-  const everyRadioText = () => {
-    const unit = (
+  const [repeat, setRepeat] = createSignal<string>('');
+
+  const [rest, setRest] = createSignal<string>('');
+
+  const repeatUnit = () =>
+    ((
       {
         DAILY: 'Day',
         WEEKLY: 'Week',
         MONTHLY: 'Month',
         YEARLY: 'Year',
       } as const
-    )[intervalType()];
+    )[intervalType()]);
 
-    return `Every ${unit}`;
-  };
+  const everyRadioText = () => `Every ${repeatUnit()}`;
 
-  const nRadioText = () => {
-    const unit = (
-      {
-        DAILY: 'Day',
-        WEEKLY: 'Week',
-        MONTHLY: 'Month',
-        YEARLY: 'Year',
-      } as const
-    )[intervalType()];
-
-    return `Every N ${unit}`;
-  };
+  const nRadioText = () => `Every N ${repeatUnit()}`;
 
   const getRepeatRadioText = (repeatType: ChallengeItemRepeatType) => {
     return repeatType === 'EVERY'
@@ -86,6 +79,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
       ? nRadioText()
       : 'N on, M off';
   };
+
+  const restPlaceholderText = () => `M ${repeatUnit()}`;
 
   return (
     <Panel.Slide close={props.close}>
@@ -162,7 +157,9 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                 <Form.Label>Target Count &nbsp;&&nbsp; Unit</Form.Label>
                 <div class='flex w-full gap-2'>
                   <input
-                    type='text'
+                    type='number'
+                    pattern='[0-9]*'
+                    inputMode='numeric'
                     class={clsx(inputBaseClassName, 'flex-2')}
                     placeholder='Target Count'
                   />
@@ -211,6 +208,51 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   </NewChallengeItemRadio.Item>
                 ))}
               </NewChallengeItemRadio>
+
+              {repeatType() !== 'EVERY' && (
+                <div class='flex w-full gap-2 items-center justify-between'>
+                  <p
+                    class={clsx(
+                      'text-sm font-semibold whitespace-nowrap pl-4 flex-1',
+                      CHALLENGE_TEXT_COLOR_500[props.color()]
+                    )}
+                  >
+                    {repeatType() === 'N' &&
+                      nRadioText().replace('N', repeat() || 'N')}
+
+                    {repeatType() === 'NM' && (
+                      <>
+                        {`${repeat() || 'N'} ${repeatUnit()} on,`}
+                        <br />
+                        {`${rest() || 'M'} ${repeatUnit()} off`}
+                      </>
+                    )}
+                  </p>
+
+                  <div class='flex gap-2 flex-2'>
+                    <input
+                      type='number'
+                      pattern='[0-9]*'
+                      inputMode='numeric'
+                      class={inputBaseClassName}
+                      placeholder={nRadioText().replace('Every', '')}
+                      value={repeat()}
+                      onInput={(e) => setRepeat(e.target.value)}
+                    />
+                    {repeatType() === 'NM' && (
+                      <input
+                        type='number'
+                        pattern='[0-9]*'
+                        inputMode='numeric'
+                        class={inputBaseClassName}
+                        placeholder={restPlaceholderText()}
+                        value={rest()}
+                        onInput={(e) => setRest(e.target.value)}
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
             </Form.Wrapper>
           </div>
 
