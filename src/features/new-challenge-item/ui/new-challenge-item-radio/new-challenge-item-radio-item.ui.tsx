@@ -14,9 +14,11 @@ type Props = {
 };
 
 export const NewChallengeItemRadioItem: Component<Props> = (props) => {
+  const id = `${props.name}__${props.id}`;
+
   return (
     <label
-      for={props.id}
+      for={id}
       class={clsx(
         'flex-1 flex items-center justify-center rounded-[18px] transition-all active:bg-slate-200/70 active:scale-95 z-2',
         props.checked()
@@ -27,7 +29,7 @@ export const NewChallengeItemRadioItem: Component<Props> = (props) => {
       <input
         type='radio'
         name={props.name}
-        id={props.id}
+        id={id}
         class='hidden'
         onChange={props.onChange}
         onClick={props.onClick}
