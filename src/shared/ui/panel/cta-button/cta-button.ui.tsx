@@ -17,7 +17,7 @@ export const CTAButton: Component<Props> = (props) => {
   const disabled = () => !!local.disabled;
 
   return (
-    <div class='absolute bottom-0 left-0 right-0 p-4 pt-8 bg-linear-to-t from-white via-white via-60% to-white/0'>
+    <div class='absolute bottom-0 left-0 right-0 p-4 pt-8 bg-linear-to-t from-white via-white via-60% to-white/0 z-10'>
       <button
         disabled={disabled()}
         class={clsx(
