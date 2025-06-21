@@ -6,7 +6,8 @@ import type { ChallengeColor } from '~/shared/types';
 type Props = {
   color: Accessor<ChallengeColor>;
   checked: Accessor<boolean>;
-  onChange: () => void;
+  onChange?: () => void;
+  onClick?: () => void;
   children: JSX.Element;
   name: string;
   id: string;
@@ -29,6 +30,7 @@ export const NewChallengeItemRadioItem: Component<Props> = (props) => {
         id={props.id}
         class='hidden'
         onChange={props.onChange}
+        onClick={props.onClick}
         checked={props.checked()}
       />
       {children(() => props.children)()}
