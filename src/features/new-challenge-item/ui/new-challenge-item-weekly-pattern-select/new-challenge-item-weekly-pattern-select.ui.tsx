@@ -8,7 +8,7 @@ import type {
   ChallengeDay,
   ChallengeItemWeeklyPattern,
 } from '~/shared/types';
-import { NewChallengeItemDaySelectSheet } from '../new-challenge-item-day-select-sheet';
+import { NewChallengeItemDaySelectSheet } from '../new-challenge-item-pattern-select-sheets';
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
 
 type Props = {

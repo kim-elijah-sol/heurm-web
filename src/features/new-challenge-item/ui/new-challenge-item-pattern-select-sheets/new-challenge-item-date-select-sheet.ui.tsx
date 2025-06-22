@@ -10,6 +10,7 @@ import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
 } from '~/shared/constant';
+import { getRange } from '~/shared/fx';
 import type { ChallengeColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
 
@@ -19,9 +20,6 @@ type Props = {
   onSubmit: (dates: number[]) => void;
   defaultDay: Accessor<number[]>;
 };
-
-const getRange = (start: number, count: number) =>
-  Array.from({ length: count }).map((_, index) => index + start);
 
 export const NewChallengeItemDateSelectSheet: Component<Props> = (props) => {
   const [dates, setDates] = createSignal<number[]>(props.defaultDay());
@@ -44,35 +42,35 @@ export const NewChallengeItemDateSelectSheet: Component<Props> = (props) => {
 
           <div class='flex flex-col items-center gap-3'>
             <div class='flex justify-start gap-2'>
-              <For each={getRange(1, 7)}>
+              <For each={getRange(7, 1)}>
                 {(date) => (
                   <DateButton dates={dates} setDates={setDates} date={date} />
                 )}
               </For>
             </div>
             <div class='flex justify-start gap-2'>
-              <For each={getRange(8, 7)}>
+              <For each={getRange(7, 8)}>
                 {(date) => (
                   <DateButton dates={dates} setDates={setDates} date={date} />
                 )}
               </For>
             </div>
             <div class='flex justify-start gap-2'>
-              <For each={getRange(15, 7)}>
+              <For each={getRange(7, 15)}>
                 {(date) => (
                   <DateButton dates={dates} setDates={setDates} date={date} />
                 )}
               </For>
             </div>
             <div class='flex justify-start gap-2'>
-              <For each={getRange(22, 7)}>
+              <For each={getRange(7, 22)}>
                 {(date) => (
                   <DateButton dates={dates} setDates={setDates} date={date} />
                 )}
               </For>
             </div>
             <div class='flex justify-start gap-2 w-[328px]'>
-              <For each={getRange(29, 4)}>
+              <For each={getRange(4, 29)}>
                 {(date) => (
                   <DateButton dates={dates} setDates={setDates} date={date} />
                 )}

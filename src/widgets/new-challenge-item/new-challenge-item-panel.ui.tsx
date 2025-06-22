@@ -72,6 +72,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 
   const [dates, setDates] = createSignal<number[]>([]);
 
+  const [weeks, setWeeks] = createSignal<number[]>([]);
+
   const [yearlyPattern, setYearlyPattern] =
     createSignal<ChallengeItemYearlyPattern>('Every Month');
 
@@ -225,6 +227,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   color={props.color}
                   dates={dates}
                   setDates={setDates}
+                  weeks={weeks}
+                  setWeeks={setWeeks}
                 />
 
                 <NewChallengeItemWeeklyPatternSelect

@@ -7,7 +7,11 @@ import type {
   ChallengeColor,
   ChallengeItemMonthlyPattern,
 } from '~/shared/types';
-import { NewChallengeItemDateSelectSheet } from '../new-challenge-item-date-select-sheet';
+import { getWeekWriting } from '../../fx';
+import {
+  NewChallengeItemDateSelectSheet,
+  NewChallengeItemWeekSelectSheet,
+} from '../new-challenge-item-pattern-select-sheets';
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
 
 type Props = {
@@ -16,6 +20,8 @@ type Props = {
   color: Accessor<ChallengeColor>;
   dates: Accessor<number[]>;
   setDates: Setter<number[]>;
+  weeks: Accessor<number[]>;
+  setWeeks: Setter<number[]>;
 };
 
 export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
@@ -25,6 +31,8 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
     newChallengeItemConstant.MONTHLY_PATTERNS.indexOf(props.monthlyPattern());
 
   const [isDateSelect, openDateSelect, closeDateSelect] = createBoolean();
+
+  const [isWeekSelect, openWeekSelect, closeWeekSelect] = createBoolean();
 
   return (
     <div>
@@ -41,6 +49,7 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
               onClick={() => {
                 if (it === 'Every Week') props.setMonthlyPattern(it);
                 else if (it === 'Select Date') openDateSelect();
+                else if (it === 'Select Week') openWeekSelect();
               }}
               name='challenge-item-monthly-pattern'
               id={it.toLowerCase().replace(' ', '-')}
@@ -60,6 +69,17 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
             defaultDay={props.dates}
           />
         )}
+        {isWeekSelect() && (
+          <NewChallengeItemWeekSelectSheet
+            close={closeWeekSelect}
+            color={props.color}
+            onSubmit={(weeks) => {
+              props.setWeeks(weeks);
+              props.setMonthlyPattern('Select Week');
+            }}
+            defaultWeeks={props.weeks}
+          />
+        )}
       </div>
       {props.monthlyPattern() === 'Select Date' && (
         <p
@@ -72,6 +92,16 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
             .dates()
             .map((it) => (it === 32 ? 'Last Date' : it))
             .join(', ')}
+        </p>
+      )}
+      {props.monthlyPattern() === 'Select Week' && (
+        <p
+          class={clsx(
+            'font-semibold mt-2 ml-[68px] px-2 text-sm',
+            CHALLENGE_TEXT_COLOR_500[props.color()]
+          )}
+        >
+          {props.weeks().map(getWeekWriting).join(', ')}
         </p>
       )}
     </div>
