@@ -76,6 +76,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   const [yearlyPattern, setYearlyPattern] =
     createSignal<ChallengeItemYearlyPattern>('Every Month');
 
+  const [months, setMonths] = createSignal<number[]>([]);
+
   const repeatUnit = () =>
     ((
       {
@@ -218,6 +220,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   yearlyPattern={yearlyPattern}
                   setYearlyPattern={setYearlyPattern}
                   color={props.color}
+                  months={months}
+                  setMonths={setMonths}
                 />
 
                 <NewChallengeItemMonthlyPatternSelect

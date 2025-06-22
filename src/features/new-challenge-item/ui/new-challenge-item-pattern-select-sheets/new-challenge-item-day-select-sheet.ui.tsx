@@ -16,11 +16,11 @@ type Props = {
   close: () => void;
   color: Accessor<ChallengeColor>;
   onSubmit: (days: number[]) => void;
-  defaultDay: Accessor<number[]>;
+  defaultDays: Accessor<number[]>;
 };
 
 export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
-  const [days, setDays] = createSignal<number[]>(props.defaultDay());
+  const [days, setDays] = createSignal<number[]>(props.defaultDays());
 
   const dayClassName =
     'w-10 h-10 text-[1.25rem] transition-all active:scale-90 rounded-[42%] shadow-sm active:shadow-md border border-gray-100';

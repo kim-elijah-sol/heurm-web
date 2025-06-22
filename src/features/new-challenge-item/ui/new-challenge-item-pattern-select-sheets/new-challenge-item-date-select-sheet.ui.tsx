@@ -18,11 +18,11 @@ type Props = {
   close: () => void;
   color: Accessor<ChallengeColor>;
   onSubmit: (dates: number[]) => void;
-  defaultDay: Accessor<number[]>;
+  defaultDates: Accessor<number[]>;
 };
 
 export const NewChallengeItemDateSelectSheet: Component<Props> = (props) => {
-  const [dates, setDates] = createSignal<number[]>(props.defaultDay());
+  const [dates, setDates] = createSignal<number[]>(props.defaultDates());
 
   const disabled = () => dates().length === 0;
 

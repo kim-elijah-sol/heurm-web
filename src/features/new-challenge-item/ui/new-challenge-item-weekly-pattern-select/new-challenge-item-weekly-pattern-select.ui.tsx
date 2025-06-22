@@ -58,7 +58,7 @@ export const NewChallengeItemWeeklyPatternSelect: Component<Props> = (
               props.setDays(days);
               props.setWeeklyPattern('Select Day');
             }}
-            defaultDay={props.days}
+            defaultDays={props.days}
           />
         )}
       </div>

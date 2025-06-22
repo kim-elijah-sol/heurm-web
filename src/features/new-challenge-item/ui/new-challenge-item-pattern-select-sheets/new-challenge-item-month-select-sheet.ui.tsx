@@ -3,30 +3,30 @@ import { createSignal, For, type Accessor, type Component } from 'solid-js';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
+  CHALLENGE_MONTH,
 } from '~/shared/constant';
 import { getRange } from '~/shared/fx';
 import { ChallengeColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
-import { getWeekWriting } from '../../fx';
 
 type Props = {
   close: () => void;
   color: Accessor<ChallengeColor>;
-  onSubmit: (weeks: number[]) => void;
-  defaultWeeks: Accessor<number[]>;
+  onSubmit: (months: number[]) => void;
+  defaultMonths: Accessor<number[]>;
 };
 
-export const NewChallengeItemWeekSelectSheet: Component<Props> = (props) => {
-  const [weeks, setWeeks] = createSignal<number[]>(props.defaultWeeks());
+export const NewChallengeItemMonthSelectSheet: Component<Props> = (props) => {
+  const [months, setMonths] = createSignal<number[]>(props.defaultMonths());
 
-  const disabled = () => weeks().length === 0;
+  const disabled = () => months().length === 0;
 
-  const weekClassName =
+  const monthClassName =
     'h-10 transition-all active:scale-90 rounded-[17px] shadow-sm active:shadow-md border border-gray-100 text-center leading-10';
 
-  const activeWeekClassName = 'font-black day-selected text-gray-700';
+  const activeMonthClassName = 'font-black day-selected text-gray-700';
 
-  const inactiveWeekClassName = 'text-gray-300 font-bold';
+  const inactiveMonthClassName = 'text-gray-300 font-bold';
 
   return (
     <BottomSheet close={props.close}>
@@ -42,28 +42,28 @@ export const NewChallengeItemWeekSelectSheet: Component<Props> = (props) => {
             </button>
           </div>
 
-          <div class='flex flex-wrap gap-2 w-full'>
-            <For each={getRange(6, 1)}>
-              {(week) => (
+          <div class='flex flex-wrap gap-2 w-full justify-center'>
+            <For each={getRange(12, 0)}>
+              {(month) => (
                 <div
                   onClick={() => {
-                    setWeeks(
-                      weeks().includes(week)
-                        ? weeks().filter((it) => it !== week)
-                        : weeks().concat(week)
+                    setMonths(
+                      months().includes(month)
+                        ? months().filter((it) => it !== month)
+                        : months().concat(month)
                     );
                   }}
                   class={clsx(
-                    weekClassName,
-                    weeks().includes(week)
-                      ? activeWeekClassName
-                      : inactiveWeekClassName
+                    monthClassName,
+                    months().includes(month)
+                      ? activeMonthClassName
+                      : inactiveMonthClassName
                   )}
                   style={{
-                    width: `calc(50% - 4px)`,
+                    width: `calc(33.33% - 8px)`,
                   }}
                 >
-                  {getWeekWriting(week)}
+                  {CHALLENGE_MONTH[month]}
                 </div>
               )}
             </For>
@@ -81,7 +81,7 @@ export const NewChallengeItemWeekSelectSheet: Component<Props> = (props) => {
             onClick={() => {
               close();
 
-              props.onSubmit([...weeks()].sort((a, b) => a - b));
+              props.onSubmit([...months()].sort((a, b) => a - b));
             }}
           >
             Select

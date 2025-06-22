@@ -1,15 +1,21 @@
+import clsx from 'clsx';
 import { type Accessor, type Component, type Setter } from 'solid-js';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
+import { CHALLENGE_MONTH, CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
+import { createBoolean } from '~/shared/hook';
 import type {
   ChallengeColor,
   ChallengeItemYearlyPattern,
 } from '~/shared/types';
+import { NewChallengeItemMonthSelectSheet } from '../new-challenge-item-pattern-select-sheets';
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
 
 type Props = {
   yearlyPattern: Accessor<ChallengeItemYearlyPattern>;
   setYearlyPattern: Setter<ChallengeItemYearlyPattern>;
   color: Accessor<ChallengeColor>;
+  months: Accessor<number[]>;
+  setMonths: Setter<number[]>;
 };
 
 export const NewChallengeItemYearlyPatternSelect: Component<Props> = (
@@ -18,25 +24,58 @@ export const NewChallengeItemYearlyPatternSelect: Component<Props> = (
   const yearlyPatternStep = () =>
     newChallengeItemConstant.YEARLY_PATTERNS.indexOf(props.yearlyPattern());
 
-  return (
-    <div class='flex items-center gap-2'>
-      <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
-        Yearly
-      </p>
+  const [isMonthSelect, openIsMonthSelect, closeMonthSelect] = createBoolean();
 
-      <NewChallengeItemRadio step={yearlyPatternStep} class='flex-1'>
-        {newChallengeItemConstant.YEARLY_PATTERNS.map((it) => (
-          <NewChallengeItemRadio.Item
+  return (
+    <div>
+      <div class='flex items-center gap-2'>
+        <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
+          Yearly
+        </p>
+
+        <NewChallengeItemRadio step={yearlyPatternStep} class='flex-1'>
+          {newChallengeItemConstant.YEARLY_PATTERNS.map((it) => (
+            <NewChallengeItemRadio.Item
+              color={props.color}
+              checked={() => props.yearlyPattern() === it}
+              onClick={() => {
+                if (it === 'Every Month') props.setYearlyPattern(it);
+                else openIsMonthSelect();
+              }}
+              name='challenge-item-yearly-pattern'
+              id={it.toLowerCase().replace(' ', '-')}
+            >
+              <p class='font-semibold text-[0.75rem] text-center'>{it}</p>
+            </NewChallengeItemRadio.Item>
+          ))}
+        </NewChallengeItemRadio>
+
+        {isMonthSelect() && (
+          <NewChallengeItemMonthSelectSheet
+            close={closeMonthSelect}
             color={props.color}
-            checked={() => props.yearlyPattern() === it}
-            onClick={() => props.setYearlyPattern(it)}
-            name='challenge-item-yearly-pattern'
-            id={it.toLowerCase().replace(' ', '-')}
-          >
-            <p class='font-semibold text-[0.75rem] text-center'>{it}</p>
-          </NewChallengeItemRadio.Item>
-        ))}
-      </NewChallengeItemRadio>
+            onSubmit={(months) => {
+              props.setMonths(months);
+              props.setYearlyPattern('Select Month');
+            }}
+            defaultMonths={props.months}
+          />
+        )}
+      </div>
+
+      {props.yearlyPattern() === 'Select Month' && (
+        <p
+          class={clsx(
+            'font-semibold mt-2 ml-[68px] px-2 text-sm mb-2',
+            CHALLENGE_TEXT_COLOR_500[props.color()]
+          )}
+        >
+          {props
+            .months()
+            .map((it) => CHALLENGE_MONTH[it])
+            .join(', ')}
+        </p>
+      )}
     </div>
   );
 };

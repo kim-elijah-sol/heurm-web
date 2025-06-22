@@ -66,7 +66,7 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
               props.setDates(dates);
               props.setMonthlyPattern('Select Date');
             }}
-            defaultDay={props.dates}
+            defaultDates={props.dates}
           />
         )}
         {isWeekSelect() && (
