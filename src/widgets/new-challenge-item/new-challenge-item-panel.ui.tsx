@@ -188,7 +188,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   });
 
   return (
-    <Panel.Slide close={props.close}>
+    <Panel.Slide close={props.close} class='px-0'>
       {(close) => (
         <>
           <div class='absolute flex items-center justify-between left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm z-10'>
@@ -202,7 +202,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
               <X size={30} />
             </button>
           </div>
-          <div class='overflow-y-auto items-center pb-20 pt-[72px]'>
+          <div class='overflow-y-auto items-center pb-20 pt-[72px] px-4'>
             <Form.Wrapper>
               <Form.Label>Name</Form.Label>
               <input
