@@ -152,6 +152,17 @@ export const CHALLENGE_BORDER_COLOR_200 = {
   pink: 'border-pink-200',
 } as const;
 
+export const CHALLENGE_BORDER_COLOR_400 = {
+  red: 'border-red-400',
+  green: 'border-green-400',
+  blue: 'border-blue-400',
+  indigo: 'border-indigo-400',
+  teal: 'border-teal-400',
+  yellow: 'border-yellow-400',
+  purple: 'border-purple-400',
+  pink: 'border-pink-400',
+} as const;
+
 export const CHALLENGE_BORDER_COLOR_500 = {
   red: 'border-red-500',
   green: 'border-green-500',

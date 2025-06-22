@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import {
   children,
+  createEffect,
   createSignal,
   Match,
   Show,
@@ -17,7 +18,11 @@ import {
   NewChallengeItemWeeklyPatternSelect,
   NewChallengeItemYearlyPatternSelect,
 } from '~/features/new-challenge-item/ui';
-import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
+import {
+  CHALLENGE_400_BG_COLOR,
+  CHALLENGE_BORDER_COLOR_400,
+  CHALLENGE_TEXT_COLOR_500,
+} from '~/shared/constant';
 import type {
   ChallengeColor,
   ChallengeItemIntervalType,
@@ -27,7 +32,14 @@ import type {
   ChallengeItemWeeklyPattern,
   ChallengeItemYearlyPattern,
 } from '~/shared/types';
-import { CheckCheck, ChevronsDown, ChevronsUp, Panel, X } from '~/shared/ui';
+import {
+  Check,
+  CheckCheck,
+  ChevronsDown,
+  ChevronsUp,
+  Panel,
+  X,
+} from '~/shared/ui';
 
 type Props = {
   onSubmit: (challengeItem: ChallengeEditType.ChallengeItemForm) => void;
@@ -79,6 +91,27 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
     createSignal<ChallengeItemYearlyPattern>('Every Month');
 
   const [months, setMonths] = createSignal<number[]>([]);
+
+  const [accumulate, setAccumulate] = createSignal<boolean>(false);
+
+  const [accumulateType, setAccumulateType] =
+    createSignal<ChallengeItemIntervalType>('DAILY');
+
+  const accumulateTypes = (): ChallengeItemIntervalType[] => {
+    const result: ChallengeItemIntervalType[] = ['DAILY'];
+
+    const step = newChallengeItemConstant.INTERVAL_TYPES.indexOf(
+      intervalType()
+    );
+
+    if (step >= 1) result.push('WEEKLY');
+    if (step >= 2) result.push('MONTHLY');
+    if (step >= 3) result.push('YEARLY');
+
+    return result;
+  };
+
+  const accumulateTypeStep = () => accumulateTypes().indexOf(accumulateType());
 
   const repeatUnit = () =>
     ((
@@ -145,6 +178,14 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
       </Show>
     </>
   );
+
+  createEffect(() => {
+    if (accumulateTypeStep() === -1) {
+      setAccumulateType(
+        newChallengeItemConstant.INTERVAL_TYPES[accumulateTypes().length - 1]
+      );
+    }
+  });
 
   return (
     <Panel.Slide close={props.close}>
@@ -234,6 +275,57 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     placeholder='Unit'
                   />
                 </div>
+
+                <label for='accumulate' class='mt-2'>
+                  <input
+                    type='checkbox'
+                    name='accumulate'
+                    id='accumulate'
+                    class='hidden'
+                    checked={accumulate()}
+                    onChange={(e) => setAccumulate(e.target.checked)}
+                  />
+                  <div class='flex items-center gap-2'>
+                    <div
+                      class={clsx(
+                        'p-[2px] rounded-[42%] border transition-all',
+                        accumulate()
+                          ? clsx(
+                              CHALLENGE_400_BG_COLOR[props.color()],
+                              CHALLENGE_BORDER_COLOR_400[props.color()]
+                            )
+                          : 'border-gray-300'
+                      )}
+                    >
+                      <Check size={16} strokeWidth={3} />
+                    </div>
+
+                    <p
+                      class={clsx(
+                        'font-semibold transition-all',
+                        accumulate() ? 'text-gray-600' : 'text-gray-400'
+                      )}
+                    >
+                      Accumulate
+                    </p>
+                  </div>
+                </label>
+
+                <Show when={accumulate()}>
+                  <NewChallengeItemRadio step={accumulateTypeStep}>
+                    {accumulateTypes().map((it) => (
+                      <NewChallengeItemRadio.Item
+                        color={props.color}
+                        checked={() => accumulateType() === it}
+                        onChange={() => setAccumulateType(it)}
+                        name='challenge-item-accumulate-type'
+                        id={it.toLowerCase()}
+                      >
+                        <p class='font-semibold text-sm'>{it}</p>
+                      </NewChallengeItemRadio.Item>
+                    ))}
+                  </NewChallengeItemRadio>
+                </Show>
               </Form.Wrapper>
             </Show>
 
