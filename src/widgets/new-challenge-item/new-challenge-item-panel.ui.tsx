@@ -7,6 +7,7 @@ import {
   type JSX,
 } from 'solid-js';
 import { type ChallengeEditType } from '~/entities/challenge-edit';
+import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import {
   NewChallengeItemMonthlyPatternSelect,
   NewChallengeItemRadio,
@@ -32,15 +33,6 @@ type Props = {
   color: Accessor<ChallengeColor>;
 };
 
-const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
-  'DAILY',
-  'WEEKLY',
-  'MONTHLY',
-  'YEARLY',
-];
-
-const REPEAT_TYPES: ChallengeItemRepeatType[] = ['EVERY', 'N', 'NM'];
-
 export const NewChallengeItemPanel: Component<Props> = (props) => {
   const inputBaseClassName =
     'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
@@ -56,12 +48,14 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   const [intervalType, setIntervalType] =
     createSignal<ChallengeItemIntervalType>('DAILY');
 
-  const intervalTypeStep = () => INTERVAL_TYPES.indexOf(intervalType());
+  const intervalTypeStep = () =>
+    newChallengeItemConstant.INTERVAL_TYPES.indexOf(intervalType());
 
   const [repeatType, setRepeatType] =
     createSignal<ChallengeItemRepeatType>('EVERY');
 
-  const repeatTypeStep = () => REPEAT_TYPES.indexOf(repeatType());
+  const repeatTypeStep = () =>
+    newChallengeItemConstant.REPEAT_TYPES.indexOf(repeatType());
 
   const [repeat, setRepeat] = createSignal<string>('');
 
@@ -197,7 +191,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
             <Form.Wrapper>
               <Form.Label>Interval Type</Form.Label>
               <NewChallengeItemRadio step={intervalTypeStep}>
-                {INTERVAL_TYPES.map((it) => (
+                {newChallengeItemConstant.INTERVAL_TYPES.map((it) => (
                   <NewChallengeItemRadio.Item
                     color={props.color}
                     checked={() => intervalType() === it}
@@ -244,7 +238,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
             <Form.Wrapper>
               <Form.Label>Repeat Type</Form.Label>
               <NewChallengeItemRadio step={repeatTypeStep}>
-                {REPEAT_TYPES.map((it) => (
+                {newChallengeItemConstant.REPEAT_TYPES.map((it) => (
                   <NewChallengeItemRadio.Item
                     color={props.color}
                     checked={() => repeatType() === it}

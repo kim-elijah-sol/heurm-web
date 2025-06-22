@@ -1,4 +1,5 @@
 import { type Accessor, type Component, type Setter } from 'solid-js';
+import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import type {
   ChallengeColor,
   ChallengeItemMonthlyPattern,
@@ -21,7 +22,7 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
   props
 ) => {
   const monthlyPatternStep = () =>
-    MONTHLY_PATTERNS.indexOf(props.monthlyPattern());
+    newChallengeItemConstant.MONTHLY_PATTERNS.indexOf(props.monthlyPattern());
 
   return (
     <div class='flex items-center gap-2'>
@@ -30,7 +31,7 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
       </p>
 
       <NewChallengeItemRadio step={monthlyPatternStep} class='flex-1'>
-        {MONTHLY_PATTERNS.map((it) => (
+        {newChallengeItemConstant.MONTHLY_PATTERNS.map((it) => (
           <NewChallengeItemRadio.Item
             color={props.color}
             checked={() => props.monthlyPattern() === it}

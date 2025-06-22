@@ -1,14 +1,10 @@
 import { type Accessor, type Component, type Setter } from 'solid-js';
+import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import type {
   ChallengeColor,
   ChallengeItemYearlyPattern,
 } from '~/shared/types';
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
-
-const YEARLY_PATTERNS: ChallengeItemYearlyPattern[] = [
-  'Every Month',
-  'Select Month',
-];
 
 type Props = {
   yearlyPattern: Accessor<ChallengeItemYearlyPattern>;
@@ -20,7 +16,7 @@ export const NewChallengeItemYearlyPatternSelect: Component<Props> = (
   props
 ) => {
   const yearlyPatternStep = () =>
-    YEARLY_PATTERNS.indexOf(props.yearlyPattern());
+    newChallengeItemConstant.YEARLY_PATTERNS.indexOf(props.yearlyPattern());
 
   return (
     <div class='flex items-center gap-2'>
@@ -29,7 +25,7 @@ export const NewChallengeItemYearlyPatternSelect: Component<Props> = (
       </p>
 
       <NewChallengeItemRadio step={yearlyPatternStep} class='flex-1'>
-        {YEARLY_PATTERNS.map((it) => (
+        {newChallengeItemConstant.YEARLY_PATTERNS.map((it) => (
           <NewChallengeItemRadio.Item
             color={props.color}
             checked={() => props.yearlyPattern() === it}

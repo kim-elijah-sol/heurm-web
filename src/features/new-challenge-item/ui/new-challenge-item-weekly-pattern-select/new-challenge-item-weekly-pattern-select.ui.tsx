@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { type Accessor, type Component, type Setter } from 'solid-js';
+import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import type {
@@ -9,11 +10,6 @@ import type {
 } from '~/shared/types';
 import { NewChallengeItemDaySelectSheet } from '../new-challenge-item-day-select-sheet';
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
-
-const WEEKLY_PATTERNS: ChallengeItemWeeklyPattern[] = [
-  'Every Day',
-  'Select Day',
-];
 
 type Props = {
   weeklyPattern: Accessor<ChallengeItemWeeklyPattern>;
@@ -27,7 +23,7 @@ export const NewChallengeItemWeeklyPatternSelect: Component<Props> = (
   props
 ) => {
   const weeklyPatternStep = () =>
-    WEEKLY_PATTERNS.indexOf(props.weeklyPattern());
+    newChallengeItemConstant.WEEKLY_PATTERNS.indexOf(props.weeklyPattern());
 
   const [isDaySelect, openDaySelect, closeDaySelect] = createBoolean();
 
@@ -39,7 +35,7 @@ export const NewChallengeItemWeeklyPatternSelect: Component<Props> = (
         </p>
 
         <NewChallengeItemRadio step={weeklyPatternStep} class='flex-1'>
-          {WEEKLY_PATTERNS.map((it) => (
+          {newChallengeItemConstant.WEEKLY_PATTERNS.map((it) => (
             <NewChallengeItemRadio.Item
               color={props.color}
               checked={() => props.weeklyPattern() === it}
