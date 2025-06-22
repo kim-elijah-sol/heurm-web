@@ -11,6 +11,7 @@ import {
   NewChallengeItemMonthlyPatternSelect,
   NewChallengeItemRadio,
   NewChallengeItemWeeklyPatternSelect,
+  NewChallengeItemYearlyPatternSelect,
 } from '~/features/new-challenge-item/ui';
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import type {
@@ -39,11 +40,6 @@ const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
 ];
 
 const REPEAT_TYPES: ChallengeItemRepeatType[] = ['EVERY', 'N', 'NM'];
-
-const YEARLY_PATTERNS: ChallengeItemYearlyPattern[] = [
-  'Every Month',
-  'Select Month',
-];
 
 export const NewChallengeItemPanel: Component<Props> = (props) => {
   const inputBaseClassName =
@@ -81,8 +77,6 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 
   const [yearlyPattern, setYearlyPattern] =
     createSignal<ChallengeItemYearlyPattern>('Every Month');
-
-  const yearlyPatternStep = () => YEARLY_PATTERNS.indexOf(yearlyPattern());
 
   const repeatUnit = () =>
     ((
@@ -222,28 +216,11 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                 <Form.Wrapper>
                   <Form.Label>Interval Pattern</Form.Label>
 
-                  <div class='flex items-center gap-2'>
-                    <Form.LeftLabel>Yealry</Form.LeftLabel>
-
-                    <NewChallengeItemRadio
-                      step={yearlyPatternStep}
-                      class='flex-1'
-                    >
-                      {YEARLY_PATTERNS.map((it) => (
-                        <NewChallengeItemRadio.Item
-                          color={props.color}
-                          checked={() => yearlyPattern() === it}
-                          onClick={() => setYearlyPattern(it)}
-                          name='challenge-item-yearly-pattern'
-                          id={it.toLowerCase().replace(' ', '-')}
-                        >
-                          <p class='font-semibold text-[0.75rem] text-center'>
-                            {it}
-                          </p>
-                        </NewChallengeItemRadio.Item>
-                      ))}
-                    </NewChallengeItemRadio>
-                  </div>
+                  <NewChallengeItemYearlyPatternSelect
+                    yearlyPattern={yearlyPattern}
+                    setYearlyPattern={setYearlyPattern}
+                    color={props.color}
+                  />
 
                   <NewChallengeItemMonthlyPatternSelect
                     monthlyPattern={monthlyPattern}
