@@ -151,3 +151,36 @@ export const CHALLENGE_BORDER_COLOR_200 = {
   purple: 'border-purple-200',
   pink: 'border-pink-200',
 } as const;
+
+export const CHALLENGE_BORDER_COLOR_500 = {
+  red: 'border-red-500',
+  green: 'border-green-500',
+  blue: 'border-blue-500',
+  indigo: 'border-indigo-500',
+  teal: 'border-teal-500',
+  yellow: 'border-yellow-500',
+  purple: 'border-purple-500',
+  pink: 'border-pink-500',
+} as const;
+
+export const CHALLENGE_ACTIVE_BORDER_COLOR_500 = {
+  red: 'active:border-red-500',
+  green: 'active:border-green-500',
+  blue: 'active:border-blue-500',
+  indigo: 'active:border-indigo-500',
+  teal: 'active:border-teal-500',
+  yellow: 'active:border-yellow-500',
+  purple: 'active:border-purple-500',
+  pink: 'active:border-pink-500',
+} as const;
+
+export const CHALLENGE_ACTIVE_TEXT_COLOR_500 = {
+  red: 'active:text-red-500',
+  green: 'active:text-green-500',
+  blue: 'active:text-blue-500',
+  indigo: 'active:text-indigo-500',
+  teal: 'active:text-teal-500',
+  yellow: 'active:text-yellow-500',
+  purple: 'active:text-purple-500',
+  pink: 'active:text-pink-500',
+} as const;

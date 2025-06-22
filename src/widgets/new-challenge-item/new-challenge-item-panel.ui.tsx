@@ -7,10 +7,14 @@ import {
   type JSX,
 } from 'solid-js';
 import { type ChallengeEditType } from '~/entities/challenge-edit';
-import { NewChallengeItemRadio } from '~/features/new-challenge-item/ui';
+import {
+  NewChallengeItemRadio,
+  NewChallengeItemWeeklyPatternSelect,
+} from '~/features/new-challenge-item/ui';
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import type {
   ChallengeColor,
+  ChallengeDay,
   ChallengeItemIntervalType,
   ChallengeItemMonthlyPattern,
   ChallengeItemRepeatType,
@@ -79,7 +83,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   const [weeklyPattern, setWeeklyPattern] =
     createSignal<ChallengeItemWeeklyPattern>('Every Day');
 
-  const weeklyPatternStep = () => WEEKLY_PATTERNS.indexOf(weeklyPattern());
+  const [days, setDays] = createSignal<ChallengeDay[]>([]);
 
   const [monthlyPattern, setMonthlyPattern] =
     createSignal<ChallengeItemMonthlyPattern>('Every Week');
@@ -275,28 +279,13 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     </NewChallengeItemRadio>
                   </div>
 
-                  <div class='flex items-center gap-2'>
-                    <Form.LeftLabel>Weekly</Form.LeftLabel>
-
-                    <NewChallengeItemRadio
-                      step={weeklyPatternStep}
-                      class='flex-1'
-                    >
-                      {WEEKLY_PATTERNS.map((it) => (
-                        <NewChallengeItemRadio.Item
-                          color={props.color}
-                          checked={() => weeklyPattern() === it}
-                          onClick={() => setWeeklyPattern(it)}
-                          name='challenge-item-weekly-pattern'
-                          id={it.toLowerCase().replace(' ', '-')}
-                        >
-                          <p class='font-semibold text-[0.75rem] text-center'>
-                            {it}
-                          </p>
-                        </NewChallengeItemRadio.Item>
-                      ))}
-                    </NewChallengeItemRadio>
-                  </div>
+                  <NewChallengeItemWeeklyPatternSelect
+                    weeklyPattern={weeklyPattern}
+                    setWeeklyPattern={setWeeklyPattern}
+                    days={days}
+                    setDays={setDays}
+                    color={props.color}
+                  />
                 </Form.Wrapper>
 
                 <Form.Divider />
