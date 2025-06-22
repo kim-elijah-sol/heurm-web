@@ -1,0 +1,59 @@
+@keyframes wys-bottom-sheet-animation {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+
+  100% {
+    background-color: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+  }
+}
+
+.wys-bottom-sheet-animation {
+  animation: wys-bottom-sheet-animation 0.3s forwards;
+}
+
+@keyframes wys-bottom-sheet-fade-out {
+  0% {
+    background-color: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+  }
+
+  100% {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+  }
+}
+
+.wys-bottom-sheet-fade-out {
+  animation: wys-bottom-sheet-fade-out 0.3s forwards;
+}
+
+@keyframes wys-bottom-sheet-foreground-fade-in {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.wys-bottom-sheet-foreground-fade-in {
+  animation: wys-bottom-sheet-foreground-fade-in 0.3s forwards;
+}
+
+@keyframes wys-bottom-sheet-foreground-fade-out {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.wys-bottom-sheet-foreground-fade-out {
+  animation: wys-bottom-sheet-foreground-fade-out 0.3s forwards;
+}
