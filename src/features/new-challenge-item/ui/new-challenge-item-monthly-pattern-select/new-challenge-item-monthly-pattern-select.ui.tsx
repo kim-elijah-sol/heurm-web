@@ -84,7 +84,7 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
       {props.monthlyPattern() === 'Select Date' && (
         <p
           class={clsx(
-            'font-semibold mt-2 ml-[68px] px-2 text-sm',
+            'font-semibold mt-2 ml-[68px] px-2 text-sm mb-2',
             CHALLENGE_TEXT_COLOR_500[props.color()]
           )}
         >
@@ -97,7 +97,7 @@ export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
       {props.monthlyPattern() === 'Select Week' && (
         <p
           class={clsx(
-            'font-semibold mt-2 ml-[68px] px-2 text-sm',
+            'font-semibold mt-2 ml-[68px] px-2 text-sm mb-2',
             CHALLENGE_TEXT_COLOR_500[props.color()]
           )}
         >
