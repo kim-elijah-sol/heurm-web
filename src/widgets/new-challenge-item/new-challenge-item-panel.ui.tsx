@@ -6,7 +6,7 @@ import {
   type Component,
   type JSX,
 } from 'solid-js';
-import { ChallengeEditType } from '~/entities/challenge-edit';
+import { type ChallengeEditType } from '~/entities/challenge-edit';
 import { NewChallengeItemRadio } from '~/features/new-challenge-item/ui';
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import type {
@@ -230,9 +230,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   <Form.Label>Interval Pattern</Form.Label>
 
                   <div class='flex items-center gap-2'>
-                    <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
-                      Yearly
-                    </p>
+                    <Form.LeftLabel>Yealry</Form.LeftLabel>
 
                     <NewChallengeItemRadio
                       step={yearlyPatternStep}
@@ -246,16 +244,16 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                           name='challenge-item-yearly-pattern'
                           id={it.toLowerCase().replace(' ', '-')}
                         >
-                          <p class='font-semibold text-[0.75rem]'>{it}</p>
+                          <p class='font-semibold text-[0.75rem] text-center'>
+                            {it}
+                          </p>
                         </NewChallengeItemRadio.Item>
                       ))}
                     </NewChallengeItemRadio>
                   </div>
 
                   <div class='flex items-center gap-2'>
-                    <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
-                      Monthly
-                    </p>
+                    <Form.LeftLabel>Monthly</Form.LeftLabel>
 
                     <NewChallengeItemRadio
                       step={monthlyPatternStep}
@@ -278,9 +276,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   </div>
 
                   <div class='flex items-center gap-2'>
-                    <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
-                      Weekly
-                    </p>
+                    <Form.LeftLabel>Weekly</Form.LeftLabel>
 
                     <NewChallengeItemRadio
                       step={weeklyPatternStep}
@@ -294,7 +290,9 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                           name='challenge-item-weekly-pattern'
                           id={it.toLowerCase().replace(' ', '-')}
                         >
-                          <p class='font-semibold text-[0.75rem]'>{it}</p>
+                          <p class='font-semibold text-[0.75rem] text-center'>
+                            {it}
+                          </p>
                         </NewChallengeItemRadio.Item>
                       ))}
                     </NewChallengeItemRadio>
@@ -395,4 +393,11 @@ const Form = {
   Divider: () => (
     <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white mt-2 mb-8' />
   ),
+  LeftLabel: (props: { children: JSX.Element }) => {
+    return (
+      <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
+        {children(() => props.children)()}
+      </p>
+    );
+  },
 };
