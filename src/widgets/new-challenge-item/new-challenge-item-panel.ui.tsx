@@ -8,6 +8,7 @@ import {
 } from 'solid-js';
 import { type ChallengeEditType } from '~/entities/challenge-edit';
 import {
+  NewChallengeItemMonthlyPatternSelect,
   NewChallengeItemRadio,
   NewChallengeItemWeeklyPatternSelect,
 } from '~/features/new-challenge-item/ui';
@@ -39,16 +40,6 @@ const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
 
 const REPEAT_TYPES: ChallengeItemRepeatType[] = ['EVERY', 'N', 'NM'];
 
-const WEEKLY_PATTERNS: ChallengeItemWeeklyPattern[] = [
-  'Every Day',
-  'Select Day',
-];
-
-const MONTHLY_PATTERNS: ChallengeItemMonthlyPattern[] = [
-  'Every Week',
-  'Select Date',
-  'Select Week',
-];
 const YEARLY_PATTERNS: ChallengeItemYearlyPattern[] = [
   'Every Month',
   'Select Month',
@@ -87,8 +78,6 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
 
   const [monthlyPattern, setMonthlyPattern] =
     createSignal<ChallengeItemMonthlyPattern>('Every Week');
-
-  const monthlyPatternStep = () => MONTHLY_PATTERNS.indexOf(monthlyPattern());
 
   const [yearlyPattern, setYearlyPattern] =
     createSignal<ChallengeItemYearlyPattern>('Every Month');
@@ -256,28 +245,11 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     </NewChallengeItemRadio>
                   </div>
 
-                  <div class='flex items-center gap-2'>
-                    <Form.LeftLabel>Monthly</Form.LeftLabel>
-
-                    <NewChallengeItemRadio
-                      step={monthlyPatternStep}
-                      class='flex-1'
-                    >
-                      {MONTHLY_PATTERNS.map((it) => (
-                        <NewChallengeItemRadio.Item
-                          color={props.color}
-                          checked={() => monthlyPattern() === it}
-                          onClick={() => setMonthlyPattern(it)}
-                          name='challenge-item-monthly-pattern'
-                          id={it.toLowerCase().replace(' ', '-')}
-                        >
-                          <p class='font-semibold text-[0.75rem] text-center'>
-                            {it}
-                          </p>
-                        </NewChallengeItemRadio.Item>
-                      ))}
-                    </NewChallengeItemRadio>
-                  </div>
+                  <NewChallengeItemMonthlyPatternSelect
+                    monthlyPattern={monthlyPattern}
+                    setMonthlyPattern={setMonthlyPattern}
+                    color={props.color}
+                  />
 
                   <NewChallengeItemWeeklyPatternSelect
                     weeklyPattern={weeklyPattern}
