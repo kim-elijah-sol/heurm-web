@@ -224,7 +224,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   id='complete'
                 >
                   <CheckCheck
-                    size={28}
+                    size={24}
                     stroke='currentColor'
                     className='transition-all'
                   />
@@ -237,7 +237,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   id='over'
                 >
                   <ChevronsUp
-                    size={28}
+                    size={24}
                     stroke='currentColor'
                     className='transition-all'
                   />
@@ -250,7 +250,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   id='under'
                 >
                   <ChevronsDown
-                    size={28}
+                    size={24}
                     stroke='currentColor'
                     className='transition-all'
                   />
