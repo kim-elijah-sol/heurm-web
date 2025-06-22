@@ -2,7 +2,9 @@ import clsx from 'clsx';
 import {
   children,
   createSignal,
+  Match,
   Show,
+  Switch,
   type Accessor,
   type Component,
   type JSX,
@@ -101,6 +103,48 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   };
 
   const restPlaceholderText = () => `M ${repeatUnit()}`;
+
+  const yearlyPatternSelect = () => (
+    <NewChallengeItemYearlyPatternSelect
+      yearlyPattern={yearlyPattern}
+      setYearlyPattern={setYearlyPattern}
+      color={props.color}
+      months={months}
+      setMonths={setMonths}
+    />
+  );
+
+  const monthlyPatternSelect = () => (
+    <NewChallengeItemMonthlyPatternSelect
+      monthlyPattern={monthlyPattern}
+      setMonthlyPattern={setMonthlyPattern}
+      color={props.color}
+      dates={dates}
+      setDates={setDates}
+      weeks={weeks}
+      setWeeks={setWeeks}
+    />
+  );
+
+  const weeklyPatternSelect = () => (
+    <NewChallengeItemWeeklyPatternSelect
+      weeklyPattern={weeklyPattern}
+      setWeeklyPattern={setWeeklyPattern}
+      days={days}
+      setDays={setDays}
+      color={props.color}
+    />
+  );
+
+  const monthlyPatternSelects = () => (
+    <>
+      {monthlyPatternSelect()}
+
+      <Show when={monthlyPattern() !== 'Select Date'}>
+        {weeklyPatternSelect()}
+      </Show>
+    </>
+  );
 
   return (
     <Panel.Slide close={props.close}>
@@ -216,31 +260,21 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
               <Form.Wrapper>
                 <Form.Label>Interval Pattern</Form.Label>
 
-                <NewChallengeItemYearlyPatternSelect
-                  yearlyPattern={yearlyPattern}
-                  setYearlyPattern={setYearlyPattern}
-                  color={props.color}
-                  months={months}
-                  setMonths={setMonths}
-                />
+                <Switch>
+                  <Match when={intervalType() === 'WEEKLY'}>
+                    {weeklyPatternSelect()}
+                  </Match>
 
-                <NewChallengeItemMonthlyPatternSelect
-                  monthlyPattern={monthlyPattern}
-                  setMonthlyPattern={setMonthlyPattern}
-                  color={props.color}
-                  dates={dates}
-                  setDates={setDates}
-                  weeks={weeks}
-                  setWeeks={setWeeks}
-                />
+                  <Match when={intervalType() === 'MONTHLY'}>
+                    {monthlyPatternSelects()}
+                  </Match>
 
-                <NewChallengeItemWeeklyPatternSelect
-                  weeklyPattern={weeklyPattern}
-                  setWeeklyPattern={setWeeklyPattern}
-                  days={days}
-                  setDays={setDays}
-                  color={props.color}
-                />
+                  <Match when={intervalType() === 'YEARLY'}>
+                    {yearlyPatternSelect()}
+
+                    {monthlyPatternSelects()}
+                  </Match>
+                </Switch>
               </Form.Wrapper>
 
               <Form.Divider />
