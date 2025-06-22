@@ -18,7 +18,6 @@ import {
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import type {
   ChallengeColor,
-  ChallengeDay,
   ChallengeItemIntervalType,
   ChallengeItemMonthlyPattern,
   ChallengeItemRepeatType,
@@ -65,7 +64,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   const [weeklyPattern, setWeeklyPattern] =
     createSignal<ChallengeItemWeeklyPattern>('Every Day');
 
-  const [days, setDays] = createSignal<ChallengeDay[]>([]);
+  const [days, setDays] = createSignal<number[]>([]);
 
   const [monthlyPattern, setMonthlyPattern] =
     createSignal<ChallengeItemMonthlyPattern>('Every Week');

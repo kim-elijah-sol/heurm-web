@@ -1,11 +1,10 @@
 import clsx from 'clsx';
 import { type Accessor, type Component, type Setter } from 'solid-js';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
-import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
+import { CHALLENGE_DAY, CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import type {
   ChallengeColor,
-  ChallengeDay,
   ChallengeItemWeeklyPattern,
 } from '~/shared/types';
 import { NewChallengeItemDaySelectSheet } from '../new-challenge-item-pattern-select-sheets';
@@ -15,8 +14,8 @@ type Props = {
   weeklyPattern: Accessor<ChallengeItemWeeklyPattern>;
   setWeeklyPattern: Setter<ChallengeItemWeeklyPattern>;
   color: Accessor<ChallengeColor>;
-  days: Accessor<ChallengeDay[]>;
-  setDays: Setter<ChallengeDay[]>;
+  days: Accessor<number[]>;
+  setDays: Setter<number[]>;
 };
 
 export const NewChallengeItemWeeklyPatternSelect: Component<Props> = (
@@ -71,7 +70,10 @@ export const NewChallengeItemWeeklyPatternSelect: Component<Props> = (
             CHALLENGE_TEXT_COLOR_500[props.color()]
           )}
         >
-          {props.days().join(', ')}
+          {props
+            .days()
+            .map((it) => CHALLENGE_DAY[it])
+            .join(', ')}
         </p>
       )}
     </div>

@@ -9,18 +9,18 @@ import {
   CHALLENGE_DAY,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import { ChallengeColor, ChallengeDay } from '~/shared/types';
+import { ChallengeColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
 
 type Props = {
   close: () => void;
   color: Accessor<ChallengeColor>;
-  onSubmit: (days: ChallengeDay[]) => void;
-  defaultDay: Accessor<ChallengeDay[]>;
+  onSubmit: (days: number[]) => void;
+  defaultDay: Accessor<number[]>;
 };
 
 export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
-  const [days, setDays] = createSignal<ChallengeDay[]>(props.defaultDay());
+  const [days, setDays] = createSignal<number[]>(props.defaultDay());
 
   const dayClassName =
     'w-10 h-10 text-[1.25rem] transition-all active:scale-90 rounded-[42%] shadow-sm active:shadow-md border border-gray-100';
@@ -63,18 +63,18 @@ export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
           </div>
 
           <div class='flex justify-between'>
-            {CHALLENGE_DAY.map((day) => (
+            {CHALLENGE_DAY.map((day, dayIndex) => (
               <button
                 onClick={() => {
                   setDays(
-                    days().includes(day)
-                      ? days().filter((it) => it !== day)
-                      : days().concat(day)
+                    days().includes(dayIndex)
+                      ? days().filter((it) => it !== dayIndex)
+                      : days().concat(dayIndex)
                   );
                 }}
                 class={clsx(
                   dayClassName,
-                  days().includes(day)
+                  days().includes(dayIndex)
                     ? clsx(
                         activeDayClassName,
                         day === 'SUN'
@@ -104,11 +104,11 @@ export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
                 utilityButtonClassName,
                 getUtilityButtonColorClassName(
                   days().length === 5 &&
-                    days().includes('SUN') === false &&
-                    days().includes('SAT') === false
+                    days().includes(0) === false &&
+                    days().includes(6) === false
                 )
               )}
-              onClick={() => setDays(['MON', 'TUE', 'WED', 'THU', 'FRI'])}
+              onClick={() => setDays([1, 2, 3, 4, 5])}
             >
               WEEK-DAY
             </button>
@@ -117,11 +117,11 @@ export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
                 utilityButtonClassName,
                 getUtilityButtonColorClassName(
                   days().length === 2 &&
-                    days().includes('SUN') === true &&
-                    days().includes('SAT') === true
+                    days().includes(0) === true &&
+                    days().includes(6) === true
                 )
               )}
-              onClick={() => setDays(['SAT', 'SUN'])}
+              onClick={() => setDays([0, 6])}
             >
               WEEK-END
             </button>
@@ -139,11 +139,7 @@ export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
             onClick={() => {
               close();
 
-              const sortedDays = CHALLENGE_DAY.filter((day) =>
-                days().includes(day)
-              );
-
-              props.onSubmit(sortedDays);
+              props.onSubmit([...days()].sort((a, b) => a - b));
             }}
           >
             Select
