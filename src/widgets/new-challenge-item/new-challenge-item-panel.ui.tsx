@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import {
   children,
   createSignal,
+  Show,
   type Accessor,
   type Component,
   type JSX,
@@ -166,7 +167,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                 </NewChallengeItemRadio.Item>
               </NewChallengeItemRadio>
             </Form.Wrapper>
-            {type() !== 'COMPLETE' && (
+
+            <Show when={type() !== 'COMPLETE'}>
               <Form.Wrapper>
                 <Form.Label>Target Count &nbsp;&&nbsp; Unit</Form.Label>
                 <div class='flex w-full gap-2'>
@@ -184,7 +186,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   />
                 </div>
               </Form.Wrapper>
-            )}
+            </Show>
 
             <Form.Divider />
 
@@ -205,35 +207,33 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
               </NewChallengeItemRadio>
             </Form.Wrapper>
 
-            {intervalType() !== 'DAILY' && (
-              <>
-                <Form.Wrapper>
-                  <Form.Label>Interval Pattern</Form.Label>
+            <Show when={intervalType() !== 'DAILY'}>
+              <Form.Wrapper>
+                <Form.Label>Interval Pattern</Form.Label>
 
-                  <NewChallengeItemYearlyPatternSelect
-                    yearlyPattern={yearlyPattern}
-                    setYearlyPattern={setYearlyPattern}
-                    color={props.color}
-                  />
+                <NewChallengeItemYearlyPatternSelect
+                  yearlyPattern={yearlyPattern}
+                  setYearlyPattern={setYearlyPattern}
+                  color={props.color}
+                />
 
-                  <NewChallengeItemMonthlyPatternSelect
-                    monthlyPattern={monthlyPattern}
-                    setMonthlyPattern={setMonthlyPattern}
-                    color={props.color}
-                  />
+                <NewChallengeItemMonthlyPatternSelect
+                  monthlyPattern={monthlyPattern}
+                  setMonthlyPattern={setMonthlyPattern}
+                  color={props.color}
+                />
 
-                  <NewChallengeItemWeeklyPatternSelect
-                    weeklyPattern={weeklyPattern}
-                    setWeeklyPattern={setWeeklyPattern}
-                    days={days}
-                    setDays={setDays}
-                    color={props.color}
-                  />
-                </Form.Wrapper>
+                <NewChallengeItemWeeklyPatternSelect
+                  weeklyPattern={weeklyPattern}
+                  setWeeklyPattern={setWeeklyPattern}
+                  days={days}
+                  setDays={setDays}
+                  color={props.color}
+                />
+              </Form.Wrapper>
 
-                <Form.Divider />
-              </>
-            )}
+              <Form.Divider />
+            </Show>
 
             <Form.Wrapper>
               <Form.Label>Repeat Type</Form.Label>
