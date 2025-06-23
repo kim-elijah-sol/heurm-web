@@ -1,4 +1,8 @@
-import { createEffect, createSignal } from 'solid-js';
+import { useQueryClient } from '@tanstack/solid-query';
+import { format } from 'date-fns';
+import { createEffect, createSignal, type Accessor } from 'solid-js';
+import { challengeEditQueries } from '~/entities/challenge-edit';
+import type { PostChallengeItemRequest } from '~/entities/challenge-edit/challenge-edit.type';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { getMidnight } from '~/features/main/fx';
 import { createInput } from '~/shared/hook';
@@ -12,7 +16,11 @@ import type {
   Nullable,
 } from '~/shared/types';
 
-export const createNewChallengeItemForm = () => {
+export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
+  const queryClient = useQueryClient();
+
+  const postChallengeItem = challengeEditQueries.postChallengeItemMutation();
+
   const [name, handleInputName] = createInput();
 
   const nameTitle = () =>
@@ -118,6 +126,83 @@ export const createNewChallengeItemForm = () => {
     }
   });
 
+  const disabled = () => {
+    if (name().trim().length === 0) return true;
+    if (type() !== 'COMPLETE' && targetCount().trim().length === 0) return true;
+    if (repeatType() === 'N' && repeat().trim().length === 0) return true;
+    if (
+      repeatType() === 'NM' &&
+      (repeat().trim().length === 0 || rest().trim().length === 0)
+    )
+      return true;
+
+    return false;
+  };
+
+  const handleSave = async () => {
+    const request: PostChallengeItemRequest = {
+      challengeId: challengeId(),
+      name: name(),
+      type: type(),
+      intervalType: intervalType(),
+      repeatType: repeatType(),
+      startAt: format(startAt()!, 'yyyy-MM-dd'),
+    };
+
+    if (type() !== 'COMPLETE') {
+      request.targetCount = Number(targetCount());
+      request.unit = unit();
+
+      if (accumulate()) {
+        request.accumulateType = accumulateType();
+      }
+    }
+
+    if (repeatType() !== 'EVERY') {
+      request.repeat = Number(repeat());
+
+      if (repeatType() === 'NM') {
+        request.rest = Number(rest());
+      }
+    }
+
+    const putWeeklyPatternData = () => {
+      if (weeklyPattern() === 'Select Day') {
+        request.days = days();
+      }
+    };
+
+    const putMonthlyPatternData = () => {
+      if (monthlyPattern() === 'Select Date') {
+        request.dates = dates();
+      } else if (monthlyPattern() === 'Select Week') {
+        request.weeks = weeks();
+        putWeeklyPatternData();
+      }
+    };
+
+    if (intervalType() === 'WEEKLY') {
+      putWeeklyPatternData();
+    } else if (intervalType() === 'MONTHLY') {
+      putMonthlyPatternData();
+    } else if (intervalType() === 'YEARLY') {
+      if (yearlyPattern() === 'Select Month') {
+        request.months = months();
+        putMonthlyPatternData();
+      }
+    }
+
+    if (endAt()) {
+      request.endAt = format(endAt()!, 'yyyy-MM-dd');
+    }
+
+    await postChallengeItem.mutateAsync(request);
+
+    queryClient.invalidateQueries({
+      queryKey: ['getChallengeItem', challengeId()],
+    });
+  };
+
   return {
     name,
     handleInputName,
@@ -164,9 +249,10 @@ export const createNewChallengeItemForm = () => {
     endAt,
     setEndAt,
     repeatUnit,
-    everyRadioText,
     nRadioText,
     getRepeatRadioText,
     restPlaceholderText,
+    disabled,
+    handleSave,
   };
 };

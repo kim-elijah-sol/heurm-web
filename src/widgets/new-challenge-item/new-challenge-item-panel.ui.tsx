@@ -22,6 +22,7 @@ import {
   CHALLENGE_BORDER_COLOR_400,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
+import { toast } from '~/shared/lib';
 import type { ChallengeColor } from '~/shared/types';
 import {
   Check,
@@ -36,6 +37,7 @@ import {
 type Props = {
   close: () => void;
   color: Accessor<ChallengeColor>;
+  challengeId: Accessor<string>;
 };
 
 export const NewChallengeItemPanel: Component<Props> = (props) => {
@@ -88,11 +90,12 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
     endAt,
     setEndAt,
     repeatUnit,
-    everyRadioText,
     nRadioText,
     getRepeatRadioText,
     restPlaceholderText,
-  } = createNewChallengeItemForm();
+    disabled,
+    handleSave,
+  } = createNewChallengeItemForm(props.challengeId);
 
   const yearlyPatternSelect = () => (
     <NewChallengeItemYearlyPatternSelect
@@ -408,7 +411,19 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
             </Form.Wrapper>
           </div>
 
-          <Panel.CTAButton color={props.color}>Add</Panel.CTAButton>
+          <Panel.CTAButton
+            color={props.color}
+            disabled={disabled()}
+            onClick={async () => {
+              await handleSave();
+
+              close();
+
+              toast.open(`🎉 '${name()}' Challenge Item is added!`);
+            }}
+          >
+            Add
+          </Panel.CTAButton>
         </>
       )}
     </Panel.Slide>

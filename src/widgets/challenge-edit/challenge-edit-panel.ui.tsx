@@ -98,6 +98,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                 <NewChallengeItemPanel
                   close={newChallengeItemClose}
                   color={color}
+                  challengeId={props.challengeId}
                 />
               )}
             </div>
@@ -105,7 +106,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             <Switch>
               <Match when={challengeItem.data && challengeItem.data.length > 0}>
                 <div class='w-full flex flex-col gap-4 mb-4'>
-                  <Index each={challengeItem.data}>
+                  <Index each={challengeItem.data!}>
                     {(it) => <>{it().name}</>}
                   </Index>
                 </div>
