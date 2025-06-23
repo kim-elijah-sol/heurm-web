@@ -59,8 +59,6 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
   const handleSave = async () => {
     await handlePatchChallenge();
 
-    challengeItem.refetch();
-
     queryClient.invalidateQueries({
       queryKey: ['getChallenge'],
     });
