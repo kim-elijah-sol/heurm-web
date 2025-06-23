@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/solid-query';
+import { reconcile } from 'solid-js/store';
 import { toastAtError } from '~/shared/fx';
 import { getChallenge, patchHistory, postHistory } from './main.api';
 
@@ -6,6 +7,7 @@ export const getChallengeQuery = () =>
   useQuery(() => ({
     queryKey: ['getChallenge'],
     queryFn: getChallenge,
+    reconcile: (oldData, newData) => reconcile(newData)(oldData),
   }));
 
 export const postHistoryMutation = (
