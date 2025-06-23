@@ -16,6 +16,8 @@ type Props = {
   isClosing: Accessor<boolean>;
   onClose: () => void;
   class?: Accessor<string>;
+
+  position?: 'top' | 'bottom';
 };
 
 export const WeekCalendar: Component<Props> = (props) => {
@@ -81,9 +83,11 @@ export const WeekCalendar: Component<Props> = (props) => {
   return (
     <div
       class={clsx(
-        'week-calendar absolute top-full w-full p-2 rounded-2xl z-20 flex flex-col gap-3',
-        props.isClosing() && 'closing',
-        props.class?.()
+        `week-calendar-${props.position ?? 'top'}`,
+        'week-calendar absolute w-full p-2 rounded-2xl z-20 flex flex-col gap-3',
+        props.isClosing() && `week-calendar-${props.position ?? 'top'}-closing`,
+        props.class?.(),
+        props.position === 'bottom' ? 'bottom-full' : 'top-full'
       )}
     >
       <button

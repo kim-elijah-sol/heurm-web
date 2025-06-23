@@ -1,4 +1,4 @@
-@keyframes week-calendar {
+@keyframes week-calendar-top {
   0% {
     transform: translateY(0px);
     opacity: 0;
@@ -9,8 +9,18 @@
   }
 }
 
+@keyframes week-calendar-bottom {
+  0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
 .week-calendar {
-  animation: week-calendar 0.3s forwards;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.8);
@@ -18,11 +28,19 @@
     inset 0 4px 20px rgba(255, 255, 255, 0.3);
 }
 
+.week-calendar-top {
+  animation: week-calendar-top 0.3s forwards;
+}
+
+.week-calendar-bottom {
+  animation: week-calendar-bottom 0.3s forwards;
+}
+
 .week-calendar.bright {
   background: rgba(255, 255, 255, 0.9);
 }
 
-@keyframes closing {
+@keyframes closing-top {
   0% {
     transform: translateY(8px);
     opacity: 1;
@@ -33,8 +51,23 @@
   }
 }
 
-.closing {
-  animation: closing 0.3s forwards;
+@keyframes closing-bottom {
+  0% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+}
+
+.week-calendar-top-closing {
+  animation: closing-top 0.3s forwards;
+}
+
+.week-calendar-bottom-closing {
+  animation: closing-bottom 0.3s forwards;
 }
 
 .week-calendar-date {

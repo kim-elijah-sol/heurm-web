@@ -1,6 +1,8 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import { type Accessor, type Component, type Setter } from 'solid-js';
+import { WeekCalendar } from '~/features/main/ui';
+import { createBoolean } from '~/shared/hook';
 import type { Nullable } from '~/shared/types';
 
 type Props = {
@@ -10,18 +12,53 @@ type Props = {
 };
 
 export const NewChallengeItemDatePicker: Component<Props> = (props) => {
+  const [isWeekCalendarOpened, open, _close, toggle] = createBoolean();
+
+  const [isClosing, closeStart, closeEnd] = createBoolean();
+
   const date = () => props.date();
 
+  const close = () => {
+    closeStart();
+    setTimeout(() => {
+      closeEnd();
+      _close();
+    }, 300);
+  };
+
   return (
-    <button class='px-4 py-4 rounded-[24px] flex-1 transition-all bg-slate-100 active:bg-slate-200 active:scale-95'>
-      <p
+    <>
+      <button
+        onClick={() => (isWeekCalendarOpened() ? close() : open())}
         class={clsx(
-          'font-semibold transition-all text-left',
-          !date() && 'text-gray-400'
+          'px-4 py-4 rounded-[24px] flex-1 transition-all active:scale-95',
+          !isWeekCalendarOpened()
+            ? 'bg-slate-100 active:bg-slate-200'
+            : 'bg-slate-200 active:bg-slate-300'
         )}
       >
-        {date() ? format(date()!, 'yyyy.MM.dd') : props.placeholder}
-      </p>
-    </button>
+        <p
+          class={clsx(
+            'font-semibold transition-all text-left',
+            !date() && 'text-gray-400'
+          )}
+        >
+          {date() ? format(date()!, 'yyyy.MM.dd') : props.placeholder}
+        </p>
+      </button>
+
+      {isWeekCalendarOpened() && (
+        <WeekCalendar
+          date={props.date}
+          onChange={(date) => {
+            props.onChange(date);
+            close();
+          }}
+          isClosing={isClosing}
+          onClose={close}
+          position='bottom'
+        />
+      )}
+    </>
   );
 };
