@@ -1,72 +1,172 @@
-import { createSignal } from 'solid-js';
-import { type NewChallengeItemType } from '~/entities/new-challenge-item';
+import { createEffect, createSignal } from 'solid-js';
+import { newChallengeItemConstant } from '~/entities/new-challenge-item';
+import { getMidnight } from '~/features/main/fx';
+import { createInput } from '~/shared/hook';
 import type {
+  ChallengeItemIntervalType,
+  ChallengeItemMonthlyPattern,
+  ChallengeItemRepeatType,
   ChallengeItemType,
+  ChallengeItemWeeklyPattern,
+  ChallengeItemYearlyPattern,
   Nullable,
-  RollingDisplayType,
 } from '~/shared/types';
-import { getStepValue } from '../fx';
-import { createChallengeItemDay } from './create-challenge-item-day.hook';
 
 export const createNewChallengeItemForm = () => {
-  const [step, setStep] =
-    createSignal<NewChallengeItemType.NewChallengeItemStepType>('type');
+  const [name, handleInputName] = createInput();
+
+  const nameTitle = () =>
+    name().trim().length > 0 ? name().trim() : 'New Challenge Item';
 
   const [type, setType] =
-    createSignal<Nullable<Uppercase<ChallengeItemType>>>(null);
+    createSignal<Uppercase<ChallengeItemType>>('COMPLETE');
 
-  const [name, setName] = createSignal<string>('');
+  const typeStep = () =>
+    type() === 'COMPLETE' ? 0 : type() === 'OVER' ? 1 : 2;
 
-  const [count, setCount] = createSignal<string>('');
+  const [targetCount, handleInputTargetCount] = createInput();
 
-  const [unit, setUnit] = createSignal<string>('');
+  const [unit, handleInputUnit] = createInput();
 
-  const [day, handleChangeDay] = createChallengeItemDay();
+  const [intervalType, setIntervalType] =
+    createSignal<ChallengeItemIntervalType>('DAILY');
 
-  const getDisplayType =
-    (_step: NewChallengeItemType.NewChallengeItemStepType) =>
-    (): RollingDisplayType => {
-      const currentStepValue = getStepValue(step());
-      const targetStepValue = getStepValue(_step);
+  const intervalTypeStep = () =>
+    newChallengeItemConstant.INTERVAL_TYPES.indexOf(intervalType());
 
-      return currentStepValue === targetStepValue
-        ? 'current'
-        : currentStepValue > targetStepValue
-        ? 'end'
-        : 'ready';
-    };
+  const [repeatType, setRepeatType] =
+    createSignal<ChallengeItemRepeatType>('EVERY');
 
-  const maxStep = () => {
-    if (step() !== 'type') {
-      if (type() === 'COMPLETE') return 2;
-      return 3;
-    }
+  const repeatTypeStep = () =>
+    newChallengeItemConstant.REPEAT_TYPES.indexOf(repeatType());
 
-    return null;
+  const [repeat, setRepeat] = createSignal<string>('');
+
+  const [rest, setRest] = createSignal<string>('');
+
+  const [weeklyPattern, setWeeklyPattern] =
+    createSignal<ChallengeItemWeeklyPattern>('Every Day');
+
+  const [days, setDays] = createSignal<number[]>([]);
+
+  const [monthlyPattern, setMonthlyPattern] =
+    createSignal<ChallengeItemMonthlyPattern>('Every Week');
+
+  const [dates, setDates] = createSignal<number[]>([]);
+
+  const [weeks, setWeeks] = createSignal<number[]>([]);
+
+  const [yearlyPattern, setYearlyPattern] =
+    createSignal<ChallengeItemYearlyPattern>('Every Month');
+
+  const [months, setMonths] = createSignal<number[]>([]);
+
+  const [accumulate, setAccumulate] = createSignal<boolean>(false);
+
+  const [accumulateType, setAccumulateType] =
+    createSignal<ChallengeItemIntervalType>('DAILY');
+
+  const accumulateTypes = (): ChallengeItemIntervalType[] => {
+    const result: ChallengeItemIntervalType[] = ['DAILY'];
+
+    const step = newChallengeItemConstant.INTERVAL_TYPES.indexOf(
+      intervalType()
+    );
+
+    if (step >= 1) result.push('WEEKLY');
+    if (step >= 2) result.push('MONTHLY');
+    if (step >= 3) result.push('YEARLY');
+
+    return result;
   };
 
-  const currentStep = () => {
-    if (type() === 'COMPLETE') {
-      return step() === 'name' ? 1 : 2;
-    } else {
-      return step() === 'name' ? 1 : step() === 'count' ? 2 : 3;
-    }
+  const accumulateTypeStep = () => accumulateTypes().indexOf(accumulateType());
+
+  const [startAt, setStartAt] = createSignal<Nullable<Date>>(getMidnight());
+
+  const [endAt, setEndAt] = createSignal<Nullable<Date>>(null);
+
+  const repeatUnit = () =>
+    ((
+      {
+        DAILY: 'Day',
+        WEEKLY: 'Week',
+        MONTHLY: 'Month',
+        YEARLY: 'Year',
+      } as const
+    )[intervalType()]);
+
+  const everyRadioText = () => `Every ${repeatUnit()}`;
+
+  const nRadioText = () => `Every N ${repeatUnit()}`;
+
+  const getRepeatRadioText = (repeatType: ChallengeItemRepeatType) => {
+    return repeatType === 'EVERY'
+      ? everyRadioText()
+      : repeatType === 'N'
+      ? nRadioText()
+      : 'N on, M off';
   };
+
+  const restPlaceholderText = () => `M ${repeatUnit()}`;
+
+  createEffect(() => {
+    if (accumulateTypeStep() === -1) {
+      setAccumulateType(
+        newChallengeItemConstant.INTERVAL_TYPES[accumulateTypes().length - 1]
+      );
+    }
+  });
 
   return {
-    setStep,
+    name,
+    handleInputName,
+    nameTitle,
     type,
     setType,
-    name,
-    setName,
-    count,
-    setCount,
+    typeStep,
+    targetCount,
+    handleInputTargetCount,
     unit,
-    setUnit,
-    day,
-    handleChangeDay,
-    getDisplayType,
-    maxStep,
-    currentStep,
+    handleInputUnit,
+    intervalType,
+    setIntervalType,
+    intervalTypeStep,
+    repeatType,
+    setRepeatType,
+    repeatTypeStep,
+    repeat,
+    setRepeat,
+    rest,
+    setRest,
+    weeklyPattern,
+    setWeeklyPattern,
+    days,
+    setDays,
+    monthlyPattern,
+    setMonthlyPattern,
+    dates,
+    setDates,
+    weeks,
+    setWeeks,
+    yearlyPattern,
+    setYearlyPattern,
+    months,
+    setMonths,
+    accumulate,
+    setAccumulate,
+    accumulateType,
+    setAccumulateType,
+    accumulateTypes,
+    accumulateTypeStep,
+    startAt,
+    setStartAt,
+    endAt,
+    setEndAt,
+    repeatUnit,
+    everyRadioText,
+    nRadioText,
+    getRepeatRadioText,
+    restPlaceholderText,
   };
 };

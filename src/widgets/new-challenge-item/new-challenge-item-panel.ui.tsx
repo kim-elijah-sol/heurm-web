@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import {
   children,
-  createEffect,
-  createSignal,
   Match,
   Show,
   Switch,
@@ -12,7 +10,7 @@ import {
 } from 'solid-js';
 import { type ChallengeEditType } from '~/entities/challenge-edit';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
-import { getMidnight } from '~/features/main/fx';
+import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
 import {
   NewChallengeItemDatePicker,
   NewChallengeItemMonthlyPatternSelect,
@@ -25,16 +23,7 @@ import {
   CHALLENGE_BORDER_COLOR_400,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import type {
-  ChallengeColor,
-  ChallengeItemIntervalType,
-  ChallengeItemMonthlyPattern,
-  ChallengeItemRepeatType,
-  ChallengeItemType,
-  ChallengeItemWeeklyPattern,
-  ChallengeItemYearlyPattern,
-  Nullable,
-} from '~/shared/types';
+import type { ChallengeColor } from '~/shared/types';
 import {
   Check,
   CheckCheck,
@@ -55,95 +44,57 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   const inputBaseClassName =
     'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
 
-  const [name, setName] = createSignal<string>('');
-
-  const [type, setType] =
-    createSignal<Uppercase<ChallengeItemType>>('COMPLETE');
-
-  const typeStep = () =>
-    type() === 'COMPLETE' ? 0 : type() === 'OVER' ? 1 : 2;
-
-  const [intervalType, setIntervalType] =
-    createSignal<ChallengeItemIntervalType>('DAILY');
-
-  const intervalTypeStep = () =>
-    newChallengeItemConstant.INTERVAL_TYPES.indexOf(intervalType());
-
-  const [repeatType, setRepeatType] =
-    createSignal<ChallengeItemRepeatType>('EVERY');
-
-  const repeatTypeStep = () =>
-    newChallengeItemConstant.REPEAT_TYPES.indexOf(repeatType());
-
-  const [repeat, setRepeat] = createSignal<string>('');
-
-  const [rest, setRest] = createSignal<string>('');
-
-  const [weeklyPattern, setWeeklyPattern] =
-    createSignal<ChallengeItemWeeklyPattern>('Every Day');
-
-  const [days, setDays] = createSignal<number[]>([]);
-
-  const [monthlyPattern, setMonthlyPattern] =
-    createSignal<ChallengeItemMonthlyPattern>('Every Week');
-
-  const [dates, setDates] = createSignal<number[]>([]);
-
-  const [weeks, setWeeks] = createSignal<number[]>([]);
-
-  const [yearlyPattern, setYearlyPattern] =
-    createSignal<ChallengeItemYearlyPattern>('Every Month');
-
-  const [months, setMonths] = createSignal<number[]>([]);
-
-  const [accumulate, setAccumulate] = createSignal<boolean>(false);
-
-  const [accumulateType, setAccumulateType] =
-    createSignal<ChallengeItemIntervalType>('DAILY');
-
-  const accumulateTypes = (): ChallengeItemIntervalType[] => {
-    const result: ChallengeItemIntervalType[] = ['DAILY'];
-
-    const step = newChallengeItemConstant.INTERVAL_TYPES.indexOf(
-      intervalType()
-    );
-
-    if (step >= 1) result.push('WEEKLY');
-    if (step >= 2) result.push('MONTHLY');
-    if (step >= 3) result.push('YEARLY');
-
-    return result;
-  };
-
-  const accumulateTypeStep = () => accumulateTypes().indexOf(accumulateType());
-
-  const [startAt, setStartAt] = createSignal<Nullable<Date>>(getMidnight());
-
-  const [endAt, setEndAt] = createSignal<Nullable<Date>>(null);
-
-  const repeatUnit = () =>
-    ((
-      {
-        DAILY: 'Day',
-        WEEKLY: 'Week',
-        MONTHLY: 'Month',
-        YEARLY: 'Year',
-      } as const
-    )[intervalType()]);
-
-  const everyRadioText = () => `Every ${repeatUnit()}`;
-
-  const nRadioText = () => `Every N ${repeatUnit()}`;
-
-  const getRepeatRadioText = (repeatType: ChallengeItemRepeatType) => {
-    return repeatType === 'EVERY'
-      ? everyRadioText()
-      : repeatType === 'N'
-      ? nRadioText()
-      : 'N on, M off';
-  };
-
-  const restPlaceholderText = () => `M ${repeatUnit()}`;
+  const {
+    name,
+    handleInputName,
+    nameTitle,
+    type,
+    setType,
+    typeStep,
+    targetCount,
+    handleInputTargetCount,
+    unit,
+    handleInputUnit,
+    intervalType,
+    setIntervalType,
+    intervalTypeStep,
+    repeatType,
+    setRepeatType,
+    repeatTypeStep,
+    repeat,
+    setRepeat,
+    rest,
+    setRest,
+    weeklyPattern,
+    setWeeklyPattern,
+    days,
+    setDays,
+    monthlyPattern,
+    setMonthlyPattern,
+    dates,
+    setDates,
+    weeks,
+    setWeeks,
+    yearlyPattern,
+    setYearlyPattern,
+    months,
+    setMonths,
+    accumulate,
+    setAccumulate,
+    accumulateType,
+    setAccumulateType,
+    accumulateTypes,
+    accumulateTypeStep,
+    startAt,
+    setStartAt,
+    endAt,
+    setEndAt,
+    repeatUnit,
+    everyRadioText,
+    nRadioText,
+    getRepeatRadioText,
+    restPlaceholderText,
+  } = createNewChallengeItemForm();
 
   const yearlyPatternSelect = () => (
     <NewChallengeItemYearlyPatternSelect
@@ -187,22 +138,12 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
     </>
   );
 
-  createEffect(() => {
-    if (accumulateTypeStep() === -1) {
-      setAccumulateType(
-        newChallengeItemConstant.INTERVAL_TYPES[accumulateTypes().length - 1]
-      );
-    }
-  });
-
   return (
     <Panel.Slide close={props.close} class='px-0'>
       {(close) => (
         <>
           <div class='absolute flex items-center justify-between left-0 right-0 top-0 p-4 pb-2 bg-white/75 backdrop-blur-sm z-10'>
-            <p class='font-semibold text-2xl'>
-              {name().trim().length > 0 ? name().trim() : 'New Challenge Item'}
-            </p>
+            <p class='font-semibold text-2xl'>{nameTitle()}</p>
             <button
               onClick={close}
               class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
@@ -217,7 +158,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                 type='text'
                 class={inputBaseClassName}
                 value={name()}
-                onInput={(e) => setName(e.target.value)}
+                onInput={handleInputName}
                 placeholder='Challenge Item Name'
               />
             </Form.Wrapper>
@@ -276,11 +217,15 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     inputMode='numeric'
                     class={clsx(inputBaseClassName, 'flex-2')}
                     placeholder='Target Count'
+                    value={targetCount()}
+                    onInput={handleInputTargetCount}
                   />
                   <input
                     type='text'
                     class={clsx(inputBaseClassName, 'flex-1')}
                     placeholder='Unit'
+                    value={unit()}
+                    onInput={handleInputUnit}
                   />
                 </div>
 
