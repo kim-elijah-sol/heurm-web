@@ -2,6 +2,8 @@ import { z } from 'zod';
 import {
   challengeColorSchema,
   challengeDayItemSchema,
+  challengeItemIntervalTypeSchema,
+  challengeItemRepeatTypeSchema,
   challengeItemTypeSchema,
   challengeTitleSchema,
   dateSchema,
@@ -14,10 +16,20 @@ export const getChallengeItemRequestSchema = z.object({
 export const getChallengeItemResponseItemSchema = z.object({
   id: z.string(),
   name: z.string(),
-  days: challengeDayItemSchema,
   type: challengeItemTypeSchema,
+  intervalType: challengeItemIntervalTypeSchema,
+  repeatType: challengeItemRepeatTypeSchema,
+  repeat: z.number().nullable(),
+  rest: z.number().nullable(),
+  days: z.array(z.number()),
+  dates: z.array(z.number()),
+  weeks: z.array(z.number()),
+  months: z.array(z.number()),
   targetCount: z.number().nullable(),
   unit: z.string().nullable(),
+  accumulateType: challengeItemIntervalTypeSchema,
+  startAt: z.string(),
+  endAt: z.string().nullable(),
 });
 
 export const getChallengeItemResponseSchema = z.array(
