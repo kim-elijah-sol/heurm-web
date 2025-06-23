@@ -27,7 +27,7 @@ export const getChallengeItemResponseItemSchema = z.object({
   months: z.array(z.number()),
   targetCount: z.number().nullable(),
   unit: z.string().nullable(),
-  accumulateType: challengeItemIntervalTypeSchema,
+  accumulateType: challengeItemIntervalTypeSchema.nullable(),
   startAt: z.string(),
   endAt: z.string().nullable(),
 });
