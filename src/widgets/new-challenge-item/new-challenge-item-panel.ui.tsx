@@ -241,16 +241,17 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   <div class='flex items-center gap-2'>
                     <div
                       class={clsx(
-                        'p-[2px] rounded-[42%] border transition-all',
+                        'p-[2px] rounded-[42%] border-2 transition-all',
                         accumulate()
                           ? clsx(
                               CHALLENGE_400_BG_COLOR[props.color()],
-                              CHALLENGE_BORDER_COLOR_400[props.color()]
+                              CHALLENGE_BORDER_COLOR_400[props.color()],
+                              'text-white'
                             )
-                          : 'border-gray-300'
+                          : 'border-gray-200 text-gray-300'
                       )}
                     >
-                      <Check size={16} strokeWidth={3} />
+                      <Check size={16} strokeWidth={3} stroke='currentColor' />
                     </div>
 
                     <p
