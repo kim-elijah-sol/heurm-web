@@ -8,7 +8,6 @@ import {
   type Component,
   type JSX,
 } from 'solid-js';
-import { type ChallengeEditType } from '~/entities/challenge-edit';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
 import {
@@ -35,7 +34,6 @@ import {
 } from '~/shared/ui';
 
 type Props = {
-  onSubmit: (challengeItem: ChallengeEditType.ChallengeItemForm) => void;
   close: () => void;
   color: Accessor<ChallengeColor>;
 };
