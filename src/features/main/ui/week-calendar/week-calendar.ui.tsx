@@ -4,6 +4,7 @@ import {
   createMemo,
   createSignal,
   onCleanup,
+  Show,
   type Accessor,
   type Component,
 } from 'solid-js';
@@ -30,6 +31,8 @@ export const WeekCalendar: Component<Props> = (props) => {
   const [year, setYear] = createSignal(current().getFullYear());
 
   const [month, setMonth] = createSignal(current().getMonth() + 1);
+
+  const position = props.position ?? 'top';
 
   const handlePrevMonth = () => {
     let prevMonth = month() - 1;
@@ -99,15 +102,37 @@ export const WeekCalendar: Component<Props> = (props) => {
     onCleanup(() => document.removeEventListener('click', listener));
   });
 
+  const controller = () => (
+    <div class='flex items-center justify-between text-slate-700'>
+      <button
+        class='p-1 rounded-[42%] transition-all active:scale-95 active:bg-slate-200'
+        onClick={handlePrevMonth}
+      >
+        <ChevronLeft />
+      </button>
+
+      <p class='text-slate-700 font-semibold'>
+        {year()}.{month().toString().padStart(2, '0')}
+      </p>
+
+      <button
+        class='p-1 rounded-[42%] transition-all active:scale-95 active:bg-slate-200'
+        onClick={handleNextMonth}
+      >
+        <ChevronRight />
+      </button>
+    </div>
+  );
+
   return (
     <div
       ref={setContainer}
       class={clsx(
-        `week-calendar-${props.position ?? 'top'}`,
+        `week-calendar-${position}`,
         'week-calendar absolute w-full p-2 rounded-2xl z-20 flex flex-col gap-3',
-        props.isClosing() && `week-calendar-${props.position ?? 'top'}-closing`,
+        props.isClosing() && `week-calendar-${position}-closing`,
         props.class?.(),
-        props.position === 'bottom' ? 'bottom-full' : 'top-full'
+        position === 'bottom' ? 'bottom-full' : 'top-full'
       )}
     >
       <button
@@ -118,25 +143,7 @@ export const WeekCalendar: Component<Props> = (props) => {
         <X size={24} />
       </button>
 
-      <div class='flex items-center justify-between text-slate-700'>
-        <button
-          class='p-1 rounded-[42%] transition-all active:scale-95 active:bg-slate-200'
-          onClick={handlePrevMonth}
-        >
-          <ChevronLeft />
-        </button>
-
-        <p class='text-slate-700 font-semibold'>
-          {year()}.{month().toString().padStart(2, '0')}
-        </p>
-
-        <button
-          class='p-1 rounded-[42%] transition-all active:scale-95 active:bg-slate-200'
-          onClick={handleNextMonth}
-        >
-          <ChevronRight />
-        </button>
-      </div>
+      <Show when={position === 'top'}>{controller()}</Show>
 
       <div class='flex flex-col gap-2'>
         {weeks().map((week) => (
@@ -187,6 +194,8 @@ export const WeekCalendar: Component<Props> = (props) => {
           </div>
         ))}
       </div>
+
+      <Show when={position === 'bottom'}>{controller()}</Show>
     </div>
   );
 };
