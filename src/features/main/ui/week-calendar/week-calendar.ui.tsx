@@ -1,7 +1,9 @@
 import clsx from 'clsx';
 import {
+  createEffect,
   createMemo,
   createSignal,
+  onCleanup,
   type Accessor,
   type Component,
 } from 'solid-js';
@@ -21,6 +23,8 @@ type Props = {
 };
 
 export const WeekCalendar: Component<Props> = (props) => {
+  const [container, setContainer] = createSignal<HTMLElement | undefined>();
+
   const current = () => props.date() ?? new Date();
 
   const [year, setYear] = createSignal(current().getFullYear());
@@ -80,8 +84,24 @@ export const WeekCalendar: Component<Props> = (props) => {
     return weeks;
   });
 
+  createEffect(() => {
+    const listener = (event: Event) => {
+      const element = container();
+
+      if (!element || element.contains(event.target as Node)) {
+        return;
+      }
+
+      props.onClose();
+    };
+    document.addEventListener('click', listener);
+
+    onCleanup(() => document.removeEventListener('click', listener));
+  });
+
   return (
     <div
+      ref={setContainer}
       class={clsx(
         `week-calendar-${props.position ?? 'top'}`,
         'week-calendar absolute w-full p-2 rounded-2xl z-20 flex flex-col gap-3',
