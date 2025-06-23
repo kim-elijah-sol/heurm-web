@@ -96,9 +96,19 @@ export const postChallengeItemRequestSchema = z.object({
   challengeId: z.string(),
   name: z.string(),
   type: challengeItemTypeSchema,
-  days: challengeDayItemSchema,
-  targetCount: z.number().optional().nullable(),
-  unit: z.string().optional().nullable(),
+  intervalType: challengeItemIntervalTypeSchema,
+  repeatType: challengeItemRepeatTypeSchema,
+  repeat: z.number().nullable().optional(),
+  rest: z.number().nullable().optional(),
+  days: z.array(z.number()).optional(),
+  dates: z.array(z.number()).optional(),
+  weeks: z.array(z.number()).optional(),
+  months: z.array(z.number()).optional(),
+  targetCount: z.number().nullable().optional(),
+  unit: z.string().nullable().optional(),
+  accumulateType: challengeItemIntervalTypeSchema.optional(),
+  startAt: z.string(),
+  endAt: z.string().nullable().optional(),
 });
 
 export const postChallengeItemResponseSchema = z.object({
