@@ -13,6 +13,7 @@ export * from './loader.ui';
 export * from './login.ui';
 export * from './logout.ui';
 export * from './menu.ui';
+export * from './move-right.ui';
 export * from './plus.ui';
 export * from './send.ui';
 export * from './shield-check.ui';

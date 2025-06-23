@@ -12,7 +12,9 @@ import {
 } from 'solid-js';
 import { type ChallengeEditType } from '~/entities/challenge-edit';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
+import { getMidnight } from '~/features/main/fx';
 import {
+  NewChallengeItemDatePicker,
   NewChallengeItemMonthlyPatternSelect,
   NewChallengeItemRadio,
   NewChallengeItemWeeklyPatternSelect,
@@ -31,12 +33,14 @@ import type {
   ChallengeItemType,
   ChallengeItemWeeklyPattern,
   ChallengeItemYearlyPattern,
+  Nullable,
 } from '~/shared/types';
 import {
   Check,
   CheckCheck,
   ChevronsDown,
   ChevronsUp,
+  MoveRight,
   Panel,
   X,
 } from '~/shared/ui';
@@ -112,6 +116,10 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   };
 
   const accumulateTypeStep = () => accumulateTypes().indexOf(accumulateType());
+
+  const [startAt, setStartAt] = createSignal<Nullable<Date>>(getMidnight());
+
+  const [endAt, setEndAt] = createSignal<Nullable<Date>>(null);
 
   const repeatUnit = () =>
     ((
@@ -434,6 +442,25 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   </div>
                 </div>
               )}
+            </Form.Wrapper>
+
+            <Form.Divider />
+
+            <Form.Wrapper>
+              <Form.Label>Period</Form.Label>
+
+              <div class='flex items-center justify-between gap-4 relative'>
+                <NewChallengeItemDatePicker
+                  date={startAt}
+                  onChange={setStartAt}
+                />
+                <MoveRight />
+                <NewChallengeItemDatePicker
+                  date={endAt}
+                  onChange={setEndAt}
+                  placeholder='End Date'
+                />
+              </div>
             </Form.Wrapper>
           </div>
 
