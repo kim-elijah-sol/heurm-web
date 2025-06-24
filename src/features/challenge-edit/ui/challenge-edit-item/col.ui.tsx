@@ -1,10 +1,7 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import { type Accessor, type Component } from 'solid-js';
-import {
-  ChallengeEditContext,
-  ChallengeEditType,
-} from '~/entities/challenge-edit';
+import { ChallengeEditType } from '~/entities/challenge-edit';
 import { getWeekWriting } from '~/features/new-challenge-item/fx';
 import {
   CHALLENGE_400_BG_COLOR,
@@ -58,103 +55,99 @@ export const Col: Component<Props> = (props) => {
       : ChevronsDown;
 
   return (
-    <ChallengeEditContext.ChallengeItemColorContext.Provider
-      value={props.color}
+    <div
+      class={clsx(
+        'flex flex-col rounded-[22px] p-3 transition-all',
+        CHALLENGE_400_BG_COLOR[color()]
+      )}
     >
-      <div
-        class={clsx(
-          'flex flex-col rounded-[22px] p-3 transition-all',
-          CHALLENGE_400_BG_COLOR[color()]
-        )}
-      >
-        <div class='flex items-start justify-between mb-3'>
-          <div class='flex flex-col gap-[2px] pl-1'>
-            <p class='font-semibold text-[1.25rem] text-white'>{props.name}</p>
+      <div class='flex items-start justify-between mb-3'>
+        <div class='flex flex-col gap-[2px] pl-1'>
+          <p class='font-semibold text-[1.25rem] text-white'>{props.name}</p>
 
-            <div class='flex items-center gap-1'>
-              {getTypeIcon()({
-                size: 16,
-                strokeWidth: 2,
-                className: 'stroke-white/80',
-              })}
-              <span class='font-semibold text-[12px] text-white/80'>
-                {capitalize(props.type)} Type
-              </span>
-            </div>
-          </div>
-          <div class='flex gap-2 w-[88px]'>
-            <button
-              class={clsx(
-                'p-[6px] flex-1 flex items-center justify-center rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
-                CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
-              )}
-            >
-              <Pencil size={20} stroke='currentColor' />
-            </button>
-            <button
-              class={clsx(
-                'p-[6px] rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
-                CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
-              )}
-            >
-              <X size={24} stroke='currentColor' />
-            </button>
+          <div class='flex items-center gap-1'>
+            {getTypeIcon()({
+              size: 16,
+              strokeWidth: 2,
+              className: 'stroke-white/80',
+            })}
+            <span class='font-semibold text-[12px] text-white/80'>
+              {capitalize(props.type)} Type
+            </span>
           </div>
         </div>
-
-        <div class='flex flex-col px-1 gap-3'>
-          {props.type !== 'COMPLETE' && (
-            <>
-              <p class='font-semibold text-[14px] text-white'>
-                Target : {props.targetCount!} {props.unit ?? ''} /{' '}
-                {accumulateTypeText}
-              </p>
-
-              <div class='w-full h-[1px] bg-linear-to-r from-transparent via-white to-transparent' />
-            </>
-          )}
-
-          <div class='flex flex-col gap-1'>
-            <p class='font-semibold text-[14px] text-white'>{intervalText}</p>
-            {props.months.length > 0 && (
-              <p class='font-semibold text-[12px] text-white'>
-                • {props.months.map((it) => CHALLENGE_MONTH[it]).join(', ')}
-              </p>
+        <div class='flex gap-2 w-[88px]'>
+          <button
+            class={clsx(
+              'p-[6px] flex-1 flex items-center justify-center rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+              CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
             )}
-            {props.weeks.length > 0 && (
-              <p class='font-semibold text-[12px] text-white'>
-                •{' '}
-                {props.weeks
-                  .map((it) => getWeekWriting(it).replace('Week', ''))
-                  .join(', ')}{' '}
-                Week
-              </p>
+          >
+            <Pencil size={20} stroke='currentColor' />
+          </button>
+          <button
+            class={clsx(
+              'p-[6px] rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+              CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
             )}
-            {props.dates.length > 0 && (
-              <p class='font-semibold text-[12px] text-white'>
-                •{' '}
-                {props.dates
-                  .map((it) => (it === 32 ? 'Last Date' : it))
-                  .join(', ')}
-              </p>
-            )}
-            {props.days.length > 0 && (
-              <p class='font-semibold text-[12px] text-white'>
-                • {props.days.map((it) => CHALLENGE_DAY[it]).join(', ')}
-              </p>
-            )}
-          </div>
-
-          <div class='w-full h-[1px] bg-linear-to-r from-transparent via-white to-transparent' />
-
-          <p class='font-semibold text-[14px] text-white'>
-            Period :{' '}
-            {`${format(props.startAt, 'yyyy.MM.dd')} ~ ${
-              props.endAt ? format(props.endAt, 'yyyy.MM.dd') : ''
-            }`}
-          </p>
+          >
+            <X size={24} stroke='currentColor' />
+          </button>
         </div>
       </div>
-    </ChallengeEditContext.ChallengeItemColorContext.Provider>
+
+      <div class='flex flex-col px-1 gap-3'>
+        {props.type !== 'COMPLETE' && (
+          <>
+            <p class='font-semibold text-[14px] text-white'>
+              Target : {props.targetCount!} {props.unit ?? ''} /{' '}
+              {accumulateTypeText}
+            </p>
+
+            <div class='w-full h-[1px] bg-linear-to-r from-transparent via-white to-transparent' />
+          </>
+        )}
+
+        <div class='flex flex-col gap-1'>
+          <p class='font-semibold text-[14px] text-white'>{intervalText}</p>
+          {props.months.length > 0 && (
+            <p class='font-semibold text-[12px] text-white'>
+              • {props.months.map((it) => CHALLENGE_MONTH[it]).join(', ')}
+            </p>
+          )}
+          {props.weeks.length > 0 && (
+            <p class='font-semibold text-[12px] text-white'>
+              •{' '}
+              {props.weeks
+                .map((it) => getWeekWriting(it).replace('Week', ''))
+                .join(', ')}{' '}
+              Week
+            </p>
+          )}
+          {props.dates.length > 0 && (
+            <p class='font-semibold text-[12px] text-white'>
+              •{' '}
+              {props.dates
+                .map((it) => (it === 32 ? 'Last Date' : it))
+                .join(', ')}
+            </p>
+          )}
+          {props.days.length > 0 && (
+            <p class='font-semibold text-[12px] text-white'>
+              • {props.days.map((it) => CHALLENGE_DAY[it]).join(', ')}
+            </p>
+          )}
+        </div>
+
+        <div class='w-full h-[1px] bg-linear-to-r from-transparent via-white to-transparent' />
+
+        <p class='font-semibold text-[14px] text-white'>
+          Period :{' '}
+          {`${format(props.startAt, 'yyyy.MM.dd')} ~ ${
+            props.endAt ? format(props.endAt, 'yyyy.MM.dd') : ''
+          }`}
+        </p>
+      </div>
+    </div>
   );
 };
