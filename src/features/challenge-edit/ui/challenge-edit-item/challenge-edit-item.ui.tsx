@@ -7,12 +7,13 @@ import {
 } from '~/entities/challenge-edit';
 import { getWeekWriting } from '~/features/new-challenge-item/fx';
 import {
-  CHALLENGE_100_BG_COLOR,
+  CHALLENGE_400_BG_COLOR,
+  CHALLENGE_ACTIVE_TEXT_COLOR_400,
   CHALLENGE_DAY,
   CHALLENGE_MONTH,
-  CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
 import type { ChallengeColor, ChallengeItemIntervalType } from '~/shared/types';
+import { Pencil } from '~/shared/ui/icons/pencil.ui';
 import { DeleteButton } from './delete-button.ui';
 import { TypeLabel } from './type-label.ui';
 
@@ -56,63 +57,49 @@ export const ChallengeEditItem: Component<Props> = (props) => {
       <div
         class={clsx(
           'flex flex-col rounded-[22px] p-3 transition-all',
-          CHALLENGE_100_BG_COLOR[color()]
+          CHALLENGE_400_BG_COLOR[color()]
         )}
       >
         <div class='flex items-start justify-between mb-3'>
-          <div class='flex flex-col gap-1 pl-1'>
-            <p class='font-semibold'>{props.name}</p>
+          <div class='flex flex-col gap-[2px] pl-1'>
+            <p class='font-semibold text-[1.25rem] text-white'>{props.name}</p>
 
             <TypeLabel type={props.type} />
           </div>
-          <DeleteButton onDelete={() => {}} />
+          <div class='flex gap-2 w-[88px]'>
+            <button
+              class={clsx(
+                'p-[6px] flex-1 flex items-center justify-center rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+                CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
+              )}
+            >
+              <Pencil size={20} stroke='currentColor' />
+            </button>
+            <DeleteButton onDelete={() => {}} />
+          </div>
         </div>
 
-        <div class='flex flex-col pl-1 gap-3'>
+        <div class='flex flex-col px-1 gap-3'>
           {props.type !== 'COMPLETE' && (
             <>
-              <p
-                class={clsx(
-                  'font-semibold text-[14px]',
-                  CHALLENGE_TEXT_COLOR_500[color()]
-                )}
-              >
+              <p class='font-semibold text-[14px] text-white'>
                 Target : {props.targetCount!} {props.unit ?? ''} /{' '}
                 {accumulateTypeText}
               </p>
 
-              <div
-                class={`w-full h-[1px] bg-linear-to-r from-transparent via-blue-300 to-transparent`}
-              />
+              <div class='w-full h-[1px] bg-linear-to-r from-transparent via-white to-transparent' />
             </>
           )}
 
           <div class='flex flex-col gap-1'>
-            <p
-              class={clsx(
-                'font-semibold text-[14px]',
-                CHALLENGE_TEXT_COLOR_500[color()]
-              )}
-            >
-              {intervalText}
-            </p>
+            <p class='font-semibold text-[14px] text-white'>{intervalText}</p>
             {props.months.length > 0 && (
-              <p
-                class={clsx(
-                  'font-semibold text-[12px]',
-                  CHALLENGE_TEXT_COLOR_500[color()]
-                )}
-              >
+              <p class='font-semibold text-[12px] text-white'>
                 • {props.months.map((it) => CHALLENGE_MONTH[it]).join(', ')}
               </p>
             )}
             {props.weeks.length > 0 && (
-              <p
-                class={clsx(
-                  'font-semibold text-[12px]',
-                  CHALLENGE_TEXT_COLOR_500[color()]
-                )}
-              >
+              <p class='font-semibold text-[12px] text-white'>
                 •{' '}
                 {props.weeks
                   .map((it) => getWeekWriting(it).replace('Week', ''))
@@ -121,40 +108,23 @@ export const ChallengeEditItem: Component<Props> = (props) => {
               </p>
             )}
             {props.dates.length > 0 && (
-              <p
-                class={clsx(
-                  'font-semibold text-[12px]',
-                  CHALLENGE_TEXT_COLOR_500[color()]
-                )}
-              >
+              <p class='font-semibold text-[12px] text-white'>
                 •{' '}
-                {props.weeks
+                {props.dates
                   .map((it) => (it === 32 ? 'Last Date' : it))
                   .join(', ')}
               </p>
             )}
             {props.days.length > 0 && (
-              <p
-                class={clsx(
-                  'font-semibold text-[12px]',
-                  CHALLENGE_TEXT_COLOR_500[color()]
-                )}
-              >
+              <p class='font-semibold text-[12px] text-white'>
                 • {props.days.map((it) => CHALLENGE_DAY[it]).join(', ')}
               </p>
             )}
           </div>
 
-          <div
-            class={`w-full h-[1px] bg-linear-to-r from-transparent via-blue-300 to-transparent`}
-          />
+          <div class='w-full h-[1px] bg-linear-to-r from-transparent via-white to-transparent' />
 
-          <p
-            class={clsx(
-              'font-semibold text-[14px]',
-              CHALLENGE_TEXT_COLOR_500[color()]
-            )}
-          >
+          <p class='font-semibold text-[14px] text-white'>
             Period :{' '}
             {`${format(props.startAt, 'yyyy.MM.dd')} ~ ${
               props.endAt ? format(props.endAt, 'yyyy.MM.dd') : ''

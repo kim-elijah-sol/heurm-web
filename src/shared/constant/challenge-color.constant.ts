@@ -185,6 +185,17 @@ export const CHALLENGE_ACTIVE_BORDER_COLOR_500 = {
   pink: 'active:border-pink-500',
 } as const;
 
+export const CHALLENGE_ACTIVE_TEXT_COLOR_400 = {
+  red: 'active:text-red-400',
+  green: 'active:text-green-400',
+  blue: 'active:text-blue-400',
+  indigo: 'active:text-indigo-400',
+  teal: 'active:text-teal-400',
+  yellow: 'active:text-yellow-400',
+  purple: 'active:text-purple-400',
+  pink: 'active:text-pink-400',
+} as const;
+
 export const CHALLENGE_ACTIVE_TEXT_COLOR_500 = {
   red: 'active:text-red-500',
   green: 'active:text-green-500',

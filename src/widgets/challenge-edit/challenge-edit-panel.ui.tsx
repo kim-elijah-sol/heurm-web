@@ -104,6 +104,14 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
             <Switch>
               <Match when={challengeItem.data && challengeItem.data.length > 0}>
+                <div class='w-full grid grid-cols-2 gap-3 mb-4'>
+                  <Index each={challengeItem.data!}>
+                    {(it) => (
+                      <ChallengeEditItem.Experimental color={color} {...it()} />
+                    )}
+                  </Index>
+                </div>
+
                 <div class='w-full flex flex-col gap-4 mb-4'>
                   <Index each={challengeItem.data!}>
                     {(it) => <ChallengeEditItem color={color} {...it()} />}

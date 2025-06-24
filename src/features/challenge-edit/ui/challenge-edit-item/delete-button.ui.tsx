@@ -1,10 +1,7 @@
 import clsx from 'clsx';
 import { type Component } from 'solid-js';
 import { challengeEditHook } from '~/entities/challenge-edit';
-import {
-  CHALLENGE_400_BG_COLOR,
-  CHALLENGE_ACTIVE_BG_500_COLOR,
-} from '~/shared/constant';
+import { CHALLENGE_ACTIVE_TEXT_COLOR_400 } from '~/shared/constant';
 import { X } from '~/shared/ui';
 
 type Props = {
@@ -18,12 +15,11 @@ export const DeleteButton: Component<Props> = (props) => {
     <button
       onClick={props.onDelete}
       class={clsx(
-        'p-[6px] rounded-[42%] transition-all active:scale-90',
-        CHALLENGE_400_BG_COLOR[color()],
-        CHALLENGE_ACTIVE_BG_500_COLOR[color()]
+        'p-[6px] rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+        CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
       )}
     >
-      <X size={24} />
+      <X size={24} stroke='currentColor' />
     </button>
   );
 };

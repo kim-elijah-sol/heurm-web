@@ -20,9 +20,9 @@ export const TypeLabel: Component<Props> = (props) => {
       {getTypeIcon()({
         size: 16,
         strokeWidth: 2,
-        className: 'stroke-gray-400',
+        className: 'stroke-white/80',
       })}
-      <span class='font-semibold text-[12px] text-gray-400'>
+      <span class='font-semibold text-[12px] text-white/80'>
         {capitalize(props.type)} Type
       </span>
     </div>
