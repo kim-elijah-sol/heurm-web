@@ -156,7 +156,7 @@ export const Grid: Component<Props> = (props) => {
           </button>
           <button
             class={clsx(
-              'bg-white rounded-[16px] h-10 flex-2 font-semibold transition-all flex justify-center items-center active:bg-gray-100 active:scale-90',
+              'bg-white rounded-[16px] h-10 flex-2 font-semibold transition-all flex justify-center items-center active:bg-gray-300 active:scale-90',
               CHALLENGE_TEXT_COLOR_500[color()]
             )}
           >
