@@ -13,15 +13,15 @@ import {
   CHALLENGE_MONTH,
 } from '~/shared/constant';
 import type { ChallengeColor, ChallengeItemIntervalType } from '~/shared/types';
+import { CheckCheck, ChevronsDown, ChevronsUp, X } from '~/shared/ui';
 import { Pencil } from '~/shared/ui/icons/pencil.ui';
-import { DeleteButton } from './delete-button.ui';
-import { TypeLabel } from './type-label.ui';
+import { capitalize } from '../../fx';
 
 type Props = {
   color: Accessor<ChallengeColor>;
 } & Omit<ChallengeEditType.GetChallengeItemResponseItem, 'id'>;
 
-export const ChallengeEditItem: Component<Props> = (props) => {
+export const Col: Component<Props> = (props) => {
   const color = () => props.color();
 
   const getTextForIntervalType = (value: ChallengeItemIntervalType) => {
@@ -50,6 +50,13 @@ export const ChallengeEditItem: Component<Props> = (props) => {
     props.accumulateType ?? 'DAILY'
   );
 
+  const getTypeIcon = () =>
+    props.type === 'COMPLETE'
+      ? CheckCheck
+      : props.type === 'OVER'
+      ? ChevronsUp
+      : ChevronsDown;
+
   return (
     <ChallengeEditContext.ChallengeItemColorContext.Provider
       value={props.color}
@@ -64,7 +71,16 @@ export const ChallengeEditItem: Component<Props> = (props) => {
           <div class='flex flex-col gap-[2px] pl-1'>
             <p class='font-semibold text-[1.25rem] text-white'>{props.name}</p>
 
-            <TypeLabel type={props.type} />
+            <div class='flex items-center gap-1'>
+              {getTypeIcon()({
+                size: 16,
+                strokeWidth: 2,
+                className: 'stroke-white/80',
+              })}
+              <span class='font-semibold text-[12px] text-white/80'>
+                {capitalize(props.type)} Type
+              </span>
+            </div>
           </div>
           <div class='flex gap-2 w-[88px]'>
             <button
@@ -75,7 +91,14 @@ export const ChallengeEditItem: Component<Props> = (props) => {
             >
               <Pencil size={20} stroke='currentColor' />
             </button>
-            <DeleteButton onDelete={() => {}} />
+            <button
+              class={clsx(
+                'p-[6px] rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+                CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
+              )}
+            >
+              <X size={24} stroke='currentColor' />
+            </button>
           </div>
         </div>
 

@@ -22,7 +22,7 @@ type Props = {
   color: Accessor<ChallengeColor>;
 } & Omit<ChallengeEditType.GetChallengeItemResponseItem, 'id'>;
 
-export const Experimental: Component<Props> = (props) => {
+export const Grid: Component<Props> = (props) => {
   const color = () => props.color();
 
   const getTextForIntervalType = (value: ChallengeItemIntervalType) => {

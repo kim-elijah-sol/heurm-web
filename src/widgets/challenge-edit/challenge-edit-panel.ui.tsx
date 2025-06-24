@@ -4,6 +4,7 @@ import {
   Index,
   Match,
   onMount,
+  Show,
   Switch,
   type Accessor,
   type Component,
@@ -30,6 +31,16 @@ type Props = {
   newChallengeItemPanelOpen?: boolean;
 };
 
+type ViewType = 'grid' | 'col';
+
+const getViewTypeInStorage = (): ViewType => {
+  const viewType = localStorage.getItem('view-type');
+
+  if (viewType !== 'grid' && viewType !== 'col') return 'col';
+
+  return viewType;
+};
+
 export const ChallengeEditPanel: Component<Props> = (props) => {
   const [isNewChallengeItemPanel, open, newChallengeItemClose] =
     createBoolean();
@@ -37,6 +48,15 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
   const [title, setTitle] = createSignal(props.title());
 
   const [color, setColor] = createSignal<ChallengeColor>(props.color());
+
+  const [viewType, _setViewType] = createSignal<ViewType>(
+    getViewTypeInStorage()
+  );
+
+  const setViewType = (viewType: ViewType) => {
+    _setViewType(viewType);
+    localStorage.setItem('view-type', viewType);
+  };
 
   const queryClient = useQueryClient();
 
@@ -104,19 +124,24 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
             <Switch>
               <Match when={challengeItem.data && challengeItem.data.length > 0}>
-                <div class='w-full grid grid-cols-2 gap-3 mb-4'>
-                  <Index each={challengeItem.data!}>
-                    {(it) => (
-                      <ChallengeEditItem.Experimental color={color} {...it()} />
-                    )}
-                  </Index>
-                </div>
-
-                <div class='w-full flex flex-col gap-4 mb-4'>
-                  <Index each={challengeItem.data!}>
-                    {(it) => <ChallengeEditItem color={color} {...it()} />}
-                  </Index>
-                </div>
+                <Show when={viewType() === 'col'}>
+                  <div class='w-full flex flex-col gap-4 mb-4'>
+                    <Index each={challengeItem.data!}>
+                      {(it) => (
+                        <ChallengeEditItem.Col color={color} {...it()} />
+                      )}
+                    </Index>
+                  </div>
+                </Show>
+                <Show when={viewType() === 'grid'}>
+                  <div class='w-full grid grid-cols-2 gap-3 mb-4'>
+                    <Index each={challengeItem.data!}>
+                      {(it) => (
+                        <ChallengeEditItem.Grid color={color} {...it()} />
+                      )}
+                    </Index>
+                  </div>
+                </Show>
               </Match>
               <Match when={challengeItem.data?.length === 0}>
                 <ChallengeEditNoChallengeItem color={color} />
