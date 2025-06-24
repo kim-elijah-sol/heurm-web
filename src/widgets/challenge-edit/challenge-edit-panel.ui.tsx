@@ -11,6 +11,7 @@ import {
 import { challengeEditQueries } from '~/entities/challenge-edit';
 import {
   ChallengeEditDeleteButton,
+  ChallengeEditItem,
   ChallengeEditNewItemButton,
   ChallengeEditNoChallengeItem,
   ChallengeEditTop,
@@ -105,7 +106,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
               <Match when={challengeItem.data && challengeItem.data.length > 0}>
                 <div class='w-full flex flex-col gap-4 mb-4'>
                   <Index each={challengeItem.data!}>
-                    {(it) => <>{it().name}</>}
+                    {(it) => <ChallengeEditItem color={color} {...it()} />}
                   </Index>
                 </div>
               </Match>
