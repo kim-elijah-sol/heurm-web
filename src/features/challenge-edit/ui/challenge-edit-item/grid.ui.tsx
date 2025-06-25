@@ -18,6 +18,7 @@ import { capitalize } from '../../fx';
 type Props = {
   color: Accessor<ChallengeColor>;
   onClickDelete: () => void;
+  onClickEdit: () => void;
 } & Omit<ChallengeEditType.GetChallengeItemResponseItem, 'id'>;
 
 export const Grid: Component<Props> = (props) => {
@@ -34,20 +35,21 @@ export const Grid: Component<Props> = (props) => {
     )[value];
   };
 
-  const intervalTypeText = getTextForIntervalType(props.intervalType);
+  const intervalTypeText = () => getTextForIntervalType(props.intervalType);
 
-  const intervalText = (() => {
-    if (props.repeatType === 'EVERY') return `Every ${intervalTypeText}`;
+  const intervalText = () => {
+    if (props.repeatType === 'EVERY') return `Every ${intervalTypeText()}`;
 
     if (props.repeatType === 'N')
-      return `Every ${props.repeat} ${intervalTypeText}`;
+      return `Every ${props.repeat} ${intervalTypeText()}`;
 
-    return `${props.repeat} ${intervalTypeText} on, ${props.rest} ${intervalTypeText} off`;
-  })();
+    return `${props.repeat} ${intervalTypeText()} on, ${
+      props.rest
+    } ${intervalTypeText()} off`;
+  };
 
-  const accumulateTypeText = getTextForIntervalType(
-    props.accumulateType ?? 'DAILY'
-  );
+  const accumulateTypeText = () =>
+    getTextForIntervalType(props.accumulateType ?? 'DAILY');
 
   const getTypeIcon = () =>
     props.type === 'COMPLETE'
@@ -85,7 +87,8 @@ export const Grid: Component<Props> = (props) => {
             {props.type !== 'COMPLETE' && (
               <>
                 <p class='font-semibold text-[0.8rem] text-white'>
-                  {props.targetCount!} {props.unit ?? ''} / {accumulateTypeText}
+                  {props.targetCount!} {props.unit ?? ''} /{' '}
+                  {accumulateTypeText()}
                 </p>
 
                 <div
@@ -96,7 +99,9 @@ export const Grid: Component<Props> = (props) => {
           </div>
 
           <div class='flex flex-col gap-1'>
-            <p class='font-semibold text-[0.8rem] text-white'>{intervalText}</p>
+            <p class='font-semibold text-[0.8rem] text-white'>
+              {intervalText()}
+            </p>
             {props.months.length > 0 && (
               <div class='font-semibold text-[0.7rem] text-white/85 flex gap-1'>
                 <p>•</p>
@@ -161,6 +166,7 @@ export const Grid: Component<Props> = (props) => {
               'bg-white rounded-[16px] h-10 flex-2 font-semibold transition-all flex justify-center items-center active:bg-gray-300 active:scale-90',
               CHALLENGE_TEXT_COLOR_500[color()]
             )}
+            onClick={props.onClickEdit}
           >
             <Pencil size={20} stroke='currentColor' />
           </button>

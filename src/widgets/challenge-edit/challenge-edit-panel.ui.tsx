@@ -10,7 +10,10 @@ import {
   type Accessor,
   type Component,
 } from 'solid-js';
-import { challengeEditQueries } from '~/entities/challenge-edit';
+import {
+  challengeEditQueries,
+  ChallengeEditType,
+} from '~/entities/challenge-edit';
 import {
   ChallengeEditDeleteButton,
   ChallengeEditItem,
@@ -25,6 +28,7 @@ import { toast } from '~/shared/lib';
 import type { ChallengeColor, Nullable } from '~/shared/types';
 import { ChallengeColorSelect, Grid2x2, Panel, Rows3 } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item';
+import { EditChallengeItemPanel } from '../edit-challenge-item';
 
 type Props = {
   challengeId: Accessor<string>;
@@ -62,6 +66,11 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
       name: string;
     }>
   >(null);
+
+  const [editTarget, setEditTarget] =
+    createSignal<Nullable<ChallengeEditType.GetChallengeItemResponseItem>>(
+      null
+    );
 
   const setViewType = (viewType: ViewType) => {
     _setViewType(viewType);
@@ -128,13 +137,6 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                   onClick={open}
                   pulse={() => challengeItem.data?.length === 0}
                 />
-                {isNewChallengeItemPanel() && (
-                  <NewChallengeItemPanel
-                    close={newChallengeItemClose}
-                    color={color}
-                    challengeId={props.challengeId}
-                  />
-                )}
               </div>
 
               <Switch>
@@ -176,6 +178,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                             onClickDelete={() =>
                               handleClickDelete(it().id, it().name)
                             }
+                            onClickEdit={() => setEditTarget({ ...it() })}
                           />
                         )}
                       </Index>
@@ -191,6 +194,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                             onClickDelete={() =>
                               handleClickDelete(it().id, it().name)
                             }
+                            onClickEdit={() => setEditTarget({ ...it() })}
                           />
                         )}
                       </Index>
@@ -219,6 +223,22 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
           </>
         )}
       </Panel.Slide>
+      {isNewChallengeItemPanel() && (
+        <NewChallengeItemPanel
+          close={newChallengeItemClose}
+          color={color}
+          challengeId={props.challengeId}
+        />
+      )}
+
+      {editTarget() && (
+        <EditChallengeItemPanel
+          close={() => setEditTarget(null)}
+          color={color}
+          challengeId={props.challengeId}
+          challengeItem={() => editTarget()!}
+        />
+      )}
 
       {deleteTarget() && (
         <DeleteChallengeItemConfirm

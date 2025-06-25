@@ -17,6 +17,7 @@ import { capitalize } from '../../fx';
 type Props = {
   color: Accessor<ChallengeColor>;
   onClickDelete: () => void;
+  onClickEdit: () => void;
 } & Omit<ChallengeEditType.GetChallengeItemResponseItem, 'id'>;
 
 export const Col: Component<Props> = (props) => {
@@ -33,20 +34,21 @@ export const Col: Component<Props> = (props) => {
     )[value];
   };
 
-  const intervalTypeText = getTextForIntervalType(props.intervalType);
+  const intervalTypeText = () => getTextForIntervalType(props.intervalType);
 
-  const intervalText = (() => {
-    if (props.repeatType === 'EVERY') return `Every ${intervalTypeText}`;
+  const intervalText = () => {
+    if (props.repeatType === 'EVERY') return `Every ${intervalTypeText()}`;
 
     if (props.repeatType === 'N')
-      return `Every ${props.repeat} ${intervalTypeText}`;
+      return `Every ${props.repeat} ${intervalTypeText()}`;
 
-    return `${props.repeat} ${intervalTypeText} on, ${props.rest} ${intervalTypeText} off`;
-  })();
+    return `${props.repeat} ${intervalTypeText()} on, ${
+      props.rest
+    } ${intervalTypeText()} off`;
+  };
 
-  const accumulateTypeText = getTextForIntervalType(
-    props.accumulateType ?? 'DAILY'
-  );
+  const accumulateTypeText = () =>
+    getTextForIntervalType(props.accumulateType ?? 'DAILY');
 
   const getTypeIcon = () =>
     props.type === 'COMPLETE'
@@ -87,6 +89,7 @@ export const Col: Component<Props> = (props) => {
               'flex items-center justify-center',
               CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
             )}
+            onClick={props.onClickEdit}
           >
             <Pencil size={20} stroke='currentColor' />
           </button>
@@ -107,7 +110,7 @@ export const Col: Component<Props> = (props) => {
           <>
             <p class='font-semibold text-[14px] text-white'>
               Target : {props.targetCount!} {props.unit ?? ''} /{' '}
-              {accumulateTypeText}
+              {accumulateTypeText()}
             </p>
 
             <div class='w-full h-[1px] bg-linear-to-r from-transparent via-white to-transparent' />
@@ -115,7 +118,7 @@ export const Col: Component<Props> = (props) => {
         )}
 
         <div class='flex flex-col gap-1'>
-          <p class='font-semibold text-[14px] text-white'>{intervalText}</p>
+          <p class='font-semibold text-[14px] text-white'>{intervalText()}</p>
           {props.months.length > 0 && (
             <p class='font-semibold text-[12px] text-white'>
               • {props.months.map((it) => CHALLENGE_MONTH[it]).join(', ')}
