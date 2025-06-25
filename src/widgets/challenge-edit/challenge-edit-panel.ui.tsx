@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/solid-query';
+import clsx from 'clsx';
 import {
   createSignal,
   Index,
@@ -17,10 +18,11 @@ import {
   ChallengeEditNoChallengeItem,
   ChallengeEditTop,
 } from '~/features/challenge-edit/ui';
+import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { ChallengeColor } from '~/shared/types';
-import { ChallengeColorSelect, Panel } from '~/shared/ui';
+import { ChallengeColorSelect, Grid2x2, Panel, Rows3 } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item';
 
 type Props = {
@@ -124,6 +126,31 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
             <Switch>
               <Match when={challengeItem.data && challengeItem.data.length > 0}>
+                <div class='flex justify-end w-full gap-2 mb-2'>
+                  <button
+                    onClick={() => setViewType('grid')}
+                    class={clsx(
+                      'p-2 rounded-[42%] transition-all active:bg-gray-100 active:scale-95',
+                      viewType() === 'grid'
+                        ? CHALLENGE_TEXT_COLOR_500[color()]
+                        : 'text-gray-300'
+                    )}
+                  >
+                    <Grid2x2 />
+                  </button>
+                  <button
+                    onClick={() => setViewType('col')}
+                    class={clsx(
+                      'p-2 rounded-[42%] transition-all active:bg-gray-100 active:scale-95',
+                      viewType() === 'col'
+                        ? CHALLENGE_TEXT_COLOR_500[color()]
+                        : 'text-gray-300'
+                    )}
+                  >
+                    <Rows3 />
+                  </button>
+                </div>
+
                 <Show when={viewType() === 'col'}>
                   <div class='w-full flex flex-col gap-4 mb-4'>
                     <Index each={challengeItem.data!}>
