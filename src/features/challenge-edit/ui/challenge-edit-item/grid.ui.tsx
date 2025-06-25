@@ -17,6 +17,7 @@ import { capitalize } from '../../fx';
 
 type Props = {
   color: Accessor<ChallengeColor>;
+  onClickDelete: () => void;
 } & Omit<ChallengeEditType.GetChallengeItemResponseItem, 'id'>;
 
 export const Grid: Component<Props> = (props) => {
@@ -151,6 +152,7 @@ export const Grid: Component<Props> = (props) => {
               CHALLENGE_400_BG_COLOR[color()],
               CHALLENGE_ACTIVE_BG_500_COLOR[color()]
             )}
+            onClick={props.onClickDelete}
           >
             <X size={24} stroke='currentColor' />
           </button>

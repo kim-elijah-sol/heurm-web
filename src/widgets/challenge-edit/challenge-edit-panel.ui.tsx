@@ -17,11 +17,12 @@ import {
   ChallengeEditNewItemButton,
   ChallengeEditNoChallengeItem,
   ChallengeEditTop,
+  DeleteChallengeItemConfirm,
 } from '~/features/challenge-edit/ui';
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import type { ChallengeColor } from '~/shared/types';
+import type { ChallengeColor, Nullable } from '~/shared/types';
 import { ChallengeColorSelect, Grid2x2, Panel, Rows3 } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item';
 
@@ -54,6 +55,13 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
   const [viewType, _setViewType] = createSignal<ViewType>(
     getViewTypeInStorage()
   );
+
+  const [deleteTarget, setDeleteTarget] = createSignal<
+    Nullable<{
+      id: string;
+      name: string;
+    }>
+  >(null);
 
   const setViewType = (viewType: ViewType) => {
     _setViewType(viewType);
@@ -89,6 +97,10 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
     toast.open(`${title()} challenge has been updated`);
   };
 
+  const handleClickDelete = (id: string, name: string) => {
+    setDeleteTarget({ id, name });
+  };
+
   onMount(() => {
     if (props.newChallengeItemPanelOpen) {
       setTimeout(() => {
@@ -98,99 +110,124 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
   });
 
   return (
-    <Panel.Slide close={props.close}>
-      {(close) => (
-        <>
-          <ChallengeEditTop close={close} title={title} setTitle={setTitle} />
+    <>
+      <Panel.Slide close={props.close}>
+        {(close) => (
+          <>
+            <ChallengeEditTop close={close} title={title} setTitle={setTitle} />
 
-          <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20 pt-[60px]'>
-            <ChallengeColorSelect
-              color={color}
-              setColor={setColor}
-              className='mb-6'
-            />
-
-            <div class='flex justify-center mb-4'>
-              <ChallengeEditNewItemButton
-                onClick={open}
-                pulse={() => challengeItem.data?.length === 0}
+            <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20 pt-[60px]'>
+              <ChallengeColorSelect
+                color={color}
+                setColor={setColor}
+                className='mb-6'
               />
-              {isNewChallengeItemPanel() && (
-                <NewChallengeItemPanel
-                  close={newChallengeItemClose}
-                  color={color}
-                  challengeId={props.challengeId}
+
+              <div class='flex justify-center mb-4'>
+                <ChallengeEditNewItemButton
+                  onClick={open}
+                  pulse={() => challengeItem.data?.length === 0}
                 />
-              )}
+                {isNewChallengeItemPanel() && (
+                  <NewChallengeItemPanel
+                    close={newChallengeItemClose}
+                    color={color}
+                    challengeId={props.challengeId}
+                  />
+                )}
+              </div>
+
+              <Switch>
+                <Match
+                  when={challengeItem.data && challengeItem.data.length > 0}
+                >
+                  <div class='flex justify-end w-full gap-2 mb-2'>
+                    <button
+                      onClick={() => setViewType('grid')}
+                      class={clsx(
+                        'p-2 rounded-[42%] transition-all active:bg-gray-100 active:scale-95',
+                        viewType() === 'grid'
+                          ? CHALLENGE_TEXT_COLOR_500[color()]
+                          : 'text-gray-300'
+                      )}
+                    >
+                      <Grid2x2 />
+                    </button>
+                    <button
+                      onClick={() => setViewType('col')}
+                      class={clsx(
+                        'p-2 rounded-[42%] transition-all active:bg-gray-100 active:scale-95',
+                        viewType() === 'col'
+                          ? CHALLENGE_TEXT_COLOR_500[color()]
+                          : 'text-gray-300'
+                      )}
+                    >
+                      <Rows3 />
+                    </button>
+                  </div>
+
+                  <Show when={viewType() === 'col'}>
+                    <div class='w-full flex flex-col gap-4 mb-4'>
+                      <Index each={challengeItem.data!}>
+                        {(it) => (
+                          <ChallengeEditItem.Col
+                            color={color}
+                            {...it()}
+                            onClickDelete={() =>
+                              handleClickDelete(it().id, it().name)
+                            }
+                          />
+                        )}
+                      </Index>
+                    </div>
+                  </Show>
+                  <Show when={viewType() === 'grid'}>
+                    <div class='w-full grid grid-cols-2 gap-3 mb-4'>
+                      <Index each={challengeItem.data!}>
+                        {(it) => (
+                          <ChallengeEditItem.Grid
+                            color={color}
+                            {...it()}
+                            onClickDelete={() =>
+                              handleClickDelete(it().id, it().name)
+                            }
+                          />
+                        )}
+                      </Index>
+                    </div>
+                  </Show>
+                </Match>
+                <Match when={challengeItem.data?.length === 0}>
+                  <ChallengeEditNoChallengeItem color={color} />
+                </Match>
+              </Switch>
+
+              <ChallengeEditDeleteButton
+                challengeId={props.challengeId}
+                originalTitle={props.title}
+                onDeleted={close}
+              />
             </div>
 
-            <Switch>
-              <Match when={challengeItem.data && challengeItem.data.length > 0}>
-                <div class='flex justify-end w-full gap-2 mb-2'>
-                  <button
-                    onClick={() => setViewType('grid')}
-                    class={clsx(
-                      'p-2 rounded-[42%] transition-all active:bg-gray-100 active:scale-95',
-                      viewType() === 'grid'
-                        ? CHALLENGE_TEXT_COLOR_500[color()]
-                        : 'text-gray-300'
-                    )}
-                  >
-                    <Grid2x2 />
-                  </button>
-                  <button
-                    onClick={() => setViewType('col')}
-                    class={clsx(
-                      'p-2 rounded-[42%] transition-all active:bg-gray-100 active:scale-95',
-                      viewType() === 'col'
-                        ? CHALLENGE_TEXT_COLOR_500[color()]
-                        : 'text-gray-300'
-                    )}
-                  >
-                    <Rows3 />
-                  </button>
-                </div>
+            <Panel.CTAButton
+              color={color}
+              onClick={handleSave}
+              disabled={isChanged() === false}
+            >
+              Save
+            </Panel.CTAButton>
+          </>
+        )}
+      </Panel.Slide>
 
-                <Show when={viewType() === 'col'}>
-                  <div class='w-full flex flex-col gap-4 mb-4'>
-                    <Index each={challengeItem.data!}>
-                      {(it) => (
-                        <ChallengeEditItem.Col color={color} {...it()} />
-                      )}
-                    </Index>
-                  </div>
-                </Show>
-                <Show when={viewType() === 'grid'}>
-                  <div class='w-full grid grid-cols-2 gap-3 mb-4'>
-                    <Index each={challengeItem.data!}>
-                      {(it) => (
-                        <ChallengeEditItem.Grid color={color} {...it()} />
-                      )}
-                    </Index>
-                  </div>
-                </Show>
-              </Match>
-              <Match when={challengeItem.data?.length === 0}>
-                <ChallengeEditNoChallengeItem color={color} />
-              </Match>
-            </Switch>
-
-            <ChallengeEditDeleteButton
-              challengeId={props.challengeId}
-              originalTitle={props.title}
-              onDeleted={close}
-            />
-          </div>
-
-          <Panel.CTAButton
-            color={color}
-            onClick={handleSave}
-            disabled={isChanged() === false}
-          >
-            Save
-          </Panel.CTAButton>
-        </>
+      {deleteTarget() && (
+        <DeleteChallengeItemConfirm
+          challengeId={props.challengeId}
+          id={() => deleteTarget()!.id}
+          name={() => deleteTarget()!.name}
+          onClosed={() => setDeleteTarget(null)}
+        />
       )}
-    </Panel.Slide>
+    </>
   );
 };
