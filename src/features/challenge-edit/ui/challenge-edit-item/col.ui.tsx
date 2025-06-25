@@ -76,7 +76,7 @@ export const Col: Component<Props> = (props) => {
             </span>
           </div>
         </div>
-        <div class='flex gap-2 w-[88px]'>
+        <div class='flex gap-2 min-w-[88px]'>
           <button
             class={clsx(
               'p-[6px] flex-1 flex items-center justify-center rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
