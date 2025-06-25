@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import { For, Match, Switch, type Accessor, type Component } from 'solid-js';
 import { challengeEditQueries } from '~/entities/challenge-edit';
 import { mainConstant, mainQueries } from '~/entities/main';
-import { getMidnight } from '~/features/main/fx';
+import { filterTodayChallengeItem, getMidnight } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
@@ -76,59 +76,7 @@ export const ChallengeCard: Component<Props> = (props) => {
   const ONE_DAY = 86_400_000;
 
   const todayChallengeItems = () =>
-    challengeItem.data?.filter((it) => {
-      const startAt = getMidnight(it.startAt).valueOf();
-
-      if (today < startAt) return false;
-      if (it.endAt && today > getMidnight(it.endAt).valueOf()) return false;
-
-      if (it.intervalType === 'DAILY') {
-        if (it.repeat && it.rest) {
-          const repeatTerm = ONE_DAY * it.repeat;
-
-          const restTerm = ONE_DAY * it.rest;
-
-          const totalTerm = repeatTerm + restTerm;
-
-          if ((today - startAt) % totalTerm >= repeatTerm) return false;
-        } else if (it.repeat) {
-          const repeatTerm = ONE_DAY * it.repeat;
-
-          if ((today - startAt) % repeatTerm !== 0) return false;
-        }
-      } else if (it.intervalType === 'WEEKLY') {
-        const startAtDay = new Date(startAt).getDay();
-        const startWeekFirstDate = new Date(
-          startAt - startAtDay * ONE_DAY
-        ).valueOf();
-
-        const todayDay = new Date(today).getDay();
-        const thisWeekFirstDate = new Date(
-          today - todayDay * ONE_DAY
-        ).valueOf();
-
-        const ONE_WEEK = ONE_DAY * 7;
-
-        const repeatTerm = ONE_WEEK * (it.repeat ?? 0);
-
-        if (it.repeat && it.rest) {
-          const restTerm = ONE_WEEK * it.rest;
-
-          const totalTerm = repeatTerm + restTerm;
-
-          if (
-            (thisWeekFirstDate - startWeekFirstDate) % totalTerm >=
-            repeatTerm
-          )
-            return false;
-        } else if (it.repeat) {
-          if ((thisWeekFirstDate - startWeekFirstDate) % repeatTerm !== 0)
-            return false;
-        }
-      }
-
-      return true;
-    }) ?? [];
+    challengeItem.data?.filter(filterTodayChallengeItem) ?? [];
 
   return (
     <div class='overflow-hidden rounded-2xl'>
