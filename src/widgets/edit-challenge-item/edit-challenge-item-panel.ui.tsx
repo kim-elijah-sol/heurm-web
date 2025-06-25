@@ -421,10 +421,10 @@ export const EditChallengeItemPanel: Component<Props> = (props) => {
 
               close();
 
-              toast.open(`🎉 '${name()}' Challenge Item is added!`);
+              toast.open(`🎉 '${name()}' Challenge Item is edited!`);
             }}
           >
-            Add
+            Save
           </Panel.CTAButton>
         </>
       )}
