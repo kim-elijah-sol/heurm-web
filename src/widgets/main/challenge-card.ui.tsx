@@ -1,9 +1,10 @@
 import { clsx } from 'clsx';
-import { format } from 'date-fns';
 import { For, Match, Switch, type Accessor, type Component } from 'solid-js';
+import { challengeEditQueries } from '~/entities/challenge-edit';
 import { mainConstant, mainQueries } from '~/entities/main';
+import { getMidnight } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
-import { ChallengeItem } from '~/features/main/ui';
+import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
@@ -37,6 +38,10 @@ export const ChallengeCard: Component<Props> = (props) => {
 
   let newChallengeItemPanelOpen = false;
 
+  const challengeItem = challengeEditQueries.getChallengeItemQuery(() => ({
+    challengeId: props.id(),
+  }));
+
   const postHistory = mainQueries.postHistoryMutation(() => {
     //
   });
@@ -64,6 +69,38 @@ export const ChallengeCard: Component<Props> = (props) => {
 
   const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
 
+  const totalCount = () => challengeItem.data?.length ?? 0;
+
+  const today = getMidnight().valueOf();
+
+  const ONE_DAY = 86_400_000;
+
+  const todayChallengeItems = () =>
+    challengeItem.data?.filter((it) => {
+      const startAt = getMidnight(it.startAt).valueOf();
+
+      if (today < startAt) return false;
+      if (it.endAt && today > getMidnight(it.endAt).valueOf()) return false;
+
+      if (it.intervalType === 'DAILY') {
+        if (it.repeat && it.rest) {
+          const repeatTerm = ONE_DAY * it.repeat;
+
+          const restTerm = ONE_DAY * it.rest;
+
+          const totalTerm = repeatTerm + restTerm;
+
+          if ((today - startAt) % totalTerm >= repeatTerm) return false;
+        } else if (it.repeat) {
+          const repeatTerm = ONE_DAY * it.repeat;
+
+          if ((today - startAt) % repeatTerm !== 0) return false;
+        }
+      }
+
+      return true;
+    }) ?? [];
+
   return (
     <div class='overflow-hidden rounded-2xl'>
       <div class={topClassName()}>
@@ -78,14 +115,14 @@ export const ChallengeCard: Component<Props> = (props) => {
         </div>
       </div>
       <div class={itemsContainerClassName()}>
-        <For each={[] as any}>
+        <For each={todayChallengeItems()}>
           {(challengeItem) => {
             return (
               <Switch>
                 <Match when={challengeItem.type === 'COMPLETE'}>
                   <ChallengeItem.Complete
                     name={challengeItem.name}
-                    isCompleted={challengeItem.history?.complete ?? null}
+                    isCompleted={null}
                     onChange={(isCompleted) => {
                       if (isCompleted === true) {
                         toast.open(
@@ -97,37 +134,32 @@ export const ChallengeCard: Component<Props> = (props) => {
                         toast.open(getLoseWriting());
                       }
 
-                      if (challengeItem.history === null) {
-                        postHistory.mutate({
-                          challengeId: props.id(),
-                          challengeItemId: challengeItem.id,
-                          date: format(current(), 'yyyy-MM-dd'),
-                          complete: isCompleted,
-                        });
-                      } else {
-                        patchHistory.mutate({
-                          challengeId: props.id(),
-                          challengeItemId: challengeItem.id,
-                          id: challengeItem.history.id,
-                          complete: isCompleted,
-                        });
-                      }
+                      // if (challengeItem.history === null) {
+                      //   postHistory.mutate({
+                      //     challengeId: props.id(),
+                      //     challengeItemId: challengeItem.id,
+                      //     date: format(current(), 'yyyy-MM-dd'),
+                      //     complete: isCompleted,
+                      //   });
+                      // } else {
+                      //   patchHistory.mutate({
+                      //     challengeId: props.id(),
+                      //     challengeItemId: challengeItem.id,
+                      //     id: challengeItem.history.id,
+                      //     complete: isCompleted,
+                      //   });
+                      // }
                     }}
                   />
                 </Match>
                 <Match when={challengeItem.type !== 'COMPLETE'}>
                   <ChallengeItem.Countable
                     name={challengeItem.name}
-                    targetCount={
-                      challengeItem.history?.targetCount ??
-                      challengeItem.targetCount!
-                    }
-                    count={challengeItem.history?.count ?? null}
+                    targetCount={challengeItem.targetCount!}
+                    count={null}
                     type={challengeItem.type as 'OVER' | 'UNDER'}
                     onChange={(count) => {
-                      const targetCount =
-                        challengeItem.history?.targetCount ??
-                        challengeItem.targetCount!;
+                      const targetCount = challengeItem.targetCount!;
 
                       const result = (() => {
                         const { type } = challengeItem as {
@@ -155,24 +187,24 @@ export const ChallengeCard: Component<Props> = (props) => {
                         toast.open(getLoseWriting());
                       }
 
-                      if (challengeItem.history === null) {
-                        postHistory.mutate({
-                          challengeId: props.id(),
-                          challengeItemId: challengeItem.id,
-                          date: format(current(), 'yyyy-MM-dd'),
-                          count,
-                          targetCount,
-                        });
-                      } else {
-                        patchHistory.mutate({
-                          challengeId: props.id(),
-                          challengeItemId: challengeItem.id,
-                          id: challengeItem.history.id,
+                      // if (challengeItem.history === null) {
+                      //   postHistory.mutate({
+                      //     challengeId: props.id(),
+                      //     challengeItemId: challengeItem.id,
+                      //     date: format(current(), 'yyyy-MM-dd'),
+                      //     count,
+                      //     targetCount,
+                      //   });
+                      // } else {
+                      //   patchHistory.mutate({
+                      //     challengeId: props.id(),
+                      //     challengeItemId: challengeItem.id,
+                      //     id: challengeItem.history.id,
 
-                          count,
-                          targetCount,
-                        });
-                      }
+                      //     count,
+                      //     targetCount,
+                      //   });
+                      // }
                     }}
                   />
                 </Match>
@@ -180,16 +212,16 @@ export const ChallengeCard: Component<Props> = (props) => {
             );
           }}
         </For>
-        {/* {challengeItemByDate.data?.todayChallengeItems.length === 0 &&
-          challengeItemByDate.data?.originalChallengeItems.length === 0 && (
-            <NoChallengeItem
-              color={() => props.color()}
-              onClick={() => {
-                newChallengeItemPanelOpen = true;
-                openChallengeEditPanel();
-              }}
-            />
-          )}
+        {totalCount() === 0 && (
+          <NoChallengeItem
+            color={() => props.color()}
+            onClick={() => {
+              newChallengeItemPanelOpen = true;
+              openChallengeEditPanel();
+            }}
+          />
+        )}
+        {/*}
         {challengeItemByDate.data?.todayChallengeItems.length === 0 &&
           challengeItemByDate.data?.originalChallengeItems.length !== 0 && (
             <NoChallengeItem.Today color={() => props.color()} />
