@@ -82,7 +82,7 @@ export const ChallengeEditDeleteButton: Component<Props> = (props) => {
               Are you sure you want to delete this challenge?
               <br />
               All related challenge items and historys will be permanently
-              removed.
+              deleted.
             </p>
 
             <p class='text-gray-400 font-medium text-sm mb-[10px]'>
