@@ -54,6 +54,9 @@ export const Col: Component<Props> = (props) => {
       ? ChevronsUp
       : ChevronsDown;
 
+  const buttonClassName =
+    'flex-1 p-1 rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white';
+
   return (
     <div
       class={clsx(
@@ -79,7 +82,8 @@ export const Col: Component<Props> = (props) => {
         <div class='flex gap-2 min-w-20'>
           <button
             class={clsx(
-              'p-1 flex-1 flex items-center justify-center rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+              buttonClassName,
+              'flex items-center justify-center',
               CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
             )}
           >
@@ -87,7 +91,7 @@ export const Col: Component<Props> = (props) => {
           </button>
           <button
             class={clsx(
-              'p-1 rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+              buttonClassName,
               CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
             )}
           >
