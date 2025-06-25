@@ -1,8 +1,10 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import { format } from 'date-fns';
 import { createEffect, createSignal, type Accessor } from 'solid-js';
-import { challengeEditQueries } from '~/entities/challenge-edit';
-import type { PostChallengeItemRequest } from '~/entities/challenge-edit/challenge-edit.type';
+import {
+  challengeEditQueries,
+  type ChallengeEditType,
+} from '~/entities/challenge-edit';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { getMidnight } from '~/features/main/fx';
 import { createInput } from '~/shared/hook';
@@ -140,7 +142,7 @@ export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
   };
 
   const handleSave = async () => {
-    const request: PostChallengeItemRequest = {
+    const request: ChallengeEditType.PostChallengeItemRequest = {
       challengeId: challengeId(),
       name: name(),
       type: type(),
@@ -177,7 +179,12 @@ export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
         request.dates = dates();
       } else if (monthlyPattern() === 'Select Week') {
         request.weeks = weeks();
-        putWeeklyPatternData();
+      }
+    };
+
+    const putYearlyPatternData = () => {
+      if (yearlyPattern() === 'Select Month') {
+        request.months = months();
       }
     };
 
@@ -185,10 +192,14 @@ export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
       putWeeklyPatternData();
     } else if (intervalType() === 'MONTHLY') {
       putMonthlyPatternData();
+      if (monthlyPattern() !== 'Select Date') {
+        putWeeklyPatternData();
+      }
     } else if (intervalType() === 'YEARLY') {
-      if (yearlyPattern() === 'Select Month') {
-        request.months = months();
-        putMonthlyPatternData();
+      putYearlyPatternData();
+      putMonthlyPatternData();
+      if (monthlyPattern() !== 'Select Date') {
+        putWeeklyPatternData();
       }
     }
 
