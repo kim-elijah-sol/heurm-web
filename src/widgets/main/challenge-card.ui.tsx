@@ -96,6 +96,25 @@ export const ChallengeCard: Component<Props> = (props) => {
 
           if ((today - startAt) % repeatTerm !== 0) return false;
         }
+      } else if (it.intervalType === 'WEEKLY') {
+        if (it.repeat) {
+          const startAtDay = new Date(startAt).getDay();
+          const startWeekFirstDate = new Date(
+            startAt - startAtDay * ONE_DAY
+          ).valueOf();
+
+          const todayDay = new Date(today).getDay();
+          const thisWeekFirstDate = new Date(
+            today - todayDay * ONE_DAY
+          ).valueOf();
+
+          const ONE_WEEK = ONE_DAY * 7;
+
+          const repeatTerm = ONE_WEEK * it.repeat;
+
+          if ((thisWeekFirstDate - startWeekFirstDate) % repeatTerm !== 0)
+            return false;
+        }
       }
 
       return true;
