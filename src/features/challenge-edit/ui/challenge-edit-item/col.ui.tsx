@@ -76,10 +76,10 @@ export const Col: Component<Props> = (props) => {
             </span>
           </div>
         </div>
-        <div class='flex gap-2 min-w-[88px]'>
+        <div class='flex gap-2 min-w-20'>
           <button
             class={clsx(
-              'p-[6px] flex-1 flex items-center justify-center rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+              'p-1 flex-1 flex items-center justify-center rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
               CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
             )}
           >
@@ -87,7 +87,7 @@ export const Col: Component<Props> = (props) => {
           </button>
           <button
             class={clsx(
-              'p-[6px] rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
+              'p-1 rounded-[42%] border-2 text-white border-white transition-all active:scale-90 active:bg-white',
               CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
             )}
           >
