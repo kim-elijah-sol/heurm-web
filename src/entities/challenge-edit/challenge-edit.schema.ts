@@ -6,7 +6,6 @@ import {
   challengeItemRepeatTypeSchema,
   challengeItemTypeSchema,
   challengeTitleSchema,
-  dateSchema,
 } from '~/shared/schema';
 
 export const getChallengeItemRequestSchema = z.object({
@@ -54,21 +53,6 @@ export const deleteChallengeResponseSchema = z.object({
   result: z.boolean(),
 });
 
-export const patchChallengeItemRequestSchema = z.object({
-  challengeId: z.string(),
-  challengeItemId: z.string(),
-  name: z.string(),
-  type: challengeItemTypeSchema,
-  days: challengeDayItemSchema,
-  date: dateSchema,
-  targetCount: z.number().optional().nullable(),
-  unit: z.string().optional().nullable(),
-});
-
-export const patchChallengeItemResponseSchema = z.object({
-  result: z.boolean(),
-});
-
 const challengeItemFormBaseSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -106,13 +90,22 @@ export const postChallengeItemRequestSchema = z.object({
   months: z.array(z.number()).optional(),
   targetCount: z.number().nullable().optional(),
   unit: z.string().nullable().optional(),
-  accumulateType: challengeItemIntervalTypeSchema.optional(),
+  accumulateType: challengeItemIntervalTypeSchema.nullable().optional(),
   startAt: z.string(),
   endAt: z.string().nullable().optional(),
 });
 
 export const postChallengeItemResponseSchema = z.object({
   id: z.string(),
+});
+
+export const patchChallengeItemRequestSchema =
+  postChallengeItemRequestSchema.extend({
+    challengeItemId: z.string(),
+  });
+
+export const patchChallengeItemResponseSchema = z.object({
+  result: z.boolean(),
 });
 
 export const deleteChallengeItemRequestSchema = z.object({
