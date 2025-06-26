@@ -55,6 +55,21 @@ export const filterTodayChallengeItem =
           return false;
         }
       }
+    } else if (it.intervalType === 'MONTHLY') {
+      if (it.repeat) {
+        const startYear = new Date(startAt).getFullYear();
+
+        const todayYear = new Date(today).getFullYear();
+
+        const startMonth = new Date(startAt).getMonth() + 1;
+
+        const todayMonth = new Date(today).getMonth() + 1;
+
+        const diffMonths =
+          (startYear - todayYear) * 12 + (startMonth - todayMonth);
+
+        if (diffMonths % it.repeat !== 0) return false;
+      }
     }
 
     return true;
