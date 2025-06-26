@@ -75,7 +75,14 @@ export const filterTodayChallengeItem =
         if (diffMonths % it.repeat !== 0) return false;
       }
     } else if (it.intervalType === 'YEARLY') {
-      if (it.repeat) {
+      if (it.repeat && it.rest) {
+        const todayYear = new Date(today).getFullYear();
+        const startYear = new Date(startAt).getFullYear();
+
+        const totalTerm = it.repeat + it.rest;
+
+        if ((todayYear - startYear) % totalTerm >= it.repeat) return false;
+      } else if (it.repeat) {
         if (
           (new Date(today).getFullYear() - new Date(startAt).getFullYear()) %
             it.repeat !==
