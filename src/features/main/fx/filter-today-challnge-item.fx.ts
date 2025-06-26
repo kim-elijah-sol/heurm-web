@@ -87,9 +87,9 @@ export const filterTodayChallengeItem =
         const isLastDate =
           new Date(today + ONE_DAY).getMonth() + 1 !== todayMonth;
 
-        const findLastDateValue = isLastDate ? 32 : todayDate;
+        const findDates = [todayDate];
 
-        const findDates = [todayDate, findLastDateValue];
+        if (isLastDate) findDates.push(32);
 
         if (it.dates.every((date) => findDates.includes(date) === false)) {
           return false;
