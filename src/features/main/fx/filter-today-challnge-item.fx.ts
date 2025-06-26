@@ -108,6 +108,13 @@ export const filterTodayChallengeItem =
           return false;
         }
       }
+
+      if (it.days.length > 0) {
+        const todayDay = new Date(today).getDay();
+        if (it.days.includes(todayDay) === false) {
+          return false;
+        }
+      }
     }
 
     return true;
