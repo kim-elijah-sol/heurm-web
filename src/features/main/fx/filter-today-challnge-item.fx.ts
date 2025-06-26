@@ -50,12 +50,6 @@ export const filterTodayChallengeItem =
         if ((thisWeekFirstDate - startWeekFirstDate) % repeatTerm !== 0)
           return false;
       }
-
-      if (it.days.length > 0) {
-        if (it.days.includes(todayDay) === false) {
-          return false;
-        }
-      }
     } else if (it.intervalType === 'MONTHLY') {
       const startYear = new Date(startAt).getFullYear();
 
@@ -80,40 +74,42 @@ export const filterTodayChallengeItem =
 
         if (diffMonths % it.repeat !== 0) return false;
       }
+    }
 
-      if (it.dates.length > 0) {
-        const todayDate = new Date(today).getDate();
+    if (it.dates.length > 0) {
+      const todayMonth = new Date(today).getMonth() + 1;
 
-        const isLastDate =
-          new Date(today + ONE_DAY).getMonth() + 1 !== todayMonth;
+      const todayDate = new Date(today).getDate();
 
-        const findDates = [todayDate];
+      const isLastDate =
+        new Date(today + ONE_DAY).getMonth() + 1 !== todayMonth;
 
-        if (isLastDate) findDates.push(32);
+      const findDates = [todayDate];
 
-        if (it.dates.every((date) => findDates.includes(date) === false)) {
-          return false;
-        }
-      } else if (it.weeks.length > 0) {
-        const todayWeek = getWeekOfMonth(today);
-        const lastDate = lastDayOfMonth(today);
-        const lastWeekOfMonth = getWeekOfMonth(lastDate);
-        const isLastWeek = todayWeek === lastWeekOfMonth;
+      if (isLastDate) findDates.push(32);
 
-        const findWeeks = [todayWeek];
-
-        if (isLastWeek) findWeeks.push(6);
-
-        if (it.weeks.every((date) => findWeeks.includes(date) === false)) {
-          return false;
-        }
+      if (it.dates.every((date) => findDates.includes(date) === false)) {
+        return false;
       }
+    } else if (it.weeks.length > 0) {
+      const todayWeek = getWeekOfMonth(today);
+      const lastDate = lastDayOfMonth(today);
+      const lastWeekOfMonth = getWeekOfMonth(lastDate);
+      const isLastWeek = todayWeek === lastWeekOfMonth;
 
-      if (it.days.length > 0) {
-        const todayDay = new Date(today).getDay();
-        if (it.days.includes(todayDay) === false) {
-          return false;
-        }
+      const findWeeks = [todayWeek];
+
+      if (isLastWeek) findWeeks.push(6);
+
+      if (it.weeks.every((date) => findWeeks.includes(date) === false)) {
+        return false;
+      }
+    }
+
+    if (it.days.length > 0) {
+      const todayDay = new Date(today).getDay();
+      if (it.days.includes(todayDay) === false) {
+        return false;
       }
     }
 
