@@ -56,15 +56,24 @@ export const filterTodayChallengeItem =
         }
       }
     } else if (it.intervalType === 'MONTHLY') {
-      if (it.repeat) {
-        const startYear = new Date(startAt).getFullYear();
+      const startYear = new Date(startAt).getFullYear();
 
-        const todayYear = new Date(today).getFullYear();
+      const todayYear = new Date(today).getFullYear();
 
-        const startMonth = new Date(startAt).getMonth() + 1;
+      const startMonth = new Date(startAt).getMonth() + 1;
 
-        const todayMonth = new Date(today).getMonth() + 1;
+      const todayMonth = new Date(today).getMonth() + 1;
 
+      if (it.repeat && it.rest) {
+        const totalMonths =
+          (todayYear - startYear) * 12 + (todayMonth - startMonth);
+
+        const cycleLength = it.repeat + it.rest;
+
+        const positionInCycle = totalMonths % cycleLength;
+
+        if (positionInCycle >= it.repeat) return false;
+      } else if (it.repeat) {
         const diffMonths =
           (startYear - todayYear) * 12 + (startMonth - todayMonth);
 
