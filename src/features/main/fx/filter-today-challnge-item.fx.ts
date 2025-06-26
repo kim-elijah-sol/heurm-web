@@ -92,6 +92,13 @@ export const filterTodayChallengeItem =
       }
     }
 
+    if (it.months.length > 0) {
+      const todayMonth = new Date(today).getMonth();
+      if (it.months.includes(todayMonth) === false) {
+        return false;
+      }
+    }
+
     if (it.dates.length > 0) {
       const todayMonth = new Date(today).getMonth() + 1;
 
