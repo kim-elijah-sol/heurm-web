@@ -49,6 +49,12 @@ export const filterTodayChallengeItem =
         if ((thisWeekFirstDate - startWeekFirstDate) % repeatTerm !== 0)
           return false;
       }
+
+      if (it.days.length > 0) {
+        if (it.days.includes(todayDay) === false) {
+          return false;
+        }
+      }
     }
 
     return true;
