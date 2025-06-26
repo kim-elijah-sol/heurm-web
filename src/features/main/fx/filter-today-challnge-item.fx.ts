@@ -1,3 +1,4 @@
+import { getWeekOfMonth, lastDayOfMonth } from 'date-fns';
 import { type ChallengeEditType } from '~/entities/challenge-edit';
 import { getMidnight } from './get-midnight.fx';
 
@@ -91,6 +92,19 @@ export const filterTodayChallengeItem =
         const findDates = [todayDate, findLastDateValue];
 
         if (it.dates.every((date) => findDates.includes(date) === false)) {
+          return false;
+        }
+      } else if (it.weeks.length > 0) {
+        const todayWeek = getWeekOfMonth(today);
+        const lastDate = lastDayOfMonth(today);
+        const lastWeekOfMonth = getWeekOfMonth(lastDate);
+        const isLastWeek = todayWeek === lastWeekOfMonth;
+
+        const findWeeks = [todayWeek];
+
+        if (isLastWeek) findWeeks.push(6);
+
+        if (it.weeks.every((date) => findWeeks.includes(date) === false)) {
           return false;
         }
       }
