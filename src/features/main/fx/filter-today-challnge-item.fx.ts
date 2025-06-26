@@ -79,6 +79,21 @@ export const filterTodayChallengeItem =
 
         if (diffMonths % it.repeat !== 0) return false;
       }
+
+      if (it.dates.length > 0) {
+        const todayDate = new Date(today).getDate();
+
+        const isLastDate =
+          new Date(today + ONE_DAY).getMonth() + 1 !== todayMonth;
+
+        const findLastDateValue = isLastDate ? 32 : todayDate;
+
+        const findDates = [todayDate, findLastDateValue];
+
+        if (it.dates.every((date) => findDates.includes(date) === false)) {
+          return false;
+        }
+      }
     }
 
     return true;
