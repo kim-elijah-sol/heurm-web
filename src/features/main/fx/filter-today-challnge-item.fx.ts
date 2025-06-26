@@ -74,6 +74,15 @@ export const filterTodayChallengeItem =
 
         if (diffMonths % it.repeat !== 0) return false;
       }
+    } else if (it.intervalType === 'YEARLY') {
+      if (it.repeat) {
+        if (
+          (new Date(today).getFullYear() - new Date(startAt).getFullYear()) %
+            it.repeat !==
+          0
+        )
+          return false;
+      }
     }
 
     if (it.dates.length > 0) {
