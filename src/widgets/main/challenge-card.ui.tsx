@@ -61,7 +61,16 @@ export const ChallengeCard: Component<Props> = (props) => {
     [];
 
   return (
-    <div class='overflow-hidden rounded-2xl'>
+    <div
+      class='overflow-hidden rounded-2xl'
+      style={{
+        order: todayChallengeItems().length
+          ? -1 * todayChallengeItems().length
+          : totalCount() === 0
+          ? 0
+          : 1,
+      }}
+    >
       <div class={topClassName()}>
         <p class='font-semibold text-white'>{props.title()}</p>
         <div class='flex gap-[6px]'>
