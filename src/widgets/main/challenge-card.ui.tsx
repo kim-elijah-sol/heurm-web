@@ -1,14 +1,11 @@
 import { clsx } from 'clsx';
 import { For, Match, Switch, type Accessor, type Component } from 'solid-js';
 import { challengeEditQueries } from '~/entities/challenge-edit';
-import { mainConstant } from '~/entities/main';
 import { filterTodayChallengeItem } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
-import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
-import { toast } from '~/shared/lib';
 import type { ChallengeColor } from '~/shared/types';
 import { ChartLine, Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit';
@@ -57,10 +54,6 @@ export const ChallengeCard: Component<Props> = (props) => {
       CHALLENGE_100_BG_COLOR[props.color()]
     );
 
-  const getWinWriting = () => getRandomItem(mainConstant.WIN_WRITING);
-
-  const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
-
   const totalCount = () => challengeItem.data?.length ?? 0;
 
   const todayChallengeItems = () =>
@@ -94,58 +87,11 @@ export const ChallengeCard: Component<Props> = (props) => {
                 </Match>
                 <Match when={challengeItem.type !== 'COMPLETE'}>
                   <ChallengeItem.Countable
-                    name={challengeItem.name}
-                    targetCount={challengeItem.targetCount!}
-                    count={null}
-                    type={challengeItem.type as 'OVER' | 'UNDER'}
-                    onChange={(count) => {
-                      const targetCount = challengeItem.targetCount!;
-
-                      const result = (() => {
-                        const { type } = challengeItem as {
-                          type: 'OVER' | 'UNDER';
-                          targetCount: number;
-                        };
-
-                        if (count === null) return null;
-
-                        if (type === 'OVER' && count >= targetCount)
-                          return true;
-                        if (type === 'UNDER' && count <= targetCount)
-                          return true;
-
-                        return false;
-                      })();
-
-                      if (result === true) {
-                        toast.open(
-                          `🎉 great! '${
-                            challengeItem.name
-                          }' challenge is complete!<br/>${getWinWriting()}`
-                        );
-                      } else if (result === false) {
-                        toast.open(getLoseWriting());
-                      }
-
-                      // if (challengeItem.history === null) {
-                      //   postHistory.mutate({
-                      //     challengeId: props.id(),
-                      //     challengeItemId: challengeItem.id,
-                      //     date: format(current(), 'yyyy-MM-dd'),
-                      //     count,
-                      //     targetCount,
-                      //   });
-                      // } else {
-                      //   patchHistory.mutate({
-                      //     challengeId: props.id(),
-                      //     challengeItemId: challengeItem.id,
-                      //     id: challengeItem.history.id,
-
-                      //     count,
-                      //     targetCount,
-                      //   });
-                      // }
-                    }}
+                    name={() => challengeItem.name}
+                    challengeId={props.id}
+                    challengeItemId={() => challengeItem.id}
+                    type={() => challengeItem.type as 'OVER' | 'UNDER'}
+                    targetCount={() => challengeItem.targetCount!}
                   />
                 </Match>
               </Switch>

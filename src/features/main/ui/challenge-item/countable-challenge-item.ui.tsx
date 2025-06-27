@@ -2,39 +2,41 @@ import clsx from 'clsx';
 import {
   createEffect,
   createSignal,
-  splitProps,
+  type Accessor,
   type Component,
 } from 'solid-js';
 import type { Nullable } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
 type Props = {
-  type: 'OVER' | 'UNDER';
-  name: string;
-  targetCount: number;
-  count: Nullable<number>;
-  onChange: (count: Nullable<number>) => void;
+  type: Accessor<'OVER' | 'UNDER'>;
+  name: Accessor<string>;
+  targetCount: Accessor<number>;
+  challengeId: Accessor<string>;
+  challengeItemId: Accessor<string>;
 };
 
-export const Countable: Component<Props> = (originProps) => {
+export const Countable: Component<Props> = (props) => {
+  const type = () => props.type();
+
+  const name = () => props.name();
+
+  const targetCount = () => props.targetCount();
+
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
-  const [rest, challengeItem] = splitProps(originProps, ['onChange']);
-
-  const [value, setValue] = createSignal(challengeItem.count?.toString() ?? '');
+  const [value, setValue] = createSignal('');
 
   const getChallengeResult = (count: Nullable<number>) => {
     if (count === null) return null;
-    if (challengeItem.type === 'OVER' && count >= challengeItem.targetCount)
-      return true;
-    if (challengeItem.type === 'UNDER' && count <= challengeItem.targetCount)
-      return true;
+    if (type() === 'OVER' && count >= targetCount()) return true;
+    if (type() === 'UNDER' && count <= targetCount()) return true;
     return false;
   };
 
   const valueToCount = () => (value() ? Number(value()) : null);
 
-  const serverChallengeResult = () => getChallengeResult(challengeItem.count);
+  const serverChallengeResult = () => getChallengeResult(null);
 
   const localChallengeResult = () => getChallengeResult(valueToCount());
 
@@ -68,7 +70,7 @@ export const Countable: Component<Props> = (originProps) => {
 
   createEffect(() => {
     if (isBluredPanelShow()) {
-      setValue(originProps.count?.toString() ?? '');
+      setValue('');
     }
   });
 
@@ -78,7 +80,7 @@ export const Countable: Component<Props> = (originProps) => {
         class='p-2 rounded-xl transition-all active:scale-[0.98] active:bg-[rgb(255,255,255,0.6)] flex items-center justify-between'
         onClick={() => setIsBluredPanelShow(true)}
       >
-        <p class={nameTextClass()}>{challengeItem.name}</p>
+        <p class={nameTextClass()}>{name()}</p>
 
         <p class='w-6 text-center'>{challengeResultText()}</p>
       </div>
@@ -92,7 +94,7 @@ export const Countable: Component<Props> = (originProps) => {
               <Panel.CloseButton onClick={close} />
 
               <p class='text-[24px] text-slate-600 mb-4 font-semibold'>
-                {challengeItem.targetCount.toLocaleString()}
+                {targetCount().toLocaleString()}
               </p>
 
               <input
@@ -112,7 +114,6 @@ export const Countable: Component<Props> = (originProps) => {
                   buttonColor()
                 )}
                 onClick={() => {
-                  rest.onChange(valueToCount());
                   close();
                 }}
               >
