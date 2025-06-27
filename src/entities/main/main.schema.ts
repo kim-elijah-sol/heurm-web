@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import {
   challengeColorSchema,
+  challengeItemTypeSchema,
   challengeTitleSchema,
   dateSchema,
 } from '~/shared/schema';
@@ -19,6 +20,7 @@ const postHistoryRequestBaseSchema = z.object({
   challengeId: z.string(),
   challengeItemId: z.string(),
   date: dateSchema,
+  type: challengeItemTypeSchema,
 });
 
 export const postHistoryRequestCompleteSchema =
