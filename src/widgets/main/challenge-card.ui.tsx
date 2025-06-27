@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { For, Match, Switch, type Accessor, type Component } from 'solid-js';
 import { challengeEditQueries } from '~/entities/challenge-edit';
-import { mainConstant, mainQueries } from '~/entities/main';
+import { mainConstant } from '~/entities/main';
 import { filterTodayChallengeItem } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
@@ -41,14 +41,6 @@ export const ChallengeCard: Component<Props> = (props) => {
   const challengeItem = challengeEditQueries.getChallengeItemQuery(() => ({
     challengeId: props.id(),
   }));
-
-  const postHistory = mainQueries.postHistoryMutation(() => {
-    //
-  });
-
-  const patchHistory = mainQueries.patchHistoryMutation(() => {
-    //
-  });
 
   const topClassName = () =>
     clsx(
@@ -95,35 +87,9 @@ export const ChallengeCard: Component<Props> = (props) => {
               <Switch>
                 <Match when={challengeItem.type === 'COMPLETE'}>
                   <ChallengeItem.Complete
-                    name={challengeItem.name}
-                    isCompleted={null}
-                    onChange={(isCompleted) => {
-                      if (isCompleted === true) {
-                        toast.open(
-                          `🎉 great! '${
-                            challengeItem.name
-                          }' challenge is complete!<br/>${getWinWriting()}`
-                        );
-                      } else if (isCompleted === false) {
-                        toast.open(getLoseWriting());
-                      }
-
-                      // if (challengeItem.history === null) {
-                      //   postHistory.mutate({
-                      //     challengeId: props.id(),
-                      //     challengeItemId: challengeItem.id,
-                      //     date: format(current(), 'yyyy-MM-dd'),
-                      //     complete: isCompleted,
-                      //   });
-                      // } else {
-                      //   patchHistory.mutate({
-                      //     challengeId: props.id(),
-                      //     challengeItemId: challengeItem.id,
-                      //     id: challengeItem.history.id,
-                      //     complete: isCompleted,
-                      //   });
-                      // }
-                    }}
+                    name={() => challengeItem.name}
+                    challengeId={props.id}
+                    challengeItemId={() => challengeItem.id}
                   />
                 </Match>
                 <Match when={challengeItem.type !== 'COMPLETE'}>

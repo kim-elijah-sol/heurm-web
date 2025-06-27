@@ -1,25 +1,39 @@
 import clsx from 'clsx';
-import { createSignal, splitProps, type Component } from 'solid-js';
-import type { Nullable } from '~/shared/types';
+import { createSignal, type Accessor, type Component } from 'solid-js';
+import { mainConstant } from '~/entities/main';
+import { getRandomItem } from '~/shared/fx';
+import { toast } from '~/shared/lib';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 
 type Props = {
-  name: string;
-  isCompleted: Nullable<boolean>;
-  onChange: (isCompleted: Nullable<boolean>) => void;
+  name: Accessor<string>;
+  challengeId: Accessor<string>;
+  challengeItemId: Accessor<string>;
 };
 
-export const Complete: Component<Props> = (originProps) => {
+export const Complete: Component<Props> = (props) => {
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
-  const [rest, challengeItem] = splitProps(originProps, ['onChange']);
+  const name = () => props.name();
+
+  const isCompleted = () => null;
+
+  const getWinWriting = () => getRandomItem(mainConstant.WIN_WRITING);
+
+  const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
 
   const challengeResultText = () =>
-    challengeItem.isCompleted === null
-      ? '⏳'
-      : challengeItem.isCompleted
-      ? '🎉'
-      : '❌';
+    isCompleted() === null ? '⏳' : isCompleted() ? '🎉' : '❌';
+
+  const toastResult = (isCompleted: boolean | null) => {
+    if (isCompleted === true) {
+      toast.open(
+        `🎉 great! '${name()}' challenge is complete!<br/>${getWinWriting()}`
+      );
+    } else if (isCompleted === false) {
+      toast.open(getLoseWriting());
+    }
+  };
 
   const buttonBaseClassName =
     'p-5 rounded-[42%] transition-all active:scale-90';
@@ -32,14 +46,14 @@ export const Complete: Component<Props> = (originProps) => {
       >
         <p
           class={
-            challengeItem.isCompleted === null
+            isCompleted() === null
               ? 'text-gray-500 font-medium'
-              : challengeItem.isCompleted
+              : isCompleted()
               ? 'text-emerald-500 font-bold'
               : 'text-rose-500 font-semibold'
           }
         >
-          {challengeItem.name}
+          {name()}
         </p>
 
         <p class='w-6 text-center'>{challengeResultText()}</p>
@@ -54,7 +68,7 @@ export const Complete: Component<Props> = (originProps) => {
                     buttonBaseClassName,
                     'bg-rose-400 active:bg-rose-500'
                   )}
-                  on:click={() => rest.onChange(false)}
+                  onClick={() => toastResult(false)}
                 >
                   <Ban size={40} />
                 </button>
@@ -63,7 +77,7 @@ export const Complete: Component<Props> = (originProps) => {
                     buttonBaseClassName,
                     'bg-emerald-400 active:bg-emerald-500'
                   )}
-                  on:click={() => rest.onChange(true)}
+                  onClick={() => toastResult(true)}
                 >
                   <Check size={40} />
                 </button>
@@ -73,7 +87,7 @@ export const Complete: Component<Props> = (originProps) => {
                   buttonBaseClassName,
                   'bg-blue-400 active:bg-blue-500'
                 )}
-                on:click={() => rest.onChange(null)}
+                onClick={() => toastResult(null)}
               >
                 <Loader size={40} />
               </button>
