@@ -195,11 +195,10 @@ export const ChallengeCard: Component<Props> = (props) => {
             }}
           />
         )}
-        {/*}
-        {challengeItemByDate.data?.todayChallengeItems.length === 0 &&
-          challengeItemByDate.data?.originalChallengeItems.length !== 0 && (
-            <NoChallengeItem.Today color={() => props.color()} />
-          )} */}
+
+        {todayChallengeItems().length === 0 && totalCount() !== 0 && (
+          <NoChallengeItem.Today color={() => props.color()} />
+        )}
       </div>
 
       {isChallengeEditPanel() && (
