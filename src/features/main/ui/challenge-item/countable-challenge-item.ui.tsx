@@ -19,7 +19,7 @@ import type {
   ChallengeItemIntervalType,
   Nullable,
 } from '~/shared/types';
-import { Ban, Check, Loader, Panel } from '~/shared/ui';
+import { Check, Loader, Panel } from '~/shared/ui';
 import {
   accumulateHistoryCount,
   filterMonthHistory,
@@ -150,15 +150,13 @@ export const Countable: Component<Props> = (props) => {
   const localChallengeResult = () => getChallengeResult(valueToCount());
 
   const ctaIndicatorHeight = () =>
-    ((stackedCountExceptCurrent() + (valueToCount() ?? 0)) / targetCount()) *
-    100;
+    Math.min(
+      ((stackedCountExceptCurrent() + (valueToCount() ?? 0)) / targetCount()) *
+        100,
+      100
+    );
 
-  const icon = () =>
-    localChallengeResult()
-      ? Check
-      : localChallengeResult() === false
-      ? Ban
-      : Loader;
+  const ctaIcon = () => (value().length === 0 ? Loader : Check);
 
   const nameTextClass = () =>
     serverChallengeResult() === null
@@ -206,7 +204,7 @@ export const Countable: Component<Props> = (props) => {
                 class='text-center text-[64px] text-slate-800 font-semibold mb-8 placeholder:text-gray-400'
                 placeholder='Current'
                 value={value()}
-                onInput={(e) => setValue(e.target.value)}
+                onInput={(e) => setValue(e.target.value.trim())}
               />
 
               <button
@@ -229,7 +227,7 @@ export const Countable: Component<Props> = (props) => {
                   }}
                 />
 
-                <div class='z-1 relative'>{icon()({ size: 40 })}</div>
+                <div class='z-1 relative'>{ctaIcon()({ size: 40 })}</div>
               </button>
             </div>
           )}
