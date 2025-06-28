@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { createSignal, type Accessor, type Component } from 'solid-js';
 import { mainConstant, mainQueries } from '~/entities/main';
 import {
-  CHALLENGE_TEXT_COLOR_200,
+  CHALLENGE_TEXT_COLOR_300,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
@@ -81,6 +81,13 @@ export const Complete: Component<Props> = (props) => {
   const buttonBaseClassName =
     'p-5 rounded-[42%] transition-all active:scale-90';
 
+  const _ =
+    isCompleted() === null
+      ? clsx('font-medium', CHALLENGE_TEXT_COLOR_300[props.color()])
+      : isCompleted()
+      ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[props.color()])
+      : 'text-rose-500 font-semibold';
+
   return (
     <>
       <div
@@ -89,11 +96,11 @@ export const Complete: Component<Props> = (props) => {
       >
         <p
           class={
-            isCompleted() === null
-              ? clsx('font-medium', CHALLENGE_TEXT_COLOR_200[props.color()])
-              : isCompleted()
+            isCompleted()
               ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[props.color()])
-              : 'text-rose-500 font-semibold'
+              : isCompleted() === false
+              ? clsx('font-semibold', CHALLENGE_TEXT_COLOR_300[props.color()])
+              : 'text-gray-400 font-semibold'
           }
         >
           {name()}
@@ -104,8 +111,8 @@ export const Complete: Component<Props> = (props) => {
             isCompleted()
               ? CHALLENGE_TEXT_COLOR_500[props.color()]
               : isCompleted() === false
-              ? 'text-rose-500'
-              : CHALLENGE_TEXT_COLOR_200[props.color()]
+              ? CHALLENGE_TEXT_COLOR_300[props.color()]
+              : 'text-gray-400'
           }
         >
           {challengeResultIcon()({
