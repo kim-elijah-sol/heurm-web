@@ -1,9 +1,11 @@
 import clsx from 'clsx';
+import { format } from 'date-fns';
 import { createSignal, type Accessor, type Component } from 'solid-js';
-import { mainConstant } from '~/entities/main';
+import { mainConstant, mainQueries } from '~/entities/main';
 import { getRandomItem } from '~/shared/fx';
 import { toast } from '~/shared/lib';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
+import { createDateSelect } from '../../hook';
 
 type Props = {
   name: Accessor<string>;
@@ -12,24 +14,44 @@ type Props = {
 };
 
 export const Complete: Component<Props> = (props) => {
+  const { current } = createDateSelect();
+
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
   const name = () => props.name();
 
-  const isCompleted = () => null;
+  const getHistory = mainQueries.getHistoryQuery(() => ({
+    challengeId: props.challengeId(),
+    challengeItemId: props.challengeItemId(),
+  }));
+
+  const postHistory = mainQueries.postHistoryMutation(() =>
+    getHistory.refetch()
+  );
 
   const getWinWriting = () => getRandomItem(mainConstant.WIN_WRITING);
 
   const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
 
+  const isCompleted = () =>
+    getHistory.data?.find(
+      (it) => format(it.date, 'yyyy.MM.dd') === format(current(), 'yyyy.MM.dd')
+    )?.complete ?? null;
+
   const challengeResultText = () =>
     isCompleted() === null ? '⏳' : isCompleted() ? '🎉' : '❌';
 
-  const toastResult = (isCompleted: boolean | null) => {
+  const handleClickCTA = async (isCompleted: boolean | null) => {
+    await postHistory.mutateAsync({
+      challengeId: props.challengeId(),
+      challengeItemId: props.challengeItemId(),
+      type: 'COMPLETE',
+      complete: isCompleted,
+      date: format(current(), 'yyyy-MM-dd'),
+    });
+
     if (isCompleted === true) {
-      toast.open(
-        `🎉 great! '${name()}' challenge is complete!<br/>${getWinWriting()}`
-      );
+      toast.open(`🎉 great! '${name()}' is complete!<br/>${getWinWriting()}`);
     } else if (isCompleted === false) {
       toast.open(getLoseWriting());
     }
@@ -68,7 +90,7 @@ export const Complete: Component<Props> = (props) => {
                     buttonBaseClassName,
                     'bg-rose-400 active:bg-rose-500'
                   )}
-                  onClick={() => toastResult(false)}
+                  onClick={() => handleClickCTA(false)}
                 >
                   <Ban size={40} />
                 </button>
@@ -77,7 +99,7 @@ export const Complete: Component<Props> = (props) => {
                     buttonBaseClassName,
                     'bg-emerald-400 active:bg-emerald-500'
                   )}
-                  onClick={() => toastResult(true)}
+                  onClick={() => handleClickCTA(true)}
                 >
                   <Check size={40} />
                 </button>
@@ -87,7 +109,7 @@ export const Complete: Component<Props> = (props) => {
                   buttonBaseClassName,
                   'bg-blue-400 active:bg-blue-500'
                 )}
-                onClick={() => toastResult(null)}
+                onClick={() => handleClickCTA(null)}
               >
                 <Loader size={40} />
               </button>
