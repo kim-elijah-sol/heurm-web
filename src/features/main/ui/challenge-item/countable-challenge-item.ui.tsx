@@ -7,7 +7,12 @@ import {
   type Component,
 } from 'solid-js';
 import { mainQueries } from '~/entities/main';
-import type { ChallengeColor, Nullable } from '~/shared/types';
+import { dateFormat } from '~/shared/fx';
+import type {
+  ChallengeColor,
+  ChallengeItemIntervalType,
+  Nullable,
+} from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 import { createDateSelect } from '../../hook';
 import { PieChart } from './pie-chart.ui';
@@ -19,6 +24,7 @@ type Props = {
   challengeId: Accessor<string>;
   challengeItemId: Accessor<string>;
   color: Accessor<ChallengeColor>;
+  accumulateType: Accessor<Nullable<ChallengeItemIntervalType>>;
 };
 
 export const Countable: Component<Props> = (props) => {
@@ -29,6 +35,8 @@ export const Countable: Component<Props> = (props) => {
   const name = () => props.name();
 
   const targetCount = () => props.targetCount();
+
+  const accumulateType = () => props.accumulateType() ?? 'DAILY';
 
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
@@ -43,6 +51,70 @@ export const Countable: Component<Props> = (props) => {
     getHistory.data?.find(
       (it) => format(it.date, 'yyyy.MM.dd') === format(current(), 'yyyy.MM.dd')
     );
+
+  const getDateValue = (date: number | string | Date) => {
+    return Number(dateFormat['yyyy-MM-dd'](date).replace(/-/g, ''));
+  };
+
+  const stackedCount = () => {
+    if (accumulateType() === 'DAILY') return currentHistory()?.count ?? 0;
+    if (accumulateType() === 'WEEKLY') {
+      const ONE_DAY = 86_400_000;
+
+      const currentDay = new Date(current()).getDay();
+      const weekFirstDate = new Date(
+        current().valueOf() - currentDay * ONE_DAY
+      ).valueOf();
+
+      const weekLastDate = new Date(weekFirstDate + ONE_DAY * 6).valueOf();
+
+      return (
+        getHistory.data
+          ?.filter(
+            (it) =>
+              getDateValue(it.date) >= getDateValue(weekFirstDate) &&
+              getDateValue(it.date) <= getDateValue(weekLastDate)
+          )
+          .reduce((acc, current) => {
+            return acc + (current.count ?? 0);
+          }, 0) ?? 0
+      );
+    }
+    if (accumulateType() === 'MONTHLY') {
+      const currentYear = new Date(current()).getFullYear();
+      const currentMonth = new Date(current()).getMonth();
+
+      return (
+        getHistory.data
+          ?.filter((it) => {
+            const itYear = new Date(it.date).getFullYear();
+            const itMonth = new Date(it.date).getMonth();
+
+            return itYear === currentYear && itMonth === currentMonth;
+          })
+          .reduce((acc, current) => {
+            return acc + (current.count ?? 0);
+          }, 0) ?? 0
+      );
+    }
+    if (accumulateType() === 'YEARLY') {
+      const currentYear = new Date(current()).getFullYear();
+
+      return (
+        getHistory.data
+          ?.filter((it) => {
+            const itYear = new Date(it.date).getFullYear();
+
+            return itYear === currentYear;
+          })
+          .reduce((acc, current) => {
+            return acc + (current.count ?? 0);
+          }, 0) ?? 0
+      );
+    }
+
+    return 0;
+  };
 
   const postHistory = mainQueries.postHistoryMutation(() =>
     getHistory.refetch()
@@ -114,7 +186,7 @@ export const Countable: Component<Props> = (props) => {
     }
   });
 
-  const percentage = () => (currentHistory()?.count ?? 0) / targetCount();
+  const percentage = () => stackedCount() / targetCount();
 
   return (
     <>

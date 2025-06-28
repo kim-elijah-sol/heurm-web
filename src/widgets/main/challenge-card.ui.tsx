@@ -103,6 +103,7 @@ export const ChallengeCard: Component<Props> = (props) => {
                     challengeItemId={() => challengeItem.id}
                     type={() => challengeItem.type as 'OVER' | 'UNDER'}
                     targetCount={() => challengeItem.targetCount!}
+                    accumulateType={() => challengeItem.accumulateType}
                   />
                 </Match>
               </Switch>
