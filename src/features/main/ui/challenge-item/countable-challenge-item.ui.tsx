@@ -8,9 +8,12 @@ import {
 } from 'solid-js';
 import { mainQueries } from '~/entities/main';
 import {
+  CHALLENGE_300_BG_COLOR,
+  CHALLENGE_BG_500_COLOR,
   CHALLENGE_TEXT_COLOR_300,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
+import { dateFormat } from '~/shared/fx';
 import type {
   ChallengeColor,
   ChallengeItemIntervalType,
@@ -78,6 +81,29 @@ export const Countable: Component<Props> = (props) => {
     );
   };
 
+  const stackedCountExceptCurrent = () => {
+    if (accumulateType() === 'DAILY') return 0;
+
+    const filterFn =
+      accumulateType() === 'WEEKLY'
+        ? filterWeekHistory
+        : accumulateType() === 'MONTHLY'
+        ? filterMonthHistory
+        : filterYearHistory;
+
+    return (
+      getHistory.data
+        ?.filter((it) => {
+          return (
+            filterFn(current)(it) &&
+            dateFormat['yyyy-MM-dd'](it.date) !==
+              dateFormat['yyyy-MM-dd'](current())
+          );
+        })
+        .reduce(accumulateHistoryCount, 0) ?? 0
+    );
+  };
+
   const postHistory = mainQueries.postHistoryMutation(() =>
     getHistory.refetch()
   );
@@ -123,6 +149,10 @@ export const Countable: Component<Props> = (props) => {
 
   const localChallengeResult = () => getChallengeResult(valueToCount());
 
+  const ctaIndicatorHeight = () =>
+    ((stackedCountExceptCurrent() + (valueToCount() ?? 0)) / targetCount()) *
+    100;
+
   const icon = () =>
     localChallengeResult()
       ? Check
@@ -136,13 +166,6 @@ export const Countable: Component<Props> = (props) => {
       : serverChallengeResult()
       ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[props.color()])
       : clsx('font-semibold', CHALLENGE_TEXT_COLOR_300[props.color()]);
-
-  const buttonColor = () =>
-    localChallengeResult()
-      ? 'bg-emerald-400 active:bg-emerald-500'
-      : localChallengeResult() === false
-      ? 'bg-rose-400 active:bg-rose-500'
-      : 'bg-blue-400 active:bg-blue-500';
 
   createEffect(() => {
     if (isBluredPanelShow()) {
@@ -188,15 +211,25 @@ export const Countable: Component<Props> = (props) => {
 
               <button
                 class={clsx(
-                  'p-5 rounded-[42%] transition-all active:scale-90',
-                  buttonColor()
+                  'p-5 rounded-[42%] transition-all relative overflow-hidden active:scale-90',
+                  CHALLENGE_300_BG_COLOR[props.color()]
                 )}
                 onClick={() => {
                   handleClickCTA();
                   close();
                 }}
               >
-                {icon()({ size: 40 })}
+                <div
+                  class={clsx(
+                    'absolute left-0 right-0 bottom-0 pointer-events-none transition-all z-0',
+                    CHALLENGE_BG_500_COLOR[props.color()]
+                  )}
+                  style={{
+                    height: `${ctaIndicatorHeight()}%`,
+                  }}
+                />
+
+                <div class='z-1 relative'>{icon()({ size: 40 })}</div>
               </button>
             </div>
           )}
