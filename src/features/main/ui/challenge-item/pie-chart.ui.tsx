@@ -27,21 +27,19 @@ export const PieChart: Component<Props> = (props) => {
         stroke-width='30'
         class={clsx('transition-all', CHALLENGE_STROKE_200[props.color()])}
       />
-      {props.percentage() > 0 && (
-        <circle
-          cx='110'
-          cy='110'
-          r='90'
-          fill='none'
-          stroke='currentColor'
-          stroke-width='30'
-          stroke-dasharray={`${565.5 * props.percentage()} 339.3`}
-          stroke-dashoffset='0'
-          transform='rotate(-90 110 110)'
-          stroke-linecap='round'
-          class='transition-all'
-        />
-      )}
+      <circle
+        cx='110'
+        cy='110'
+        r='90'
+        fill='none'
+        stroke='currentColor'
+        stroke-width='30'
+        stroke-dasharray={`${565.5 * props.percentage()} 10000`}
+        stroke-dashoffset='0'
+        transform='rotate(-90 110 110)'
+        stroke-linecap={props.percentage() !== 0 ? 'round' : undefined}
+        class='transition-all'
+      />
     </svg>
   );
 };
