@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import { createSignal, type Accessor, type Component } from 'solid-js';
 import { mainConstant, mainQueries } from '~/entities/main';
 import {
+  CHALLENGE_TEXT_COLOR_200,
   CHALLENGE_TEXT_COLOR_300,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
@@ -105,7 +106,7 @@ export const Complete: Component<Props> = (props) => {
               ? CHALLENGE_TEXT_COLOR_500[props.color()]
               : isCompleted() === false
               ? CHALLENGE_TEXT_COLOR_300[props.color()]
-              : 'text-gray-400'
+              : CHALLENGE_TEXT_COLOR_200[props.color()]
           }
         >
           {challengeResultIcon()({
