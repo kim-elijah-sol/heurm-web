@@ -7,13 +7,18 @@ import {
   type Component,
 } from 'solid-js';
 import { mainQueries } from '~/entities/main';
-import { dateFormat } from '~/shared/fx';
 import type {
   ChallengeColor,
   ChallengeItemIntervalType,
   Nullable,
 } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
+import {
+  accumulateHistoryCount,
+  filterMonthHistory,
+  filterWeekHistory,
+  filterYearHistory,
+} from '../../fx';
 import { createDateSelect } from '../../hook';
 import { PieChart } from './pie-chart.ui';
 
@@ -52,68 +57,21 @@ export const Countable: Component<Props> = (props) => {
       (it) => format(it.date, 'yyyy.MM.dd') === format(current(), 'yyyy.MM.dd')
     );
 
-  const getDateValue = (date: number | string | Date) => {
-    return Number(dateFormat['yyyy-MM-dd'](date).replace(/-/g, ''));
-  };
-
   const stackedCount = () => {
     if (accumulateType() === 'DAILY') return currentHistory()?.count ?? 0;
-    if (accumulateType() === 'WEEKLY') {
-      const ONE_DAY = 86_400_000;
 
-      const currentDay = new Date(current()).getDay();
-      const weekFirstDate = new Date(
-        current().valueOf() - currentDay * ONE_DAY
-      ).valueOf();
+    const filterFn =
+      accumulateType() === 'WEEKLY'
+        ? filterWeekHistory
+        : accumulateType() === 'MONTHLY'
+        ? filterMonthHistory
+        : filterYearHistory;
 
-      const weekLastDate = new Date(weekFirstDate + ONE_DAY * 6).valueOf();
-
-      return (
-        getHistory.data
-          ?.filter(
-            (it) =>
-              getDateValue(it.date) >= getDateValue(weekFirstDate) &&
-              getDateValue(it.date) <= getDateValue(weekLastDate)
-          )
-          .reduce((acc, current) => {
-            return acc + (current.count ?? 0);
-          }, 0) ?? 0
-      );
-    }
-    if (accumulateType() === 'MONTHLY') {
-      const currentYear = new Date(current()).getFullYear();
-      const currentMonth = new Date(current()).getMonth();
-
-      return (
-        getHistory.data
-          ?.filter((it) => {
-            const itYear = new Date(it.date).getFullYear();
-            const itMonth = new Date(it.date).getMonth();
-
-            return itYear === currentYear && itMonth === currentMonth;
-          })
-          .reduce((acc, current) => {
-            return acc + (current.count ?? 0);
-          }, 0) ?? 0
-      );
-    }
-    if (accumulateType() === 'YEARLY') {
-      const currentYear = new Date(current()).getFullYear();
-
-      return (
-        getHistory.data
-          ?.filter((it) => {
-            const itYear = new Date(it.date).getFullYear();
-
-            return itYear === currentYear;
-          })
-          .reduce((acc, current) => {
-            return acc + (current.count ?? 0);
-          }, 0) ?? 0
-      );
-    }
-
-    return 0;
+    return (
+      getHistory.data
+        ?.filter(filterFn(current))
+        .reduce(accumulateHistoryCount, 0) ?? 0
+    );
   };
 
   const postHistory = mainQueries.postHistoryMutation(() =>
