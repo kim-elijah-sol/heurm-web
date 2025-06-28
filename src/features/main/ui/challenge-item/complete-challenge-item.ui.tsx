@@ -81,13 +81,6 @@ export const Complete: Component<Props> = (props) => {
   const buttonBaseClassName =
     'p-5 rounded-[42%] transition-all active:scale-90';
 
-  const _ =
-    isCompleted() === null
-      ? clsx('font-medium', CHALLENGE_TEXT_COLOR_300[props.color()])
-      : isCompleted()
-      ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[props.color()])
-      : 'text-rose-500 font-semibold';
-
   return (
     <>
       <div
