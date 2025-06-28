@@ -7,6 +7,10 @@ import {
   type Component,
 } from 'solid-js';
 import { mainQueries } from '~/entities/main';
+import {
+  CHALLENGE_TEXT_COLOR_300,
+  CHALLENGE_TEXT_COLOR_500,
+} from '~/shared/constant';
 import type {
   ChallengeColor,
   ChallengeItemIntervalType,
@@ -113,7 +117,9 @@ export const Countable: Component<Props> = (props) => {
   const valueToCount = () => (value() ? Number(value()) : null);
 
   const serverChallengeResult = () =>
-    getChallengeResult(currentHistory()?.count ?? null);
+    getChallengeResult(
+      typeof currentHistory()?.count !== 'number' ? null : stackedCount()
+    );
 
   const localChallengeResult = () => getChallengeResult(valueToCount());
 
@@ -126,10 +132,10 @@ export const Countable: Component<Props> = (props) => {
 
   const nameTextClass = () =>
     serverChallengeResult() === null
-      ? 'text-gray-500 font-medium'
+      ? 'text-gray-400 font-semibold'
       : serverChallengeResult()
-      ? 'text-emerald-500 font-bold'
-      : 'text-rose-500 font-semibold';
+      ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[props.color()])
+      : clsx('font-semibold', CHALLENGE_TEXT_COLOR_300[props.color()]);
 
   const buttonColor = () =>
     localChallengeResult()
