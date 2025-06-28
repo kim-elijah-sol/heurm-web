@@ -2,6 +2,9 @@ import { z } from 'zod';
 import {
   getChallengeResponseItemSchema,
   getChallengeResponseSchema,
+  getHistoryRequestSchema,
+  getHistoryResponseItemSchema,
+  getHistoryResponseSchema,
   patchHistoryRequestCompleteSchema,
   patchHistoryRequestCountableSchema,
   patchHistoryRequestSchema,
@@ -17,6 +20,14 @@ export type GetChallengeResponseItem = z.infer<
 >;
 
 export type GetChallengeResponse = z.infer<typeof getChallengeResponseSchema>;
+
+export type GetHistoryRequest = z.infer<typeof getHistoryRequestSchema>;
+
+export type GetHistoryResponseItem = z.infer<
+  typeof getHistoryResponseItemSchema
+>;
+
+export type GetHistoryResponse = z.infer<typeof getHistoryResponseSchema>;
 
 export type PostHistoryCompleteRequest = z.infer<
   typeof postHistoryRequestCompleteSchema

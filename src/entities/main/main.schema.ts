@@ -16,6 +16,20 @@ export const getChallengeResponseSchema = z.array(
   getChallengeResponseItemSchema
 );
 
+export const getHistoryRequestSchema = z.object({
+  challengeId: z.string(),
+  challengeItemId: z.string(),
+});
+
+export const getHistoryResponseItemSchema = z.object({
+  id: z.string(),
+  date: z.string(),
+  complete: z.boolean().nullable(),
+  count: z.number().nullable(),
+});
+
+export const getHistoryResponseSchema = z.array(getHistoryResponseItemSchema);
+
 const postHistoryRequestBaseSchema = z.object({
   challengeId: z.string(),
   challengeItemId: z.string(),

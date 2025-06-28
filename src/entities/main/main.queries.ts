@@ -1,12 +1,26 @@
 import { useMutation, useQuery } from '@tanstack/solid-query';
+import { type Accessor } from 'solid-js';
 import { reconcile } from 'solid-js/store';
 import { toastAtError } from '~/shared/fx';
-import { getChallenge, patchHistory, postHistory } from './main.api';
+import {
+  getChallenge,
+  getHistory,
+  patchHistory,
+  postHistory,
+} from './main.api';
+import { GetHistoryRequest } from './main.type';
 
 export const getChallengeQuery = () =>
   useQuery(() => ({
     queryKey: ['getChallenge'],
     queryFn: getChallenge,
+    reconcile: (oldData, newData) => reconcile(newData)(oldData),
+  }));
+
+export const getHistoryQuery = (params: Accessor<GetHistoryRequest>) =>
+  useQuery(() => ({
+    queryKey: ['getHistory', params().challengeId, params().challengeItemId],
+    queryFn: () => getHistory(params()),
     reconcile: (oldData, newData) => reconcile(newData)(oldData),
   }));
 

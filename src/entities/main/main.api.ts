@@ -1,11 +1,14 @@
 import { https } from '~/shared/lib';
 import {
   getChallengeResponseSchema,
+  getHistoryResponseSchema,
   patchHistoryResponseSchema,
   postHistoryResponseSchema,
 } from './main.schema';
 import type {
   GetChallengeResponse,
+  GetHistoryRequest,
+  GetHistoryResponse,
   PatchHistoryRequest,
   PatchHistoryResponse,
   PostHistoryRequest,
@@ -16,6 +19,13 @@ export const getChallenge = () =>
   https
     .get<GetChallengeResponse>('/challenge')
     .then(https.validateResponse(getChallengeResponseSchema));
+
+export const getHistory = (params: GetHistoryRequest) =>
+  https
+    .get<GetHistoryResponse>('/history', {
+      params,
+    })
+    .then(https.validateResponse(getHistoryResponseSchema));
 
 export const postHistory = (body: PostHistoryRequest) =>
   https
