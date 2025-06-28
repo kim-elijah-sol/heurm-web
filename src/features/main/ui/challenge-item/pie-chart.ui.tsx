@@ -24,7 +24,7 @@ export const PieChart: Component<Props> = (props) => {
         cy='110'
         r='90'
         fill='none'
-        stroke-width='40'
+        stroke-width='30'
         class={clsx('transition-all', CHALLENGE_STROKE_200[props.color()])}
       />
       {props.percentage() > 0 && (
@@ -34,7 +34,7 @@ export const PieChart: Component<Props> = (props) => {
           r='90'
           fill='none'
           stroke='currentColor'
-          stroke-width='40'
+          stroke-width='30'
           stroke-dasharray={`${565.5 * props.percentage()} 339.3`}
           stroke-dashoffset='0'
           transform='rotate(-90 110 110)'
