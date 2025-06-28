@@ -34,7 +34,7 @@ export const PieChart: Component<Props> = (props) => {
         fill='none'
         stroke='currentColor'
         stroke-width='30'
-        stroke-dasharray={`${565.5 * props.percentage()} 10000`}
+        stroke-dasharray={`${565.5 * Math.min(props.percentage(), 1)} 10000`}
         stroke-dashoffset='0'
         transform='rotate(-90 110 110)'
         stroke-linecap={props.percentage() !== 0 ? 'round' : undefined}
