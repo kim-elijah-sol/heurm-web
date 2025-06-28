@@ -206,3 +206,14 @@ export const CHALLENGE_ACTIVE_TEXT_COLOR_500 = {
   purple: 'active:text-purple-500',
   pink: 'active:text-pink-500',
 } as const;
+
+export const CHALLENGE_STROKE_200 = {
+  red: 'stroke-red-200',
+  green: 'stroke-green-200',
+  blue: 'stroke-blue-200',
+  indigo: 'stroke-indigo-200',
+  teal: 'stroke-teal-200',
+  yellow: 'stroke-yellow-200',
+  purple: 'stroke-purple-200',
+  pink: 'stroke-pink-200',
+} as const;

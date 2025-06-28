@@ -96,6 +96,7 @@ export const ChallengeCard: Component<Props> = (props) => {
                 </Match>
                 <Match when={challengeItem.type !== 'COMPLETE'}>
                   <ChallengeItem.Countable
+                    color={props.color}
                     name={() => challengeItem.name}
                     challengeId={props.id}
                     challengeItemId={() => challengeItem.id}

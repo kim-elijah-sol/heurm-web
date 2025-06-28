@@ -1,12 +1,16 @@
 import clsx from 'clsx';
+import { format } from 'date-fns';
 import {
   createEffect,
   createSignal,
   type Accessor,
   type Component,
 } from 'solid-js';
-import type { Nullable } from '~/shared/types';
+import { mainQueries } from '~/entities/main';
+import type { ChallengeColor, Nullable } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
+import { createDateSelect } from '../../hook';
+import { PieChart } from './pie-chart.ui';
 
 type Props = {
   type: Accessor<'OVER' | 'UNDER'>;
@@ -14,9 +18,12 @@ type Props = {
   targetCount: Accessor<number>;
   challengeId: Accessor<string>;
   challengeItemId: Accessor<string>;
+  color: Accessor<ChallengeColor>;
 };
 
 export const Countable: Component<Props> = (props) => {
+  const { current } = createDateSelect();
+
   const type = () => props.type();
 
   const name = () => props.name();
@@ -27,6 +34,45 @@ export const Countable: Component<Props> = (props) => {
 
   const [value, setValue] = createSignal('');
 
+  const getHistory = mainQueries.getHistoryQuery(() => ({
+    challengeId: props.challengeId(),
+    challengeItemId: props.challengeItemId(),
+  }));
+
+  const currentHistory = () =>
+    getHistory.data?.find(
+      (it) => format(it.date, 'yyyy.MM.dd') === format(current(), 'yyyy.MM.dd')
+    );
+
+  const postHistory = mainQueries.postHistoryMutation(() =>
+    getHistory.refetch()
+  );
+
+  const patchHistory = mainQueries.patchHistoryMutation(() =>
+    getHistory.refetch()
+  );
+
+  const handleClickCTA = async () => {
+    const count = value().trim().length ? Number(value()) : null;
+
+    if (currentHistory()) {
+      await patchHistory.mutateAsync({
+        id: currentHistory()!.id,
+        challengeId: props.challengeId(),
+        challengeItemId: props.challengeItemId(),
+        count,
+      });
+    } else {
+      await postHistory.mutateAsync({
+        challengeId: props.challengeId(),
+        challengeItemId: props.challengeItemId(),
+        type: props.type(),
+        count,
+        date: format(current(), 'yyyy-MM-dd'),
+      });
+    }
+  };
+
   const getChallengeResult = (count: Nullable<number>) => {
     if (count === null) return null;
     if (type() === 'OVER' && count >= targetCount()) return true;
@@ -36,16 +82,10 @@ export const Countable: Component<Props> = (props) => {
 
   const valueToCount = () => (value() ? Number(value()) : null);
 
-  const serverChallengeResult = () => getChallengeResult(null);
+  const serverChallengeResult = () =>
+    getChallengeResult(currentHistory()?.count ?? null);
 
   const localChallengeResult = () => getChallengeResult(valueToCount());
-
-  const challengeResultText = () =>
-    serverChallengeResult()
-      ? '🎉'
-      : serverChallengeResult() === false
-      ? '❌'
-      : '⏳';
 
   const icon = () =>
     localChallengeResult()
@@ -70,9 +110,11 @@ export const Countable: Component<Props> = (props) => {
 
   createEffect(() => {
     if (isBluredPanelShow()) {
-      setValue('');
+      setValue(currentHistory()?.count?.toString() ?? '');
     }
   });
+
+  const percentage = () => (currentHistory()?.count ?? 0) / targetCount();
 
   return (
     <>
@@ -82,7 +124,7 @@ export const Countable: Component<Props> = (props) => {
       >
         <p class={nameTextClass()}>{name()}</p>
 
-        <p class='w-6 text-center'>{challengeResultText()}</p>
+        <PieChart percentage={percentage} color={props.color} />
       </div>
       {isBluredPanelShow() && (
         <Panel.Blured
@@ -114,6 +156,7 @@ export const Countable: Component<Props> = (props) => {
                   buttonColor()
                 )}
                 onClick={() => {
+                  handleClickCTA();
                   close();
                 }}
               >
