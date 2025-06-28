@@ -2,8 +2,13 @@ import clsx from 'clsx';
 import { format } from 'date-fns';
 import { createSignal, type Accessor, type Component } from 'solid-js';
 import { mainConstant, mainQueries } from '~/entities/main';
+import {
+  CHALLENGE_TEXT_COLOR_200,
+  CHALLENGE_TEXT_COLOR_500,
+} from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import { toast } from '~/shared/lib';
+import type { ChallengeColor } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 import { createDateSelect } from '../../hook';
 
@@ -11,6 +16,7 @@ type Props = {
   name: Accessor<string>;
   challengeId: Accessor<string>;
   challengeItemId: Accessor<string>;
+  color: Accessor<ChallengeColor>;
 };
 
 export const Complete: Component<Props> = (props) => {
@@ -44,8 +50,8 @@ export const Complete: Component<Props> = (props) => {
 
   const isCompleted = () => currentHistory()?.complete ?? null;
 
-  const challengeResultText = () =>
-    isCompleted() === null ? '⏳' : isCompleted() ? '🎉' : '❌';
+  const challengeResultIcon = () =>
+    isCompleted() === null ? Loader : isCompleted() ? Check : Ban;
 
   const handleClickCTA = async (isCompleted: boolean | null) => {
     if (currentHistory()) {
@@ -84,16 +90,30 @@ export const Complete: Component<Props> = (props) => {
         <p
           class={
             isCompleted() === null
-              ? 'text-gray-500 font-medium'
+              ? clsx('font-medium', CHALLENGE_TEXT_COLOR_200[props.color()])
               : isCompleted()
-              ? 'text-emerald-500 font-bold'
+              ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[props.color()])
               : 'text-rose-500 font-semibold'
           }
         >
           {name()}
         </p>
 
-        <p class='w-6 text-center'>{challengeResultText()}</p>
+        <div
+          class={
+            isCompleted()
+              ? CHALLENGE_TEXT_COLOR_500[props.color()]
+              : isCompleted() === false
+              ? 'text-rose-500'
+              : CHALLENGE_TEXT_COLOR_200[props.color()]
+          }
+        >
+          {challengeResultIcon()({
+            size: 24,
+            strokeWidth: 3,
+            stroke: 'currentColor',
+          })}
+        </div>
       </div>
       {isBluredPanelShow() && (
         <Panel.Blured close={() => setIsBluredPanelShow(false)}>

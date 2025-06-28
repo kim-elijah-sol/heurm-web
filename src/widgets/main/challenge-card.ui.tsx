@@ -89,6 +89,7 @@ export const ChallengeCard: Component<Props> = (props) => {
               <Switch>
                 <Match when={challengeItem.type === 'COMPLETE'}>
                   <ChallengeItem.Complete
+                    color={props.color}
                     name={() => challengeItem.name}
                     challengeId={props.id}
                     challengeItemId={() => challengeItem.id}
