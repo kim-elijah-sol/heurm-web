@@ -58,7 +58,7 @@ export const postHistoryResponseSchema = z.object({
 });
 
 const patchHistoryRequestBaseSchema = postHistoryRequestBaseSchema
-  .omit({ date: true })
+  .omit({ date: true, type: true })
   .extend({
     id: z.string(),
   });

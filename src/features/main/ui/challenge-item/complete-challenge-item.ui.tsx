@@ -29,26 +29,41 @@ export const Complete: Component<Props> = (props) => {
     getHistory.refetch()
   );
 
+  const patchHistory = mainQueries.patchHistoryMutation(() =>
+    getHistory.refetch()
+  );
+
   const getWinWriting = () => getRandomItem(mainConstant.WIN_WRITING);
 
   const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
 
-  const isCompleted = () =>
+  const currentHistory = () =>
     getHistory.data?.find(
       (it) => format(it.date, 'yyyy.MM.dd') === format(current(), 'yyyy.MM.dd')
-    )?.complete ?? null;
+    );
+
+  const isCompleted = () => currentHistory()?.complete ?? null;
 
   const challengeResultText = () =>
     isCompleted() === null ? '⏳' : isCompleted() ? '🎉' : '❌';
 
   const handleClickCTA = async (isCompleted: boolean | null) => {
-    await postHistory.mutateAsync({
-      challengeId: props.challengeId(),
-      challengeItemId: props.challengeItemId(),
-      type: 'COMPLETE',
-      complete: isCompleted,
-      date: format(current(), 'yyyy-MM-dd'),
-    });
+    if (currentHistory()) {
+      await patchHistory.mutateAsync({
+        id: currentHistory()!.id,
+        challengeId: props.challengeId(),
+        challengeItemId: props.challengeItemId(),
+        complete: isCompleted,
+      });
+    } else {
+      await postHistory.mutateAsync({
+        challengeId: props.challengeId(),
+        challengeItemId: props.challengeItemId(),
+        type: 'COMPLETE',
+        complete: isCompleted,
+        date: format(current(), 'yyyy-MM-dd'),
+      });
+    }
 
     if (isCompleted === true) {
       toast.open(`🎉 great! '${name()}' is complete!<br/>${getWinWriting()}`);
