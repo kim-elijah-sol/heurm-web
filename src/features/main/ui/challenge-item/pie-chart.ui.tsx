@@ -17,7 +17,10 @@ export const PieChart: Component<Props> = (props) => {
       width='24'
       height='24'
       viewBox='0 0 220 220'
-      class={clsx('transition-all', CHALLENGE_TEXT_COLOR_500[props.color()])}
+      class={clsx(
+        'transition-all duration-500',
+        CHALLENGE_TEXT_COLOR_500[props.color()]
+      )}
     >
       <circle
         cx='110'
@@ -25,7 +28,10 @@ export const PieChart: Component<Props> = (props) => {
         r='90'
         fill='none'
         stroke-width='30'
-        class={clsx('transition-all', CHALLENGE_STROKE_200[props.color()])}
+        class={clsx(
+          'transition-all duration-500',
+          CHALLENGE_STROKE_200[props.color()]
+        )}
       />
       <circle
         cx='110'
@@ -38,7 +44,7 @@ export const PieChart: Component<Props> = (props) => {
         stroke-dashoffset='0'
         transform='rotate(-90 110 110)'
         stroke-linecap={props.percentage() !== 0 ? 'round' : undefined}
-        class='transition-all'
+        class='transition-all duration-500'
       />
     </svg>
   );
