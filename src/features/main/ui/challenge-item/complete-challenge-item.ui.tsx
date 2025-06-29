@@ -8,10 +8,12 @@ import {
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
+import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { ChallengeColor } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 import { createDateSelect } from '../../hook';
+import './result-scaling.ui.css';
 
 type Props = {
   name: Accessor<string>;
@@ -24,6 +26,8 @@ export const Complete: Component<Props> = (props) => {
   const { current } = createDateSelect();
 
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
+
+  const [scaling, animStart, animEnd] = createBoolean();
 
   const name = () => props.name();
 
@@ -77,6 +81,11 @@ export const Complete: Component<Props> = (props) => {
     } else if (isCompleted === false) {
       toast.open(getLoseWriting());
     }
+
+    animStart();
+    setTimeout(() => {
+      animEnd();
+    }, 350);
   };
 
   const buttonBaseClassName =
@@ -109,11 +118,13 @@ export const Complete: Component<Props> = (props) => {
               : CHALLENGE_TEXT_COLOR_200[props.color()]
           }
         >
-          {challengeResultIcon()({
-            size: 24,
-            strokeWidth: 3,
-            stroke: 'currentColor',
-          })}
+          <div class={scaling() ? 'scaling' : undefined}>
+            {challengeResultIcon()({
+              size: 24,
+              strokeWidth: 3,
+              stroke: 'currentColor',
+            })}
+          </div>
         </div>
       </div>
       {isBluredPanelShow() && (
