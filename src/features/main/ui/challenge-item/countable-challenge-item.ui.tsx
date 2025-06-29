@@ -156,8 +156,6 @@ export const Countable: Component<Props> = (props) => {
       typeof currentHistory()?.count !== 'number' ? null : stackedCount()
     );
 
-  const localChallengeResult = () => getChallengeResult(valueToCount());
-
   const ctaIndicatorHeight = () =>
     Math.min(
       ((stackedCountExceptCurrent() + (valueToCount() ?? 0)) / targetCount()) *
