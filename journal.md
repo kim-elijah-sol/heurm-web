@@ -1,5 +1,11 @@
 # Win Yourself Journal
 
+# 2025-06-29
+
+Coutable 챌린지 아이템의 숫자 집계 심볼 (stackedCount) 를 좀 더 정확하게 하기 위한 알고리즘을 작성 중이다.<br>
+만약 중간에 집계 방식 혹은 interval, interval pattern, repeat 을 변경한다면 집계되지 않아야 할 count 까지 집계되는 경우가 생기기 때문이다.<br>
+이에 대한 문서는 notion 에 작성 중이다. [링크](https://www.notion.so/217939e5892a809eb6c6c5cc5a5db10b)
+
 # 2025-06-26
 
 특정 일에 진행할 챌린지 아이템을 조회하는 필터 함수를 작성하고 있다.
