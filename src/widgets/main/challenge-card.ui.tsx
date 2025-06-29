@@ -98,12 +98,9 @@ export const ChallengeCard: Component<Props> = (props) => {
                 <Match when={challengeItem.type !== 'COMPLETE'}>
                   <ChallengeItem.Countable
                     color={props.color}
-                    name={() => challengeItem.name}
                     challengeId={props.id}
-                    challengeItemId={() => challengeItem.id}
                     type={() => challengeItem.type as 'OVER' | 'UNDER'}
-                    targetCount={() => challengeItem.targetCount!}
-                    accumulateType={() => challengeItem.accumulateType}
+                    challengeItem={() => challengeItem}
                   />
                 </Match>
               </Switch>

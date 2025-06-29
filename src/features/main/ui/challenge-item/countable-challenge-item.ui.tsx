@@ -6,6 +6,7 @@ import {
   type Accessor,
   type Component,
 } from 'solid-js';
+import { ChallengeEditType } from '~/entities/challenge-edit';
 import { mainQueries } from '~/entities/main';
 import {
   CHALLENGE_300_BG_COLOR,
@@ -15,15 +16,12 @@ import {
 } from '~/shared/constant';
 import { dateFormat } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
-import type {
-  ChallengeColor,
-  ChallengeItemIntervalType,
-  Nullable,
-} from '~/shared/types';
+import type { ChallengeColor, Nullable } from '~/shared/types';
 import { Check, Loader, Panel } from '~/shared/ui';
 import {
   accumulateHistoryCount,
   filterMonthHistory,
+  filterValidHistory,
   filterWeekHistory,
   filterYearHistory,
 } from '../../fx';
@@ -33,12 +31,9 @@ import './result-scaling.ui.css';
 
 type Props = {
   type: Accessor<'OVER' | 'UNDER'>;
-  name: Accessor<string>;
-  targetCount: Accessor<number>;
   challengeId: Accessor<string>;
-  challengeItemId: Accessor<string>;
   color: Accessor<ChallengeColor>;
-  accumulateType: Accessor<Nullable<ChallengeItemIntervalType>>;
+  challengeItem: Accessor<ChallengeEditType.GetChallengeItemResponseItem>;
 };
 
 export const Countable: Component<Props> = (props) => {
@@ -46,11 +41,13 @@ export const Countable: Component<Props> = (props) => {
 
   const type = () => props.type();
 
-  const name = () => props.name();
+  const name = () => props.challengeItem().name;
 
-  const targetCount = () => props.targetCount();
+  const targetCount = () => props.challengeItem().targetCount!;
 
-  const accumulateType = () => props.accumulateType() ?? 'DAILY';
+  const accumulateType = () => props.challengeItem().accumulateType ?? 'DAILY';
+
+  const color = () => props.color();
 
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
 
@@ -60,11 +57,14 @@ export const Countable: Component<Props> = (props) => {
 
   const getHistory = mainQueries.getHistoryQuery(() => ({
     challengeId: props.challengeId(),
-    challengeItemId: props.challengeItemId(),
+    challengeItemId: props.challengeItem().id,
   }));
 
+  const historys = () =>
+    (getHistory.data ?? []).filter(filterValidHistory(props.challengeItem()));
+
   const currentHistory = () =>
-    getHistory.data?.find(
+    historys().find(
       (it) => format(it.date, 'yyyy.MM.dd') === format(current(), 'yyyy.MM.dd')
     );
 
@@ -79,9 +79,8 @@ export const Countable: Component<Props> = (props) => {
         : filterYearHistory;
 
     return (
-      getHistory.data
-        ?.filter(filterFn(current))
-        .reduce(accumulateHistoryCount, 0) ?? 0
+      historys().filter(filterFn(current)).reduce(accumulateHistoryCount, 0) ??
+      0
     );
   };
 
@@ -96,8 +95,8 @@ export const Countable: Component<Props> = (props) => {
         : filterYearHistory;
 
     return (
-      getHistory.data
-        ?.filter((it) => {
+      historys()
+        .filter((it) => {
           return (
             filterFn(current)(it) &&
             dateFormat['yyyy-MM-dd'](it.date) !==
@@ -123,13 +122,13 @@ export const Countable: Component<Props> = (props) => {
       await patchHistory.mutateAsync({
         id: currentHistory()!.id,
         challengeId: props.challengeId(),
-        challengeItemId: props.challengeItemId(),
+        challengeItemId: props.challengeItem().id,
         count,
       });
     } else {
       await postHistory.mutateAsync({
         challengeId: props.challengeId(),
-        challengeItemId: props.challengeItemId(),
+        challengeItemId: props.challengeItem().id,
         type: props.type(),
         count,
         date: format(current(), 'yyyy-MM-dd'),
@@ -169,8 +168,8 @@ export const Countable: Component<Props> = (props) => {
     serverChallengeResult() === null
       ? 'text-gray-400 font-semibold'
       : serverChallengeResult()
-      ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[props.color()])
-      : clsx('font-semibold', CHALLENGE_TEXT_COLOR_300[props.color()]);
+      ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[color()])
+      : clsx('font-semibold', CHALLENGE_TEXT_COLOR_300[color()]);
 
   createEffect(() => {
     if (isBluredPanelShow()) {
@@ -219,7 +218,7 @@ export const Countable: Component<Props> = (props) => {
               <button
                 class={clsx(
                   'p-5 rounded-[42%] transition-all relative overflow-hidden active:scale-90 shadow-[0_0_30px_16px_rgba(255,255,255,0.25)]',
-                  CHALLENGE_300_BG_COLOR[props.color()]
+                  CHALLENGE_300_BG_COLOR[color()]
                 )}
                 onClick={() => {
                   handleClickCTA();
@@ -229,7 +228,7 @@ export const Countable: Component<Props> = (props) => {
                 <div
                   class={clsx(
                     'absolute left-0 right-0 bottom-0 pointer-events-none transition-all z-0',
-                    CHALLENGE_BG_500_COLOR[props.color()]
+                    CHALLENGE_BG_500_COLOR[color()]
                   )}
                   style={{
                     height: `${ctaIndicatorHeight()}%`,
