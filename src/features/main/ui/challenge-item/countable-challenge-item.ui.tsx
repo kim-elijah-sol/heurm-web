@@ -218,7 +218,7 @@ export const Countable: Component<Props> = (props) => {
 
               <button
                 class={clsx(
-                  'p-5 rounded-[42%] transition-all relative overflow-hidden active:scale-90',
+                  'p-5 rounded-[42%] transition-all relative overflow-hidden active:scale-90 shadow-[0_0_30px_16px_rgba(255,255,255,0.25)]',
                   CHALLENGE_300_BG_COLOR[props.color()]
                 )}
                 onClick={() => {
