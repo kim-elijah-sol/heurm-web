@@ -14,6 +14,7 @@ import {
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
 import { dateFormat } from '~/shared/fx';
+import { createBoolean } from '~/shared/hook';
 import type {
   ChallengeColor,
   ChallengeItemIntervalType,
@@ -28,6 +29,7 @@ import {
 } from '../../fx';
 import { createDateSelect } from '../../hook';
 import { PieChart } from './pie-chart.ui';
+import './result-scaling.ui.css';
 
 type Props = {
   type: Accessor<'OVER' | 'UNDER'>;
@@ -51,6 +53,8 @@ export const Countable: Component<Props> = (props) => {
   const accumulateType = () => props.accumulateType() ?? 'DAILY';
 
   const [isBluredPanelShow, setIsBluredPanelShow] = createSignal(false);
+
+  const [scaling, animStart, animEnd] = createBoolean();
 
   const [value, setValue] = createSignal('');
 
@@ -131,6 +135,11 @@ export const Countable: Component<Props> = (props) => {
         date: format(current(), 'yyyy-MM-dd'),
       });
     }
+
+    animStart();
+    setTimeout(() => {
+      animEnd();
+    }, 350);
   };
 
   const getChallengeResult = (count: Nullable<number>) => {
@@ -181,7 +190,9 @@ export const Countable: Component<Props> = (props) => {
       >
         <p class={nameTextClass()}>{name()}</p>
 
-        <PieChart percentage={percentage} color={props.color} />
+        <div class={scaling() ? 'scaling' : undefined}>
+          <PieChart percentage={percentage} color={props.color} />
+        </div>
       </div>
       {isBluredPanelShow() && (
         <Panel.Blured
