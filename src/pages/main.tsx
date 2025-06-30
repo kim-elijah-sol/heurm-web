@@ -7,7 +7,6 @@ import {
   MainTop,
   NewChallengeButton,
   NoChallenge,
-  Overview,
 } from '~/widgets/main';
 
 function Main() {
@@ -18,7 +17,6 @@ function Main() {
       <div class='p-4 flex flex-col gap-4'>
         <MainTop />
         <DateSelect />
-        <Overview />
 
         {getChallengeQuery.isPending ? (
           <></>
