@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const NewChallengeItemDatePicker: Component<Props> = (props) => {
-  const [isWeekCalendarOpened, open, _close, toggle] = createBoolean();
+  const [isWeekCalendarOpened, open, _close] = createBoolean();
 
   const [isClosing, closeStart, closeEnd] = createBoolean();
 
