@@ -7,15 +7,16 @@ import {
   type Component,
 } from 'solid-js';
 import { ChallengeEditType } from '~/entities/challenge-edit';
-import { mainQueries } from '~/entities/main';
+import { mainConstant, mainQueries } from '~/entities/main';
 import {
   CHALLENGE_300_BG_COLOR,
   CHALLENGE_BG_500_COLOR,
   CHALLENGE_TEXT_COLOR_300,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import { dateFormat } from '~/shared/fx';
+import { dateFormat, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
+import { toast } from '~/shared/lib';
 import type { ChallengeColor, Nullable } from '~/shared/types';
 import { Check, Loader, Panel } from '~/shared/ui';
 import {
@@ -119,8 +120,20 @@ export const Countable: Component<Props> = (props) => {
     getHistory.refetch()
   );
 
+  const getWinWriting = () => getRandomItem(mainConstant.WIN_WRITING);
+
   const handleClickCTA = async () => {
     const count = value().trim().length ? Number(value()) : null;
+
+    const isCompleted = (() => {
+      if (type() === 'UNDER') return false;
+
+      return stackedCountExceptCurrent() + (count ?? 0) >= targetCount();
+    })();
+
+    if (isCompleted === true) {
+      toast.open(`🎉 great! '${name()}' is complete!<br/>${getWinWriting()}`);
+    }
 
     if (currentHistory()) {
       await patchHistory.mutateAsync({
