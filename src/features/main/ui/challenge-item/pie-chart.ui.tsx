@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { type Accessor, type Component } from 'solid-js';
 import {
   CHALLENGE_STROKE_200,
+  CHALLENGE_TEXT_COLOR_300,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
 import type { ChallengeColor } from '~/shared/types';
@@ -9,6 +10,7 @@ import type { ChallengeColor } from '~/shared/types';
 type Props = {
   percentage: Accessor<number>;
   color: Accessor<ChallengeColor>;
+  complete: Accessor<boolean>;
 };
 
 export const PieChart: Component<Props> = (props) => {
@@ -19,7 +21,9 @@ export const PieChart: Component<Props> = (props) => {
       viewBox='0 0 220 220'
       class={clsx(
         'transition-all duration-500',
-        CHALLENGE_TEXT_COLOR_500[props.color()]
+        props.complete()
+          ? CHALLENGE_TEXT_COLOR_500[props.color()]
+          : CHALLENGE_TEXT_COLOR_300[props.color()]
       )}
     >
       <circle

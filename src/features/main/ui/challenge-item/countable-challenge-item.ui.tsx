@@ -205,7 +205,11 @@ export const Countable: Component<Props> = (props) => {
         <p class={nameTextClass()}>{name()}</p>
 
         <div class={scaling() ? 'scaling' : undefined}>
-          <PieChart percentage={percentage} color={props.color} />
+          <PieChart
+            percentage={percentage}
+            color={props.color}
+            complete={() => percentage() === 1}
+          />
         </div>
       </div>
       {isBluredPanelShow() && (
