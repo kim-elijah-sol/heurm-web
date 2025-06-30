@@ -21,7 +21,7 @@ import { Check, Loader, Panel } from '~/shared/ui';
 import {
   accumulateHistoryCount,
   filterMonthHistory,
-  filterValidHistory,
+  filterTodayChallengeItem,
   filterWeekHistory,
   filterYearHistory,
 } from '../../fx';
@@ -61,7 +61,11 @@ export const Countable: Component<Props> = (props) => {
   }));
 
   const historys = () =>
-    (getHistory.data ?? []).filter(filterValidHistory(props.challengeItem()));
+    (getHistory.data ?? []).filter((it) =>
+      filterTodayChallengeItem(new Date(it.date).valueOf())(
+        props.challengeItem()
+      )
+    );
 
   const currentHistory = () =>
     historys().find(
