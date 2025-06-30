@@ -205,6 +205,14 @@ export const Countable: Component<Props> = (props) => {
               <Panel.CloseButton onClick={close} />
 
               <p class='text-[24px] text-slate-600 mb-4 font-semibold'>
+                {accumulateType() !== 'DAILY' && (
+                  <>
+                    {(
+                      stackedCountExceptCurrent() + (valueToCount() ?? 0)
+                    ).toLocaleString()}{' '}
+                    /{' '}
+                  </>
+                )}
                 {targetCount().toLocaleString()}
               </p>
 
