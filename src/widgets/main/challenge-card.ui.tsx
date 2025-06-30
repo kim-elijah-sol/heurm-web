@@ -1,7 +1,7 @@
 import { clsx } from 'clsx';
 import { For, Match, Switch, type Accessor, type Component } from 'solid-js';
 import { challengeEditQueries } from '~/entities/challenge-edit';
-import { filterTodayChallengeItem } from '~/features/main/fx';
+import { filterValidChallengeItem } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
@@ -57,7 +57,7 @@ export const ChallengeCard: Component<Props> = (props) => {
   const totalCount = () => challengeItem.data?.length ?? 0;
 
   const todayChallengeItems = () =>
-    challengeItem.data?.filter(filterTodayChallengeItem(current().valueOf())) ??
+    challengeItem.data?.filter(filterValidChallengeItem(current().valueOf())) ??
     [];
 
   return (

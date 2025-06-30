@@ -4,7 +4,7 @@ import { getMidnight } from './get-midnight.fx';
 
 const ONE_DAY = 86_400_000;
 
-export const filterTodayChallengeItem =
+export const filterValidChallengeItem =
   (today: number) =>
   (it: ChallengeEditType.GetChallengeItemResponseItem): boolean => {
     const startAt = getMidnight(it.startAt).valueOf();
