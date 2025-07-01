@@ -29,6 +29,7 @@ import {
 import { createDateSelect } from '../../hook';
 import { PieChart } from './pie-chart.ui';
 import './result-scaling.ui.css';
+import { UnderBar } from './under-bar.ui';
 
 type Props = {
   type: Accessor<'OVER' | 'UNDER'>;
@@ -201,10 +202,6 @@ export const Countable: Component<Props> = (props) => {
 
   const overValue = () => Math.min((stackedCount() / targetCount()) * 100, 100);
 
-  const underValue = () => 100 - (stackedCount() / targetCount()) * 100;
-
-  const safetyUnderValue = () => Math.max(underValue(), 0);
-
   return (
     <>
       <div
@@ -222,11 +219,10 @@ export const Countable: Component<Props> = (props) => {
             />
           )}
           {type() === 'UNDER' && (
-            <PieChart
-              percentage={safetyUnderValue}
+            <UnderBar
               color={props.color}
-              complete={() => underValue() >= 0}
-              opacity={() => safetyUnderValue() / 100}
+              targetValue={targetCount}
+              value={stackedCount}
             />
           )}
         </div>
