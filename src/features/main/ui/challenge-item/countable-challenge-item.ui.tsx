@@ -172,12 +172,17 @@ export const Countable: Component<Props> = (props) => {
       typeof currentHistory()?.count !== 'number' ? null : stackedCount()
     );
 
-  const ctaIndicatorHeight = () =>
-    Math.min(
+  const ctaIndicatorHeight = () => {
+    const height = Math.min(
       ((stackedCountExceptCurrent() + (valueToCount() ?? 0)) / targetCount()) *
         100,
       100
     );
+
+    if (type() === 'OVER') return height;
+
+    return 100 - height;
+  };
 
   const ctaIcon = () => (value().length === 0 ? Loader : Check);
 
@@ -194,7 +199,11 @@ export const Countable: Component<Props> = (props) => {
     }
   });
 
-  const percentage = () => stackedCount() / targetCount();
+  const overValue = () => Math.min((stackedCount() / targetCount()) * 100, 100);
+
+  const underValue = () => 100 - (stackedCount() / targetCount()) * 100;
+
+  const safetyUnderValue = () => Math.max(underValue(), 0);
 
   return (
     <>
@@ -205,11 +214,21 @@ export const Countable: Component<Props> = (props) => {
         <p class={nameTextClass()}>{name()}</p>
 
         <div class={scaling() ? 'scaling' : undefined}>
-          <PieChart
-            percentage={percentage}
-            color={props.color}
-            complete={() => percentage() === 1}
-          />
+          {type() === 'OVER' && (
+            <PieChart
+              percentage={overValue}
+              color={props.color}
+              complete={() => overValue() === 100}
+            />
+          )}
+          {type() === 'UNDER' && (
+            <PieChart
+              percentage={safetyUnderValue}
+              color={props.color}
+              complete={() => underValue() >= 0}
+              opacity={() => safetyUnderValue() / 100}
+            />
+          )}
         </div>
       </div>
       {isBluredPanelShow() && (
