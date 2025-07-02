@@ -408,6 +408,7 @@ export const EditChallengeItemPanel: Component<Props> = (props) => {
                   date={endAt}
                   onChange={setEndAt}
                   placeholder='End Date'
+                  removable
                 />
               </div>
             </Form.Wrapper>
