@@ -25,15 +25,15 @@ import {
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import type { ChallengeColor, Nullable } from '~/shared/types';
-import { ChallengeColorSelect, Grid2x2, Panel, Rows3 } from '~/shared/ui';
+import type { FlowColor, Nullable } from '~/shared/types';
+import { FlowColorSelect, Grid2x2, Panel, Rows3 } from '~/shared/ui';
 import { NewChallengeItemPanel } from '~/widgets/new-challenge-item';
 import { EditChallengeItemPanel } from '../edit-challenge-item';
 
 type Props = {
   challengeId: Accessor<string>;
   title: Accessor<string>;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   close: () => void;
   newChallengeItemPanelOpen?: boolean;
 };
@@ -54,7 +54,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
 
   const [title, setTitle] = createSignal(props.title());
 
-  const [color, setColor] = createSignal<ChallengeColor>(props.color());
+  const [color, setColor] = createSignal<FlowColor>(props.color());
 
   const [viewType, _setViewType] = createSignal<ViewType>(
     getViewTypeInStorage()
@@ -126,7 +126,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
             <ChallengeEditTop close={close} title={title} setTitle={setTitle} />
 
             <div class='flex-1 overflow-y-auto flex flex-col items-center pb-20 pt-[60px]'>
-              <ChallengeColorSelect
+              <FlowColorSelect
                 color={color}
                 setColor={setColor}
                 className='mb-6'

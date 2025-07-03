@@ -3,10 +3,10 @@ import { createMemo, type Accessor, type Component } from 'solid-js';
 import { mainConstant } from '~/entities/main';
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 
 type Props = {
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
 };
 
 export const Today: Component<Props> = (props) => {

@@ -11,12 +11,12 @@ import {
   CHALLENGE_ACTIVE_BG_500_COLOR,
 } from '~/shared/constant';
 import { getRange } from '~/shared/fx';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
 
 type Props = {
   close: () => void;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   onSubmit: (dates: number[]) => void;
   defaultDates: Accessor<number[]>;
 };

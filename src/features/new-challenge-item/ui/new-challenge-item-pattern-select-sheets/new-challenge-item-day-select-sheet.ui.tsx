@@ -9,12 +9,12 @@ import {
   CHALLENGE_DAY,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import { ChallengeColor } from '~/shared/types';
+import { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
 
 type Props = {
   close: () => void;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   onSubmit: (days: number[]) => void;
   defaultDays: Accessor<number[]>;
 };

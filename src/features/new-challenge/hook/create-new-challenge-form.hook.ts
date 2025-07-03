@@ -5,14 +5,14 @@ import {
   newChallengeSchema,
 } from '~/entities/new-challenge';
 import { toast } from '~/shared/lib';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 
 export const createNewChallengeForm = () => {
   const queryClient = useQueryClient();
 
   const [title, setTitle] = createSignal<string>('');
 
-  const [color, setColor] = createSignal<ChallengeColor>('red');
+  const [color, setColor] = createSignal<FlowColor>('red');
 
   const postChallege = newChallengeQueries.postChallengeMutation((data) => {
     toast.open(`🎉 '${data.title}' Challenge is added!`);

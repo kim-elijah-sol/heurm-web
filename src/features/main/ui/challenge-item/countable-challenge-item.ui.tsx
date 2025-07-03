@@ -17,7 +17,7 @@ import {
 import { dateFormat, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import type { ChallengeColor, Nullable } from '~/shared/types';
+import type { FlowColor, Nullable } from '~/shared/types';
 import { Check, Loader, Panel } from '~/shared/ui';
 import {
   accumulateHistoryCount,
@@ -34,7 +34,7 @@ import { UnderBar } from './under-bar.ui';
 type Props = {
   type: Accessor<'OVER' | 'UNDER'>;
   challengeId: Accessor<string>;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   challengeItem: Accessor<ChallengeEditType.GetChallengeItemResponseItem>;
 };
 

@@ -3,17 +3,14 @@ import { type Accessor, type Component, type Setter } from 'solid-js';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { CHALLENGE_DAY, CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
-import type {
-  ChallengeColor,
-  ChallengeItemWeeklyPattern,
-} from '~/shared/types';
+import type { ChallengeItemWeeklyPattern, FlowColor } from '~/shared/types';
 import { NewChallengeItemDaySelectSheet } from '../new-challenge-item-pattern-select-sheets';
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
 
 type Props = {
   weeklyPattern: Accessor<ChallengeItemWeeklyPattern>;
   setWeeklyPattern: Setter<ChallengeItemWeeklyPattern>;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   days: Accessor<number[]>;
   setDays: Setter<number[]>;
 };

@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { type Accessor, type Component } from 'solid-js';
 import { CHALLENGE_BG_500_COLOR } from '~/shared/constant';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 
 type Props = {
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   value: Accessor<number>;
   targetValue: Accessor<number>;
 };

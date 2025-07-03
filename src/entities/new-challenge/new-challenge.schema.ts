@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { challengeColorSchema, challengeTitleSchema } from '~/shared/schema';
+import { challengeTitleSchema, flowColorSchema } from '~/shared/schema';
 
 export const postChallengeRequestSchema = z.object({
   title: challengeTitleSchema,
-  color: challengeColorSchema,
+  color: flowColorSchema,
 });
 
 export const postChallengeResponseSchema = z.object({

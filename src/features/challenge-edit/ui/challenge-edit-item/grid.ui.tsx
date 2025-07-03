@@ -10,13 +10,13 @@ import {
   CHALLENGE_MONTH,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import type { ChallengeColor, ChallengeItemIntervalType } from '~/shared/types';
+import type { ChallengeItemIntervalType, FlowColor } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, X } from '~/shared/ui';
 import { Pencil } from '~/shared/ui/icons/pencil.ui';
 import { capitalize } from '../../fx';
 
 type Props = {
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   onClickDelete: () => void;
   onClickEdit: () => void;
 } & Omit<ChallengeEditType.GetChallengeItemResponseItem, 'id'>;

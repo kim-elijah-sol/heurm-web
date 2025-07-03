@@ -24,7 +24,7 @@ import {
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
 import { toast } from '~/shared/lib';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 import {
   Check,
   CheckCheck,
@@ -37,7 +37,7 @@ import {
 
 type Props = {
   close: () => void;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   challengeId: Accessor<string>;
   challengeItem: Accessor<ChallengeEditType.GetChallengeItemResponseItem>;
 };

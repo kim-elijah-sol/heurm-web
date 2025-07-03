@@ -6,12 +6,12 @@ import {
   CHALLENGE_MONTH,
 } from '~/shared/constant';
 import { getRange } from '~/shared/fx';
-import { ChallengeColor } from '~/shared/types';
+import { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
 
 type Props = {
   close: () => void;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   onSubmit: (months: number[]) => void;
   defaultMonths: Accessor<number[]>;
 };

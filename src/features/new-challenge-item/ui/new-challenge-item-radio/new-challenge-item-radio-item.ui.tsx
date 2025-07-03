@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { children, type Accessor, type Component, type JSX } from 'solid-js';
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 
 type Props = {
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   checked: Accessor<boolean>;
   onChange?: () => void;
   onClick?: () => void;

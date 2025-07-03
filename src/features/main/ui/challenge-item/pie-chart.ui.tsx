@@ -5,11 +5,11 @@ import {
   CHALLENGE_TEXT_COLOR_300,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 
 type Props = {
   percentage: Accessor<number>;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   complete: Accessor<boolean>;
   opacity?: Accessor<number>;
 };

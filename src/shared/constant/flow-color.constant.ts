@@ -1,4 +1,4 @@
-export const CHALLENGE_COLOR = [
+export const FLOW_COLOR = [
   'red',
   'yellow',
   'green',

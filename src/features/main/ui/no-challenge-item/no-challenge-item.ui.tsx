@@ -6,11 +6,11 @@ import {
   CHALLENGE_ACTIVE_BG_500_COLOR,
 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 import { Plus } from '~/shared/ui';
 
 type Props = {
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
   onClick: () => void;
 };
 

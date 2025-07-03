@@ -10,7 +10,7 @@ import {
 import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 import { createDateSelect } from '../../hook';
 import './result-scaling.ui.css';
@@ -19,7 +19,7 @@ type Props = {
   name: Accessor<string>;
   challengeId: Accessor<string>;
   challengeItemId: Accessor<string>;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
 };
 
 export const Complete: Component<Props> = (props) => {

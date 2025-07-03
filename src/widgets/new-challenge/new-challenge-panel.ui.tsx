@@ -1,7 +1,7 @@
 import { type Component } from 'solid-js';
 import { createNewChallengeForm } from '~/features/new-challenge/hook';
 import { NewChallengeTitleInput } from '~/features/new-challenge/ui';
-import { ChallengeColorSelect, Panel } from '~/shared/ui';
+import { FlowColorSelect, Panel } from '~/shared/ui';
 
 type Props = {
   close: () => void;
@@ -32,7 +32,7 @@ export const NewChallengePanel: Component<Props> = (props) => {
               onInput={handleInputTitle}
             />
 
-            <ChallengeColorSelect color={color} setColor={setColor} />
+            <FlowColorSelect color={color} setColor={setColor} />
           </div>
 
           <Panel.CTAButton

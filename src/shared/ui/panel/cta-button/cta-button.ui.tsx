@@ -5,10 +5,10 @@ import {
   CHALLENGE_ACTIVE_BG_500_COLOR,
   CHALLENGE_FROM_300_BG_COLOR,
 } from '~/shared/constant';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 
 type Props = Omit<JSX.IntrinsicElements['button'], 'color'> & {
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
 };
 
 export const CTAButton: Component<Props> = (props) => {

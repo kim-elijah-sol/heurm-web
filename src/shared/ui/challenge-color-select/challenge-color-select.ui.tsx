@@ -1,20 +1,20 @@
 import clsx from 'clsx';
 import { For, type Accessor, type Component, type Setter } from 'solid-js';
-import { CHALLENGE_BG_COLOR, CHALLENGE_COLOR } from '~/shared/constant';
-import type { ChallengeColor } from '~/shared/types';
+import { CHALLENGE_BG_COLOR, FLOW_COLOR } from '~/shared/constant';
+import type { FlowColor } from '~/shared/types';
 import { Check } from '~/shared/ui';
 
 type Props = {
-  color: Accessor<ChallengeColor>;
-  setColor: Setter<ChallengeColor>;
+  color: Accessor<FlowColor>;
+  setColor: Setter<FlowColor>;
   className?: string;
 };
 
-export const ChallengeColorSelect: Component<Props> = (props) => {
+export const FlowColorSelect: Component<Props> = (props) => {
   return (
     <div class={clsx('flex flex-col gap-6 w-full', props.className)}>
       <div class='flex justify-evenly'>
-        <For each={CHALLENGE_COLOR.slice(0, 4)}>
+        <For each={FLOW_COLOR.slice(0, 4)}>
           {(it) => (
             <ColorItem
               color={() => it}
@@ -25,7 +25,7 @@ export const ChallengeColorSelect: Component<Props> = (props) => {
         </For>
       </div>
       <div class='flex justify-evenly'>
-        <For each={CHALLENGE_COLOR.slice(4)}>
+        <For each={FLOW_COLOR.slice(4)}>
           {(it) => (
             <ColorItem
               color={() => it}
@@ -40,8 +40,8 @@ export const ChallengeColorSelect: Component<Props> = (props) => {
 };
 
 type ColorItemProps = {
-  color: Accessor<ChallengeColor>;
-  setColor: Setter<ChallengeColor>;
+  color: Accessor<FlowColor>;
+  setColor: Setter<FlowColor>;
   isCurrent: Accessor<boolean>;
 };
 

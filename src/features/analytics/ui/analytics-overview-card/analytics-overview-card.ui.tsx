@@ -5,10 +5,10 @@ import {
   CHALLENGE_BORDER_COLOR_200,
   CHALLENGE_TEXT_COLOR_500,
 } from '~/shared/constant';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 
 type Props = {
-  color: ChallengeColor;
+  color: FlowColor;
   title: string;
   count: number;
 };

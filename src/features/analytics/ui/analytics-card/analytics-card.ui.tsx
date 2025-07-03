@@ -5,11 +5,7 @@ import {
   CHALLENGE_100_BG_COLOR,
   CHALLENGE_300_BG_COLOR,
 } from '~/shared/constant';
-import type {
-  ChallengeColor,
-  ChallengeItemType,
-  Nullable,
-} from '~/shared/types';
+import type { ChallengeItemType, FlowColor, Nullable } from '~/shared/types';
 import {
   CheckCheck,
   ChevronsDown,
@@ -18,7 +14,7 @@ import {
 } from '~/shared/ui';
 
 type Props = {
-  color: ChallengeColor;
+  color: FlowColor;
   name: string;
   children: JSX.Element;
   type: ChallengeItemType;

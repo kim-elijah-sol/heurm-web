@@ -6,14 +6,14 @@ import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
 import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
-import type { ChallengeColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 import { ChartLine, Menu } from '~/shared/ui';
 import { ChallengeEditPanel } from '~/widgets/challenge-edit';
 
 type Props = {
   id: Accessor<string>;
   title: Accessor<string>;
-  color: Accessor<ChallengeColor>;
+  color: Accessor<FlowColor>;
 };
 
 export const ChallengeCard: Component<Props> = (props) => {
