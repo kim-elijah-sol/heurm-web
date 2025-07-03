@@ -1,4 +1,8 @@
-# Win Yourself Journal
+# Heurm Web Journal
+
+# 2025-07-03
+
+Heurm 으로 앱 이름 변경!
 
 # 2025-07-01
 
