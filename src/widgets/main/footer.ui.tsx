@@ -5,7 +5,7 @@ export const Footer = () => {
 
       <div class='flex flex-col gap-2'>
         <p class='font-semibold text-slate-400 text-sm text-center'>
-          Win Yourself by
+          Huerm by
           <a
             href='mailto:kimelijahsol@gmail.com'
             class='font-extrabold ml-2 text-slate-600'
@@ -16,10 +16,10 @@ export const Footer = () => {
         <p class='font-semibold text-slate-400 text-sm text-center'>
           feedback & support
           <a
-            href='mailto:cx@winyourself.com'
+            href='mailto:cx@heurm.com'
             class='font-extrabold ml-2 text-slate-600'
           >
-            cx@winyourself.com
+            cx@heurm.com
           </a>
         </p>
         <p class='font-semibold text-slate-400 text-sm text-center'>
@@ -50,7 +50,7 @@ export const Footer = () => {
       </div>
 
       <p class='mt-8 font-semibold text-slate-400 text-sm text-center'>
-        © 2025 Win Yourself. All rights reserved.
+        © 2025 Heurm. All rights reserved.
       </p>
     </footer>
   );
