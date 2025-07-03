@@ -36,9 +36,9 @@ export const JoinPanel: Component<Props> = (props) => {
           <Panel.CloseButton onClick={close} />
 
           <LoginHelperBanner>
-            Join is
+            Start building
             <br />
-            First Win!
+            habits that flow
           </LoginHelperBanner>
 
           <LoginHelperGuideTextBox
@@ -63,11 +63,11 @@ export const JoinPanel: Component<Props> = (props) => {
               <>
                 Thanks for join
                 <br />
-                Win Yourself!
+                Heurm!
                 <br />
                 Let’s start building
                 <br />
-                your winning habits today!
+                your habits that flow
               </>
             }
           />
