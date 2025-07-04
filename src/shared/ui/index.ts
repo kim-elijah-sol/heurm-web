@@ -1,5 +1,5 @@
 export * from './bottom-sheet';
-export * from './challenge-color-select';
+export * from './flow-color-select';
 export * from './glass-input';
 export * from './icons';
 export * from './panel';
