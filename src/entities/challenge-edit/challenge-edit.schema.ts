@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import {
-  challengeItemTypeSchema,
   flowColorSchema,
   flowDaySchema,
   flowIntervalTypeSchema,
   flowRepeatTypeSchema,
   flowTitleSchema,
+  flowTypeSchema,
 } from '~/shared/schema';
 
 export const getChallengeItemRequestSchema = z.object({
@@ -15,7 +15,7 @@ export const getChallengeItemRequestSchema = z.object({
 export const getChallengeItemResponseItemSchema = z.object({
   id: z.string(),
   name: z.string(),
-  type: challengeItemTypeSchema,
+  type: flowTypeSchema,
   intervalType: flowIntervalTypeSchema,
   repeatType: flowRepeatTypeSchema,
   repeat: z.number().nullable(),
@@ -79,7 +79,7 @@ export const challengeItemFormSchema = z.union([
 export const postChallengeItemRequestSchema = z.object({
   challengeId: z.string(),
   name: z.string(),
-  type: challengeItemTypeSchema,
+  type: flowTypeSchema,
   intervalType: flowIntervalTypeSchema,
   repeatType: flowRepeatTypeSchema,
   repeat: z.number().nullable().optional(),

@@ -9,10 +9,10 @@ import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { getMidnight } from '~/features/main/fx';
 import { createInput } from '~/shared/hook';
 import type {
-  ChallengeItemType,
   FlowIntervalType,
   FlowMonthlyPattern,
   FlowRepeatType,
+  FlowType,
   FlowWeeklyPattern,
   FlowYearlyPattern,
   Nullable,
@@ -28,8 +28,7 @@ export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
   const nameTitle = () =>
     name().trim().length > 0 ? name().trim() : 'New Challenge Item';
 
-  const [type, setType] =
-    createSignal<Uppercase<ChallengeItemType>>('COMPLETE');
+  const [type, setType] = createSignal<FlowType>('COMPLETE');
 
   const typeStep = () =>
     type() === 'COMPLETE' ? 0 : type() === 'OVER' ? 1 : 2;

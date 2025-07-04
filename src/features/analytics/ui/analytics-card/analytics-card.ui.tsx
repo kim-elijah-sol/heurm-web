@@ -5,7 +5,7 @@ import {
   CHALLENGE_100_BG_COLOR,
   CHALLENGE_300_BG_COLOR,
 } from '~/shared/constant';
-import type { ChallengeItemType, FlowColor, Nullable } from '~/shared/types';
+import type { FlowColor, FlowType, Nullable } from '~/shared/types';
 import {
   CheckCheck,
   ChevronsDown,
@@ -17,7 +17,7 @@ type Props = {
   color: FlowColor;
   name: string;
   children: JSX.Element;
-  type: ChallengeItemType;
+  type: FlowType;
   targetCount: Nullable<number>;
 };
 
@@ -57,11 +57,11 @@ export const AnalyticsCard: Component<Props> = (props) => {
   );
 };
 
-const TypeLabel: Component<{ type: ChallengeItemType }> = (props) => {
+const TypeLabel: Component<{ type: FlowType }> = (props) => {
   const TypeIcon =
-    props.type === 'complete'
+    props.type === 'COMPLETE'
       ? CheckCheck
-      : props.type === 'over'
+      : props.type === 'OVER'
       ? ChevronsUp
       : ChevronsDown;
 
