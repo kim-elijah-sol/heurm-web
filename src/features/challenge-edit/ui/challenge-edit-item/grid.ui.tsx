@@ -4,11 +4,11 @@ import { type Accessor, type Component } from 'solid-js';
 import { ChallengeEditType } from '~/entities/challenge-edit';
 import { getWeekWriting } from '~/features/new-challenge-item/fx';
 import {
-  CHALLENGE_400_BG_COLOR,
-  CHALLENGE_ACTIVE_BG_500_COLOR,
-  CHALLENGE_TEXT_COLOR_500,
+  FLOW_ACTIVE_BG_500,
+  FLOW_BG_400,
   FLOW_DAY,
   FLOW_MONTH,
+  FLOW_TEXT_500,
 } from '~/shared/constant';
 import type { FlowColor, FlowIntervalType } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, X } from '~/shared/ui';
@@ -62,7 +62,7 @@ export const Grid: Component<Props> = (props) => {
     <div
       class={clsx(
         'flex flex-col rounded-[20px] p-2 transition-all',
-        CHALLENGE_400_BG_COLOR[color()]
+        FLOW_BG_400[color()]
       )}
     >
       <div class='flex flex-col h-full justify-between'>
@@ -152,8 +152,8 @@ export const Grid: Component<Props> = (props) => {
           <button
             class={clsx(
               'rounded-[16px] h-10 flex-1 font-semibold text-white transition-all flex justify-center items-center active:scale-90',
-              CHALLENGE_400_BG_COLOR[color()],
-              CHALLENGE_ACTIVE_BG_500_COLOR[color()]
+              FLOW_BG_400[color()],
+              FLOW_ACTIVE_BG_500[color()]
             )}
             onClick={props.onClickDelete}
           >
@@ -162,7 +162,7 @@ export const Grid: Component<Props> = (props) => {
           <button
             class={clsx(
               'bg-white rounded-[16px] h-10 flex-2 font-semibold transition-all flex justify-center items-center active:bg-gray-300 active:scale-90',
-              CHALLENGE_TEXT_COLOR_500[color()]
+              FLOW_TEXT_500[color()]
             )}
             onClick={props.onClickEdit}
           >

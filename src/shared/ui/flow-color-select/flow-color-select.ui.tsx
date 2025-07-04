@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { For, type Accessor, type Component, type Setter } from 'solid-js';
-import { CHALLENGE_BG_COLOR, FLOW_COLOR } from '~/shared/constant';
+import { FLOW_BG_300, FLOW_COLOR } from '~/shared/constant';
 import type { FlowColor } from '~/shared/types';
 import { Check } from '~/shared/ui';
 
@@ -52,7 +52,7 @@ const ColorItem = (props: ColorItemProps) => {
       onClick={() => props.setColor(props.color())}
       class={clsx(
         'w-11 h-11 rounded-[42%] flex items-center justify-center transition-all active:scale-90 border border-white/30 shadow-[0_0_8px_4px_rgba(255,255,255,0.2)]',
-        CHALLENGE_BG_COLOR[props.color()]
+        FLOW_BG_300[props.color()]
       )}
     >
       {props.isCurrent() && <Check size={28} strokeWidth={3} />}

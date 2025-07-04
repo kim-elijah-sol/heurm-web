@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import { splitProps, type Accessor, type Component, type JSX } from 'solid-js';
 import {
-  CHALLENGE_400_BG_COLOR,
-  CHALLENGE_ACTIVE_BG_500_COLOR,
-  CHALLENGE_FROM_300_BG_COLOR,
+  FLOW_ACTIVE_BG_500,
+  FLOW_BG_400,
+  FLOW_FROM_300,
 } from '~/shared/constant';
 import type { FlowColor } from '~/shared/types';
 
@@ -22,8 +22,8 @@ export const CTAButton: Component<Props> = (props) => {
         disabled={disabled()}
         class={clsx(
           'w-full text-white font-semibold h-12 rounded-[12px] transition-all active:scale-95 disabled:active:scale-100 disabled:bg-gray-300 disabled:active:bg-gray-300',
-          CHALLENGE_400_BG_COLOR[local.color()],
-          CHALLENGE_ACTIVE_BG_500_COLOR[local.color()]
+          FLOW_BG_400[local.color()],
+          FLOW_ACTIVE_BG_500[local.color()]
         )}
         {...rest}
       />
@@ -31,7 +31,7 @@ export const CTAButton: Component<Props> = (props) => {
       <div
         class={clsx(
           'absolute left-0 bottom-0 right-0 h-[32px] bg-linear-to-t blur-md to-white rounded-[50%] translate-y-[24px]',
-          disabled() ? 'from-white' : CHALLENGE_FROM_300_BG_COLOR[local.color()]
+          disabled() ? 'from-white' : FLOW_FROM_300[local.color()]
         )}
       />
     </div>

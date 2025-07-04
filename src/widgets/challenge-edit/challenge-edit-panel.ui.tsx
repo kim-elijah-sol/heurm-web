@@ -22,7 +22,7 @@ import {
   ChallengeEditTop,
   DeleteChallengeItemConfirm,
 } from '~/features/challenge-edit/ui';
-import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
+import { FLOW_TEXT_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor, Nullable } from '~/shared/types';
@@ -149,7 +149,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                       class={clsx(
                         'p-2 rounded-[42%] transition-all active:bg-gray-100 active:scale-95',
                         viewType() === 'grid'
-                          ? CHALLENGE_TEXT_COLOR_500[color()]
+                          ? FLOW_TEXT_500[color()]
                           : 'text-gray-300'
                       )}
                     >
@@ -160,7 +160,7 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
                       class={clsx(
                         'p-2 rounded-[42%] transition-all active:bg-gray-100 active:scale-95',
                         viewType() === 'col'
-                          ? CHALLENGE_TEXT_COLOR_500[color()]
+                          ? FLOW_TEXT_500[color()]
                           : 'text-gray-300'
                       )}
                     >

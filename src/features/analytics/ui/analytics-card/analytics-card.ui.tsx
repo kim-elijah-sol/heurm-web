@@ -1,10 +1,7 @@
 import clsx from 'clsx';
 import { children, Component, JSX } from 'solid-js';
 import { capitalize } from '~/features/challenge-edit/fx';
-import {
-  CHALLENGE_100_BG_COLOR,
-  CHALLENGE_300_BG_COLOR,
-} from '~/shared/constant';
+import { FLOW_BG_100, FLOW_BG_300 } from '~/shared/constant';
 import type { FlowColor, FlowType, Nullable } from '~/shared/types';
 import {
   CheckCheck,
@@ -26,13 +23,13 @@ export const AnalyticsCard: Component<Props> = (props) => {
     <div
       class={clsx(
         'overflow-hidden w-full rounded-lg',
-        CHALLENGE_100_BG_COLOR[props.color]
+        FLOW_BG_100[props.color]
       )}
     >
       <div
         class={clsx(
           'pl-4 pr-2 py-2 flex items-center justify-between',
-          CHALLENGE_300_BG_COLOR[props.color]
+          FLOW_BG_300[props.color]
         )}
       >
         <div>

@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import { createSignal, type Accessor, type Component } from 'solid-js';
 import {
-  CHALLENGE_400_BG_COLOR,
-  CHALLENGE_ACTIVE_BG_500_COLOR,
-  CHALLENGE_ACTIVE_BORDER_COLOR_500,
-  CHALLENGE_ACTIVE_TEXT_COLOR_500,
-  CHALLENGE_BORDER_COLOR_500,
-  CHALLENGE_TEXT_COLOR_500,
+  FLOW_ACTIVE_BG_500,
+  FLOW_ACTIVE_BORDER_500,
+  FLOW_ACTIVE_TEXT_500,
+  FLOW_BG_400,
+  FLOW_BORDER_500,
   FLOW_DAY,
+  FLOW_TEXT_500,
 } from '~/shared/constant';
 import { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
@@ -35,18 +35,15 @@ export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
 
   const utilityButtonClassName = clsx(
     'flex-1 text-center rounded-[18px] h-11 font-semibold transition-all active:scale-95 border-2',
-    CHALLENGE_ACTIVE_BORDER_COLOR_500[props.color()],
-    CHALLENGE_ACTIVE_TEXT_COLOR_500[props.color()]
+    FLOW_ACTIVE_BORDER_500[props.color()],
+    FLOW_ACTIVE_TEXT_500[props.color()]
   );
 
   const disabled = () => days().length === 0;
 
   const getUtilityButtonColorClassName = (isActive: boolean) =>
     isActive
-      ? clsx(
-          CHALLENGE_BORDER_COLOR_500[props.color()],
-          CHALLENGE_TEXT_COLOR_500[props.color()]
-        )
+      ? clsx(FLOW_BORDER_500[props.color()], FLOW_TEXT_500[props.color()])
       : `border-gray-200 text-gray-300`;
   return (
     <BottomSheet close={props.close}>
@@ -133,8 +130,8 @@ export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
             disabled={disabled()}
             class={clsx(
               'w-full text-white font-semibold h-12 rounded-[20px] transition-all active:scale-95 disabled:active:scale-100 disabled:bg-gray-300 disabled:active:bg-gray-300',
-              CHALLENGE_400_BG_COLOR[props.color()],
-              CHALLENGE_ACTIVE_BG_500_COLOR[props.color()]
+              FLOW_BG_400[props.color()],
+              FLOW_ACTIVE_BG_500[props.color()]
             )}
             onClick={() => {
               close();

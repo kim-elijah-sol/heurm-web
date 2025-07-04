@@ -4,8 +4,8 @@ import { type Accessor, type Component } from 'solid-js';
 import { ChallengeEditType } from '~/entities/challenge-edit';
 import { getWeekWriting } from '~/features/new-challenge-item/fx';
 import {
-  CHALLENGE_400_BG_COLOR,
-  CHALLENGE_ACTIVE_TEXT_COLOR_400,
+  FLOW_ACTIVE_TEXT_400,
+  FLOW_BG_400,
   FLOW_DAY,
   FLOW_MONTH,
 } from '~/shared/constant';
@@ -64,7 +64,7 @@ export const Col: Component<Props> = (props) => {
     <div
       class={clsx(
         'flex flex-col rounded-[22px] p-3 transition-all',
-        CHALLENGE_400_BG_COLOR[color()]
+        FLOW_BG_400[color()]
       )}
     >
       <div class='flex items-start justify-between mb-3'>
@@ -87,17 +87,14 @@ export const Col: Component<Props> = (props) => {
             class={clsx(
               buttonClassName,
               'flex items-center justify-center',
-              CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
+              FLOW_ACTIVE_TEXT_400[color()]
             )}
             onClick={props.onClickEdit}
           >
             <Pencil size={20} stroke='currentColor' />
           </button>
           <button
-            class={clsx(
-              buttonClassName,
-              CHALLENGE_ACTIVE_TEXT_COLOR_400[color()]
-            )}
+            class={clsx(buttonClassName, FLOW_ACTIVE_TEXT_400[color()])}
             onClick={props.onClickDelete}
           >
             <X size={24} stroke='currentColor' />

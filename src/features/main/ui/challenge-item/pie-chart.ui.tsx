@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import { type Accessor, type Component } from 'solid-js';
 import {
-  CHALLENGE_STROKE_200,
-  CHALLENGE_TEXT_COLOR_300,
-  CHALLENGE_TEXT_COLOR_500,
+  FLOW_STROKE_200,
+  FLOW_TEXT_300,
+  FLOW_TEXT_500,
 } from '~/shared/constant';
 import type { FlowColor } from '~/shared/types';
 
@@ -23,8 +23,8 @@ export const PieChart: Component<Props> = (props) => {
       class={clsx(
         'transition-all duration-500',
         props.complete()
-          ? CHALLENGE_TEXT_COLOR_500[props.color()]
-          : CHALLENGE_TEXT_COLOR_300[props.color()]
+          ? FLOW_TEXT_500[props.color()]
+          : FLOW_TEXT_300[props.color()]
       )}
     >
       <circle
@@ -35,7 +35,7 @@ export const PieChart: Component<Props> = (props) => {
         stroke-width='30'
         class={clsx(
           'transition-all duration-500',
-          CHALLENGE_STROKE_200[props.color()]
+          FLOW_STROKE_200[props.color()]
         )}
       />
       <circle

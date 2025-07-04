@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { createMemo, type Accessor, type Component } from 'solid-js';
 import { mainConstant } from '~/entities/main';
-import { CHALLENGE_50_BG_COLOR } from '~/shared/constant';
+import { FLOW_BG_50 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import type { FlowColor } from '~/shared/types';
 
@@ -18,7 +18,7 @@ export const ChallengeEditNoChallengeItem: Component<Props> = (props) => {
     <div
       class={clsx(
         'py-6 px-4 rounded-[20px] mb-4 text-gray-500',
-        CHALLENGE_50_BG_COLOR[props.color()]
+        FLOW_BG_50[props.color()]
       )}
     >
       <p class='text-center font-semibold'>{noChallengeItemWriting()}</p>

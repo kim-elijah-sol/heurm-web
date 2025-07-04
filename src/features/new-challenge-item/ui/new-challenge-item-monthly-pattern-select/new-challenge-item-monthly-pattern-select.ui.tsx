@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { type Accessor, type Component, type Setter } from 'solid-js';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
-import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
+import { FLOW_TEXT_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import type { FlowColor, FlowMonthlyPattern } from '~/shared/types';
 import { getWeekWriting } from '../../fx';
@@ -80,7 +80,7 @@ export const NewFlowMonthlyPatternSelect: Component<Props> = (props) => {
         <p
           class={clsx(
             'font-semibold mt-2 ml-[68px] px-2 text-sm mb-2',
-            CHALLENGE_TEXT_COLOR_500[props.color()]
+            FLOW_TEXT_500[props.color()]
           )}
         >
           {props
@@ -93,7 +93,7 @@ export const NewFlowMonthlyPatternSelect: Component<Props> = (props) => {
         <p
           class={clsx(
             'font-semibold mt-2 ml-[68px] px-2 text-sm mb-2',
-            CHALLENGE_TEXT_COLOR_500[props.color()]
+            FLOW_TEXT_500[props.color()]
           )}
         >
           {props.weeks().map(getWeekWriting).join(', ')}

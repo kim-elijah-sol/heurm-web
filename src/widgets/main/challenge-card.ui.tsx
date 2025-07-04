@@ -4,7 +4,7 @@ import { challengeEditQueries } from '~/entities/challenge-edit';
 import { filterValidChallengeItem } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { ChallengeItem, NoChallengeItem } from '~/features/main/ui';
-import { CHALLENGE_100_BG_COLOR, CHALLENGE_BG_COLOR } from '~/shared/constant';
+import { FLOW_BG_100, FLOW_BG_300 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import type { FlowColor } from '~/shared/types';
 import { ChartLine, Menu } from '~/shared/ui';
@@ -42,17 +42,14 @@ export const ChallengeCard: Component<Props> = (props) => {
   const topClassName = () =>
     clsx(
       'pl-4 pr-3 py-2 flex items-center justify-between',
-      CHALLENGE_BG_COLOR[props.color()]
+      FLOW_BG_300[props.color()]
     );
 
   const topButtonClassName =
     'p-1 rounded-[42%] transition-all active:bg-[#FFFFFF30] active:scale-90';
 
   const itemsContainerClassName = () =>
-    clsx(
-      'px-2 py-3 flex flex-col gap-3',
-      CHALLENGE_100_BG_COLOR[props.color()]
-    );
+    clsx('px-2 py-3 flex flex-col gap-3', FLOW_BG_100[props.color()]);
 
   const totalCount = () => challengeItem.data?.length ?? 0;
 

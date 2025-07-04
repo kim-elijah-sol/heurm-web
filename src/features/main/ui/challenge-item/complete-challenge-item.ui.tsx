@@ -2,11 +2,7 @@ import clsx from 'clsx';
 import { format } from 'date-fns';
 import { createSignal, type Accessor, type Component } from 'solid-js';
 import { mainConstant, mainQueries } from '~/entities/main';
-import {
-  CHALLENGE_TEXT_COLOR_200,
-  CHALLENGE_TEXT_COLOR_300,
-  CHALLENGE_TEXT_COLOR_500,
-} from '~/shared/constant';
+import { FLOW_TEXT_200, FLOW_TEXT_300, FLOW_TEXT_500 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
@@ -100,9 +96,9 @@ export const Complete: Component<Props> = (props) => {
         <p
           class={
             isCompleted()
-              ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[props.color()])
+              ? clsx('font-bold', FLOW_TEXT_500[props.color()])
               : isCompleted() === false
-              ? clsx('font-semibold', CHALLENGE_TEXT_COLOR_300[props.color()])
+              ? clsx('font-semibold', FLOW_TEXT_300[props.color()])
               : 'text-gray-400 font-semibold'
           }
         >
@@ -112,10 +108,10 @@ export const Complete: Component<Props> = (props) => {
         <div
           class={
             isCompleted()
-              ? CHALLENGE_TEXT_COLOR_500[props.color()]
+              ? FLOW_TEXT_500[props.color()]
               : isCompleted() === false
-              ? CHALLENGE_TEXT_COLOR_300[props.color()]
-              : CHALLENGE_TEXT_COLOR_200[props.color()]
+              ? FLOW_TEXT_300[props.color()]
+              : FLOW_TEXT_200[props.color()]
           }
         >
           <div class={scaling() ? 'scaling' : undefined}>

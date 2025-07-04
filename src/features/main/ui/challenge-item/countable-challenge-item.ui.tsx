@@ -9,10 +9,10 @@ import {
 import { ChallengeEditType } from '~/entities/challenge-edit';
 import { mainConstant, mainQueries } from '~/entities/main';
 import {
-  CHALLENGE_300_BG_COLOR,
-  CHALLENGE_BG_500_COLOR,
-  CHALLENGE_TEXT_COLOR_300,
-  CHALLENGE_TEXT_COLOR_500,
+  FLOW_BG_300,
+  FLOW_BG_500,
+  FLOW_TEXT_300,
+  FLOW_TEXT_500,
 } from '~/shared/constant';
 import { dateFormat, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
@@ -191,8 +191,8 @@ export const Countable: Component<Props> = (props) => {
     serverChallengeResult() === null
       ? 'text-gray-400 font-semibold'
       : serverChallengeResult()
-      ? clsx('font-bold', CHALLENGE_TEXT_COLOR_500[color()])
-      : clsx('font-semibold', CHALLENGE_TEXT_COLOR_300[color()]);
+      ? clsx('font-bold', FLOW_TEXT_500[color()])
+      : clsx('font-semibold', FLOW_TEXT_300[color()]);
 
   createEffect(() => {
     if (isBluredPanelShow()) {
@@ -262,7 +262,7 @@ export const Countable: Component<Props> = (props) => {
               <button
                 class={clsx(
                   'p-5 rounded-[42%] transition-all relative overflow-hidden active:scale-90 shadow-[0_0_30px_16px_rgba(255,255,255,0.25)]',
-                  CHALLENGE_300_BG_COLOR[color()]
+                  FLOW_BG_300[color()]
                 )}
                 onClick={() => {
                   handleClickCTA();
@@ -272,7 +272,7 @@ export const Countable: Component<Props> = (props) => {
                 <div
                   class={clsx(
                     'absolute left-0 right-0 bottom-0 pointer-events-none transition-all z-0',
-                    CHALLENGE_BG_500_COLOR[color()]
+                    FLOW_BG_500[color()]
                   )}
                   style={{
                     height: `${ctaIndicatorHeight()}%`,

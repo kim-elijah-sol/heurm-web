@@ -17,11 +17,7 @@ import {
   NewFlowWeeklyPatternSelect,
   NewFlowYearlyPatternSelect,
 } from '~/features/new-challenge-item/ui';
-import {
-  CHALLENGE_400_BG_COLOR,
-  CHALLENGE_BORDER_COLOR_400,
-  CHALLENGE_TEXT_COLOR_500,
-} from '~/shared/constant';
+import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { toast } from '~/shared/lib';
 import type { FlowColor } from '~/shared/types';
 import {
@@ -245,8 +241,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                         'p-[2px] rounded-[42%] border-2 transition-all',
                         accumulate()
                           ? clsx(
-                              CHALLENGE_400_BG_COLOR[props.color()],
-                              CHALLENGE_BORDER_COLOR_400[props.color()],
+                              FLOW_BG_400[props.color()],
+                              FLOW_BORDER_400[props.color()],
                               'text-white'
                             )
                           : 'border-gray-200 text-gray-300'
@@ -350,7 +346,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   <p
                     class={clsx(
                       'text-sm font-semibold whitespace-nowrap pl-4 flex-1',
-                      CHALLENGE_TEXT_COLOR_500[props.color()]
+                      FLOW_TEXT_500[props.color()]
                     )}
                   >
                     {repeatType() === 'N' &&

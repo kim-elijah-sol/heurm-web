@@ -1,10 +1,6 @@
 import clsx from 'clsx';
 import { type Component } from 'solid-js';
-import {
-  CHALLENGE_50_BG_COLOR,
-  CHALLENGE_BORDER_COLOR_200,
-  CHALLENGE_TEXT_COLOR_500,
-} from '~/shared/constant';
+import { FLOW_BG_50, FLOW_BORDER_200, FLOW_TEXT_500 } from '~/shared/constant';
 import type { FlowColor } from '~/shared/types';
 
 type Props = {
@@ -15,7 +11,7 @@ type Props = {
 
 export const AnalyticsOverviewCard: Component<Props> = (props) => {
   const countClass = () =>
-    clsx('text-4xl font-extrabold', CHALLENGE_TEXT_COLOR_500[props.color]);
+    clsx('text-4xl font-extrabold', FLOW_TEXT_500[props.color]);
 
   return (
     <div
@@ -24,8 +20,8 @@ export const AnalyticsOverviewCard: Component<Props> = (props) => {
       }}
       class={clsx(
         'flex flex-col items-center rounded-lg p-3 transition-all border min-w-[100px]',
-        CHALLENGE_50_BG_COLOR[props.color],
-        CHALLENGE_BORDER_COLOR_200[props.color]
+        FLOW_BG_50[props.color],
+        FLOW_BORDER_200[props.color]
       )}
     >
       <span class='text-sm font-semibold mb-3 text-slate-800'>

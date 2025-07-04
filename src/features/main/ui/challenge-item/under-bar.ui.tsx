@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { type Accessor, type Component } from 'solid-js';
-import { CHALLENGE_BG_500_COLOR } from '~/shared/constant';
+import { FLOW_BG_500 } from '~/shared/constant';
 import type { FlowColor } from '~/shared/types';
 
 type Props = {
@@ -32,7 +32,7 @@ export const UnderBar: Component<Props> = (props) => {
       <div
         class={clsx(
           'w-[14px] rounded-tr-sm rounded-tl-sm transition-all overflow-hidden relative',
-          CHALLENGE_BG_500_COLOR[color()]
+          FLOW_BG_500[color()]
         )}
         style={{
           height: `${Math.min((value() / targetValue()) * 100, 100)}%`,

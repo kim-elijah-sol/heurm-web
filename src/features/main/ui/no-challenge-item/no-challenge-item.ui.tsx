@@ -1,10 +1,7 @@
 import clsx from 'clsx';
 import { createMemo, type Accessor, type Component } from 'solid-js';
 import { mainConstant } from '~/entities/main';
-import {
-  CHALLENGE_400_BG_COLOR,
-  CHALLENGE_ACTIVE_BG_500_COLOR,
-} from '~/shared/constant';
+import { FLOW_ACTIVE_BG_500, FLOW_BG_400 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import type { FlowColor } from '~/shared/types';
 import { Plus } from '~/shared/ui';
@@ -28,8 +25,8 @@ export const NoChallengeItem: Component<Props> = (props) => {
         onClick={props.onClick}
         class={clsx(
           'p-3 rounded-[42%] transition-all active:scale-90',
-          CHALLENGE_400_BG_COLOR[props.color()],
-          CHALLENGE_ACTIVE_BG_500_COLOR[props.color()]
+          FLOW_BG_400[props.color()],
+          FLOW_ACTIVE_BG_500[props.color()]
         )}
       >
         <Plus size={30} />

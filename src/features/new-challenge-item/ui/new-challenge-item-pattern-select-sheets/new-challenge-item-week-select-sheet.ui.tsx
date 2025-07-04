@@ -1,9 +1,6 @@
 import clsx from 'clsx';
 import { createSignal, For, type Accessor, type Component } from 'solid-js';
-import {
-  CHALLENGE_400_BG_COLOR,
-  CHALLENGE_ACTIVE_BG_500_COLOR,
-} from '~/shared/constant';
+import { FLOW_ACTIVE_BG_500, FLOW_BG_400 } from '~/shared/constant';
 import { getRange } from '~/shared/fx';
 import { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
@@ -75,8 +72,8 @@ export const NewChallengeItemWeekSelectSheet: Component<Props> = (props) => {
             disabled={disabled()}
             class={clsx(
               'w-full text-white font-semibold h-12 rounded-[20px] transition-all active:scale-95 disabled:active:scale-100 disabled:bg-gray-300 disabled:active:bg-gray-300',
-              CHALLENGE_400_BG_COLOR[props.color()],
-              CHALLENGE_ACTIVE_BG_500_COLOR[props.color()]
+              FLOW_BG_400[props.color()],
+              FLOW_ACTIVE_BG_500[props.color()]
             )}
             onClick={() => {
               close();
