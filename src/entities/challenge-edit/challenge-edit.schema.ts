@@ -4,8 +4,8 @@ import {
   challengeItemIntervalTypeSchema,
   challengeItemRepeatTypeSchema,
   challengeItemTypeSchema,
-  challengeTitleSchema,
   flowColorSchema,
+  flowTitleSchema,
 } from '~/shared/schema';
 
 export const getChallengeItemRequestSchema = z.object({
@@ -37,7 +37,7 @@ export const getChallengeItemResponseSchema = z.array(
 
 export const patchChallengeRequestSchema = z.object({
   challengeId: z.string(),
-  title: challengeTitleSchema,
+  title: flowTitleSchema,
   color: flowColorSchema,
 });
 

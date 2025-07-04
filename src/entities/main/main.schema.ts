@@ -1,14 +1,14 @@
 import { z } from 'zod';
 import {
   challengeItemTypeSchema,
-  challengeTitleSchema,
   dateSchema,
   flowColorSchema,
+  flowTitleSchema,
 } from '~/shared/schema';
 
 export const getChallengeResponseItemSchema = z.object({
   id: z.string(),
-  title: challengeTitleSchema,
+  title: flowTitleSchema,
   color: flowColorSchema,
 });
 
