@@ -3,7 +3,7 @@ import type {
   ChallengeItemMonthlyPattern,
   ChallengeItemRepeatType,
   ChallengeItemWeeklyPattern,
-  ChallengeItemYearlyPattern,
+  FlowYearlyPattern,
 } from '~/shared/types';
 
 export const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
@@ -26,7 +26,7 @@ export const MONTHLY_PATTERNS: ChallengeItemMonthlyPattern[] = [
   'Select Week',
 ];
 
-export const YEARLY_PATTERNS: ChallengeItemYearlyPattern[] = [
+export const YEARLY_PATTERNS: FlowYearlyPattern[] = [
   'Every Month',
   'Select Month',
 ];

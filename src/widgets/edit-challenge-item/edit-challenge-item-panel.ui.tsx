@@ -16,7 +16,7 @@ import {
   NewChallengeItemMonthlyPatternSelect,
   NewChallengeItemRadio,
   NewChallengeItemWeeklyPatternSelect,
-  NewChallengeItemYearlyPatternSelect,
+  NewFlowYearlyPatternSelect,
 } from '~/features/new-challenge-item/ui';
 import {
   CHALLENGE_400_BG_COLOR,
@@ -100,7 +100,7 @@ export const EditChallengeItemPanel: Component<Props> = (props) => {
   } = createEditChallengeItemForm(props.challengeId, props.challengeItem);
 
   const yearlyPatternSelect = () => (
-    <NewChallengeItemYearlyPatternSelect
+    <NewFlowYearlyPatternSelect
       yearlyPattern={yearlyPattern}
       setYearlyPattern={setYearlyPattern}
       color={props.color}

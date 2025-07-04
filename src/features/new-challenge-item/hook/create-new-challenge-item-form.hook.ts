@@ -14,7 +14,7 @@ import type {
   ChallengeItemRepeatType,
   ChallengeItemType,
   ChallengeItemWeeklyPattern,
-  ChallengeItemYearlyPattern,
+  FlowYearlyPattern,
   Nullable,
 } from '~/shared/types';
 
@@ -67,7 +67,7 @@ export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
   const [weeks, setWeeks] = createSignal<number[]>([]);
 
   const [yearlyPattern, setYearlyPattern] =
-    createSignal<ChallengeItemYearlyPattern>('Every Month');
+    createSignal<FlowYearlyPattern>('Every Month');
 
   const [months, setMonths] = createSignal<number[]>([]);
 

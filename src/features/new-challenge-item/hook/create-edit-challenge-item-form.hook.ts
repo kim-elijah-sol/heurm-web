@@ -14,7 +14,7 @@ import type {
   ChallengeItemRepeatType,
   ChallengeItemType,
   ChallengeItemWeeklyPattern,
-  ChallengeItemYearlyPattern,
+  FlowYearlyPattern,
   Nullable,
 } from '~/shared/types';
 
@@ -85,10 +85,9 @@ export const createEditChallengeItemForm = (
 
   const [weeks, setWeeks] = createSignal<number[]>(challengeItem().weeks);
 
-  const [yearlyPattern, setYearlyPattern] =
-    createSignal<ChallengeItemYearlyPattern>(
-      challengeItem().months.length ? 'Select Month' : 'Every Month'
-    );
+  const [yearlyPattern, setYearlyPattern] = createSignal<FlowYearlyPattern>(
+    challengeItem().months.length ? 'Select Month' : 'Every Month'
+  );
 
   const [months, setMonths] = createSignal<number[]>(challengeItem().months);
 

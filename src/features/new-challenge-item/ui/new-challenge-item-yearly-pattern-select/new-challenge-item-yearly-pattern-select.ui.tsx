@@ -3,21 +3,19 @@ import { type Accessor, type Component, type Setter } from 'solid-js';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { CHALLENGE_TEXT_COLOR_500, FLOW_MONTH } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
-import type { ChallengeItemYearlyPattern, FlowColor } from '~/shared/types';
+import type { FlowColor, FlowYearlyPattern } from '~/shared/types';
 import { NewChallengeItemMonthSelectSheet } from '../new-challenge-item-pattern-select-sheets';
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
 
 type Props = {
-  yearlyPattern: Accessor<ChallengeItemYearlyPattern>;
-  setYearlyPattern: Setter<ChallengeItemYearlyPattern>;
+  yearlyPattern: Accessor<FlowYearlyPattern>;
+  setYearlyPattern: Setter<FlowYearlyPattern>;
   color: Accessor<FlowColor>;
   months: Accessor<number[]>;
   setMonths: Setter<number[]>;
 };
 
-export const NewChallengeItemYearlyPatternSelect: Component<Props> = (
-  props
-) => {
+export const NewFlowYearlyPatternSelect: Component<Props> = (props) => {
   const yearlyPatternStep = () =>
     newChallengeItemConstant.YEARLY_PATTERNS.indexOf(props.yearlyPattern());
 
