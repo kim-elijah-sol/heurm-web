@@ -6,8 +6,8 @@ import {
   CHALLENGE_ACTIVE_BORDER_COLOR_500,
   CHALLENGE_ACTIVE_TEXT_COLOR_500,
   CHALLENGE_BORDER_COLOR_500,
-  CHALLENGE_DAY,
   CHALLENGE_TEXT_COLOR_500,
+  FLOW_DAY,
 } from '~/shared/constant';
 import { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
@@ -63,7 +63,7 @@ export const NewChallengeItemDaySelectSheet: Component<Props> = (props) => {
           </div>
 
           <div class='flex justify-between'>
-            {CHALLENGE_DAY.map((day, dayIndex) => (
+            {FLOW_DAY.map((day, dayIndex) => (
               <button
                 onClick={() => {
                   setDays(

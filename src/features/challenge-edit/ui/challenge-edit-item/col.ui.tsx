@@ -6,8 +6,8 @@ import { getWeekWriting } from '~/features/new-challenge-item/fx';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_TEXT_COLOR_400,
-  CHALLENGE_DAY,
   CHALLENGE_MONTH,
+  FLOW_DAY,
 } from '~/shared/constant';
 import type { ChallengeItemIntervalType, FlowColor } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, X } from '~/shared/ui';
@@ -143,7 +143,7 @@ export const Col: Component<Props> = (props) => {
           )}
           {props.days.length > 0 && (
             <p class='font-semibold text-[12px] text-white'>
-              • {props.days.map((it) => CHALLENGE_DAY[it]).join(', ')}
+              • {props.days.map((it) => FLOW_DAY[it]).join(', ')}
             </p>
           )}
         </div>

@@ -1,4 +1,4 @@
-export const CHALLENGE_DAY = [
+export const FLOW_DAY = [
   'SUN',
   'MON',
   'TUE',

@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import {
-  challengeDayItemSchema,
   challengeItemIntervalTypeSchema,
   challengeItemRepeatTypeSchema,
   challengeItemTypeSchema,
   flowColorSchema,
+  flowDaySchema,
   flowTitleSchema,
 } from '~/shared/schema';
 
@@ -56,7 +56,7 @@ export const deleteChallengeResponseSchema = z.object({
 const challengeItemFormBaseSchema = z.object({
   id: z.string(),
   name: z.string(),
-  days: challengeDayItemSchema,
+  days: flowDaySchema,
   isNew: z.boolean().optional(),
   isDelete: z.boolean().optional(),
 });

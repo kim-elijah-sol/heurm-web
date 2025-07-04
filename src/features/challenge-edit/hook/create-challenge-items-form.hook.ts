@@ -1,7 +1,7 @@
 import { createEffect, type Accessor } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { type ChallengeEditType } from '~/entities/challenge-edit';
-import type { ChallengeDay } from '~/shared/types';
+import type { FlowDay } from '~/shared/types';
 
 export const createChallengeItemsForm = (
   _challengeItems: Accessor<ChallengeEditType.ChallengeItemForm[]>
@@ -18,7 +18,7 @@ export const createChallengeItemsForm = (
     );
   };
 
-  const handleChangeDay = (id: string, day: ChallengeDay) => {
+  const handleChangeDay = (id: string, day: FlowDay) => {
     setChallengeItems(
       challengeItems.findIndex((it) => it.id === id),
       'days',

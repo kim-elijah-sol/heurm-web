@@ -1,8 +1,8 @@
-import type { ChallengeDay, Nullable } from '~/shared/types';
+import type { FlowDay, Nullable } from '~/shared/types';
 
 type ChallengeItemBase = {
   name: string;
-  day: ChallengeDay[];
+  day: FlowDay[];
 };
 
 type CountableType = {
