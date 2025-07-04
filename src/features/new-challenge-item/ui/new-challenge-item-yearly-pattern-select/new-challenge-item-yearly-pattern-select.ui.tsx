@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { type Accessor, type Component, type Setter } from 'solid-js';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
-import { CHALLENGE_MONTH, CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
+import { CHALLENGE_TEXT_COLOR_500, FLOW_MONTH } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import type { ChallengeItemYearlyPattern, FlowColor } from '~/shared/types';
 import { NewChallengeItemMonthSelectSheet } from '../new-challenge-item-pattern-select-sheets';
@@ -69,7 +69,7 @@ export const NewChallengeItemYearlyPatternSelect: Component<Props> = (
         >
           {props
             .months()
-            .map((it) => CHALLENGE_MONTH[it])
+            .map((it) => FLOW_MONTH[it])
             .join(', ')}
         </p>
       )}

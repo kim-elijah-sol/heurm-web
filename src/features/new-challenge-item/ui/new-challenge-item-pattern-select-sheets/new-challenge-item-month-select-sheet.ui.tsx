@@ -3,7 +3,7 @@ import { createSignal, For, type Accessor, type Component } from 'solid-js';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
-  CHALLENGE_MONTH,
+  FLOW_MONTH,
 } from '~/shared/constant';
 import { getRange } from '~/shared/fx';
 import { FlowColor } from '~/shared/types';
@@ -63,7 +63,7 @@ export const NewChallengeItemMonthSelectSheet: Component<Props> = (props) => {
                     width: `calc(33.33% - 8px)`,
                   }}
                 >
-                  {CHALLENGE_MONTH[month]}
+                  {FLOW_MONTH[month]}
                 </div>
               )}
             </For>

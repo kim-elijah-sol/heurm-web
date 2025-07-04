@@ -6,7 +6,6 @@ export * from './challenge-item-type.type';
 export * from './challenge-item-weekly-pattern.type';
 export * from './challenge-item-yearly-pattern.type';
 export * from './challenge-item.type';
-export * from './challenge-month.type';
 export * from './flow-color.type';
 export * from './flow-day.type';
 export * from './nullable.type';

@@ -1,4 +1,4 @@
-export const CHALLENGE_MONTH = [
+export const FLOW_MONTH = [
   'JAN',
   'FEB',
   'MAR',

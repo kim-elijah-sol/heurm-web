@@ -6,9 +6,9 @@ import { getWeekWriting } from '~/features/new-challenge-item/fx';
 import {
   CHALLENGE_400_BG_COLOR,
   CHALLENGE_ACTIVE_BG_500_COLOR,
-  CHALLENGE_MONTH,
   CHALLENGE_TEXT_COLOR_500,
   FLOW_DAY,
+  FLOW_MONTH,
 } from '~/shared/constant';
 import type { ChallengeItemIntervalType, FlowColor } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, X } from '~/shared/ui';
@@ -105,9 +105,7 @@ export const Grid: Component<Props> = (props) => {
             {props.months.length > 0 && (
               <div class='font-semibold text-[0.7rem] text-white/85 flex gap-1'>
                 <p>•</p>
-                <p>
-                  {props.months.map((it) => CHALLENGE_MONTH[it]).join(', ')}
-                </p>
+                <p>{props.months.map((it) => FLOW_MONTH[it]).join(', ')}</p>
               </div>
             )}
             {props.weeks.length > 0 && (
