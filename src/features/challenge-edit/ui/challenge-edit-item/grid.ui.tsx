@@ -10,7 +10,7 @@ import {
   FLOW_DAY,
   FLOW_MONTH,
 } from '~/shared/constant';
-import type { ChallengeItemIntervalType, FlowColor } from '~/shared/types';
+import type { FlowColor, FlowIntervalType } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp, X } from '~/shared/ui';
 import { Pencil } from '~/shared/ui/icons/pencil.ui';
 import { capitalize } from '../../fx';
@@ -24,7 +24,7 @@ type Props = {
 export const Grid: Component<Props> = (props) => {
   const color = () => props.color();
 
-  const getTextForIntervalType = (value: ChallengeItemIntervalType) => {
+  const getTextForIntervalType = (value: FlowIntervalType) => {
     return (
       {
         YEARLY: 'Year',

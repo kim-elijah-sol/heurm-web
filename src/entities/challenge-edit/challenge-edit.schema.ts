@@ -1,9 +1,9 @@
 import { z } from 'zod';
 import {
-  challengeItemIntervalTypeSchema,
   challengeItemTypeSchema,
   flowColorSchema,
   flowDaySchema,
+  flowIntervalTypeSchema,
   flowRepeatTypeSchema,
   flowTitleSchema,
 } from '~/shared/schema';
@@ -16,7 +16,7 @@ export const getChallengeItemResponseItemSchema = z.object({
   id: z.string(),
   name: z.string(),
   type: challengeItemTypeSchema,
-  intervalType: challengeItemIntervalTypeSchema,
+  intervalType: flowIntervalTypeSchema,
   repeatType: flowRepeatTypeSchema,
   repeat: z.number().nullable(),
   rest: z.number().nullable(),
@@ -26,7 +26,7 @@ export const getChallengeItemResponseItemSchema = z.object({
   months: z.array(z.number()),
   targetCount: z.number().nullable(),
   unit: z.string().nullable(),
-  accumulateType: challengeItemIntervalTypeSchema.nullable(),
+  accumulateType: flowIntervalTypeSchema.nullable(),
   startAt: z.string(),
   endAt: z.string().nullable(),
 });
@@ -80,7 +80,7 @@ export const postChallengeItemRequestSchema = z.object({
   challengeId: z.string(),
   name: z.string(),
   type: challengeItemTypeSchema,
-  intervalType: challengeItemIntervalTypeSchema,
+  intervalType: flowIntervalTypeSchema,
   repeatType: flowRepeatTypeSchema,
   repeat: z.number().nullable().optional(),
   rest: z.number().nullable().optional(),
@@ -90,7 +90,7 @@ export const postChallengeItemRequestSchema = z.object({
   months: z.array(z.number()).optional(),
   targetCount: z.number().nullable().optional(),
   unit: z.string().nullable().optional(),
-  accumulateType: challengeItemIntervalTypeSchema.nullable().optional(),
+  accumulateType: flowIntervalTypeSchema.nullable().optional(),
   startAt: z.string(),
   endAt: z.string().nullable().optional(),
 });

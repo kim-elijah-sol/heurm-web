@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const challengeItemIntervalTypeSchema = z.union([
+export const flowIntervalTypeSchema = z.union([
   z.literal('DAILY'),
   z.literal('WEEKLY'),
   z.literal('MONTHLY'),

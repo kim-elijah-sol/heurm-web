@@ -9,8 +9,8 @@ import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { getMidnight } from '~/features/main/fx';
 import { createInput } from '~/shared/hook';
 import type {
-  ChallengeItemIntervalType,
   ChallengeItemType,
+  FlowIntervalType,
   FlowMonthlyPattern,
   FlowRepeatType,
   FlowWeeklyPattern,
@@ -39,7 +39,7 @@ export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
   const [unit, handleInputUnit] = createInput();
 
   const [intervalType, setIntervalType] =
-    createSignal<ChallengeItemIntervalType>('DAILY');
+    createSignal<FlowIntervalType>('DAILY');
 
   const intervalTypeStep = () =>
     newChallengeItemConstant.INTERVAL_TYPES.indexOf(intervalType());
@@ -73,10 +73,10 @@ export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
   const [accumulate, setAccumulate] = createSignal<boolean>(false);
 
   const [accumulateType, setAccumulateType] =
-    createSignal<ChallengeItemIntervalType>('DAILY');
+    createSignal<FlowIntervalType>('DAILY');
 
-  const accumulateTypes = (): ChallengeItemIntervalType[] => {
-    const result: ChallengeItemIntervalType[] = ['DAILY'];
+  const accumulateTypes = (): FlowIntervalType[] => {
+    const result: FlowIntervalType[] = ['DAILY'];
 
     const step = newChallengeItemConstant.INTERVAL_TYPES.indexOf(
       intervalType()

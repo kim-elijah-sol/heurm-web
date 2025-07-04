@@ -1,12 +1,12 @@
 import type {
-  ChallengeItemIntervalType,
+  FlowIntervalType,
   FlowMonthlyPattern,
   FlowRepeatType,
   FlowWeeklyPattern,
   FlowYearlyPattern,
 } from '~/shared/types';
 
-export const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
+export const INTERVAL_TYPES: FlowIntervalType[] = [
   'DAILY',
   'WEEKLY',
   'MONTHLY',
