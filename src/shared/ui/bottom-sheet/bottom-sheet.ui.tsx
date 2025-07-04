@@ -28,15 +28,15 @@ export const BottomSheet: Component<Props> = (props) => {
       <div
         onClick={autoClose() ? close : undefined}
         class={clsx(
-          'fixed inset-0 z-50 backdrop-blur-sm wys-bottom-sheet-animation',
-          transition() ? 'wys-bottom-sheet-fade-out' : ''
+          'fixed inset-0 z-50 backdrop-blur-sm heurm-bottom-sheet-animation',
+          transition() ? 'heurm-bottom-sheet-fade-out' : ''
         )}
       >
         <div
           onClick={(e) => e.stopPropagation()}
           class={clsx(
-            'absolute bottom-0 left-0 right-0 px-4 pb-4 pt-4 bg-white rounded-tr-[16px] rounded-tl-[16px] wys-bottom-sheet-foreground-fade-in',
-            transition() ? 'wys-bottom-sheet-foreground-fade-out' : ''
+            'absolute bottom-0 left-0 right-0 px-4 pb-4 pt-4 bg-white rounded-tr-[16px] rounded-tl-[16px] heurm-bottom-sheet-foreground-fade-in',
+            transition() ? 'heurm-bottom-sheet-foreground-fade-out' : ''
           )}
         >
           {resolved()}

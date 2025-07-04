@@ -1,5 +1,5 @@
 export const STORAGE_KEYS = {
-  ACCESS_TOKEN: '--wys-at',
-  REFRESH_TOKEN: '--wys-rt',
-  CLIENT_ID: '--wys-ci',
+  ACCESS_TOKEN: '--heurm-at',
+  REFRESH_TOKEN: '--heurm-rt',
+  CLIENT_ID: '--heurm-ci',
 } as const;

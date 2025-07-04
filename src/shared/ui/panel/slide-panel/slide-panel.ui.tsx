@@ -25,8 +25,8 @@ export const SlidePanel: Component<Props> = (props) => {
     <Portal>
       <div
         class={clsx(
-          'fixed inset-0 z-50 bg-white wys-slide-panel-animation flex flex-col p-4 touch-none',
-          transition() ? 'wys-slide-panel-fade-out' : '',
+          'fixed inset-0 z-50 bg-white heurm-slide-panel-animation flex flex-col p-4 touch-none',
+          transition() ? 'heurm-slide-panel-fade-out' : '',
           props.class
         )}
       >

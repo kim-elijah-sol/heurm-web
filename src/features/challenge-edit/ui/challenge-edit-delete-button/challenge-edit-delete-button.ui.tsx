@@ -66,15 +66,15 @@ export const ChallengeEditDeleteButton: Component<Props> = (props) => {
       {isDeleteConfirm() && (
         <div
           class={clsx(
-            'fixed inset-0 bg-black/10 backdrop-blur-md z-[60] flex items-center justify-center wys-challenge-edit-delete-button-confirm-bg-animation',
+            'fixed inset-0 bg-black/10 backdrop-blur-md z-[60] flex items-center justify-center heurm-challenge-edit-delete-button-confirm-bg-animation',
             transition()
-              ? 'wys-challenge-edit-delete-button-confirm-bg-fade-out'
+              ? 'heurm-challenge-edit-delete-button-confirm-bg-fade-out'
               : ''
           )}
           onClick={() => close()}
         >
           <div
-            class='w-full mx-4 p-4 bg-white rounded-2xl wys-challenge-edit-delete-button-confirm-fg-animation'
+            class='w-full mx-4 p-4 bg-white rounded-2xl heurm-challenge-edit-delete-button-confirm-fg-animation'
             onClick={(e) => e.stopPropagation()}
           >
             <p class='font-bold text-2xl mb-2'>🗑️ Delete Challenge</p>

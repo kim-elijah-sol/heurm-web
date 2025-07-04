@@ -49,13 +49,13 @@ export const DeleteChallengeItemConfirm: Component<Props> = (props) => {
     <Portal>
       <div
         class={clsx(
-          'fixed inset-0 bg-black/10 backdrop-blur-md z-[60] flex items-center justify-center wys-delete-challenge-item-confirm-bg-animation',
-          transition() ? 'wys-delete-challenge-item-confirm-bg-fade-out' : ''
+          'fixed inset-0 bg-black/10 backdrop-blur-md z-[60] flex items-center justify-center heurm-delete-challenge-item-confirm-bg-animation',
+          transition() ? 'heurm-delete-challenge-item-confirm-bg-fade-out' : ''
         )}
         onClick={close}
       >
         <div
-          class='w-full mx-4 p-4 bg-white rounded-2xl wys-delete-challenge-item-confirm-fg-animation'
+          class='w-full mx-4 p-4 bg-white rounded-2xl heurm-delete-challenge-item-confirm-fg-animation'
           onClick={(e) => e.stopPropagation()}
         >
           <p class='font-bold text-2xl mb-2'>🗑️ Delete {props.name()}</p>

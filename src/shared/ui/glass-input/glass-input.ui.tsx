@@ -7,5 +7,7 @@ type Props = JSX.InputHTMLAttributes<HTMLInputElement>;
 export const GlassInput: Component<Props> = (props) => {
   const [classProps, rest] = splitProps(props, ['class']);
 
-  return <input {...rest} class={clsx(classProps.class, 'wys-glass-input')} />;
+  return (
+    <input {...rest} class={clsx(classProps.class, 'heurm-glass-input')} />
+  );
 };

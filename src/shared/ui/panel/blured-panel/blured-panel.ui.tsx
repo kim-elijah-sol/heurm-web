@@ -28,8 +28,8 @@ export const BluredPanel: Component<Props> = (props) => {
       <div
         on:click={autoClose() ? close : undefined}
         class={clsx(
-          'fixed inset-0 z-50 backdrop-blur-sm wys-blured-panel-animation',
-          transition() ? 'wys-blured-panel-fade-out' : ''
+          'fixed inset-0 z-50 backdrop-blur-sm heurm-blured-panel-animation',
+          transition() ? 'heurm-blured-panel-fade-out' : ''
         )}
       >
         {resolved()}

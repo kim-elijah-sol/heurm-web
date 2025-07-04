@@ -1,4 +1,4 @@
-@keyframes wys-blured-panel-animation {
+@keyframes heurm-blured-panel-animation {
   0% {
     opacity: 0;
   }
@@ -8,11 +8,11 @@
   }
 }
 
-.wys-blured-panel-animation {
-  animation: wys-blured-panel-animation 0.3s forwards;
+.heurm-blured-panel-animation {
+  animation: heurm-blured-panel-animation 0.3s forwards;
 }
 
-@keyframes wys-blured-panel-fade-out {
+@keyframes heurm-blured-panel-fade-out {
   0% {
     opacity: 1;
   }
@@ -22,6 +22,6 @@
   }
 }
 
-.wys-blured-panel-fade-out {
-  animation: wys-blured-panel-fade-out 0.3s forwards;
+.heurm-blured-panel-fade-out {
+  animation: heurm-blured-panel-fade-out 0.3s forwards;
 }

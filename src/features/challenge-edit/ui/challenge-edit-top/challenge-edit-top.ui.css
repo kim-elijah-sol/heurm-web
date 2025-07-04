@@ -1,7 +1,7 @@
-.wys-challenge-edit-top-input {
+.heurm-challenge-edit-top-input {
   max-width: calc(100vw - 88px);
 }
 
-.wys-challenge-edit-top-input:focus {
+.heurm-challenge-edit-top-input:focus {
   width: calc(100vw - 88px) !important;
 }

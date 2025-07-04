@@ -1,4 +1,4 @@
-@keyframes wys-slide-panel-animation {
+@keyframes heurm-slide-panel-animation {
   0% {
     transform: translateX(100%);
   }
@@ -7,11 +7,11 @@
   }
 }
 
-.wys-slide-panel-animation {
-  animation: wys-slide-panel-animation 0.3s forwards;
+.heurm-slide-panel-animation {
+  animation: heurm-slide-panel-animation 0.3s forwards;
 }
 
-@keyframes wys-slide-panel-fade-out {
+@keyframes heurm-slide-panel-fade-out {
   0% {
     transform: translateX(0);
   }
@@ -20,6 +20,6 @@
   }
 }
 
-.wys-slide-panel-fade-out {
-  animation: wys-slide-panel-fade-out 0.3s forwards;
+.heurm-slide-panel-fade-out {
+  animation: heurm-slide-panel-fade-out 0.3s forwards;
 }

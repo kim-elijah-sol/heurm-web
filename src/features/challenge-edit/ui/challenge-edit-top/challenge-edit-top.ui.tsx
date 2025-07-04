@@ -38,7 +38,7 @@ export const ChallengeEditTop: Component<Props> = (props) => {
       <input
         id='title-input'
         type='text'
-        class='font-semibold text-xl py-2 px-3 rounded-[18px] bg-slate-100 transition-all wys-challenge-edit-top-input'
+        class='font-semibold text-xl py-2 px-3 rounded-[18px] bg-slate-100 transition-all heurm-challenge-edit-top-input'
         value={titleValue()}
         onInput={(e) => setTitleValue(e.target.value)}
         onBlur={() => {

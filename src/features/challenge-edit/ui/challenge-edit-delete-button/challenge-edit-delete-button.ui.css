@@ -1,4 +1,4 @@
-@keyframes wys-challenge-edit-delete-button-confirm-bg-animation {
+@keyframes heurm-challenge-edit-delete-button-confirm-bg-animation {
   0% {
     opacity: 0;
   }
@@ -8,11 +8,12 @@
   }
 }
 
-.wys-challenge-edit-delete-button-confirm-bg-animation {
-  animation: wys-challenge-edit-delete-button-confirm-bg-animation 0.3s forwards;
+.heurm-challenge-edit-delete-button-confirm-bg-animation {
+  animation: heurm-challenge-edit-delete-button-confirm-bg-animation 0.3s
+    forwards;
 }
 
-@keyframes wys-challenge-edit-delete-button-confirm-bg-fade-out {
+@keyframes heurm-challenge-edit-delete-button-confirm-bg-fade-out {
   0% {
     opacity: 1;
   }
@@ -22,11 +23,12 @@
   }
 }
 
-.wys-challenge-edit-delete-button-confirm-bg-fade-out {
-  animation: wys-challenge-edit-delete-button-confirm-bg-fade-out 0.3s forwards;
+.heurm-challenge-edit-delete-button-confirm-bg-fade-out {
+  animation: heurm-challenge-edit-delete-button-confirm-bg-fade-out 0.3s
+    forwards;
 }
 
-@keyframes wys-challenge-edit-delete-button-confirm-fg-animation {
+@keyframes heurm-challenge-edit-delete-button-confirm-fg-animation {
   0% {
     transform: translateY(16px);
   }
@@ -36,6 +38,7 @@
   }
 }
 
-.wys-challenge-edit-delete-button-confirm-fg-animation {
-  animation: wys-challenge-edit-delete-button-confirm-fg-animation 0.3s forwards;
+.heurm-challenge-edit-delete-button-confirm-fg-animation {
+  animation: heurm-challenge-edit-delete-button-confirm-fg-animation 0.3s
+    forwards;
 }

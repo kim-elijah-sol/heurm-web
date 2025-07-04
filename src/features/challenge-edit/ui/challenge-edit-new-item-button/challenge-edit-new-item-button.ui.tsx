@@ -13,7 +13,7 @@ export const ChallengeEditNewItemButton: Component<Props> = (props) => {
     <button
       class={clsx(
         'bg-slate-200 p-3 rounded-[42%] transition-all active:bg-slate-300 active:scale-90',
-        props.pulse() ? 'wys-challenge-edit-new-item-button-pulse' : ''
+        props.pulse() ? 'heurm-challenge-edit-new-item-button-pulse' : ''
       )}
       onClick={props.onClick}
     >
