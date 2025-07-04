@@ -5,14 +5,14 @@ import {
   AnalyticsOverviewCard,
   AnalyticsPanelTop,
 } from '~/features/analytics/ui';
-import type { ChallengeItem, FlowColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 import { Panel } from '~/shared/ui';
 
 type Props = {
   close: () => void;
   title: Accessor<string>;
   color: Accessor<FlowColor>;
-  challengeItems: Accessor<ChallengeItem[]>;
+  challengeItems: Accessor<any[]>;
 };
 
 export const AnalyticsPanel: Component<Props> = (props) => {

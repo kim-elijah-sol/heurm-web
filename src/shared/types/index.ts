@@ -1,5 +1,3 @@
-export * from './challenge-item-form.type';
-export * from './challenge-item.type';
 export * from './flow-color.type';
 export * from './flow-day.type';
 export * from './flow-interval-type.type';
