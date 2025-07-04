@@ -5,7 +5,7 @@ import {
   DateSelect,
   Footer,
   MainTop,
-  NewChallengeButton,
+  NewFlowButton,
   NoChallenge,
 } from '~/widgets/main';
 
@@ -36,7 +36,7 @@ function Main() {
           <NoChallenge />
         )}
 
-        <NewChallengeButton />
+        <NewFlowButton />
       </div>
       <Footer />
     </>
