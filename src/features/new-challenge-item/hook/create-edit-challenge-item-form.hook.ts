@@ -10,9 +10,9 @@ import { getMidnight } from '~/features/main/fx';
 import { createInput } from '~/shared/hook';
 import type {
   ChallengeItemIntervalType,
-  ChallengeItemRepeatType,
   ChallengeItemType,
   FlowMonthlyPattern,
+  FlowRepeatType,
   FlowWeeklyPattern,
   FlowYearlyPattern,
   Nullable,
@@ -50,7 +50,7 @@ export const createEditChallengeItemForm = (
   const intervalTypeStep = () =>
     newChallengeItemConstant.INTERVAL_TYPES.indexOf(intervalType());
 
-  const [repeatType, setRepeatType] = createSignal<ChallengeItemRepeatType>(
+  const [repeatType, setRepeatType] = createSignal<FlowRepeatType>(
     challengeItem().repeatType
   );
 
@@ -136,7 +136,7 @@ export const createEditChallengeItemForm = (
 
   const nRadioText = () => `Every N ${repeatUnit()}`;
 
-  const getRepeatRadioText = (repeatType: ChallengeItemRepeatType) => {
+  const getRepeatRadioText = (repeatType: FlowRepeatType) => {
     return repeatType === 'EVERY'
       ? everyRadioText()
       : repeatType === 'N'
