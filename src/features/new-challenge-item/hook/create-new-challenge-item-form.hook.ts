@@ -10,10 +10,10 @@ import { getMidnight } from '~/features/main/fx';
 import { createInput } from '~/shared/hook';
 import type {
   ChallengeItemIntervalType,
-  ChallengeItemMonthlyPattern,
   ChallengeItemRepeatType,
   ChallengeItemType,
   ChallengeItemWeeklyPattern,
+  FlowMonthlyPattern,
   FlowYearlyPattern,
   Nullable,
 } from '~/shared/types';
@@ -60,7 +60,7 @@ export const createNewChallengeItemForm = (challengeId: Accessor<string>) => {
   const [days, setDays] = createSignal<number[]>([]);
 
   const [monthlyPattern, setMonthlyPattern] =
-    createSignal<ChallengeItemMonthlyPattern>('Every Week');
+    createSignal<FlowMonthlyPattern>('Every Week');
 
   const [dates, setDates] = createSignal<number[]>([]);
 

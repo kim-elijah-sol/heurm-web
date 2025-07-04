@@ -12,9 +12,9 @@ import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
 import {
   NewChallengeItemDatePicker,
-  NewChallengeItemMonthlyPatternSelect,
   NewChallengeItemRadio,
   NewChallengeItemWeeklyPatternSelect,
+  NewFlowMonthlyPatternSelect,
   NewFlowYearlyPatternSelect,
 } from '~/features/new-challenge-item/ui';
 import {
@@ -108,7 +108,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   );
 
   const monthlyPatternSelect = () => (
-    <NewChallengeItemMonthlyPatternSelect
+    <NewFlowMonthlyPatternSelect
       monthlyPattern={monthlyPattern}
       setMonthlyPattern={setMonthlyPattern}
       color={props.color}

@@ -3,7 +3,7 @@ import { type Accessor, type Component, type Setter } from 'solid-js';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { CHALLENGE_TEXT_COLOR_500 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
-import type { ChallengeItemMonthlyPattern, FlowColor } from '~/shared/types';
+import type { FlowColor, FlowMonthlyPattern } from '~/shared/types';
 import { getWeekWriting } from '../../fx';
 import {
   NewChallengeItemDateSelectSheet,
@@ -12,8 +12,8 @@ import {
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
 
 type Props = {
-  monthlyPattern: Accessor<ChallengeItemMonthlyPattern>;
-  setMonthlyPattern: Setter<ChallengeItemMonthlyPattern>;
+  monthlyPattern: Accessor<FlowMonthlyPattern>;
+  setMonthlyPattern: Setter<FlowMonthlyPattern>;
   color: Accessor<FlowColor>;
   dates: Accessor<number[]>;
   setDates: Setter<number[]>;
@@ -21,9 +21,7 @@ type Props = {
   setWeeks: Setter<number[]>;
 };
 
-export const NewChallengeItemMonthlyPatternSelect: Component<Props> = (
-  props
-) => {
+export const NewFlowMonthlyPatternSelect: Component<Props> = (props) => {
   const monthlyPatternStep = () =>
     newChallengeItemConstant.MONTHLY_PATTERNS.indexOf(props.monthlyPattern());
 

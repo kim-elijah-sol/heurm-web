@@ -1,5 +1,4 @@
 export * from './challenge-item-interval-type.schema';
-export * from './challenge-item-monthly-pattern.schema';
 export * from './challenge-item-repeat-type.schema';
 export * from './challenge-item-type.schema';
 export * from './challenge-item-weekly-pattern.schema';
@@ -7,6 +6,7 @@ export * from './date.schema';
 export * from './email.schema';
 export * from './flow-color.schema';
 export * from './flow-day.schema';
+export * from './flow-monthly-pattern.schema';
 export * from './flow-title.schema';
 export * from './flow-yearly-pattern.schema';
 export * from './password.schema';
