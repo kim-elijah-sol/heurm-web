@@ -11,7 +11,7 @@ type Props = {
 
 export const ChallengeEditNoChallengeItem: Component<Props> = (props) => {
   const noChallengeItemWriting = createMemo(() =>
-    getRandomItem(mainConstant.NO_CHALLENGE_ITEM_WRITING)
+    getRandomItem(mainConstant.NO_FLOW_WRITING)
   );
 
   return (

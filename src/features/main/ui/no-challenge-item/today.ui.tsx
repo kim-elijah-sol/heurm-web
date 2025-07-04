@@ -11,7 +11,7 @@ type Props = {
 
 export const Today: Component<Props> = (props) => {
   const noChallengeItemWriting = createMemo(() =>
-    getRandomItem(mainConstant.NO_CHALLENGE_ITEM_TODAY_WRITING)
+    getRandomItem(mainConstant.NO_FLOW_TODAY_WRITING)
   );
 
   return (
