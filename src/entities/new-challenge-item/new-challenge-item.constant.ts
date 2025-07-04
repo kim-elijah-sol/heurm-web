@@ -1,8 +1,8 @@
 import type {
   ChallengeItemIntervalType,
   ChallengeItemRepeatType,
-  ChallengeItemWeeklyPattern,
   FlowMonthlyPattern,
+  FlowWeeklyPattern,
   FlowYearlyPattern,
 } from '~/shared/types';
 
@@ -15,10 +15,7 @@ export const INTERVAL_TYPES: ChallengeItemIntervalType[] = [
 
 export const REPEAT_TYPES: ChallengeItemRepeatType[] = ['EVERY', 'N', 'NM'];
 
-export const WEEKLY_PATTERNS: ChallengeItemWeeklyPattern[] = [
-  'Every Day',
-  'Select Day',
-];
+export const WEEKLY_PATTERNS: FlowWeeklyPattern[] = ['Every Day', 'Select Day'];
 
 export const MONTHLY_PATTERNS: FlowMonthlyPattern[] = [
   'Every Week',

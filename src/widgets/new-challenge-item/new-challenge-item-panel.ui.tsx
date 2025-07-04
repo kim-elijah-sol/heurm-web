@@ -13,8 +13,8 @@ import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
 import {
   NewChallengeItemDatePicker,
   NewChallengeItemRadio,
-  NewChallengeItemWeeklyPatternSelect,
   NewFlowMonthlyPatternSelect,
+  NewFlowWeeklyPatternSelect,
   NewFlowYearlyPatternSelect,
 } from '~/features/new-challenge-item/ui';
 import {
@@ -120,7 +120,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   );
 
   const weeklyPatternSelect = () => (
-    <NewChallengeItemWeeklyPatternSelect
+    <NewFlowWeeklyPatternSelect
       weeklyPattern={weeklyPattern}
       setWeeklyPattern={setWeeklyPattern}
       days={days}

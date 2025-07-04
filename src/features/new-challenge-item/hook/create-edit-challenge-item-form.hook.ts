@@ -12,8 +12,8 @@ import type {
   ChallengeItemIntervalType,
   ChallengeItemRepeatType,
   ChallengeItemType,
-  ChallengeItemWeeklyPattern,
   FlowMonthlyPattern,
+  FlowWeeklyPattern,
   FlowYearlyPattern,
   Nullable,
 } from '~/shared/types';
@@ -65,10 +65,9 @@ export const createEditChallengeItemForm = (
     challengeItem().rest?.toString() ?? ''
   );
 
-  const [weeklyPattern, setWeeklyPattern] =
-    createSignal<ChallengeItemWeeklyPattern>(
-      challengeItem().days.length ? 'Select Day' : 'Every Day'
-    );
+  const [weeklyPattern, setWeeklyPattern] = createSignal<FlowWeeklyPattern>(
+    challengeItem().days.length ? 'Select Day' : 'Every Day'
+  );
 
   const [days, setDays] = createSignal<number[]>(challengeItem().days);
 

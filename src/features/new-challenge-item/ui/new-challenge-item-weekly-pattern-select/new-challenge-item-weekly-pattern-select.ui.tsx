@@ -3,21 +3,19 @@ import { type Accessor, type Component, type Setter } from 'solid-js';
 import { newChallengeItemConstant } from '~/entities/new-challenge-item';
 import { CHALLENGE_TEXT_COLOR_500, FLOW_DAY } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
-import type { ChallengeItemWeeklyPattern, FlowColor } from '~/shared/types';
+import type { FlowColor, FlowWeeklyPattern } from '~/shared/types';
 import { NewChallengeItemDaySelectSheet } from '../new-challenge-item-pattern-select-sheets';
 import { NewChallengeItemRadio } from '../new-challenge-item-radio';
 
 type Props = {
-  weeklyPattern: Accessor<ChallengeItemWeeklyPattern>;
-  setWeeklyPattern: Setter<ChallengeItemWeeklyPattern>;
+  weeklyPattern: Accessor<FlowWeeklyPattern>;
+  setWeeklyPattern: Setter<FlowWeeklyPattern>;
   color: Accessor<FlowColor>;
   days: Accessor<number[]>;
   setDays: Setter<number[]>;
 };
 
-export const NewChallengeItemWeeklyPatternSelect: Component<Props> = (
-  props
-) => {
+export const NewFlowWeeklyPatternSelect: Component<Props> = (props) => {
   const weeklyPatternStep = () =>
     newChallengeItemConstant.WEEKLY_PATTERNS.indexOf(props.weeklyPattern());
 
