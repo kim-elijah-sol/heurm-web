@@ -7,3 +7,8 @@ export const getHistory = (params: HistoryType.GetHistoryRequest) =>
       params,
     })
     .then(https.validateResponse(historySchema.getHistoryResponseSchema));
+
+export const postHistory = (body: HistoryType.PostHistoryRequest) =>
+  https
+    .post<HistoryType.PostHistoryResponse>('/history', body)
+    .then(https.validateResponse(historySchema.postHistoryResponseSchema));

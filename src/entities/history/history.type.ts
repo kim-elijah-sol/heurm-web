@@ -12,3 +12,11 @@ export type GetHistoryResponseItem = z.infer<
 export type GetHistoryResponse = z.infer<
   typeof historySchema.getHistoryResponseSchema
 >;
+
+export type PostHistoryRequest = z.infer<
+  typeof historySchema.postHistoryRequestSchema
+>;
+
+export type PostHistoryResponse = z.infer<
+  typeof historySchema.postHistoryResponseSchema
+>;
