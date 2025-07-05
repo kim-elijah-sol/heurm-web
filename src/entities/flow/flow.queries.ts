@@ -17,3 +17,13 @@ export const postFlowMutation = (
     onSuccess,
     onError: (error) => toastAtError(error),
   }));
+
+export const patchFlowMutation = (
+  onSuccess?: (data: Awaited<ReturnType<typeof flowApi.patchFlow>>) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['patchFlow'],
+    mutationFn: flowApi.patchFlow,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));

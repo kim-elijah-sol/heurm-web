@@ -12,3 +12,11 @@ export type PostFlowRequest = z.infer<typeof flowSchema.postFlowRequestSchema>;
 export type PostFlowResponse = z.infer<
   typeof flowSchema.postFlowResponseSchema
 >;
+
+export type PatchFlowRequest = z.infer<
+  typeof flowSchema.patchFlowRequestSchema
+>;
+
+export type PatchFlowResponse = z.infer<
+  typeof flowSchema.patchFlowResponseSchema
+>;

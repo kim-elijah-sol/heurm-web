@@ -53,3 +53,11 @@ export const postFlowRequestSchema = z.object({
 export const postFlowResponseSchema = z.object({
   id: z.string(),
 });
+
+export const patchFlowRequestSchema = postFlowRequestSchema.extend({
+  id: z.string(),
+});
+
+export const patchFlowResponseSchema = z.object({
+  result: z.boolean(),
+});

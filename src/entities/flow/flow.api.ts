@@ -10,3 +10,8 @@ export const postFlow = (body: FlowType.PostFlowRequest) =>
   https
     .post<FlowType.PostFlowResponse>('/flow', body)
     .then(https.validateResponse(flowSchema.postFlowResponseSchema));
+
+export const patchFlow = (body: FlowType.PatchFlowRequest) =>
+  https
+    .patch<FlowType.PatchFlowResponse>('/flow', body)
+    .then(https.validateResponse(flowSchema.patchFlowResponseSchema));
