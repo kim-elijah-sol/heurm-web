@@ -39,3 +39,28 @@ export const postHistoryRequestSchema = z.union([
 export const postHistoryResponseSchema = z.object({
   id: z.string(),
 });
+
+const patchHistoryRequestBaseSchema = postHistoryRequestBaseSchema
+  .omit({ date: true, type: true })
+  .extend({
+    id: z.string(),
+  });
+
+export const patchHistoryRequestCompleteSchema =
+  patchHistoryRequestBaseSchema.extend({
+    complete: z.boolean().nullable().optional(),
+  });
+
+export const patchHistoryRequestCountableSchema =
+  patchHistoryRequestBaseSchema.extend({
+    count: z.number().nullable().optional(),
+  });
+
+export const patchHistoryRequestSchema = z.union([
+  patchHistoryRequestCompleteSchema,
+  patchHistoryRequestCountableSchema,
+]);
+
+export const patchHistoryResponseSchema = z.object({
+  id: z.string(),
+});

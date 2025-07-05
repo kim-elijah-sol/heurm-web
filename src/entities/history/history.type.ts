@@ -20,3 +20,11 @@ export type PostHistoryRequest = z.infer<
 export type PostHistoryResponse = z.infer<
   typeof historySchema.postHistoryResponseSchema
 >;
+
+export type PatchHistoryRequest = z.infer<
+  typeof historySchema.patchHistoryRequestSchema
+>;
+
+export type PatchHistoryResponse = z.infer<
+  typeof historySchema.patchHistoryResponseSchema
+>;

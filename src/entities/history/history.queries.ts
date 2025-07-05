@@ -14,11 +14,23 @@ export const getHistoryQuery = (
   }));
 
 export const postHistoryMutation = (
-  onSuccess: (data: Awaited<ReturnType<typeof historyApi.postHistory>>) => void
+  onSuccess?: (data: Awaited<ReturnType<typeof historyApi.postHistory>>) => void
 ) =>
   useMutation(() => ({
     mutationKey: ['postHistory'],
     mutationFn: historyApi.postHistory,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));
+
+export const patchHistoryMutation = (
+  onSuccess?: (
+    data: Awaited<ReturnType<typeof historyApi.patchHistory>>
+  ) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['patchHistory'],
+    mutationFn: historyApi.patchHistory,
     onSuccess,
     onError: (error) => toastAtError(error),
   }));
