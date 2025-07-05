@@ -23,4 +23,3 @@ function Main() {
 }
 
 export default Main;
-1;
