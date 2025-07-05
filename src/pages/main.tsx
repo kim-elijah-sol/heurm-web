@@ -1,10 +1,6 @@
-import {
-  DateSelect,
-  Footer,
-  MainTop,
-  NewFlowButton,
-  NoFlow,
-} from '~/widgets/main';
+import { Footer } from '~/shared/ui';
+import { NewFlowButton, NoFlow } from '~/widgets/flow';
+import { DateSelect, MainTop } from '~/widgets/main';
 
 function Main() {
   return (
@@ -12,9 +8,7 @@ function Main() {
       <div class='p-4 flex flex-col gap-4'>
         <MainTop />
         <DateSelect />
-
         <NoFlow />
-
         <NewFlowButton />
       </div>
       <Footer />
