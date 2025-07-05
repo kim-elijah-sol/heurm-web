@@ -27,3 +27,13 @@ export const patchFlowMutation = (
     onSuccess,
     onError: (error) => toastAtError(error),
   }));
+
+export const deleteFlowMutation = (
+  onSuccess?: (data: Awaited<ReturnType<typeof flowApi.deleteFlow>>) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['deleteFlow'],
+    mutationFn: flowApi.deleteFlow,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));

@@ -61,3 +61,11 @@ export const patchFlowRequestSchema = postFlowRequestSchema.extend({
 export const patchFlowResponseSchema = z.object({
   result: z.boolean(),
 });
+
+export const deleteFlowRequestSchema = z.object({
+  flowId: z.string(),
+});
+
+export const deleteFlowResponseSchema = z.object({
+  result: z.boolean(),
+});

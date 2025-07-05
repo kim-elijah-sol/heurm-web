@@ -20,3 +20,11 @@ export type PatchFlowRequest = z.infer<
 export type PatchFlowResponse = z.infer<
   typeof flowSchema.patchFlowResponseSchema
 >;
+
+export type DeleteFlowRequest = z.infer<
+  typeof flowSchema.deleteFlowRequestSchema
+>;
+
+export type DeleteFlowResponse = z.infer<
+  typeof flowSchema.deleteFlowResponseSchema
+>;

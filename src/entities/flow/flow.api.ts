@@ -15,3 +15,8 @@ export const patchFlow = (body: FlowType.PatchFlowRequest) =>
   https
     .patch<FlowType.PatchFlowResponse>('/flow', body)
     .then(https.validateResponse(flowSchema.patchFlowResponseSchema));
+
+export const deleteFlow = (data: FlowType.DeleteFlowRequest) =>
+  https
+    .delete<FlowType.DeleteFlowResponse>('/flow', { data })
+    .then(https.validateResponse(flowSchema.deleteFlowResponseSchema));
