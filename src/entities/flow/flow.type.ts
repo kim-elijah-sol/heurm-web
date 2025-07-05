@@ -6,3 +6,9 @@ export type GetFlowResponseItem = z.infer<
 >;
 
 export type GetFlowResponse = z.infer<typeof flowSchema.getFlowResponseSchema>;
+
+export type PostFlowRequest = z.infer<typeof flowSchema.postFlowRequestSchema>;
+
+export type PostFlowResponse = z.infer<
+  typeof flowSchema.postFlowResponseSchema
+>;

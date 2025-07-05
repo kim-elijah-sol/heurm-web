@@ -28,3 +28,28 @@ export const getFlowResponseItemSchema = z.object({
 });
 
 export const getFlowResponseSchema = z.array(getFlowResponseItemSchema);
+
+export const postFlowRequestSchema = z.object({
+  name: z.string(),
+  color: z.string(),
+  type: flowTypeSchema,
+  intervalType: flowIntervalTypeSchema,
+  repeatType: flowRepeatTypeSchema,
+  repeat: z.number().nullable().optional(),
+  rest: z.number().nullable().optional(),
+  days: z.array(z.number()).optional(),
+  dates: z.array(z.number()).optional(),
+  weeks: z.array(z.number()).optional(),
+  months: z.array(z.number()).optional(),
+  targetCount: z.number().nullable().optional(),
+  unit: z.string().nullable().optional(),
+  accumulateType: flowIntervalTypeSchema.nullable().optional(),
+  startAt: z.string(),
+  endAt: z.string().nullable().optional(),
+  startTime: z.number().nullable().optional(),
+  endTime: z.number().nullable().optional(),
+});
+
+export const postFlowResponseSchema = z.object({
+  id: z.string(),
+});
