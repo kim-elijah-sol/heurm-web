@@ -1,3 +1,4 @@
+import { NewFlowPanel } from '~/panel-pages';
 import { createBoolean } from '~/shared/hook';
 import { Plus } from '~/shared/ui';
 import './new-flow-button.css';
@@ -15,6 +16,7 @@ export const NewFlowButton = () => {
           <Plus size={32} />
         </button>
       </div>
+      {isNewFlowPanel() && <NewFlowPanel close={close} />}
     </>
   );
 };

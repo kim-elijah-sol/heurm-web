@@ -27,7 +27,6 @@ import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor, Nullable } from '~/shared/types';
 import { FlowColorSelect, Grid2x2, Panel, Rows3 } from '~/shared/ui';
-import { NewChallengeItemPanel } from '~/widgets/new-challenge-item';
 import { EditChallengeItemPanel } from '../edit-challenge-item';
 
 type Props = {
@@ -223,14 +222,6 @@ export const ChallengeEditPanel: Component<Props> = (props) => {
           </>
         )}
       </Panel.Slide>
-      {isNewChallengeItemPanel() && (
-        <NewChallengeItemPanel
-          close={newChallengeItemClose}
-          color={color}
-          challengeId={props.challengeId}
-        />
-      )}
-
       {editTarget() && (
         <EditChallengeItemPanel
           close={() => setEditTarget(null)}

@@ -1,25 +1,17 @@
 import clsx from 'clsx';
+import { Match, Show, Switch, type Component } from 'solid-js';
+import { flowConstant } from '~/entities/flow';
+import { createNewFlowForm } from '~/features/flow/hook';
 import {
-  children,
-  Match,
-  Show,
-  Switch,
-  type Accessor,
-  type Component,
-  type JSX,
-} from 'solid-js';
-import { newChallengeItemConstant } from '~/entities/new-challenge-item';
-import { createNewChallengeItemForm } from '~/features/new-challenge-item/hook';
-import {
-  NewChallengeItemDatePicker,
-  NewChallengeItemRadio,
-  NewFlowMonthlyPatternSelect,
-  NewFlowWeeklyPatternSelect,
-  NewFlowYearlyPatternSelect,
-} from '~/features/new-challenge-item/ui';
+  FlowPanelDatePicker,
+  FlowPanelForm,
+  FlowPanelMonthlyPatternSelect,
+  FlowPanelRadio,
+  FlowPanelWeeklyPatternSelect,
+  FlowPanelYearlyPatternSelect,
+} from '~/features/flow/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { toast } from '~/shared/lib';
-import type { FlowColor } from '~/shared/types';
 import {
   Check,
   CheckCheck,
@@ -32,11 +24,9 @@ import {
 
 type Props = {
   close: () => void;
-  color: Accessor<FlowColor>;
-  challengeId: Accessor<string>;
 };
 
-export const NewChallengeItemPanel: Component<Props> = (props) => {
+export const NewFlowPanel: Component<Props> = (props) => {
   const inputBaseClassName =
     'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
 
@@ -44,6 +34,7 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
     name,
     handleInputName,
     nameTitle,
+    color,
     type,
     setType,
     typeStep,
@@ -91,23 +82,23 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
     restPlaceholderText,
     disabled,
     handleSave,
-  } = createNewChallengeItemForm(props.challengeId);
+  } = createNewFlowForm();
 
   const yearlyPatternSelect = () => (
-    <NewFlowYearlyPatternSelect
+    <FlowPanelYearlyPatternSelect
       yearlyPattern={yearlyPattern}
       setYearlyPattern={setYearlyPattern}
-      color={props.color}
+      color={color}
       months={months}
       setMonths={setMonths}
     />
   );
 
   const monthlyPatternSelect = () => (
-    <NewFlowMonthlyPatternSelect
+    <FlowPanelMonthlyPatternSelect
       monthlyPattern={monthlyPattern}
       setMonthlyPattern={setMonthlyPattern}
-      color={props.color}
+      color={color}
       dates={dates}
       setDates={setDates}
       weeks={weeks}
@@ -116,12 +107,12 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
   );
 
   const weeklyPatternSelect = () => (
-    <NewFlowWeeklyPatternSelect
+    <FlowPanelWeeklyPatternSelect
       weeklyPattern={weeklyPattern}
       setWeeklyPattern={setWeeklyPattern}
       days={days}
       setDays={setDays}
-      color={props.color}
+      color={color}
     />
   );
 
@@ -149,24 +140,24 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
             </button>
           </div>
           <div class='overflow-y-auto items-center pb-20 pt-[72px] px-4'>
-            <Form.Wrapper>
-              <Form.Label>Name</Form.Label>
+            <FlowPanelForm.Wrapper>
+              <FlowPanelForm.Label>Name</FlowPanelForm.Label>
               <input
                 type='text'
                 class={inputBaseClassName}
                 value={name()}
                 onInput={handleInputName}
-                placeholder='Challenge Item Name'
+                placeholder='Flow Name'
               />
-            </Form.Wrapper>
-            <Form.Wrapper>
-              <Form.Label>Type</Form.Label>
-              <NewChallengeItemRadio step={typeStep}>
-                <NewChallengeItemRadio.Item
-                  color={props.color}
+            </FlowPanelForm.Wrapper>
+            <FlowPanelForm.Wrapper>
+              <FlowPanelForm.Label>Type</FlowPanelForm.Label>
+              <FlowPanelRadio step={typeStep}>
+                <FlowPanelRadio.Item
+                  color={color}
                   checked={() => type() === 'COMPLETE'}
                   onChange={() => setType('COMPLETE')}
-                  name='challenge-item-type'
+                  name='flow-type'
                   id='complete'
                 >
                   <CheckCheck
@@ -174,12 +165,12 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     stroke='currentColor'
                     className='transition-all'
                   />
-                </NewChallengeItemRadio.Item>
-                <NewChallengeItemRadio.Item
-                  color={props.color}
+                </FlowPanelRadio.Item>
+                <FlowPanelRadio.Item
+                  color={color}
                   checked={() => type() === 'OVER'}
                   onChange={() => setType('OVER')}
-                  name='challenge-item-type'
+                  name='flow-type'
                   id='over'
                 >
                   <ChevronsUp
@@ -187,12 +178,12 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     stroke='currentColor'
                     className='transition-all'
                   />
-                </NewChallengeItemRadio.Item>
-                <NewChallengeItemRadio.Item
-                  color={props.color}
+                </FlowPanelRadio.Item>
+                <FlowPanelRadio.Item
+                  color={color}
                   checked={() => type() === 'UNDER'}
                   onChange={() => setType('UNDER')}
-                  name='challenge-item-type'
+                  name='flow-type'
                   id='under'
                 >
                   <ChevronsDown
@@ -200,13 +191,15 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     stroke='currentColor'
                     className='transition-all'
                   />
-                </NewChallengeItemRadio.Item>
-              </NewChallengeItemRadio>
-            </Form.Wrapper>
+                </FlowPanelRadio.Item>
+              </FlowPanelRadio>
+            </FlowPanelForm.Wrapper>
 
             <Show when={type() !== 'COMPLETE'}>
-              <Form.Wrapper>
-                <Form.Label>Target Count &nbsp;&&nbsp; Unit</Form.Label>
+              <FlowPanelForm.Wrapper>
+                <FlowPanelForm.Label>
+                  Target Count &nbsp;&&nbsp; Unit
+                </FlowPanelForm.Label>
                 <div class='flex w-full gap-2'>
                   <input
                     type='number'
@@ -241,8 +234,8 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                         'p-[2px] rounded-[42%] border-2 transition-all',
                         accumulate()
                           ? clsx(
-                              FLOW_BG_400[props.color()],
-                              FLOW_BORDER_400[props.color()],
+                              FLOW_BG_400[color()],
+                              FLOW_BORDER_400[color()],
                               'text-white'
                             )
                           : 'border-gray-200 text-gray-300'
@@ -263,45 +256,45 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                 </label>
 
                 <Show when={accumulate()}>
-                  <NewChallengeItemRadio step={accumulateTypeStep}>
+                  <FlowPanelRadio step={accumulateTypeStep}>
                     {accumulateTypes().map((it) => (
-                      <NewChallengeItemRadio.Item
-                        color={props.color}
+                      <FlowPanelRadio.Item
+                        color={color}
                         checked={() => accumulateType() === it}
                         onChange={() => setAccumulateType(it)}
-                        name='challenge-item-accumulate-type'
+                        name='flow-accumulate-type'
                         id={it.toLowerCase()}
                       >
                         <p class='font-semibold text-sm'>{it}</p>
-                      </NewChallengeItemRadio.Item>
+                      </FlowPanelRadio.Item>
                     ))}
-                  </NewChallengeItemRadio>
+                  </FlowPanelRadio>
                 </Show>
-              </Form.Wrapper>
+              </FlowPanelForm.Wrapper>
             </Show>
 
-            <Form.Divider />
+            <FlowPanelForm.Divider />
 
-            <Form.Wrapper>
-              <Form.Label>Interval Type</Form.Label>
-              <NewChallengeItemRadio step={intervalTypeStep}>
-                {newChallengeItemConstant.INTERVAL_TYPES.map((it) => (
-                  <NewChallengeItemRadio.Item
-                    color={props.color}
+            <FlowPanelForm.Wrapper>
+              <FlowPanelForm.Label>Interval Type</FlowPanelForm.Label>
+              <FlowPanelRadio step={intervalTypeStep}>
+                {flowConstant.INTERVAL_TYPES.map((it) => (
+                  <FlowPanelRadio.Item
+                    color={color}
                     checked={() => intervalType() === it}
                     onChange={() => setIntervalType(it)}
-                    name='challenge-item-interval-type'
+                    name='flow-interval-type'
                     id={it.toLowerCase()}
                   >
                     <p class='font-semibold text-sm'>{it}</p>
-                  </NewChallengeItemRadio.Item>
+                  </FlowPanelRadio.Item>
                 ))}
-              </NewChallengeItemRadio>
-            </Form.Wrapper>
+              </FlowPanelRadio>
+            </FlowPanelForm.Wrapper>
 
             <Show when={intervalType() !== 'DAILY'}>
-              <Form.Wrapper>
-                <Form.Label>Interval Pattern</Form.Label>
+              <FlowPanelForm.Wrapper>
+                <FlowPanelForm.Label>Interval Pattern</FlowPanelForm.Label>
 
                 <Switch>
                   <Match when={intervalType() === 'WEEKLY'}>
@@ -318,35 +311,35 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                     {monthlyPatternSelects()}
                   </Match>
                 </Switch>
-              </Form.Wrapper>
+              </FlowPanelForm.Wrapper>
 
-              <Form.Divider />
+              <FlowPanelForm.Divider />
             </Show>
 
-            <Form.Wrapper>
-              <Form.Label>Repeat Type</Form.Label>
-              <NewChallengeItemRadio step={repeatTypeStep}>
-                {newChallengeItemConstant.REPEAT_TYPES.map((it) => (
-                  <NewChallengeItemRadio.Item
-                    color={props.color}
+            <FlowPanelForm.Wrapper>
+              <FlowPanelForm.Label>Repeat Type</FlowPanelForm.Label>
+              <FlowPanelRadio step={repeatTypeStep}>
+                {flowConstant.REPEAT_TYPES.map((it) => (
+                  <FlowPanelRadio.Item
+                    color={color}
                     checked={() => repeatType() === it}
                     onChange={() => setRepeatType(it)}
-                    name='challenge-item-repeat-type'
+                    name='flow-repeat-type'
                     id={it.toLowerCase()}
                   >
                     <p class='font-semibold text-sm'>
                       {getRepeatRadioText(it)}
                     </p>
-                  </NewChallengeItemRadio.Item>
+                  </FlowPanelRadio.Item>
                 ))}
-              </NewChallengeItemRadio>
+              </FlowPanelRadio>
 
               {repeatType() !== 'EVERY' && (
                 <div class='flex w-full gap-2 items-center justify-between'>
                   <p
                     class={clsx(
                       'text-sm font-semibold whitespace-nowrap pl-4 flex-1',
-                      FLOW_TEXT_500[props.color()]
+                      FLOW_TEXT_500[color()]
                     )}
                   >
                     {repeatType() === 'N' &&
@@ -385,38 +378,35 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
                   </div>
                 </div>
               )}
-            </Form.Wrapper>
+            </FlowPanelForm.Wrapper>
 
-            <Form.Divider />
+            <FlowPanelForm.Divider />
 
-            <Form.Wrapper>
-              <Form.Label>Period</Form.Label>
+            <FlowPanelForm.Wrapper>
+              <FlowPanelForm.Label>Period</FlowPanelForm.Label>
 
               <div class='flex items-center justify-between gap-4 relative'>
-                <NewChallengeItemDatePicker
-                  date={startAt}
-                  onChange={setStartAt}
-                />
+                <FlowPanelDatePicker date={startAt} onChange={setStartAt} />
                 <MoveRight />
-                <NewChallengeItemDatePicker
+                <FlowPanelDatePicker
                   date={endAt}
                   onChange={setEndAt}
                   placeholder='End Date'
                   removable
                 />
               </div>
-            </Form.Wrapper>
+            </FlowPanelForm.Wrapper>
           </div>
 
           <Panel.CTAButton
-            color={props.color}
+            color={color}
             disabled={disabled()}
             onClick={async () => {
               await handleSave();
 
               close();
 
-              toast.open(`🎉 '${name()}' Challenge Item is added!`);
+              toast.open(`🎉 '${name()}' Flow is added!`);
             }}
           >
             Add
@@ -425,31 +415,4 @@ export const NewChallengeItemPanel: Component<Props> = (props) => {
       )}
     </Panel.Slide>
   );
-};
-
-const Form = {
-  Wrapper: (props: { children: JSX.Element }) => {
-    return (
-      <div class='flex flex-col gap-2 mb-6 w-full'>
-        {children(() => props.children)()}
-      </div>
-    );
-  },
-  Label: (props: { children: JSX.Element }) => {
-    return (
-      <p class='font-semibold text-gray-700'>
-        {children(() => props.children)()}
-      </p>
-    );
-  },
-  Divider: () => (
-    <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white mt-2 mb-8' />
-  ),
-  LeftLabel: (props: { children: JSX.Element }) => {
-    return (
-      <p class='font-semibold text-[0.75rem] w-[60px] text-gray-500 pl-2'>
-        {children(() => props.children)()}
-      </p>
-    );
-  },
 };
