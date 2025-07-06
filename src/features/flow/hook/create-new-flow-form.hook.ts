@@ -9,6 +9,7 @@ import {
 import { getMidnight } from '~/shared/fx';
 import { createInput } from '~/shared/hook';
 import type {
+  FlowColor,
   FlowIntervalType,
   FlowMonthlyPattern,
   FlowRepeatType,
@@ -27,6 +28,8 @@ export const createNewFlowForm = () => {
 
   const nameTitle = () =>
     name().trim().length > 0 ? name().trim() : 'New Flow';
+
+  const [color, setColor] = createSignal<FlowColor>('blue');
 
   const [type, setType] = createSignal<FlowType>('COMPLETE');
 
@@ -209,13 +212,12 @@ export const createNewFlowForm = () => {
     });
   };
 
-  const color = () => 'blue' as const;
-
   return {
     name,
     handleInputName,
     nameTitle,
     color,
+    setColor,
     type,
     setType,
     typeStep,
