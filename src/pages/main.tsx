@@ -1,5 +1,5 @@
 import { Footer } from '~/shared/ui';
-import { NewFlowButton, NoFlow } from '~/widgets/flow';
+import { FlowList, NewFlowButton } from '~/widgets/flow';
 import { DateSelect, MainTop } from '~/widgets/main';
 
 function Main() {
@@ -8,7 +8,7 @@ function Main() {
       <div class='p-4 flex flex-col gap-4'>
         <MainTop />
         <DateSelect />
-        <NoFlow />
+        <FlowList />
         <NewFlowButton />
       </div>
       <Footer />
