@@ -1,3 +1,4 @@
+export * from './flow-item';
 export * from './flow-panel-date-picker';
 export * from './flow-panel-form';
 export * from './flow-panel-monthly-pattern-select';

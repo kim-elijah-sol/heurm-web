@@ -1,13 +1,26 @@
 import { Accessor, children, For, Match, Switch, type JSX } from 'solid-js';
 import { flowQueries, FlowType } from '~/entities/flow';
 import { filterValidFlow } from '~/features/flow/fx';
-import { NoFlow } from '~/features/flow/ui';
+import { FlowItem, NoFlow } from '~/features/flow/ui';
 import { createDateSelect } from '~/features/main/hook';
 
 export const FlowList = () => {
   return (
     <FlowListSuspense>
-      {(flows) => <For each={flows()}>{(flow) => <div>{flow.name}</div>}</For>}
+      {(flows) => (
+        <For each={flows()}>
+          {(flow) => (
+            <Switch>
+              <Match when={flow.type === 'COMPLETE'}>
+                <FlowItem.Complete flow={() => flow} />
+              </Match>{' '}
+              <Match when={flow.type !== 'COMPLETE'}>
+                <div>{flow.name}</div>
+              </Match>
+            </Switch>
+          )}
+        </For>
+      )}
     </FlowListSuspense>
   );
 };

@@ -9,7 +9,6 @@ import { toast } from '~/shared/lib';
 import type { FlowColor } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 import { createDateSelect } from '../../hook';
-import './result-scaling.ui.css';
 
 type Props = {
   name: Accessor<string>;

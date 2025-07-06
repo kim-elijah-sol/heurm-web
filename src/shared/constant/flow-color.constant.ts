@@ -31,6 +31,17 @@ export const FLOW_BG_100 = {
   pink: 'bg-pink-100',
 } as const;
 
+export const FLOW_BG_200 = {
+  red: 'bg-red-200',
+  green: 'bg-green-200',
+  blue: 'bg-blue-200',
+  indigo: 'bg-indigo-200',
+  teal: 'bg-teal-200',
+  yellow: 'bg-yellow-200',
+  purple: 'bg-purple-200',
+  pink: 'bg-pink-200',
+} as const;
+
 export const FLOW_BG_300 = {
   red: 'bg-red-300',
   green: 'bg-green-300',
