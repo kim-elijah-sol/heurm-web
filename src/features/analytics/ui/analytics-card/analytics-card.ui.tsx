@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { children, Component, JSX } from 'solid-js';
-import { capitalize } from '~/features/challenge-edit/fx';
 import { FLOW_BG_100, FLOW_BG_300 } from '~/shared/constant';
+import { capitalize } from '~/shared/fx';
 import type { FlowColor, FlowType, Nullable } from '~/shared/types';
 import {
   CheckCheck,
