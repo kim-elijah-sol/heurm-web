@@ -1,23 +1,16 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
-import { Component } from 'solid-js';
+import { type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
 import { FLOW_BG_200, FLOW_BG_300, FLOW_BG_500 } from '~/shared/constant';
-import { capitalize, getRandomItem } from '~/shared/fx';
+import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import { FlowColor, FlowType } from '~/shared/types';
-import {
-  Ban,
-  Check,
-  CheckCheck,
-  ChevronsDown,
-  ChevronsUp,
-  Loader,
-  Panel,
-} from '~/shared/ui';
+import type { FlowColor } from '~/shared/types';
+import { Ban, Check, Loader, Panel } from '~/shared/ui';
+import { TypeLabel } from '.';
 import { FlowItemProps } from '../../types';
 
 export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
@@ -168,24 +161,6 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
           )}
         </Panel.Blured>
       )}
-    </div>
-  );
-};
-
-const TypeLabel: Component<{ type: FlowType }> = (props) => {
-  const TypeIcon =
-    props.type === 'COMPLETE'
-      ? CheckCheck
-      : props.type === 'OVER'
-      ? ChevronsUp
-      : ChevronsDown;
-
-  return (
-    <div class='flex items-center gap-1 pl-1'>
-      <TypeIcon className='stroke-white/75' size={16} strokeWidth={3} />
-      <span class='font-semibold text-[12px] text-white/75'>
-        {capitalize(props.type)} Type
-      </span>
     </div>
   );
 };

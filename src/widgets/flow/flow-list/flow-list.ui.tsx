@@ -13,9 +13,9 @@ export const FlowList = () => {
             <Switch>
               <Match when={flow.type === 'COMPLETE'}>
                 <FlowItem.Complete flow={() => flow} />
-              </Match>{' '}
+              </Match>
               <Match when={flow.type !== 'COMPLETE'}>
-                <div>{flow.name}</div>
+                <FlowItem.Countable flow={() => flow} />
               </Match>
             </Switch>
           )}
