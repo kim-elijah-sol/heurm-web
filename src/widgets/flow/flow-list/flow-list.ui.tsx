@@ -1,6 +1,8 @@
 import { Accessor, children, For, Match, Switch, type JSX } from 'solid-js';
 import { flowQueries, FlowType } from '~/entities/flow';
+import { filterValidFlow } from '~/features/flow/fx';
 import { NoFlow } from '~/features/flow/ui';
+import { createDateSelect } from '~/features/main/hook';
 
 export const FlowList = () => {
   return (
@@ -15,12 +17,17 @@ const FlowListSuspense = (props: {
 }) => {
   const flow = flowQueries.getFlowQuery();
 
+  const { current } = createDateSelect();
+
+  const todayFlow = () =>
+    flow.data ? flow.data.filter(filterValidFlow(current().valueOf())) : [];
+
   return (
-    <Switch fallback={children(() => props.children(() => flow.data!))()}>
+    <Switch fallback={children(() => props.children(todayFlow))()}>
       <Match when={flow.isPending}>
         <></>
       </Match>
-      <Match when={flow.data?.length === 0}>
+      <Match when={todayFlow().length === 0}>
         <NoFlow />
       </Match>
     </Switch>
