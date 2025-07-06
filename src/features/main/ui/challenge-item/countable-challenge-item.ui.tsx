@@ -6,7 +6,7 @@ import {
   type Accessor,
   type Component,
 } from 'solid-js';
-import { ChallengeEditType } from '~/entities/challenge-edit';
+import { FlowType } from '~/entities/flow';
 import { mainConstant, mainQueries } from '~/entities/main';
 import {
   FLOW_BG_300,
@@ -35,7 +35,7 @@ type Props = {
   type: Accessor<'OVER' | 'UNDER'>;
   challengeId: Accessor<string>;
   color: Accessor<FlowColor>;
-  challengeItem: Accessor<ChallengeEditType.GetChallengeItemResponseItem>;
+  challengeItem: Accessor<FlowType.GetFlowResponseItem>;
 };
 
 export const Countable: Component<Props> = (props) => {

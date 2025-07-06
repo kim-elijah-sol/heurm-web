@@ -1,12 +1,12 @@
 import { getWeekOfMonth, lastDayOfMonth } from 'date-fns';
-import { type ChallengeEditType } from '~/entities/challenge-edit';
+import { FlowType } from '~/entities/flow';
 import { getMidnight } from './get-midnight.fx';
 
 const ONE_DAY = 86_400_000;
 
 export const filterValidChallengeItem =
   (today: number) =>
-  (it: ChallengeEditType.GetChallengeItemResponseItem): boolean => {
+  (it: FlowType.GetFlowResponseItem): boolean => {
     const startAt = getMidnight(it.startAt).valueOf();
 
     if (today < startAt) return false;
