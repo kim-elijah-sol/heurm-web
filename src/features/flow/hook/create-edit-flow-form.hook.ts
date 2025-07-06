@@ -1,12 +1,12 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import { format } from 'date-fns';
-import { createEffect, createSignal } from 'solid-js';
+import { createEffect, createSignal, type Accessor } from 'solid-js';
 import {
   flowConstant,
   flowQueries,
-  type FlowType as FlowTypes,
+  FlowType as FlowTypes,
 } from '~/entities/flow';
-import { getMidnight } from '~/shared/fx';
+import { getMidnight } from '~/features/main/fx';
 import { createInput } from '~/shared/hook';
 import type {
   FlowColor,
@@ -19,62 +19,81 @@ import type {
   Nullable,
 } from '~/shared/types';
 
-export const createNewFlowForm = () => {
+export const createEditFlowForm = (
+  flow: Accessor<FlowTypes.GetFlowResponseItem>
+) => {
   const queryClient = useQueryClient();
 
-  const postFlow = flowQueries.postFlowMutation();
+  const patchFlow = flowQueries.patchFlowMutation();
 
-  const [name, handleInputName] = createInput();
+  const [name, handleInputName] = createInput(flow().name);
 
   const nameTitle = () =>
-    name().trim().length > 0 ? name().trim() : 'New Flow';
+    name().trim().length > 0 ? name().trim() : `Edit ${flow().name}`;
 
-  const [color, setColor] = createSignal<FlowColor>('blue');
+  const [color, setColor] = createSignal<FlowColor>(flow().color as FlowColor);
 
-  const [type, setType] = createSignal<FlowType>('COMPLETE');
+  const [type, setType] = createSignal<FlowType>(flow().type);
 
   const typeStep = () =>
     type() === 'COMPLETE' ? 0 : type() === 'OVER' ? 1 : 2;
 
-  const [targetCount, handleInputTargetCount] = createInput();
+  const [targetCount, handleInputTargetCount] = createInput(
+    flow().targetCount?.toString() ?? ''
+  );
 
-  const [unit, handleInputUnit] = createInput();
+  const [unit, handleInputUnit] = createInput(flow().unit ?? '');
 
-  const [intervalType, setIntervalType] =
-    createSignal<FlowIntervalType>('DAILY');
+  const [intervalType, setIntervalType] = createSignal<FlowIntervalType>(
+    flow().intervalType
+  );
 
   const intervalTypeStep = () =>
     flowConstant.INTERVAL_TYPES.indexOf(intervalType());
 
-  const [repeatType, setRepeatType] = createSignal<FlowRepeatType>('EVERY');
+  const [repeatType, setRepeatType] = createSignal<FlowRepeatType>(
+    flow().repeatType
+  );
 
   const repeatTypeStep = () => flowConstant.REPEAT_TYPES.indexOf(repeatType());
 
-  const [repeat, setRepeat] = createSignal<string>('');
+  const [repeat, setRepeat] = createSignal<string>(
+    flow().repeat?.toString() ?? ''
+  );
 
-  const [rest, setRest] = createSignal<string>('');
+  const [rest, setRest] = createSignal<string>(flow().rest?.toString() ?? '');
 
-  const [weeklyPattern, setWeeklyPattern] =
-    createSignal<FlowWeeklyPattern>('Every Day');
+  const [weeklyPattern, setWeeklyPattern] = createSignal<FlowWeeklyPattern>(
+    flow().days.length ? 'Select Day' : 'Every Day'
+  );
 
-  const [days, setDays] = createSignal<number[]>([]);
+  const [days, setDays] = createSignal<number[]>(flow().days);
 
-  const [monthlyPattern, setMonthlyPattern] =
-    createSignal<FlowMonthlyPattern>('Every Week');
+  const [monthlyPattern, setMonthlyPattern] = createSignal<FlowMonthlyPattern>(
+    flow().weeks.length
+      ? 'Select Week'
+      : flow().dates.length
+      ? 'Select Date'
+      : 'Every Week'
+  );
 
-  const [dates, setDates] = createSignal<number[]>([]);
+  const [dates, setDates] = createSignal<number[]>(flow().dates);
 
-  const [weeks, setWeeks] = createSignal<number[]>([]);
+  const [weeks, setWeeks] = createSignal<number[]>(flow().weeks);
 
-  const [yearlyPattern, setYearlyPattern] =
-    createSignal<FlowYearlyPattern>('Every Month');
+  const [yearlyPattern, setYearlyPattern] = createSignal<FlowYearlyPattern>(
+    flow().months.length ? 'Select Month' : 'Every Month'
+  );
 
-  const [months, setMonths] = createSignal<number[]>([]);
+  const [months, setMonths] = createSignal<number[]>(flow().months);
 
-  const [accumulate, setAccumulate] = createSignal<boolean>(false);
+  const [accumulate, setAccumulate] = createSignal<boolean>(
+    flow().accumulateType !== null
+  );
 
-  const [accumulateType, setAccumulateType] =
-    createSignal<FlowIntervalType>('DAILY');
+  const [accumulateType, setAccumulateType] = createSignal<FlowIntervalType>(
+    flow().accumulateType ?? 'DAILY'
+  );
 
   const accumulateTypes = (): FlowIntervalType[] => {
     const result: FlowIntervalType[] = ['DAILY'];
@@ -90,9 +109,13 @@ export const createNewFlowForm = () => {
 
   const accumulateTypeStep = () => accumulateTypes().indexOf(accumulateType());
 
-  const [startAt, setStartAt] = createSignal<Nullable<Date>>(getMidnight());
+  const [startAt, setStartAt] = createSignal<Nullable<Date>>(
+    getMidnight(flow().startAt)
+  );
 
-  const [endAt, setEndAt] = createSignal<Nullable<Date>>(null);
+  const [endAt, setEndAt] = createSignal<Nullable<Date>>(
+    flow().endAt ? getMidnight(flow().endAt!) : null
+  );
 
   const repeatUnit = () =>
     ((
@@ -140,7 +163,8 @@ export const createNewFlowForm = () => {
   };
 
   const handleSave = async () => {
-    const request: FlowTypes.PostFlowRequest = {
+    const request: FlowTypes.PatchFlowRequest = {
+      id: flow().id,
       color: color(),
       name: name(),
       type: type(),
@@ -155,7 +179,13 @@ export const createNewFlowForm = () => {
 
       if (accumulate()) {
         request.accumulateType = accumulateType();
+      } else {
+        request.accumulateType = null;
       }
+    } else {
+      request.targetCount = null;
+      request.unit = null;
+      request.accumulateType = null;
     }
 
     if (repeatType() !== 'EVERY') {
@@ -163,7 +193,12 @@ export const createNewFlowForm = () => {
 
       if (repeatType() === 'NM') {
         request.rest = Number(rest());
+      } else {
+        request.rest = null;
       }
+    } else {
+      request.repeat = null;
+      request.rest = null;
     }
 
     const putWeeklyPatternData = () => {
@@ -201,14 +236,25 @@ export const createNewFlowForm = () => {
       }
     }
 
+    request.days = request.days ?? [];
+    request.dates = request.dates ?? [];
+    request.weeks = request.weeks ?? [];
+    request.months = request.months ?? [];
+
     if (endAt()) {
       request.endAt = format(endAt()!, 'yyyy-MM-dd');
+    } else {
+      request.endAt = null;
     }
 
-    await postFlow.mutateAsync(request);
+    await patchFlow.mutateAsync(request);
 
     queryClient.invalidateQueries({
       queryKey: ['getFlow'],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ['getHistory', flow().id],
     });
   };
 
