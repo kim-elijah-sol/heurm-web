@@ -31,3 +31,5 @@ goorm.manifest
 
 .dependency-cruiser.cjs
 dependency-graph.svg
+
+.vscode
