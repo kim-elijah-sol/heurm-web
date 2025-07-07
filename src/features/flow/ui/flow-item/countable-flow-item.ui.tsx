@@ -19,6 +19,7 @@ import {
   filterYearHistory,
 } from '../../fx';
 import { type FlowItemProps } from '../../types';
+import { GaugeBar } from './gauge-bar.ui';
 
 export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   const flow = () => props.flow();
@@ -205,10 +206,10 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
               />
             )}
             {type() === 'UNDER' && (
-              <UnderBar
-                color={color}
-                targetValue={targetCount}
+              <GaugeBar
+                target={targetCount}
                 value={stackedCount}
+                color={color}
               />
             )}
           </div>
