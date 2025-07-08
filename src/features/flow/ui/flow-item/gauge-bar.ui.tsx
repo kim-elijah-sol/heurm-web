@@ -14,6 +14,13 @@ export const GaugeBar: Component<Props> = (props) => {
   const circumference = 2 * Math.PI * radius;
   const angle = 240;
   const offsetAngle = (360 - angle) / 2;
+  const needleStartAngle = 60;
+
+  const needleValue = () => {
+    if (props.value() <= props.target()) return 0;
+
+    return ((props.value() - props.target()) / props.value()) * angle;
+  };
 
   const progress = createMemo(() => {
     const ratio = Math.min(props.value() / props.target(), 1);
@@ -55,6 +62,20 @@ export const GaugeBar: Component<Props> = (props) => {
         stroke-linecap='round'
         stroke-dasharray={`${(circumference * angle) / 360}`}
         stroke-dashoffset={dashOffset()}
+      />
+
+      <line
+        x1={size / 2}
+        y1={size / 2}
+        x2={size / 2}
+        y2={strokeWidth}
+        stroke='white'
+        stroke-width={strokeWidth}
+        stroke-linecap='round'
+        transform={`rotate(${needleStartAngle + needleValue()} ${size / 2} ${
+          size / 2
+        })`}
+        class='transition-all duration-500'
       />
     </svg>
   );
