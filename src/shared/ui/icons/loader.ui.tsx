@@ -2,10 +2,12 @@ export const Loader = ({
   size = 36,
   strokeWidth = 2,
   stroke = '#FFFFFF',
+  className,
 }: {
   size?: number;
   strokeWidth?: number;
   stroke?: string;
+  className?: string;
 }) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
@@ -17,7 +19,7 @@ export const Loader = ({
     stroke-width={strokeWidth}
     stroke-linecap='round'
     stroke-linejoin='round'
-    class='lucide lucide-loader-icon lucide-loader'
+    class={className}
   >
     <path d='M12 2v4' />
     <path d='m16.2 7.8 2.9-2.9' />
