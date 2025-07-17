@@ -4,7 +4,7 @@ import { type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
-import { FLOW_BG_200, FLOW_BG_300, FLOW_BG_500 } from '~/shared/constant';
+import { FLOW_BG_300, FLOW_BG_500, FLOW_STROKE_200 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
@@ -20,7 +20,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
 
   const name = () => flow().name;
 
-  const color = () => 'blue' as FlowColor;
+  const color = () => flow().color as FlowColor;
 
   const type = () => flow().type;
 
@@ -98,13 +98,6 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
       <div
         class={clsx(
           'inset-0 absolute transition-all duration-500 z-1',
-          FLOW_BG_200[color()],
-          isCompleted() === false ? 'right-0' : 'right-full'
-        )}
-      />
-      <div
-        class={clsx(
-          'inset-0 absolute transition-all duration-500 z-1',
           FLOW_BG_500[color()],
           isCompleted() === true ? 'right-0' : 'right-full'
         )}
@@ -118,7 +111,8 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
             {flowResultIcon()({
               size: 24,
               strokeWidth: 3,
-              stroke: 'white',
+              stroke: isCompleted() ? 'white' : undefined,
+              className: isCompleted() ? undefined : FLOW_STROKE_200[color()],
             })}
           </div>
         </div>
