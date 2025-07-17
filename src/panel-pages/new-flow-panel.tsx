@@ -17,6 +17,7 @@ import {
   CheckCheck,
   ChevronsDown,
   ChevronsUp,
+  FlowColorSelect,
   MoveRight,
   Panel,
   X,
@@ -35,6 +36,7 @@ export const NewFlowPanel: Component<Props> = (props) => {
     handleInputName,
     nameTitle,
     color,
+    setColor,
     type,
     setType,
     typeStep,
@@ -140,6 +142,11 @@ export const NewFlowPanel: Component<Props> = (props) => {
             </button>
           </div>
           <div class='overflow-y-auto items-center pb-20 pt-[72px] px-4'>
+            <FlowColorSelect
+              color={color}
+              setColor={setColor}
+              className='mb-6'
+            />
             <FlowPanelForm.Wrapper>
               <FlowPanelForm.Label>Name</FlowPanelForm.Label>
               <input

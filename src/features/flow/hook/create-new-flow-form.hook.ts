@@ -29,7 +29,7 @@ export const createNewFlowForm = () => {
   const nameTitle = () =>
     name().trim().length > 0 ? name().trim() : 'New Flow';
 
-  const [color, setColor] = createSignal<FlowColor>('blue');
+  const [color, setColor] = createSignal<FlowColor>('red');
 
   const [type, setType] = createSignal<FlowType>('COMPLETE');
 
