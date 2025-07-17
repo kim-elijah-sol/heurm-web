@@ -10,7 +10,7 @@ import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor, Nullable } from '~/shared/types';
 import { Check, Loader, Panel } from '~/shared/ui';
-import { PieChart, TypeLabel, UnderBar } from '.';
+import { PieChart, TypeLabel } from '.';
 import {
   accumulateHistoryCount,
   filterMonthHistory,
@@ -28,7 +28,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   const name = () => flow().name;
 
-  const color = () => 'blue' as FlowColor;
+  const color = () => flow().color as FlowColor;
 
   const type = () => flow().type;
 
