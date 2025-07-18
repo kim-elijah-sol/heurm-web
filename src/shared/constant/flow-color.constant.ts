@@ -206,3 +206,14 @@ export const FLOW_STROKE_500 = {
   purple: 'stroke-purple-500',
   pink: 'stroke-pink-500',
 } as const;
+
+export const FLOW_INSET_RING_500 = {
+  red: 'inset-ring-red-500',
+  green: 'inset-ring-green-500',
+  blue: 'inset-ring-blue-500',
+  indigo: 'inset-ring-indigo-500',
+  teal: 'inset-ring-teal-500',
+  yellow: 'inset-ring-yellow-500',
+  purple: 'inset-ring-purple-500',
+  pink: 'inset-ring-pink-500',
+} as const;

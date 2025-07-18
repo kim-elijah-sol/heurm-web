@@ -7,7 +7,7 @@ import { createDateSelect } from '~/features/main/hook';
 import {
   FLOW_BG_300,
   FLOW_BG_500,
-  FLOW_BORDER_500,
+  FLOW_INSET_RING_500,
   FLOW_TEXT_500,
 } from '~/shared/constant';
 import { dateFormat, getRandomItem } from '~/shared/fx';
@@ -189,8 +189,8 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
     <div
       onClick={open}
       class={clsx(
-        'px-4 py-3 rounded-[24px] transition-all active:scale-95 relative overflow-hidden bg-white border-2',
-        FLOW_BORDER_500[color()]
+        'px-4 py-3 rounded-[24px] transition-all active:scale-95 relative overflow-hidden bg-white inset-ring-2',
+        FLOW_INSET_RING_500[color()]
       )}
     >
       <div
