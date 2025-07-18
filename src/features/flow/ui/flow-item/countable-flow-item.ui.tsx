@@ -221,7 +221,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
               <PieChart
                 percentage={overValue}
                 color={color}
-                complete={() => overValue() === 100}
+                complete={serverChallengeResult}
               />
             )}
             {type() === 'UNDER' && (
@@ -229,6 +229,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
                 target={targetCount}
                 value={stackedCount}
                 color={color}
+                complete={serverChallengeResult}
               />
             )}
           </div>

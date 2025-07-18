@@ -6,8 +6,7 @@ import type { FlowColor } from '~/shared/types';
 type Props = {
   percentage: Accessor<number>;
   color: Accessor<FlowColor>;
-  complete: Accessor<boolean>;
-  opacity?: Accessor<number>;
+  complete: Accessor<boolean | null>;
 };
 
 export const PieChart: Component<Props> = (props) => {
@@ -43,7 +42,6 @@ export const PieChart: Component<Props> = (props) => {
           'transition-all duration-500',
           props.complete() ? 'stroke-white' : FLOW_STROKE_500[props.color()]
         )}
-        opacity={props.opacity?.() ?? 1}
       />
     </svg>
   );

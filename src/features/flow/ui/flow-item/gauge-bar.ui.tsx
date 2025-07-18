@@ -1,11 +1,17 @@
-import { type Accessor, createMemo, type Component } from 'solid-js';
-import { FLOW_STROKE_200 } from '~/shared/constant';
+import clsx from 'clsx';
+import { createMemo, type Accessor, type Component } from 'solid-js';
+import {
+  FLOW_STROKE_200,
+  FLOW_STROKE_500,
+  FLOW_STROKE_600,
+} from '~/shared/constant';
 import type { FlowColor } from '~/shared/types';
 
 type Props = {
   value: Accessor<number>;
   target: Accessor<number>;
   color: Accessor<FlowColor>;
+  complete: Accessor<boolean | null>;
 };
 export const GaugeBar: Component<Props> = (props) => {
   const size = 24;
@@ -56,8 +62,10 @@ export const GaugeBar: Component<Props> = (props) => {
       <path
         d={arcPath}
         fill='none'
-        class='transition-all duration-500'
-        stroke='white'
+        class={clsx(
+          'transition-all duration-500',
+          props.complete() ? 'stroke-white' : FLOW_STROKE_500[props.color()]
+        )}
         stroke-width={strokeWidth}
         stroke-linecap='round'
         stroke-dasharray={`${(circumference * angle) / 360}`}
@@ -75,7 +83,10 @@ export const GaugeBar: Component<Props> = (props) => {
         transform={`rotate(${needleStartAngle + needleValue()} ${size / 2} ${
           size / 2
         })`}
-        class='transition-all duration-500'
+        class={clsx(
+          'transition-all duration-500',
+          props.complete() ? 'stroke-white' : FLOW_STROKE_600[props.color()]
+        )}
       />
     </svg>
   );
