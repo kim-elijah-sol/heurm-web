@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { type Accessor, type Component } from 'solid-js';
-import { FLOW_STROKE_200 } from '~/shared/constant';
+import { FLOW_STROKE_200, FLOW_STROKE_500 } from '~/shared/constant';
 import type { FlowColor } from '~/shared/types';
 
 type Props = {
@@ -34,13 +34,15 @@ export const PieChart: Component<Props> = (props) => {
         cy='110'
         r='90'
         fill='none'
-        stroke='white'
         stroke-width='30'
         stroke-dasharray={`${5.655 * props.percentage()} 10000`}
         stroke-dashoffset='0'
         transform='rotate(-90 110 110)'
         stroke-linecap={props.percentage() !== 0 ? 'round' : undefined}
-        class='transition-all duration-500'
+        class={clsx(
+          'transition-all duration-500',
+          props.complete() ? 'stroke-white' : FLOW_STROKE_500[props.color()]
+        )}
         opacity={props.opacity?.() ?? 1}
       />
     </svg>

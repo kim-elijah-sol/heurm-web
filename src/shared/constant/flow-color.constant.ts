@@ -195,3 +195,14 @@ export const FLOW_STROKE_200 = {
   purple: 'stroke-purple-200',
   pink: 'stroke-pink-200',
 } as const;
+
+export const FLOW_STROKE_500 = {
+  red: 'stroke-red-500',
+  green: 'stroke-green-500',
+  blue: 'stroke-blue-500',
+  indigo: 'stroke-indigo-500',
+  teal: 'stroke-teal-500',
+  yellow: 'stroke-yellow-500',
+  purple: 'stroke-purple-500',
+  pink: 'stroke-pink-500',
+} as const;
