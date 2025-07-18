@@ -4,7 +4,12 @@ import { createEffect, createSignal, type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
-import { FLOW_BG_300, FLOW_BG_500 } from '~/shared/constant';
+import {
+  FLOW_BG_300,
+  FLOW_BG_500,
+  FLOW_BORDER_500,
+  FLOW_TEXT_500,
+} from '~/shared/constant';
 import { dateFormat, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
@@ -177,12 +182,15 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   const overValue = () => Math.min((stackedCount() / targetCount()) * 100, 100);
 
+  const textColor = () =>
+    serverChallengeResult() ? 'text-white' : FLOW_TEXT_500[color()];
+
   return (
     <div
       onClick={open}
       class={clsx(
-        'px-4 py-3 rounded-[24px] transition-all active:scale-95 relative overflow-hidden',
-        FLOW_BG_300[color()]
+        'px-4 py-3 rounded-[24px] transition-all active:scale-95 relative overflow-hidden bg-white border-2',
+        FLOW_BORDER_500[color()]
       )}
     >
       <div
@@ -194,9 +202,20 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
       />
 
       <div class='relative z-2'>
-        <TypeLabel type={type()} />
+        <TypeLabel
+          type={type()}
+          isCompleted={serverChallengeResult}
+          color={color}
+        />
         <div class='flex justify-between items-center'>
-          <p class='text-white font-semibold text-lg'>{name()}</p>
+          <p
+            class={clsx(
+              'font-semibold text-lg transition-all duration-500',
+              textColor()
+            )}
+          >
+            {name()}
+          </p>
           <div class={scaling() ? 'scaling' : undefined}>
             {type() === 'OVER' && (
               <PieChart
