@@ -1,15 +1,15 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
-import { createEffect, createSignal, type Component } from 'solid-js';
+import { createEffect, createSignal, Show, type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
-import { FLOW_BG_300, FLOW_BG_500 } from '~/shared/constant';
+import { FLOW_BG_300, FLOW_BG_500, FLOW_STROKE_200 } from '~/shared/constant';
 import { dateFormat, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor, Nullable } from '~/shared/types';
-import { Check, Loader, Panel } from '~/shared/ui';
+import { Ban, Check, Loader, Panel } from '~/shared/ui';
 import { PieChart, TypeLabel } from '.';
 import { FlowItemColorContext } from '../../context';
 import {
@@ -186,6 +186,8 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   const pieChartValue = () =>
     type() === 'OVER' ? overValue() : safetyUnderValue();
 
+  console.log(name(), unsafetyUnderValue());
+
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
@@ -205,16 +207,22 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
               {name()}
             </FlowItemComponent.Name>
             <div class={scaling() ? 'scaling' : undefined}>
-              <PieChart
-                percentage={pieChartValue}
-                color={color}
-                complete={serverChallengeResult}
-                fail={
-                  type() === 'UNDER'
-                    ? () => unsafetyUnderValue() < 0
-                    : undefined
+              <Show
+                when={type() === 'UNDER' && unsafetyUnderValue() < 0}
+                fallback={
+                  <PieChart
+                    percentage={pieChartValue}
+                    color={color}
+                    complete={serverChallengeResult}
+                  />
                 }
-              />
+              >
+                <Ban
+                  className={FLOW_STROKE_200[color()]}
+                  size={24}
+                  strokeWidth={3}
+                />
+              </Show>
             </div>
           </FlowItemComponent.Main>
         </FlowItemComponent.Content>
