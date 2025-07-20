@@ -185,15 +185,9 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
-        <div
-          class={clsx(
-            'inset-0 absolute transition-all duration-500 z-1',
-            FLOW_BG_500[color()],
-            serverChallengeResult() === true ? 'right-0' : 'right-full'
-          )}
-        />
+        <FlowItemComponent.StatusBg isFill={serverChallengeResult()} />
 
-        <div class='relative z-2'>
+        <FlowItemComponent.Content>
           <TypeLabel
             type={type()}
             isCompleted={serverChallengeResult}
@@ -226,7 +220,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
               )}
             </div>
           </div>
-        </div>
+        </FlowItemComponent.Content>
         {isBluredPanelShow() && (
           <Panel.Blured autoClose={false} close={close}>
             {(close) => (

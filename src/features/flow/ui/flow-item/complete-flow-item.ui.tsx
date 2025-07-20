@@ -4,7 +4,7 @@ import { type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
-import { FLOW_BG_500, FLOW_STROKE_200, FLOW_TEXT_500 } from '~/shared/constant';
+import { FLOW_STROKE_200, FLOW_TEXT_500 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
@@ -95,15 +95,9 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
-        <div
-          class={clsx(
-            'inset-0 absolute transition-all duration-500 z-1',
-            FLOW_BG_500[color()],
-            isCompleted() === true ? 'right-0' : 'right-full'
-          )}
-        />
+        <FlowItemComponent.StatusBg isFill={isCompleted()} />
 
-        <div class='relative z-2'>
+        <FlowItemComponent.Content>
           <TypeLabel type={type()} isCompleted={isCompleted} color={color} />
           <div class='flex justify-between items-center'>
             <p
@@ -123,7 +117,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
               })}
             </div>
           </div>
-        </div>
+        </FlowItemComponent.Content>
 
         {isBluredPanelShow() && (
           <Panel.Blured close={close}>

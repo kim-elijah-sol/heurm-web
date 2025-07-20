@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { children, type Component, type JSX } from 'solid-js';
-import { FLOW_INSET_RING_500 } from '~/shared/constant';
+import { FLOW_BG_500, FLOW_INSET_RING_500 } from '~/shared/constant';
 import { useFlowItemColor } from '../../hook';
 
 type WrapperProps = {
@@ -24,6 +24,34 @@ const Wrapper: Component<WrapperProps> = (props) => {
   );
 };
 
+type StatusBgProps = {
+  isFill: boolean | null;
+};
+
+const StatusBg: Component<StatusBgProps> = (props) => {
+  const color = useFlowItemColor();
+
+  return (
+    <div
+      class={clsx(
+        'inset-0 absolute transition-all duration-500 z-1',
+        FLOW_BG_500[color()],
+        props.isFill === true ? 'right-0' : 'right-full'
+      )}
+    />
+  );
+};
+
+type ContentProsp = {
+  children: JSX.Element;
+};
+
+const Content: Component<ContentProsp> = (props) => {
+  return <div class='relative z-2'>{props.children}</div>;
+};
+
 export const FlowItemComponent = {
   Wrapper,
+  StatusBg,
+  Content,
 };
