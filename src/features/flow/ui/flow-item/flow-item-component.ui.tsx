@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import { type Component, type JSX } from 'solid-js';
+import { Accessor, type Component, type JSX } from 'solid-js';
 import {
   FLOW_BG_500,
+  FLOW_BG_500_10,
   FLOW_INSET_RING_500,
   FLOW_TEXT_500,
 } from '~/shared/constant';
@@ -19,17 +20,24 @@ const Wrapper: Component<WrapperProps> = (props) => {
     <div
       onClick={props.onClick}
       class={clsx(
-        'px-4 py-3 rounded-[24px] transition-all active:scale-95 relative overflow-hidden bg-white inset-ring-2',
-        FLOW_INSET_RING_500[color()]
+        'px-4 py-3 rounded-[24px] transition-all active:scale-95 relative overflow-hidden bg-white'
       )}
     >
       {props.children}
+
+      <div
+        class={clsx(
+          'absolute inset-0 inset-ring-2 rounded-[24px] z-2',
+          FLOW_INSET_RING_500[color()]
+        )}
+      />
     </div>
   );
 };
 
 type StatusBgProps = {
-  isFill: boolean | null;
+  isFill: Accessor<boolean | null>;
+  isPale?: Accessor<boolean | null>;
 };
 
 const StatusBg: Component<StatusBgProps> = (props) => {
@@ -39,8 +47,8 @@ const StatusBg: Component<StatusBgProps> = (props) => {
     <div
       class={clsx(
         'inset-0 absolute transition-all duration-500 z-1',
-        FLOW_BG_500[color()],
-        props.isFill === true ? 'right-0' : 'right-full'
+        props.isPale?.() ? FLOW_BG_500_10[color()] : FLOW_BG_500[color()],
+        props.isFill() === true ? 'right-0' : 'right-full'
       )}
     />
   );
@@ -51,7 +59,7 @@ type ContentProsp = {
 };
 
 const Content: Component<ContentProsp> = (props) => {
-  return <div class='relative z-2'>{props.children}</div>;
+  return <div class='relative z-3'>{props.children}</div>;
 };
 
 type MainProps = {

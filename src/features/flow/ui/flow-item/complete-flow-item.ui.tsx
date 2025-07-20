@@ -92,7 +92,10 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
-        <FlowItemComponent.StatusBg isFill={isCompleted()} />
+        <FlowItemComponent.StatusBg
+          isFill={() => isCompleted() !== null}
+          isPale={() => isCompleted() === false}
+        />
 
         <FlowItemComponent.Content>
           <TypeLabel type={type()} isCompleted={isCompleted} color={color} />

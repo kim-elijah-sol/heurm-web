@@ -189,7 +189,10 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
-        <FlowItemComponent.StatusBg isFill={serverChallengeResult()} />
+        <FlowItemComponent.StatusBg
+          isFill={() => (currentHistory()?.count ?? null) !== null}
+          isPale={() => serverChallengeResult() === false}
+        />
 
         <FlowItemComponent.Content>
           <TypeLabel
