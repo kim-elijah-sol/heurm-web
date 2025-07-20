@@ -4,7 +4,7 @@ import { type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
-import { FLOW_STROKE_200, FLOW_TEXT_500 } from '~/shared/constant';
+import { FLOW_STROKE_200 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
@@ -89,9 +89,6 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
   const buttonBaseClassName =
     'p-5 rounded-[42%] transition-all active:scale-95';
 
-  const textColor = () =>
-    isCompleted() ? 'text-white' : FLOW_TEXT_500[color()];
-
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
@@ -100,14 +97,9 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
         <FlowItemComponent.Content>
           <TypeLabel type={type()} isCompleted={isCompleted} color={color} />
           <FlowItemComponent.Main>
-            <p
-              class={clsx(
-                'font-semibold text-lg transition-all duration-500',
-                textColor()
-              )}
-            >
+            <FlowItemComponent.Name isWhite={isCompleted()}>
               {name()}
-            </p>
+            </FlowItemComponent.Name>
             <div class={scaling() ? 'scaling' : undefined}>
               {flowResultIcon()({
                 size: 24,

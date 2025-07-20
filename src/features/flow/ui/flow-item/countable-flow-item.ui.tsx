@@ -4,7 +4,7 @@ import { createEffect, createSignal, type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
-import { FLOW_BG_300, FLOW_BG_500, FLOW_TEXT_500 } from '~/shared/constant';
+import { FLOW_BG_300, FLOW_BG_500 } from '~/shared/constant';
 import { dateFormat, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
@@ -179,9 +179,6 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   const overValue = () => Math.min((stackedCount() / targetCount()) * 100, 100);
 
-  const textColor = () =>
-    serverChallengeResult() ? 'text-white' : FLOW_TEXT_500[color()];
-
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
@@ -194,14 +191,9 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
             color={color}
           />
           <FlowItemComponent.Main>
-            <p
-              class={clsx(
-                'font-semibold text-lg transition-all duration-500',
-                textColor()
-              )}
-            >
+            <FlowItemComponent.Name isWhite={serverChallengeResult()}>
               {name()}
-            </p>
+            </FlowItemComponent.Name>
             <div class={scaling() ? 'scaling' : undefined}>
               {type() === 'OVER' && (
                 <PieChart

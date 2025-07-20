@@ -1,6 +1,10 @@
 import clsx from 'clsx';
 import { type Component, type JSX } from 'solid-js';
-import { FLOW_BG_500, FLOW_INSET_RING_500 } from '~/shared/constant';
+import {
+  FLOW_BG_500,
+  FLOW_INSET_RING_500,
+  FLOW_TEXT_500,
+} from '~/shared/constant';
 import { useFlowItemColor } from '../../hook';
 
 type WrapperProps = {
@@ -58,9 +62,30 @@ const Main: Component<MainProps> = (props) => {
   return <div class='flex justify-between items-center'>{props.children}</div>;
 };
 
+type NameProps = {
+  isWhite: boolean | null;
+  children: JSX.Element;
+};
+
+const Name: Component<NameProps> = (props) => {
+  const color = useFlowItemColor();
+
+  return (
+    <p
+      class={clsx(
+        'font-semibold text-lg transition-all duration-500',
+        props.isWhite ? 'text-white' : FLOW_TEXT_500[color()]
+      )}
+    >
+      {props.children}
+    </p>
+  );
+};
+
 export const FlowItemComponent = {
   Wrapper,
   StatusBg,
   Content,
   Main,
+  Name,
 };
