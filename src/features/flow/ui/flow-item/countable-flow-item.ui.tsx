@@ -4,18 +4,14 @@ import { createEffect, createSignal, type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
-import {
-  FLOW_BG_300,
-  FLOW_BG_500,
-  FLOW_INSET_RING_500,
-  FLOW_TEXT_500,
-} from '~/shared/constant';
+import { FLOW_BG_300, FLOW_BG_500, FLOW_TEXT_500 } from '~/shared/constant';
 import { dateFormat, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor, Nullable } from '~/shared/types';
 import { Check, Loader, Panel } from '~/shared/ui';
 import { PieChart, TypeLabel } from '.';
+import { FlowItemColorContext } from '../../context';
 import {
   accumulateHistoryCount,
   filterMonthHistory,
@@ -24,6 +20,7 @@ import {
   filterYearHistory,
 } from '../../fx';
 import { type FlowItemProps } from '../../types';
+import { FlowItemComponent } from './flow-item-component.ui';
 import { GaugeBar } from './gauge-bar.ui';
 
 export const CountableFlowItem: Component<FlowItemProps> = (props) => {
@@ -186,110 +183,106 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
     serverChallengeResult() ? 'text-white' : FLOW_TEXT_500[color()];
 
   return (
-    <div
-      onClick={open}
-      class={clsx(
-        'px-4 py-3 rounded-[24px] transition-all active:scale-95 relative overflow-hidden bg-white inset-ring-2',
-        FLOW_INSET_RING_500[color()]
-      )}
-    >
-      <div
-        class={clsx(
-          'inset-0 absolute transition-all duration-500 z-1',
-          FLOW_BG_500[color()],
-          serverChallengeResult() === true ? 'right-0' : 'right-full'
-        )}
-      />
-
-      <div class='relative z-2'>
-        <TypeLabel
-          type={type()}
-          isCompleted={serverChallengeResult}
-          color={color}
+    <FlowItemColorContext.Provider value={color()}>
+      <FlowItemComponent.Wrapper onClick={open}>
+        <div
+          class={clsx(
+            'inset-0 absolute transition-all duration-500 z-1',
+            FLOW_BG_500[color()],
+            serverChallengeResult() === true ? 'right-0' : 'right-full'
+          )}
         />
-        <div class='flex justify-between items-center'>
-          <p
-            class={clsx(
-              'font-semibold text-lg transition-all duration-500',
-              textColor()
-            )}
-          >
-            {name()}
-          </p>
-          <div class={scaling() ? 'scaling' : undefined}>
-            {type() === 'OVER' && (
-              <PieChart
-                percentage={overValue}
-                color={color}
-                complete={serverChallengeResult}
-              />
-            )}
-            {type() === 'UNDER' && (
-              <GaugeBar
-                target={targetCount}
-                value={stackedCount}
-                color={color}
-                complete={serverChallengeResult}
-              />
-            )}
+
+        <div class='relative z-2'>
+          <TypeLabel
+            type={type()}
+            isCompleted={serverChallengeResult}
+            color={color}
+          />
+          <div class='flex justify-between items-center'>
+            <p
+              class={clsx(
+                'font-semibold text-lg transition-all duration-500',
+                textColor()
+              )}
+            >
+              {name()}
+            </p>
+            <div class={scaling() ? 'scaling' : undefined}>
+              {type() === 'OVER' && (
+                <PieChart
+                  percentage={overValue}
+                  color={color}
+                  complete={serverChallengeResult}
+                />
+              )}
+              {type() === 'UNDER' && (
+                <GaugeBar
+                  target={targetCount}
+                  value={stackedCount}
+                  color={color}
+                  complete={serverChallengeResult}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      {isBluredPanelShow() && (
-        <Panel.Blured autoClose={false} close={close}>
-          {(close) => (
-            <div class='w-full h-full flex flex-col items-center justify-center relative touch-none'>
-              <Panel.CloseButton onClick={close} />
+        {isBluredPanelShow() && (
+          <Panel.Blured autoClose={false} close={close}>
+            {(close) => (
+              <div class='w-full h-full flex flex-col items-center justify-center relative touch-none'>
+                <Panel.CloseButton onClick={close} />
 
-              <p class='text-[24px] text-slate-600 mb-4 font-semibold'>
-                {accumulateType() !== 'DAILY' && (
-                  <>
-                    {(
-                      stackedCountExceptCurrent() + (valueToCount() ?? 0)
-                    ).toLocaleString()}{' '}
-                    /{' '}
-                  </>
-                )}
-                {targetCount().toLocaleString()}
-              </p>
-
-              <input
-                id='count'
-                type='number'
-                pattern='[0-9]*'
-                inputmode='numeric'
-                class='text-center text-[64px] text-slate-800 font-semibold mb-8 placeholder:text-gray-400'
-                placeholder='Current'
-                value={value()}
-                onInput={(e) => setValue(e.target.value.trim())}
-              />
-
-              <button
-                class={clsx(
-                  'p-5 rounded-[42%] transition-all relative overflow-hidden active:scale-90 shadow-[0_0_30px_16px_rgba(255,255,255,0.25)]',
-                  FLOW_BG_300[color()]
-                )}
-                onClick={() => {
-                  handleClickCTA();
-                  close();
-                }}
-              >
-                <div
-                  class={clsx(
-                    'absolute left-0 right-0 bottom-0 pointer-events-none transition-all z-0',
-                    FLOW_BG_500[color()]
+                <p class='text-[24px] text-slate-600 mb-4 font-semibold'>
+                  {accumulateType() !== 'DAILY' && (
+                    <>
+                      {(
+                        stackedCountExceptCurrent() + (valueToCount() ?? 0)
+                      ).toLocaleString()}{' '}
+                      /{' '}
+                    </>
                   )}
-                  style={{
-                    height: `${ctaIndicatorHeight()}%`,
-                  }}
+                  {targetCount().toLocaleString()}
+                </p>
+
+                <input
+                  id='count'
+                  type='number'
+                  pattern='[0-9]*'
+                  inputmode='numeric'
+                  class='text-center text-[64px] text-slate-800 font-semibold mb-8 placeholder:text-gray-400'
+                  placeholder='Current'
+                  value={value()}
+                  onInput={(e) => setValue(e.target.value.trim())}
                 />
 
-                <div class='z-1 relative'>{ctaIcon()({ size: 40 })}</div>
-              </button>
-            </div>
-          )}
-        </Panel.Blured>
-      )}
-    </div>
+                <button
+                  class={clsx(
+                    'p-5 rounded-[42%] transition-all relative overflow-hidden active:scale-90 shadow-[0_0_30px_16px_rgba(255,255,255,0.25)]',
+                    FLOW_BG_300[color()]
+                  )}
+                  onClick={() => {
+                    handleClickCTA();
+                    close();
+                  }}
+                >
+                  <div
+                    class={clsx(
+                      'absolute left-0 right-0 bottom-0 pointer-events-none transition-all z-0',
+                      FLOW_BG_500[color()]
+                    )}
+                    style={{
+                      height: `${ctaIndicatorHeight()}%`,
+                    }}
+                  />
+
+                  <div class='z-1 relative'>{ctaIcon()({ size: 40 })}</div>
+                </button>
+              </div>
+            )}
+          </Panel.Blured>
+        )}
+      </FlowItemComponent.Wrapper>
+    </FlowItemColorContext.Provider>
   );
 };
