@@ -193,7 +193,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
             isCompleted={serverChallengeResult}
             color={color}
           />
-          <div class='flex justify-between items-center'>
+          <FlowItemComponent.Main>
             <p
               class={clsx(
                 'font-semibold text-lg transition-all duration-500',
@@ -219,7 +219,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
                 />
               )}
             </div>
-          </div>
+          </FlowItemComponent.Main>
         </FlowItemComponent.Content>
         {isBluredPanelShow() && (
           <Panel.Blured autoClose={false} close={close}>

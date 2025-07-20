@@ -99,7 +99,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
 
         <FlowItemComponent.Content>
           <TypeLabel type={type()} isCompleted={isCompleted} color={color} />
-          <div class='flex justify-between items-center'>
+          <FlowItemComponent.Main>
             <p
               class={clsx(
                 'font-semibold text-lg transition-all duration-500',
@@ -116,7 +116,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
                 className: isCompleted() ? undefined : FLOW_STROKE_200[color()],
               })}
             </div>
-          </div>
+          </FlowItemComponent.Main>
         </FlowItemComponent.Content>
 
         {isBluredPanelShow() && (

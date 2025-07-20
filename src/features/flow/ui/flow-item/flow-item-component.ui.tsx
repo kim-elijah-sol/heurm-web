@@ -50,8 +50,17 @@ const Content: Component<ContentProsp> = (props) => {
   return <div class='relative z-2'>{props.children}</div>;
 };
 
+type MainProps = {
+  children: JSX.Element;
+};
+
+const Main: Component<MainProps> = (props) => {
+  return <div class='flex justify-between items-center'>{props.children}</div>;
+};
+
 export const FlowItemComponent = {
   Wrapper,
   StatusBg,
   Content,
+  Main,
 };
