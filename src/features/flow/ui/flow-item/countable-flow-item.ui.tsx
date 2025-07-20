@@ -21,7 +21,6 @@ import {
 } from '../../fx';
 import { type FlowItemProps } from '../../types';
 import { FlowItemComponent } from './flow-item-component.ui';
-import { GaugeBar } from './gauge-bar.ui';
 
 export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   const flow = () => props.flow();
@@ -179,6 +178,14 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   const overValue = () => Math.min((stackedCount() / targetCount()) * 100, 100);
 
+  const unsafetyUnderValue = () =>
+    ((targetCount() - stackedCount()) / targetCount()) * 100;
+
+  const safetyUnderValue = () => Math.max(unsafetyUnderValue(), 0);
+
+  const pieChartValue = () =>
+    type() === 'OVER' ? overValue() : safetyUnderValue();
+
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
@@ -195,21 +202,11 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
               {name()}
             </FlowItemComponent.Name>
             <div class={scaling() ? 'scaling' : undefined}>
-              {type() === 'OVER' && (
-                <PieChart
-                  percentage={overValue}
-                  color={color}
-                  complete={serverChallengeResult}
-                />
-              )}
-              {type() === 'UNDER' && (
-                <GaugeBar
-                  target={targetCount}
-                  value={stackedCount}
-                  color={color}
-                  complete={serverChallengeResult}
-                />
-              )}
+              <PieChart
+                percentage={pieChartValue}
+                color={color}
+                complete={serverChallengeResult}
+              />
             </div>
           </FlowItemComponent.Main>
         </FlowItemComponent.Content>
