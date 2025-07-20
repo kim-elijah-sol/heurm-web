@@ -206,6 +206,11 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
                 percentage={pieChartValue}
                 color={color}
                 complete={serverChallengeResult}
+                fail={
+                  type() === 'UNDER'
+                    ? () => unsafetyUnderValue() < 0
+                    : undefined
+                }
               />
             </div>
           </FlowItemComponent.Main>

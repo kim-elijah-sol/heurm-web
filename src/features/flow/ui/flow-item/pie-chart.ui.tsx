@@ -2,14 +2,26 @@ import clsx from 'clsx';
 import { type Accessor, type Component } from 'solid-js';
 import { FLOW_STROKE_200, FLOW_STROKE_500 } from '~/shared/constant';
 import type { FlowColor } from '~/shared/types';
+import { Ban } from '~/shared/ui';
 
 type Props = {
   percentage: Accessor<number>;
   color: Accessor<FlowColor>;
   complete: Accessor<boolean | null>;
+  fail?: Accessor<boolean>;
 };
 
 export const PieChart: Component<Props> = (props) => {
+  if (props.fail?.()) {
+    return (
+      <Ban
+        className={FLOW_STROKE_200[props.color()]}
+        size={24}
+        strokeWidth={3}
+      />
+    );
+  }
+
   return (
     <svg
       width='24'
