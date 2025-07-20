@@ -8,18 +8,20 @@ export const FlowList = () => {
   return (
     <FlowListSuspense>
       {(flows) => (
-        <For each={flows()}>
-          {(flow) => (
-            <Switch>
-              <Match when={flow.type === 'COMPLETE'}>
-                <FlowItem.Complete flow={() => flow} />
-              </Match>
-              <Match when={flow.type !== 'COMPLETE'}>
-                <FlowItem.Countable flow={() => flow} />
-              </Match>
-            </Switch>
-          )}
-        </For>
+        <div class='flex flex-col gap-3'>
+          <For each={flows()}>
+            {(flow) => (
+              <Switch>
+                <Match when={flow.type === 'COMPLETE'}>
+                  <FlowItem.Complete flow={() => flow} />
+                </Match>
+                <Match when={flow.type !== 'COMPLETE'}>
+                  <FlowItem.Countable flow={() => flow} />
+                </Match>
+              </Switch>
+            )}
+          </For>
+        </div>
       )}
     </FlowListSuspense>
   );

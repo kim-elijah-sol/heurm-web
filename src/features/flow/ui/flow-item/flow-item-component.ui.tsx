@@ -20,14 +20,14 @@ const Wrapper: Component<WrapperProps> = (props) => {
     <div
       onClick={props.onClick}
       class={clsx(
-        'px-4 py-3 rounded-[24px] transition-all active:scale-95 relative overflow-hidden bg-white'
+        'px-4 py-3 rounded-[28px] transition-all active:scale-95 relative overflow-hidden bg-white'
       )}
     >
       {props.children}
 
       <div
         class={clsx(
-          'absolute inset-0 inset-ring-2 rounded-[24px] z-2',
+          'absolute inset-0 inset-ring-2 rounded-[28px] z-2',
           FLOW_INSET_RING_500[color()]
         )}
       />
