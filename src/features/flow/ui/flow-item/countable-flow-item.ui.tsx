@@ -186,8 +186,6 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   const pieChartValue = () =>
     type() === 'OVER' ? overValue() : safetyUnderValue();
 
-  console.log(name(), unsafetyUnderValue());
-
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
