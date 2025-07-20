@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { children, type Component, type JSX } from 'solid-js';
+import { type Component, type JSX } from 'solid-js';
 import { FLOW_BG_500, FLOW_INSET_RING_500 } from '~/shared/constant';
 import { useFlowItemColor } from '../../hook';
 
@@ -19,7 +19,7 @@ const Wrapper: Component<WrapperProps> = (props) => {
         FLOW_INSET_RING_500[color()]
       )}
     >
-      {children(() => props.children)()}
+      {props.children}
     </div>
   );
 };
