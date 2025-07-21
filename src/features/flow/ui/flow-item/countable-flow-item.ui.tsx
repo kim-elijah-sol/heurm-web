@@ -5,7 +5,7 @@ import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
 import { FLOW_BG_300, FLOW_BG_500, FLOW_STROKE_200 } from '~/shared/constant';
-import { dateFormat, getRandomItem } from '~/shared/fx';
+import { dateFormat, getMidnight, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor, Nullable } from '~/shared/types';
@@ -96,7 +96,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   const historys = () =>
     (history.data ?? []).filter((it) =>
-      filterValidFlow(new Date(it.date).valueOf())(props.flow())
+      filterValidFlow(getMidnight(it.date).valueOf())(props.flow())
     );
 
   const currentHistory = () =>
