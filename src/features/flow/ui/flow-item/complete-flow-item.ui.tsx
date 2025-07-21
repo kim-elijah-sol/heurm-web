@@ -79,8 +79,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
 
   const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
 
-  const currentHistory = () =>
-    history.data?.find(findCurrentHistory(current()));
+  const currentHistory = () => history.data?.find(findCurrentHistory(current));
 
   const isCompleted = () => currentHistory()?.complete ?? null;
 

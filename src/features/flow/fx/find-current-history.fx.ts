@@ -1,6 +1,7 @@
-import { format } from 'date-fns';
-import { HistoryType } from '~/entities/history';
+import { type Accessor } from 'solid-js';
+import { type HistoryType } from '~/entities/history';
+import { dateFormat } from '~/shared/fx';
 
 export const findCurrentHistory =
-  (current: Date) => (it: HistoryType.GetHistoryResponseItem) =>
-    format(it.date, 'yyyy.MM.dd') === format(current, 'yyyy.MM.dd');
+  (current: Accessor<Date>) => (it: HistoryType.GetHistoryResponseItem) =>
+    dateFormat['yyyy-MM-dd'](it.date) === dateFormat['yyyy-MM-dd'](current());
