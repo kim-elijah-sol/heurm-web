@@ -20,7 +20,7 @@ import type {
   FlowType,
   Nullable,
 } from '~/shared/types';
-import { Ban, Check, Loader, Panel } from '~/shared/ui';
+import { Check, Loader, Panel, X } from '~/shared/ui';
 import { PieChart, TypeLabel } from '.';
 import { FlowItemColorContext } from '../../context';
 import {
@@ -203,7 +203,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
                   />
                 }
               >
-                <Ban
+                <X
                   className={FLOW_STROKE_200[color()]}
                   size={24}
                   strokeWidth={3}
@@ -268,7 +268,7 @@ const CTAPanel: Component<CTAPanelProps> = (props) => {
         props.stackedCountExceptCurrent() + (valueToCount() ?? 0) >
         props.targetCount()
       )
-        return Ban;
+        return X;
     }
 
     return Check;
