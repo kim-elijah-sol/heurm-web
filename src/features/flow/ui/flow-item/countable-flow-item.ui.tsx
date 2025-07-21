@@ -19,6 +19,7 @@ import {
   filterWeekHistory,
   filterYearHistory,
 } from '../../fx';
+import { createBluredPanelShow } from '../../hook/create-blured-panel-show.hook';
 import { type FlowItemProps } from '../../types';
 import { FlowItemComponent } from './flow-item-component.ui';
 
@@ -39,7 +40,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   const { current } = createDateSelect();
 
-  const [isBluredPanelShow, open, close] = createBoolean();
+  const [isBluredPanelShow, open, close] = createBluredPanelShow();
 
   const [scaling, animStart, animEnd] = createBoolean();
 

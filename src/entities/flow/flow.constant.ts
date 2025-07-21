@@ -27,3 +27,15 @@ export const YEARLY_PATTERNS: FlowYearlyPattern[] = [
   'Every Month',
   'Select Month',
 ];
+
+export const NOT_ALLOW_RECORD_FUTURE = [
+  'Hold on! You can only check this off future.',
+  'Too early! This task is scheduled for future.',
+  'Nice try! But this flow is set for future.',
+  'Time traveler detected 👀 — Let’s wait until future!',
+  'Patience! Future’s flow can’t be completed today.',
+  'Oops! You’re a bit ahead of schedule.',
+  'Great enthusiasm! But let’s stick to today’s goals first.',
+  'We love your energy, but this task starts future.',
+  'Consistency matters — mark it when the time is right.',
+] as const;

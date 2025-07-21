@@ -12,6 +12,7 @@ import type { FlowColor } from '~/shared/types';
 import { Ban, Check, Loader, Panel } from '~/shared/ui';
 import { TypeLabel } from '.';
 import { FlowItemColorContext } from '../../context';
+import { createBluredPanelShow } from '../../hook/create-blured-panel-show.hook';
 import { FlowItemProps } from '../../types';
 import { FlowItemComponent } from './flow-item-component.ui';
 
@@ -28,7 +29,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
 
   const { current } = createDateSelect();
 
-  const [isBluredPanelShow, open, close] = createBoolean();
+  const [isBluredPanelShow, open, close] = createBluredPanelShow();
 
   const [scaling, animStart, animEnd] = createBoolean();
 
