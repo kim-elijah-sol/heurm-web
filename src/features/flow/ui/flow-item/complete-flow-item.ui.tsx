@@ -12,6 +12,7 @@ import type { FlowColor } from '~/shared/types';
 import { Check, Loader, Panel, X } from '~/shared/ui';
 import { TypeLabel } from '.';
 import { FlowItemColorContext } from '../../context';
+import { findCurrentHistory } from '../../fx';
 import { createBluredPanelShow } from '../../hook/create-blured-panel-show.hook';
 import { FlowItemProps } from '../../types';
 import './complete-flow-item.ui.css';
@@ -79,9 +80,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
   const getLoseWriting = () => getRandomItem(mainConstant.LOSE_WRITING);
 
   const currentHistory = () =>
-    history.data?.find(
-      (it) => format(it.date, 'yyyy.MM.dd') === format(current(), 'yyyy.MM.dd')
-    );
+    history.data?.find(findCurrentHistory(current()));
 
   const isCompleted = () => currentHistory()?.complete ?? null;
 

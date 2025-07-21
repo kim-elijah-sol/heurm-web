@@ -29,6 +29,7 @@ import {
   filterValidFlow,
   filterWeekHistory,
   filterYearHistory,
+  findCurrentHistory,
 } from '../../fx';
 import { createBluredPanelShow } from '../../hook/create-blured-panel-show.hook';
 import { type FlowItemProps } from '../../types';
@@ -108,10 +109,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
       filterValidFlow(getMidnight(it.date).valueOf())(props.flow())
     );
 
-  const currentHistory = () =>
-    historys().find(
-      (it) => format(it.date, 'yyyy.MM.dd') === format(current(), 'yyyy.MM.dd')
-    );
+  const currentHistory = () => historys().find(findCurrentHistory(current()));
 
   const stackedCount = () => {
     if (accumulateType() === 'DAILY') return currentHistory()?.count ?? 0;
