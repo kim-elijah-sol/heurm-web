@@ -9,7 +9,7 @@ import { getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor } from '~/shared/types';
-import { Ban, Check, Loader, Panel } from '~/shared/ui';
+import { Check, Loader, Panel, X } from '~/shared/ui';
 import { TypeLabel } from '.';
 import { FlowItemColorContext } from '../../context';
 import { createBluredPanelShow } from '../../hook/create-blured-panel-show.hook';
@@ -86,7 +86,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
   const isCompleted = () => currentHistory()?.complete ?? null;
 
   const flowResultIcon = () =>
-    isCompleted() === null ? Loader : isCompleted() ? Check : Ban;
+    isCompleted() === null ? Loader : isCompleted() ? Check : X;
 
   return (
     <FlowItemColorContext.Provider value={color()}>
@@ -174,7 +174,7 @@ const CTAPanel: Component<CTAPanelProps> = (props) => {
                   )}
                   onClick={() => handleClickCTA(false, close)}
                 >
-                  <Ban size={40} />
+                  <X size={40} />
                 </button>
 
                 <button
