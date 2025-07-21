@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { format } from 'date-fns';
-import { type Component } from 'solid-js';
+import { createSignal, type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
@@ -14,6 +14,7 @@ import { TypeLabel } from '.';
 import { FlowItemColorContext } from '../../context';
 import { createBluredPanelShow } from '../../hook/create-blured-panel-show.hook';
 import { FlowItemProps } from '../../types';
+import './complete-flow-item.ui.css';
 import { FlowItemComponent } from './flow-item-component.ui';
 
 export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
@@ -87,9 +88,6 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
   const flowResultIcon = () =>
     isCompleted() === null ? Loader : isCompleted() ? Check : Ban;
 
-  const buttonBaseClassName =
-    'p-5 rounded-[42%] transition-all active:scale-95';
-
   return (
     <FlowItemColorContext.Provider value={color()}>
       <FlowItemComponent.Wrapper onClick={open}>
@@ -116,43 +114,95 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
         </FlowItemComponent.Content>
 
         {isBluredPanelShow() && (
-          <Panel.Blured close={close}>
-            {() => (
-              <div class='w-full h-full flex flex-col items-center justify-center gap-6 touch-none'>
-                <div class='flex gap-10'>
-                  <button
-                    class={clsx(
-                      buttonBaseClassName,
-                      'bg-rose-400 active:bg-rose-500'
-                    )}
-                    onClick={() => handleClickCTA(false)}
-                  >
-                    <Ban size={40} />
-                  </button>
-                  <button
-                    class={clsx(
-                      buttonBaseClassName,
-                      'bg-emerald-400 active:bg-emerald-500'
-                    )}
-                    onClick={() => handleClickCTA(true)}
-                  >
-                    <Check size={40} />
-                  </button>
-                </div>
-                <button
-                  class={clsx(
-                    buttonBaseClassName,
-                    'bg-blue-400 active:bg-blue-500'
-                  )}
-                  onClick={() => handleClickCTA(null)}
-                >
-                  <Loader size={40} />
-                </button>
-              </div>
-            )}
-          </Panel.Blured>
+          <CTAPanel close={close} onCTA={handleClickCTA} />
         )}
       </FlowItemComponent.Wrapper>
     </FlowItemColorContext.Provider>
+  );
+};
+
+type CTAPanelProps = {
+  onCTA: (isCompleted: boolean | null) => void;
+  close: () => void;
+};
+
+const CTAPanel: Component<CTAPanelProps> = (props) => {
+  const [clickedType, setClickedType] = createSignal<boolean | null>();
+
+  const buttonBaseClassName =
+    'p-5 rounded-[42%] transition-all active:scale-95';
+
+  const handleClickCTA = (isCompleted: boolean | null, close: () => void) => {
+    setClickedType(isCompleted);
+
+    setTimeout(() => {
+      close();
+      props.onCTA(isCompleted);
+    }, 800);
+  };
+
+  const getButtonClickedClass = (isCompleted: boolean | null) => {
+    if (isCompleted === clickedType())
+      return `cta-button-center-${isCompleted}`;
+    if (clickedType() !== undefined) return 'cta-button-hide';
+    return undefined;
+  };
+
+  return (
+    <Panel.Blured autoClose={false} close={props.close}>
+      {(close) => (
+        <div
+          class='w-full h-full flex items-center justify-center'
+          onClick={close}
+        >
+          <div
+            class='relative w-[200px] h-[184px]'
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div class='flex flex-col gap-6 items-center w-full'>
+              <div
+                class={clsx(
+                  'flex w-full',
+                  clickedType() === false ? 'justify-end' : 'justify-between'
+                )}
+              >
+                <button
+                  class={clsx(
+                    buttonBaseClassName,
+                    'bg-rose-400 active:bg-rose-500',
+                    getButtonClickedClass(false)
+                  )}
+                  onClick={() => handleClickCTA(false, close)}
+                >
+                  <Ban size={40} />
+                </button>
+
+                <button
+                  class={clsx(
+                    buttonBaseClassName,
+                    'bg-emerald-400 active:bg-emerald-500',
+                    getButtonClickedClass(true)
+                  )}
+                  onClick={() => handleClickCTA(true, close)}
+                >
+                  <Check size={40} />
+                </button>
+              </div>
+
+              <button
+                class={clsx(
+                  buttonBaseClassName,
+                  'bg-blue-400 active:bg-blue-500',
+                  getButtonClickedClass(null)
+                )}
+                onClick={() => handleClickCTA(null, close)}
+              >
+                <Loader size={40} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </Panel.Blured>
   );
 };
