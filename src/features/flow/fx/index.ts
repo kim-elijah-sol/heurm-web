@@ -1,4 +1,5 @@
 export * from './accmulate-history-count.fx';
+export * from './filter-except-current-history.fx';
 export * from './filter-month-history.fx';
 export * from './filter-valid-flow.fx';
 export * from './filter-week-history.fx';

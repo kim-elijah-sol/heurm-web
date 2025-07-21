@@ -11,7 +11,7 @@ import { historyQueries, HistoryType } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
 import { FLOW_BG_300, FLOW_BG_500, FLOW_STROKE_200 } from '~/shared/constant';
-import { dateFormat, getMidnight, getRandomItem } from '~/shared/fx';
+import { getMidnight, getRandomItem } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type {
@@ -25,6 +25,7 @@ import { PieChart, TypeLabel } from '.';
 import { FlowItemColorContext } from '../../context';
 import {
   accumulateHistoryCount,
+  filterExceptCurrentHistory,
   filterMonthHistory,
   filterValidFlow,
   filterWeekHistory,
@@ -139,13 +140,8 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
     return (
       historys()
-        .filter((it) => {
-          return (
-            filterFn(current)(it) &&
-            dateFormat['yyyy-MM-dd'](it.date) !==
-              dateFormat['yyyy-MM-dd'](current())
-          );
-        })
+        .filter(filterFn(current))
+        .filter(filterExceptCurrentHistory(current))
         .reduce(accumulateHistoryCount, 0) ?? 0
     );
   };
