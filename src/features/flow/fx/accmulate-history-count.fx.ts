@@ -1,8 +1,8 @@
-import { type MainType } from '~/entities/main';
+import { type HistoryType } from '~/entities/history';
 
 export const accumulateHistoryCount = (
   acc: number,
-  it: MainType.GetHistoryResponseItem
+  it: HistoryType.GetHistoryResponseItem
 ) => {
   return acc + (it.count ?? 0);
 };

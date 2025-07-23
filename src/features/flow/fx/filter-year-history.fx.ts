@@ -1,8 +1,8 @@
 import { type Accessor } from 'solid-js';
-import { type MainType } from '~/entities/main';
+import { type HistoryType } from '~/entities/history';
 
 export const filterYearHistory =
-  (current: Accessor<Date>) => (it: MainType.GetHistoryResponseItem) => {
+  (current: Accessor<Date>) => (it: HistoryType.GetHistoryResponseItem) => {
     const currentYear = new Date(current()).getFullYear();
 
     const itYear = new Date(it.date).getFullYear();

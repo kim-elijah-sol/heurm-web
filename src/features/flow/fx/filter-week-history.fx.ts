@@ -1,5 +1,5 @@
 import { type Accessor } from 'solid-js';
-import { type MainType } from '~/entities/main';
+import { type HistoryType } from '~/entities/history';
 import { dateFormat } from '~/shared/fx';
 
 const getDateValue = (date: number | string | Date) => {
@@ -7,7 +7,7 @@ const getDateValue = (date: number | string | Date) => {
 };
 
 export const filterWeekHistory =
-  (current: Accessor<Date>) => (it: MainType.GetHistoryResponseItem) => {
+  (current: Accessor<Date>) => (it: HistoryType.GetHistoryResponseItem) => {
     const ONE_DAY = 86_400_000;
 
     const currentDay = new Date(current()).getDay();
