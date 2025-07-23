@@ -15,6 +15,11 @@ export const FlowPanelForm = {
       </p>
     );
   },
+  Description: (props: { children: JSX.Element }) => {
+    return (
+      <span class='text-sm text-gray-500 font-medium'>{props.children}</span>
+    );
+  },
   Divider: () => (
     <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white mt-2 mb-8' />
   ),

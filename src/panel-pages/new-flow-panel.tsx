@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import { Match, Show, Switch, type Component } from 'solid-js';
+import { createSignal, Match, Show, Switch, type Component } from 'solid-js';
 import { flowConstant } from '~/entities/flow';
+import { waveQueries } from '~/entities/wave';
 import { createNewFlowForm } from '~/features/flow/hook';
 import {
   FlowPanelDatePicker,
@@ -10,8 +11,10 @@ import {
   FlowPanelWeeklyPatternSelect,
   FlowPanelYearlyPatternSelect,
 } from '~/features/flow/ui';
+import { WaveItem, WaveList } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { toast } from '~/shared/lib';
+import { Nullable } from '~/shared/types';
 import {
   Check,
   CheckCheck,
@@ -126,6 +129,14 @@ export const NewFlowPanel: Component<Props> = (props) => {
       </Show>
     </>
   );
+
+  const wave = waveQueries.getWaveQuery();
+
+  const [selectedWave, setSelectedWave] = createSignal<Nullable<string>>(null);
+
+  const handleClickWaveItem = (id: string) => {
+    setSelectedWave(selectedWave() === id ? null : id);
+  };
 
   return (
     <Panel.Slide close={props.close} class='px-0'>
@@ -384,6 +395,29 @@ export const NewFlowPanel: Component<Props> = (props) => {
                   </div>
                 </div>
               )}
+            </FlowPanelForm.Wrapper>
+
+            <FlowPanelForm.Divider />
+
+            <FlowPanelForm.Wrapper>
+              <div>
+                <FlowPanelForm.Label>Wave</FlowPanelForm.Label>
+                <FlowPanelForm.Description>
+                  Select a Wave to organize your Flow.
+                </FlowPanelForm.Description>
+              </div>
+
+              <WaveList>
+                {wave.data?.map((wave) => (
+                  <WaveItem
+                    color={color}
+                    selected={() => selectedWave() === wave.id}
+                    onClick={() => handleClickWaveItem(wave.id)}
+                  >
+                    {wave.name}
+                  </WaveItem>
+                ))}
+              </WaveList>
             </FlowPanelForm.Wrapper>
 
             <FlowPanelForm.Divider />
