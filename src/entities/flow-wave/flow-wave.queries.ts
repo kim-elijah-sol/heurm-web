@@ -3,7 +3,7 @@ import { toastAtError } from '~/shared/fx';
 import { flowWaveApi } from '.';
 
 export const postFlowWaveMutation = (
-  onSuccess: (
+  onSuccess?: (
     data: Awaited<ReturnType<typeof flowWaveApi.postFlowWave>>
   ) => void
 ) =>

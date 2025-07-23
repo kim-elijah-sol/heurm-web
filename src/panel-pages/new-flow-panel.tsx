@@ -1,6 +1,8 @@
+import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
 import { createSignal, Match, Show, Switch, type Component } from 'solid-js';
 import { flowConstant } from '~/entities/flow';
+import { flowWaveQueries } from '~/entities/flow-wave';
 import { waveQueries } from '~/entities/wave';
 import { createNewFlowForm } from '~/features/flow/hook';
 import {
@@ -33,6 +35,8 @@ type Props = {
 export const NewFlowPanel: Component<Props> = (props) => {
   const inputBaseClassName =
     'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
+
+  const queryClient = useQueryClient();
 
   const {
     name,
@@ -137,6 +141,8 @@ export const NewFlowPanel: Component<Props> = (props) => {
   const handleClickWaveItem = (id: string) => {
     setSelectedWave(selectedWave() === id ? null : id);
   };
+
+  const postFlowWave = flowWaveQueries.postFlowWaveMutation();
 
   return (
     <Panel.Slide close={props.close} class='px-0'>
@@ -444,7 +450,18 @@ export const NewFlowPanel: Component<Props> = (props) => {
             color={color}
             disabled={disabled()}
             onClick={async () => {
-              await handleSave();
+              const { id: flowId } = await handleSave();
+
+              if (selectedWave()) {
+                await postFlowWave.mutateAsync({
+                  flowId,
+                  waveId: selectedWave()!,
+                });
+              }
+
+              queryClient.invalidateQueries({
+                queryKey: ['getFlow'],
+              });
 
               close();
 

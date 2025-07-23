@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/solid-query';
 import { format } from 'date-fns';
 import { createSignal } from 'solid-js';
 import {
@@ -20,8 +19,6 @@ import type {
 } from '~/shared/types';
 
 export const createNewFlowForm = () => {
-  const queryClient = useQueryClient();
-
   const postFlow = flowQueries.postFlowMutation();
 
   const [name, handleInputName] = createInput();
@@ -186,11 +183,9 @@ export const createNewFlowForm = () => {
       request.endAt = format(endAt()!, 'yyyy-MM-dd');
     }
 
-    await postFlow.mutateAsync(request);
+    const result = await postFlow.mutateAsync(request);
 
-    queryClient.invalidateQueries({
-      queryKey: ['getFlow'],
-    });
+    return result;
   };
 
   return {
