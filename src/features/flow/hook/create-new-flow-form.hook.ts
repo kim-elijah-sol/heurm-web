@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import { format } from 'date-fns';
-import { createEffect, createSignal } from 'solid-js';
+import { createSignal } from 'solid-js';
 import {
   flowConstant,
   flowQueries,
@@ -76,19 +76,8 @@ export const createNewFlowForm = () => {
   const [accumulateType, setAccumulateType] =
     createSignal<FlowIntervalType>('DAILY');
 
-  const accumulateTypes = (): FlowIntervalType[] => {
-    const result: FlowIntervalType[] = ['DAILY'];
-
-    const step = flowConstant.INTERVAL_TYPES.indexOf(intervalType());
-
-    if (step >= 1) result.push('WEEKLY');
-    if (step >= 2) result.push('MONTHLY');
-    if (step >= 3) result.push('YEARLY');
-
-    return result;
-  };
-
-  const accumulateTypeStep = () => accumulateTypes().indexOf(accumulateType());
+  const accumulateTypeStep = () =>
+    flowConstant.INTERVAL_TYPES.indexOf(accumulateType());
 
   const [startAt, setStartAt] = createSignal<Nullable<Date>>(getMidnight());
 
@@ -117,14 +106,6 @@ export const createNewFlowForm = () => {
   };
 
   const restPlaceholderText = () => `M ${repeatUnit()}`;
-
-  createEffect(() => {
-    if (accumulateTypeStep() === -1) {
-      setAccumulateType(
-        flowConstant.INTERVAL_TYPES[accumulateTypes().length - 1]
-      );
-    }
-  });
 
   const disabled = () => {
     if (name().trim().length === 0) return true;
@@ -253,7 +234,6 @@ export const createNewFlowForm = () => {
     setAccumulate,
     accumulateType,
     setAccumulateType,
-    accumulateTypes,
     accumulateTypeStep,
     startAt,
     setStartAt,

@@ -72,7 +72,6 @@ export const NewFlowPanel: Component<Props> = (props) => {
     setAccumulate,
     accumulateType,
     setAccumulateType,
-    accumulateTypes,
     accumulateTypeStep,
     startAt,
     setStartAt,
@@ -264,7 +263,7 @@ export const NewFlowPanel: Component<Props> = (props) => {
 
                 <Show when={accumulate()}>
                   <FlowPanelRadio step={accumulateTypeStep}>
-                    {accumulateTypes().map((it) => (
+                    {flowConstant.INTERVAL_TYPES.map((it) => (
                       <FlowPanelRadio.Item
                         color={color}
                         checked={() => accumulateType() === it}
