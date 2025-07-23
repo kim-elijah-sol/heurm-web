@@ -6,3 +6,9 @@ export type GetWaveResponseItem = z.infer<
 >;
 
 export type GetWaveResponse = z.infer<typeof waveSchema.getWaveResponseSchema>;
+
+export type PostWaveRequest = z.infer<typeof waveSchema.postWaveRequestSchema>;
+
+export type PostWaveResponse = z.infer<
+  typeof waveSchema.postWaveResponseSchema
+>;

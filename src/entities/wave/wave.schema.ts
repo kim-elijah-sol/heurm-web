@@ -6,3 +6,11 @@ export const getWaveResponseItemSchema = z.object({
 });
 
 export const getWaveResponseSchema = z.array(getWaveResponseItemSchema);
+
+export const postWaveRequestSchema = z.object({
+  name: z.string(),
+});
+
+export const postWaveResponseSchema = z.object({
+  id: z.string(),
+});
