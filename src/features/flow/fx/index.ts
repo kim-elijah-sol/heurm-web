@@ -6,3 +6,4 @@ export * from './filter-week-history.fx';
 export * from './filter-year-history.fx';
 export * from './find-current-history.fx';
 export * from './get-week-writing.fx';
+export * from './grouping-flow-by-wave.fx';
