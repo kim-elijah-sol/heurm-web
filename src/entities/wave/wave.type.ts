@@ -20,3 +20,11 @@ export type PatchWaveRequest = z.infer<
 export type PatchWaveResponse = z.infer<
   typeof waveSchema.patchWaveResponseSchema
 >;
+
+export type DeleteWaveRequest = z.infer<
+  typeof waveSchema.deleteWaveRequestSchema
+>;
+
+export type DeleteWaveResponse = z.infer<
+  typeof waveSchema.deleteWaveResponseSchema
+>;

@@ -15,3 +15,8 @@ export const patchWave = (body: WaveType.PatchWaveRequest) =>
   https
     .patch('/wave', body)
     .then(https.validateResponse(waveSchema.patchWaveResponseSchema));
+
+export const deleteWave = (data: WaveType.DeleteWaveRequest) =>
+  https
+    .delete('/wave', { data })
+    .then(https.validateResponse(waveSchema.deleteWaveResponseSchema));

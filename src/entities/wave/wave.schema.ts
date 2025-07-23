@@ -23,3 +23,11 @@ export const patchWaveRequestSchema = z.object({
 export const patchWaveResponseSchema = z.object({
   result: z.boolean(),
 });
+
+export const deleteWaveRequestSchema = z.object({
+  id: z.string(),
+});
+
+export const deleteWaveResponseSchema = z.object({
+  result: z.boolean(),
+});

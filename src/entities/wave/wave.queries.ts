@@ -27,3 +27,13 @@ export const patchWaveMutation = (
     onSuccess,
     onError: (error) => toastAtError(error),
   }));
+
+export const deleteWaveMutation = (
+  onSuccess?: (data: Awaited<ReturnType<typeof waveApi.deleteWave>>) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['deleteWave'],
+    mutationFn: waveApi.deleteWave,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));
