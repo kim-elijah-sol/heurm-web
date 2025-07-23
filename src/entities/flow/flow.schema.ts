@@ -5,6 +5,11 @@ import {
   flowTypeSchema,
 } from '~/shared/schema';
 
+export const getFlowResponseItemWaveItemSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
+
 export const getFlowResponseItemSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -25,6 +30,7 @@ export const getFlowResponseItemSchema = z.object({
   endAt: z.string().nullable(),
   startTime: z.number().nullable(),
   endTime: z.number().nullable(),
+  wave: z.array(getFlowResponseItemWaveItemSchema),
 });
 
 export const getFlowResponseSchema = z.array(getFlowResponseItemSchema);

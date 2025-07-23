@@ -1,6 +1,10 @@
 import { z } from 'zod';
 import { flowSchema } from '.';
 
+export type GetFlowResponseItemWaveItem = z.infer<
+  typeof flowSchema.getFlowResponseItemWaveItemSchema
+>;
+
 export type GetFlowResponseItem = z.infer<
   typeof flowSchema.getFlowResponseItemSchema
 >;
