@@ -8,3 +8,11 @@ export type PostFlowWaveRequest = z.infer<
 export type PostFlowWaveResponse = z.infer<
   typeof flowWaveSchema.postFlowWaveResponseSchema
 >;
+
+export type DeleteFlowWaveRequest = z.infer<
+  typeof flowWaveSchema.deleteFlowWaveRequestSchema
+>;
+
+export type DeleteFlowWaveResponse = z.infer<
+  typeof flowWaveSchema.deleteFlowWaveResponseSchema
+>;

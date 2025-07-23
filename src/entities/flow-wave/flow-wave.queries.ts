@@ -13,3 +13,15 @@ export const postFlowWaveMutation = (
     onSuccess,
     onError: (error) => toastAtError(error),
   }));
+
+export const deleteFlowWaveMutation = (
+  onSuccess: (
+    data: Awaited<ReturnType<typeof flowWaveApi.deleteFlowWave>>
+  ) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['deleteFlowWave'],
+    mutationFn: flowWaveApi.deleteFlowWave,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));
