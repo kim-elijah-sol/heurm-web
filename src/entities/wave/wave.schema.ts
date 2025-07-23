@@ -14,3 +14,12 @@ export const postWaveRequestSchema = z.object({
 export const postWaveResponseSchema = z.object({
   id: z.string(),
 });
+
+export const patchWaveRequestSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+});
+
+export const patchWaveResponseSchema = z.object({
+  result: z.boolean(),
+});

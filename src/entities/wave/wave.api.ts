@@ -10,3 +10,8 @@ export const postWave = (body: WaveType.PostWaveRequest) =>
   https
     .post('/wave', body)
     .then(https.validateResponse(waveSchema.postWaveResponseSchema));
+
+export const patchWave = (body: WaveType.PatchWaveRequest) =>
+  https
+    .patch('/wave', body)
+    .then(https.validateResponse(waveSchema.patchWaveResponseSchema));

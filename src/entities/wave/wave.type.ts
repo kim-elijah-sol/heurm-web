@@ -12,3 +12,11 @@ export type PostWaveRequest = z.infer<typeof waveSchema.postWaveRequestSchema>;
 export type PostWaveResponse = z.infer<
   typeof waveSchema.postWaveResponseSchema
 >;
+
+export type PatchWaveRequest = z.infer<
+  typeof waveSchema.patchWaveRequestSchema
+>;
+
+export type PatchWaveResponse = z.infer<
+  typeof waveSchema.patchWaveResponseSchema
+>;

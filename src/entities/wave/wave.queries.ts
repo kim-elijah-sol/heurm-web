@@ -17,3 +17,13 @@ export const postWaveMutation = (
     onSuccess,
     onError: (error) => toastAtError(error),
   }));
+
+export const patchWaveMutation = (
+  onSuccess?: (data: Awaited<ReturnType<typeof waveApi.patchWave>>) => void
+) =>
+  useMutation(() => ({
+    mutationKey: ['patchWave'],
+    mutationFn: waveApi.patchWave,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));
