@@ -11,7 +11,7 @@ import {
   FlowPanelWeeklyPatternSelect,
   FlowPanelYearlyPatternSelect,
 } from '~/features/flow/ui';
-import { WaveItem, WaveList } from '~/features/wave/ui';
+import { NewWaveButton, WaveItem, WaveList } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { toast } from '~/shared/lib';
 import { Nullable } from '~/shared/types';
@@ -417,6 +417,8 @@ export const NewFlowPanel: Component<Props> = (props) => {
                     {wave.name}
                   </WaveItem>
                 ))}
+
+                <NewWaveButton color={color} />
               </WaveList>
             </FlowPanelForm.Wrapper>
 

@@ -8,15 +8,15 @@ export const getWave = () =>
 
 export const postWave = (body: WaveType.PostWaveRequest) =>
   https
-    .post('/wave', body)
+    .post<WaveType.PostWaveResponse>('/wave', body)
     .then(https.validateResponse(waveSchema.postWaveResponseSchema));
 
 export const patchWave = (body: WaveType.PatchWaveRequest) =>
   https
-    .patch('/wave', body)
+    .patch<WaveType.PatchWaveResponse>('/wave', body)
     .then(https.validateResponse(waveSchema.patchWaveResponseSchema));
 
 export const deleteWave = (data: WaveType.DeleteWaveRequest) =>
   https
-    .delete('/wave', { data })
+    .delete<WaveType.DeleteWaveResponse>('/wave', { data })
     .then(https.validateResponse(waveSchema.deleteWaveResponseSchema));
