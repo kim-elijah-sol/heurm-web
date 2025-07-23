@@ -146,15 +146,15 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
     );
   };
 
-  const getChallengeResult = (count: Nullable<number>) => {
+  const getFlowResult = (count: Nullable<number>) => {
     if (count === null) return null;
     if (type() === 'OVER' && count >= targetCount()) return true;
     if (type() === 'UNDER' && count <= targetCount()) return true;
     return false;
   };
 
-  const serverChallengeResult = () =>
-    getChallengeResult(
+  const serverFlowResult = () =>
+    getFlowResult(
       typeof currentHistory()?.count !== 'number' ? null : stackedCount()
     );
 
@@ -173,17 +173,17 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
       <FlowItemComponent.Wrapper onClick={open}>
         <FlowItemComponent.StatusBg
           isFill={() => (currentHistory()?.count ?? null) !== null}
-          isPale={() => serverChallengeResult() === false}
+          isPale={() => serverFlowResult() === false}
         />
 
         <FlowItemComponent.Content>
           <TypeLabel
             type={type()}
-            isCompleted={serverChallengeResult}
+            isCompleted={serverFlowResult}
             color={color}
           />
           <FlowItemComponent.Main>
-            <FlowItemComponent.Name isWhite={serverChallengeResult()}>
+            <FlowItemComponent.Name isWhite={serverFlowResult()}>
               {name()}
             </FlowItemComponent.Name>
             <div class={scaling() ? 'scaling' : undefined}>
@@ -193,7 +193,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
                   <PieChart
                     percentage={pieChartValue}
                     color={color}
-                    complete={serverChallengeResult}
+                    complete={serverFlowResult}
                   />
                 }
               >
