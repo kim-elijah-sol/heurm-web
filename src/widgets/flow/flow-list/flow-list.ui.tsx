@@ -1,5 +1,6 @@
 import { Accessor, children, For, Match, Switch, type JSX } from 'solid-js';
 import { flowQueries, FlowType } from '~/entities/flow';
+import { waveQueries, WaveType } from '~/entities/wave';
 import { filterValidFlow, groupingFlowByWave } from '~/features/flow/fx';
 import { FlowItem, NoFlow } from '~/features/flow/ui';
 import { createDateSelect } from '~/features/main/hook';
@@ -7,9 +8,9 @@ import { createDateSelect } from '~/features/main/hook';
 export const FlowList = () => {
   return (
     <FlowListSuspense>
-      {(flows) => (
+      {(flows, wave) => (
         <div class='flex flex-col gap-5'>
-          <For each={groupingFlowByWave(flows())}>
+          <For each={groupingFlowByWave(flows(), wave)}>
             {(group) => (
               <div>
                 <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
@@ -37,7 +38,10 @@ export const FlowList = () => {
 };
 
 const FlowListSuspense = (props: {
-  children: (data: Accessor<FlowType.GetFlowResponse>) => JSX.Element;
+  children: (
+    data: Accessor<FlowType.GetFlowResponse>,
+    wave: WaveType.GetWaveResponse
+  ) => JSX.Element;
 }) => {
   const flow = flowQueries.getFlowQuery();
 
@@ -46,9 +50,13 @@ const FlowListSuspense = (props: {
   const todayFlow = () =>
     flow.data ? flow.data.filter(filterValidFlow(current().valueOf())) : [];
 
+  const wave = waveQueries.getWaveQuery();
+
   return (
-    <Switch fallback={children(() => props.children(todayFlow))()}>
-      <Match when={flow.isPending}>
+    <Switch
+      fallback={children(() => props.children(todayFlow, wave.data ?? []))()}
+    >
+      <Match when={flow.isPending || wave.isPending}>
         <></>
       </Match>
       <Match when={todayFlow().length === 0}>

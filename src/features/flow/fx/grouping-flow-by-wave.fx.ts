@@ -1,17 +1,21 @@
 import { FlowType } from '~/entities/flow';
+import { WaveType } from '~/entities/wave';
 
-export const groupingFlowByWave = (flows: FlowType.GetFlowResponse) => {
+export const groupingFlowByWave = (
+  flows: FlowType.GetFlowResponse,
+  _wave: WaveType.GetWaveResponse
+) => {
   const registeredFlowIds: string[] = [];
+
+  const wave = ['None Wave', ..._wave.map((it) => it.name)];
 
   const result: {
     wave: string;
     flows: FlowType.GetFlowResponse;
-  }[] = [
-    {
-      wave: 'None Wave',
-      flows: [],
-    },
-  ];
+  }[] = wave.map((wave) => ({
+    wave,
+    flows: [],
+  }));
 
   for (const flow of flows) {
     const wave = flow.wave[0]?.name ?? 'None Wave';
@@ -29,5 +33,5 @@ export const groupingFlowByWave = (flows: FlowType.GetFlowResponse) => {
     registeredFlowIds.push(flow.id);
   }
 
-  return result;
+  return result.filter((it) => it.flows.length !== 0);
 };
