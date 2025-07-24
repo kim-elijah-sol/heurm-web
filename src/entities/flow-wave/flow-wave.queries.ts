@@ -15,7 +15,7 @@ export const postFlowWaveMutation = (
   }));
 
 export const deleteFlowWaveMutation = (
-  onSuccess: (
+  onSuccess?: (
     data: Awaited<ReturnType<typeof flowWaveApi.deleteFlowWave>>
   ) => void
 ) =>
