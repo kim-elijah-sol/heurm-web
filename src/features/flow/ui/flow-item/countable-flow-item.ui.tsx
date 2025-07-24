@@ -10,9 +10,10 @@ import {
 import { historyQueries, HistoryType } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
+import { EditFlowPanel } from '~/panel-pages/edit-flow-panel';
 import { FLOW_BG_300, FLOW_BG_500, FLOW_STROKE_200 } from '~/shared/constant';
 import { getMidnight, getRandomItem } from '~/shared/fx';
-import { createBoolean } from '~/shared/hook';
+import { createBoolean, createLongPress } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type {
   FlowColor,
@@ -53,7 +54,16 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   const { current } = createDateSelect();
 
-  const [isBluredPanelShow, open, close] = createBluredPanelShow();
+  const [isCTAPanelOpened, openCTAPanel, closeCTAPanel] =
+    createBluredPanelShow();
+
+  const [isEditFlowPanelOpened, openEditFlowPanel, closeEditFlowPanel] =
+    createBoolean();
+
+  const { onTouchStart, onTouchEnd } = createLongPress({
+    onClick: openCTAPanel,
+    onLongPress: openEditFlowPanel,
+  });
 
   const [scaling, animStart, animEnd] = createBoolean();
 
@@ -170,7 +180,10 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   return (
     <FlowItemColorContext.Provider value={color()}>
-      <FlowItemComponent.Wrapper onClick={open}>
+      <FlowItemComponent.Wrapper
+        on:touchstart={onTouchStart}
+        on:touchend={onTouchEnd}
+      >
         <FlowItemComponent.StatusBg
           isFill={() => (currentHistory()?.count ?? null) !== null}
           isPale={() => serverFlowResult() === false}
@@ -206,9 +219,9 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
             </div>
           </FlowItemComponent.Main>
         </FlowItemComponent.Content>
-        {isBluredPanelShow() && (
+        {isCTAPanelOpened() && (
           <CTAPanel
-            close={close}
+            close={closeCTAPanel}
             type={type}
             accumulateType={accumulateType}
             stackedCountExceptCurrent={stackedCountExceptCurrent}
@@ -217,6 +230,9 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
             color={color}
             onCTA={handleClickCTA}
           />
+        )}
+        {isEditFlowPanelOpened() && (
+          <EditFlowPanel close={closeEditFlowPanel} flow={flow} />
         )}
       </FlowItemComponent.Wrapper>
     </FlowItemColorContext.Provider>
