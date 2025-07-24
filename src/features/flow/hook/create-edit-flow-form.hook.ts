@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/solid-query';
 import { format } from 'date-fns';
 import { createEffect, createSignal, type Accessor } from 'solid-js';
 import {
@@ -22,8 +21,6 @@ import type {
 export const createEditFlowForm = (
   flow: Accessor<FlowTypes.GetFlowResponseItem>
 ) => {
-  const queryClient = useQueryClient();
-
   const patchFlow = flowQueries.patchFlowMutation();
 
   const [name, handleInputName] = createInput(flow().name);
@@ -95,19 +92,8 @@ export const createEditFlowForm = (
     flow().accumulateType ?? 'DAILY'
   );
 
-  const accumulateTypes = (): FlowIntervalType[] => {
-    const result: FlowIntervalType[] = ['DAILY'];
-
-    const step = flowConstant.INTERVAL_TYPES.indexOf(intervalType());
-
-    if (step >= 1) result.push('WEEKLY');
-    if (step >= 2) result.push('MONTHLY');
-    if (step >= 3) result.push('YEARLY');
-
-    return result;
-  };
-
-  const accumulateTypeStep = () => accumulateTypes().indexOf(accumulateType());
+  const accumulateTypeStep = () =>
+    flowConstant.INTERVAL_TYPES.indexOf(accumulateType());
 
   const [startAt, setStartAt] = createSignal<Nullable<Date>>(
     getMidnight(flow().startAt)
@@ -144,7 +130,7 @@ export const createEditFlowForm = (
   createEffect(() => {
     if (accumulateTypeStep() === -1) {
       setAccumulateType(
-        flowConstant.INTERVAL_TYPES[accumulateTypes().length - 1]
+        flowConstant.INTERVAL_TYPES[flowConstant.INTERVAL_TYPES.length - 1]
       );
     }
   });
@@ -164,7 +150,7 @@ export const createEditFlowForm = (
 
   const handleSave = async () => {
     const request: FlowTypes.PatchFlowRequest = {
-      id: flow().id,
+      flowId: flow().id,
       color: color(),
       name: name(),
       type: type(),
@@ -248,14 +234,6 @@ export const createEditFlowForm = (
     }
 
     await patchFlow.mutateAsync(request);
-
-    queryClient.invalidateQueries({
-      queryKey: ['getFlow'],
-    });
-
-    queryClient.invalidateQueries({
-      queryKey: ['getHistory', flow().id],
-    });
   };
 
   return {
@@ -299,7 +277,6 @@ export const createEditFlowForm = (
     setAccumulate,
     accumulateType,
     setAccumulateType,
-    accumulateTypes,
     accumulateTypeStep,
     startAt,
     setStartAt,
