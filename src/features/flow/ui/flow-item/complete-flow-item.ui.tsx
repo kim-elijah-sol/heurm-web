@@ -4,9 +4,10 @@ import { createSignal, type Component } from 'solid-js';
 import { historyQueries } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
 import { createDateSelect } from '~/features/main/hook';
+import { EditFlowPanel } from '~/panel-pages/edit-flow-panel';
 import { FLOW_STROKE_200 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
-import { createBoolean } from '~/shared/hook';
+import { createBoolean, createLongPress } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor } from '~/shared/types';
 import { Check, Loader, Panel, X } from '~/shared/ui';
@@ -31,7 +32,16 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
 
   const { current } = createDateSelect();
 
-  const [isBluredPanelShow, open, close] = createBluredPanelShow();
+  const [isCTAPanelOpened, openCTAPanel, closeCTAPanel] =
+    createBluredPanelShow();
+
+  const [isEditFlowPanelOpened, openEditFlowPanel, closeEditFlowPanel] =
+    createBoolean();
+
+  const { onTouchStart, onTouchEnd } = createLongPress({
+    onClick: openCTAPanel,
+    onLongPress: openEditFlowPanel,
+  });
 
   const [scaling, animStart, animEnd] = createBoolean();
 
@@ -88,7 +98,10 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
 
   return (
     <FlowItemColorContext.Provider value={color()}>
-      <FlowItemComponent.Wrapper onClick={open}>
+      <FlowItemComponent.Wrapper
+        on:touchstart={onTouchStart}
+        on:touchend={onTouchEnd}
+      >
         <FlowItemComponent.StatusBg
           isFill={() => isCompleted() !== null}
           isPale={() => isCompleted() === false}
@@ -111,8 +124,11 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
           </FlowItemComponent.Main>
         </FlowItemComponent.Content>
 
-        {isBluredPanelShow() && (
-          <CTAPanel close={close} onCTA={handleClickCTA} />
+        {isCTAPanelOpened() && (
+          <CTAPanel close={closeCTAPanel} onCTA={handleClickCTA} />
+        )}
+        {isEditFlowPanelOpened() && (
+          <EditFlowPanel close={closeEditFlowPanel} flow={flow} />
         )}
       </FlowItemComponent.Wrapper>
     </FlowItemColorContext.Provider>
