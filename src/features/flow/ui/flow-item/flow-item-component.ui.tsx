@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor, type Component, type JSX } from 'solid-js';
+import { Accessor, splitProps, type Component, type JSX } from 'solid-js';
 import {
   FLOW_BG_500,
   FLOW_BG_500_10,
@@ -8,22 +8,21 @@ import {
 } from '~/shared/constant';
 import { useFlowItemColor } from '../../hook';
 
-type WrapperProps = {
-  onClick: () => void;
-  children: JSX.Element;
-};
+type WrapperProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'>;
 
-const Wrapper: Component<WrapperProps> = (props) => {
+const Wrapper: Component<WrapperProps> = (_props) => {
+  const [local, props] = splitProps(_props, ['children']);
+
   const color = useFlowItemColor();
 
   return (
     <div
-      onClick={props.onClick}
       class={clsx(
         'px-4 py-3 rounded-[28px] transition-all active:scale-95 relative overflow-hidden bg-white'
       )}
+      {...props}
     >
-      {props.children}
+      {local.children}
 
       <div
         class={clsx(
