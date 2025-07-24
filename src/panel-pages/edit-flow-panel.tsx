@@ -1,6 +1,16 @@
+import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
-import { Match, Show, Switch, type Accessor, type Component } from 'solid-js';
+import {
+  createSignal,
+  Match,
+  Show,
+  Switch,
+  type Accessor,
+  type Component,
+} from 'solid-js';
 import { flowConstant, type FlowType } from '~/entities/flow';
+import { flowWaveQueries } from '~/entities/flow-wave';
+import { waveQueries } from '~/entities/wave';
 import { createEditFlowForm } from '~/features/flow/hook';
 import {
   FlowPanelDatePicker,
@@ -10,13 +20,16 @@ import {
   FlowPanelWeeklyPatternSelect,
   FlowPanelYearlyPatternSelect,
 } from '~/features/flow/ui';
+import { NewWaveButton, WaveItem, WaveList } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { toast } from '~/shared/lib';
+import { Nullable } from '~/shared/types';
 import {
   Check,
   CheckCheck,
   ChevronsDown,
   ChevronsUp,
+  FlowColorSelect,
   MoveRight,
   Panel,
   X,
@@ -30,6 +43,8 @@ type Props = {
 export const EditFlowPanel: Component<Props> = (props) => {
   const inputBaseClassName =
     'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
+
+  const queryClient = useQueryClient();
 
   const {
     name,
@@ -72,7 +87,6 @@ export const EditFlowPanel: Component<Props> = (props) => {
     setAccumulate,
     accumulateType,
     setAccumulateType,
-    accumulateTypes,
     accumulateTypeStep,
     startAt,
     setStartAt,
@@ -128,6 +142,24 @@ export const EditFlowPanel: Component<Props> = (props) => {
     </>
   );
 
+  const wave = waveQueries.getWaveQuery();
+
+  const defaultSelectedWaveId = props.flow().wave.length
+    ? props.flow().wave[0].id
+    : null;
+
+  const [selectedWave, setSelectedWave] = createSignal<Nullable<string>>(
+    defaultSelectedWaveId
+  );
+
+  const handleClickWaveItem = (id: string) => {
+    setSelectedWave(selectedWave() === id ? null : id);
+  };
+
+  const postFlowWave = flowWaveQueries.postFlowWaveMutation();
+
+  const deleteFlowWave = flowWaveQueries.deleteFlowWaveMutation();
+
   return (
     <Panel.Slide close={props.close} class='px-0'>
       {(close) => (
@@ -142,6 +174,11 @@ export const EditFlowPanel: Component<Props> = (props) => {
             </button>
           </div>
           <div class='overflow-y-auto items-center pb-20 pt-[72px] px-4'>
+            <FlowColorSelect
+              color={color}
+              setColor={setColor}
+              className='mb-6'
+            />
             <FlowPanelForm.Wrapper>
               <FlowPanelForm.Label>Name</FlowPanelForm.Label>
               <input
@@ -259,7 +296,7 @@ export const EditFlowPanel: Component<Props> = (props) => {
 
                 <Show when={accumulate()}>
                   <FlowPanelRadio step={accumulateTypeStep}>
-                    {accumulateTypes().map((it) => (
+                    {flowConstant.INTERVAL_TYPES.map((it) => (
                       <FlowPanelRadio.Item
                         color={color}
                         checked={() => accumulateType() === it}
@@ -385,6 +422,31 @@ export const EditFlowPanel: Component<Props> = (props) => {
             <FlowPanelForm.Divider />
 
             <FlowPanelForm.Wrapper>
+              <div>
+                <FlowPanelForm.Label>Wave</FlowPanelForm.Label>
+                <FlowPanelForm.Description>
+                  Select a Wave to organize your Flow.
+                </FlowPanelForm.Description>
+              </div>
+
+              <WaveList>
+                {wave.data?.map((wave) => (
+                  <WaveItem
+                    color={color}
+                    selected={() => selectedWave() === wave.id}
+                    onClick={() => handleClickWaveItem(wave.id)}
+                  >
+                    {wave.name}
+                  </WaveItem>
+                ))}
+
+                <NewWaveButton color={color} />
+              </WaveList>
+            </FlowPanelForm.Wrapper>
+
+            <FlowPanelForm.Divider />
+
+            <FlowPanelForm.Wrapper>
               <FlowPanelForm.Label>Period</FlowPanelForm.Label>
 
               <div class='flex items-center justify-between gap-4 relative'>
@@ -405,6 +467,28 @@ export const EditFlowPanel: Component<Props> = (props) => {
             disabled={disabled()}
             onClick={async () => {
               await handleSave();
+
+              if (selectedWave() !== defaultSelectedWaveId) {
+                const flowId = props.flow().id;
+
+                if (defaultSelectedWaveId !== null) {
+                  await deleteFlowWave.mutateAsync({
+                    flowId,
+                    waveId: defaultSelectedWaveId,
+                  });
+                }
+
+                if (selectedWave()) {
+                  await postFlowWave.mutateAsync({
+                    flowId,
+                    waveId: selectedWave()!,
+                  });
+                }
+              }
+
+              queryClient.invalidateQueries({
+                queryKey: ['getFlow'],
+              });
 
               close();
 
