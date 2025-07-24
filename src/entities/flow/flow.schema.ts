@@ -61,7 +61,7 @@ export const postFlowResponseSchema = z.object({
 });
 
 export const patchFlowRequestSchema = postFlowRequestSchema.extend({
-  id: z.string(),
+  flowId: z.string(),
 });
 
 export const patchFlowResponseSchema = z.object({
