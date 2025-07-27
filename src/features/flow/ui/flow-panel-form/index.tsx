@@ -30,4 +30,14 @@ export const FlowPanelForm = {
       </p>
     );
   },
+  DeleteButton: (props: { onClick: () => void }) => {
+    return (
+      <button
+        onClick={props.onClick}
+        class='font-semibold float-right text-slate-300 py-1 px-2 rounded-[14px] transition-all duration-300 active:bg-slate-100 active:scale-90'
+      >
+        Delete
+      </button>
+    );
+  },
 };

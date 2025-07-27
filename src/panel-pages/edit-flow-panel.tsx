@@ -23,9 +23,12 @@ import {
 } from '~/features/flow/ui';
 import { NewWaveButton, WaveItem, WaveList } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
+import { delay } from '~/shared/fx';
+import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { Nullable } from '~/shared/types';
 import {
+  BottomSheet,
   Check,
   CheckCheck,
   ChevronsDown,
@@ -157,9 +160,17 @@ export const EditFlowPanel: Component<Props> = (props) => {
     setSelectedWave(selectedWave() === id ? null : id);
   };
 
+  const deleteFlow = flowQueries.deleteFlowMutation();
+
   const postFlowWave = flowWaveQueries.postFlowWaveMutation();
 
   const deleteFlowWave = flowWaveQueries.deleteFlowWaveMutation();
+
+  const [
+    isDeleteBottomSheetOpened,
+    openDeleteBottomSheet,
+    closeDeleteBottomSheet,
+  ] = createBoolean();
 
   return (
     <Panel.Slide close={props.close} class='px-0'>
@@ -461,6 +472,65 @@ export const EditFlowPanel: Component<Props> = (props) => {
                 />
               </div>
             </FlowPanelForm.Wrapper>
+
+            <FlowPanelForm.DeleteButton onClick={openDeleteBottomSheet} />
+
+            {isDeleteBottomSheetOpened() && (
+              <BottomSheet close={closeDeleteBottomSheet}>
+                {(closeDeleteBottomSheet) => (
+                  <>
+                    <div class='flex justify-between items-center mb-4'>
+                      <p class='font-semibold text-xl'>
+                        Delete {props.flow().name}
+                      </p>
+                      <button
+                        onClick={closeDeleteBottomSheet}
+                        class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
+                      >
+                        <X size={24} />
+                      </button>
+                    </div>
+
+                    <p class='font-semibold text-lg mb-2'>Are You Sure?</p>
+
+                    <p class='font-medium text-sm text-slate-500'>
+                      Are you sure you want to delete this flow?
+                      <br />
+                      This action cannot be undone, and all related historys
+                      will be permanently removed.
+                    </p>
+
+                    <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white my-4' />
+
+                    <button
+                      disabled={disabled()}
+                      class='w-full text-white font-semibold py-4 rounded-[24px] bg-slate-300 transition-all active:scale-95 active:bg-slate-400'
+                      onClick={async () => {
+                        await deleteFlow.mutateAsync({
+                          flowId: props.flow().id,
+                        });
+
+                        closeDeleteBottomSheet();
+
+                        await delay(300);
+
+                        close();
+
+                        await delay(300);
+
+                        queryClient.invalidateQueries({
+                          queryKey: flowQueries.keys.get.queryKey,
+                        });
+
+                        toast.open(`${props.flow().name} is deleted.`);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+              </BottomSheet>
+            )}
           </div>
 
           <Panel.CTAButton
