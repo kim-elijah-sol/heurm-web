@@ -9,7 +9,7 @@ import {
   FLOW_DAY,
   FLOW_TEXT_500,
 } from '~/shared/constant';
-import { FlowColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
 
 type Props = {

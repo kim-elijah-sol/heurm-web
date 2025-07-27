@@ -1,5 +1,5 @@
 import { https } from '~/shared/lib';
-import { resetPasswordSchema, ResetPasswordType } from '.';
+import { resetPasswordSchema, type ResetPasswordType } from '.';
 
 export const postVerifyEmailSend = (
   body: ResetPasswordType.PostVerifyEmailSendRequest

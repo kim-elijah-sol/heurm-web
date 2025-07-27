@@ -1,5 +1,5 @@
 import { https } from '~/shared/lib';
-import { loginSchema, LoginType } from '.';
+import { loginSchema, type LoginType } from '.';
 
 export const postLogin = async (request: LoginType.PostLoginRequest) =>
   https

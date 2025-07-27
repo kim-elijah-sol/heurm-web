@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { createSignal, For, type Accessor, type Component } from 'solid-js';
 import { FLOW_ACTIVE_BG_500, FLOW_BG_400 } from '~/shared/constant';
 import { getRange } from '~/shared/fx';
-import { FlowColor } from '~/shared/types';
+import type { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
 import { getWeekWriting } from '../../fx';
 

@@ -1,6 +1,6 @@
 import { Accessor, children, For, Match, Switch, type JSX } from 'solid-js';
-import { flowQueries, FlowType } from '~/entities/flow';
-import { waveQueries, WaveType } from '~/entities/wave';
+import { flowQueries, type FlowType } from '~/entities/flow';
+import { waveQueries, type WaveType } from '~/entities/wave';
 import { filterValidFlow, groupingFlowByWave } from '~/features/flow/fx';
 import { FlowItem, NoFlow } from '~/features/flow/ui';
 import { createDateSelect } from '~/features/main/hook';

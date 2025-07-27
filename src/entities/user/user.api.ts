@@ -1,5 +1,5 @@
 import { https } from '~/shared/lib';
-import { userSchema, UserType } from '.';
+import { userSchema, type UserType } from '.';
 
 export const getUserProfile = () =>
   https

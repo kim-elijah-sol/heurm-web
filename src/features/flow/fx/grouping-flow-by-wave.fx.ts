@@ -1,5 +1,5 @@
-import { FlowType } from '~/entities/flow';
-import { WaveType } from '~/entities/wave';
+import { type FlowType } from '~/entities/flow';
+import { type WaveType } from '~/entities/wave';
 
 export const groupingFlowByWave = (
   flows: FlowType.GetFlowResponse,

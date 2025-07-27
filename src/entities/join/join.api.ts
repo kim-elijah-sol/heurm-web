@@ -1,5 +1,5 @@
 import { https } from '~/shared/lib';
-import { joinSchema, JoinType } from '.';
+import { joinSchema, type JoinType } from '.';
 
 export const postVerifyEmailSend = (
   body: JoinType.PostVerifyEmailSendRequest

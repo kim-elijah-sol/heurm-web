@@ -24,7 +24,7 @@ import {
 import { NewWaveButton, WaveItem, WaveList } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { toast } from '~/shared/lib';
-import { Nullable } from '~/shared/types';
+import type { Nullable } from '~/shared/types';
 import {
   Check,
   CheckCheck,
