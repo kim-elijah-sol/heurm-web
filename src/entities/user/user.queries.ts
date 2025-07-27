@@ -1,6 +1,6 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { useMutation, useQuery } from '@tanstack/solid-query';
-import { deleteLogout, getUserProfile, patchUserProfile } from './user.api';
+import { userApi } from '.';
 
 export const keys = createQueryKeys('user', {
   getUserProfile: ['getUserProfile'],
@@ -11,23 +11,25 @@ export const keys = createQueryKeys('user', {
 export const getUserProfileQuery = () =>
   useQuery(() => ({
     queryKey: keys.getUserProfile.queryKey,
-    queryFn: getUserProfile,
+    queryFn: userApi.getUserProfile,
   }));
 
 export const patchUserProfileMutation = (
-  onSuccess: (data: Awaited<ReturnType<typeof patchUserProfile>>) => void
+  onSuccess: (
+    data: Awaited<ReturnType<typeof userApi.patchUserProfile>>
+  ) => void
 ) =>
   useMutation(() => ({
     mutationKey: keys.patchUserProfile.queryKey,
-    mutationFn: patchUserProfile,
+    mutationFn: userApi.patchUserProfile,
     onSuccess,
   }));
 
 export const logoutMutation = (
-  onSuccess: (data: Awaited<ReturnType<typeof deleteLogout>>) => void
+  onSuccess: (data: Awaited<ReturnType<typeof userApi.deleteLogout>>) => void
 ) =>
   useMutation(() => ({
     mutationKey: keys.deleteLogout.queryKey,
-    mutationFn: deleteLogout,
+    mutationFn: userApi.deleteLogout,
     onSuccess,
   }));

@@ -1,24 +1,22 @@
 import { z } from 'zod';
-import {
-  deleteLogoutRequestSchema,
-  deleteLogoutResponseSchema,
-  getUserProfileResponseSchema,
-  patchUserProfileRequestSchema,
-  patchUserProfileResponseSchema,
-} from './user.schema';
+import { userSchema } from '.';
 
 export type GetUserProfileResponse = z.infer<
-  typeof getUserProfileResponseSchema
+  typeof userSchema.getUserProfileResponseSchema
 >;
 
 export type PatchUserProfileRequest = z.infer<
-  typeof patchUserProfileRequestSchema
+  typeof userSchema.patchUserProfileRequestSchema
 >;
 
 export type PatchUserProfileResponse = z.infer<
-  typeof patchUserProfileResponseSchema
+  typeof userSchema.patchUserProfileResponseSchema
 >;
 
-export type DeleteLogoutRequest = z.infer<typeof deleteLogoutRequestSchema>;
+export type DeleteLogoutRequest = z.infer<
+  typeof userSchema.deleteLogoutRequestSchema
+>;
 
-export type DeleteLogoutResponse = z.infer<typeof deleteLogoutResponseSchema>;
+export type DeleteLogoutResponse = z.infer<
+  typeof userSchema.deleteLogoutResponseSchema
+>;
