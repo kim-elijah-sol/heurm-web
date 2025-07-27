@@ -21,7 +21,7 @@ export const CTAButton: Component<Props> = (props) => {
       <button
         disabled={disabled()}
         class={clsx(
-          'w-full text-white font-semibold h-12 rounded-[12px] transition-all active:scale-95 disabled:active:scale-100 disabled:bg-gray-300 disabled:active:bg-gray-300',
+          'w-full text-white font-semibold py-3.5 text-lg rounded-[24px] transition-all active:scale-95 disabled:active:scale-100 disabled:bg-gray-300 disabled:active:bg-gray-300',
           FLOW_BG_400[local.color()],
           FLOW_ACTIVE_BG_500[local.color()]
         )}
