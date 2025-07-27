@@ -1,6 +1,12 @@
+import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { useMutation } from '@tanstack/solid-query';
 import { toastAtError } from '~/shared/fx';
 import { flowWaveApi } from '.';
+
+export const keys = createQueryKeys('flow-wave', {
+  post: ['post'],
+  delete: ['delete'],
+});
 
 export const postFlowWaveMutation = (
   onSuccess?: (
@@ -8,7 +14,7 @@ export const postFlowWaveMutation = (
   ) => void
 ) =>
   useMutation(() => ({
-    mutationKey: ['postFlowWave'],
+    mutationKey: keys.post.queryKey,
     mutationFn: flowWaveApi.postFlowWave,
     onSuccess,
     onError: (error) => toastAtError(error),
@@ -20,7 +26,7 @@ export const deleteFlowWaveMutation = (
   ) => void
 ) =>
   useMutation(() => ({
-    mutationKey: ['deleteFlowWave'],
+    mutationKey: keys.delete.queryKey,
     mutationFn: flowWaveApi.deleteFlowWave,
     onSuccess,
     onError: (error) => toastAtError(error),
