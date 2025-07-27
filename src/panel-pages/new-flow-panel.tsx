@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
 import { createSignal, Match, Show, Switch, type Component } from 'solid-js';
-import { flowConstant } from '~/entities/flow';
+import { flowConstant, flowQueries } from '~/entities/flow';
 import { flowWaveQueries } from '~/entities/flow-wave';
 import { waveQueries } from '~/entities/wave';
 import { createNewFlowForm } from '~/features/flow/hook';
@@ -460,7 +460,7 @@ export const NewFlowPanel: Component<Props> = (props) => {
               }
 
               queryClient.invalidateQueries({
-                queryKey: ['getFlow'],
+                queryKey: flowQueries.keys.get.queryKey,
               });
 
               close();

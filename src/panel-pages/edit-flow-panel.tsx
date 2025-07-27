@@ -8,7 +8,7 @@ import {
   type Accessor,
   type Component,
 } from 'solid-js';
-import { flowConstant, type FlowType } from '~/entities/flow';
+import { flowConstant, flowQueries, type FlowType } from '~/entities/flow';
 import { flowWaveQueries } from '~/entities/flow-wave';
 import { waveQueries } from '~/entities/wave';
 import { createEditFlowForm } from '~/features/flow/hook';
@@ -489,7 +489,7 @@ export const EditFlowPanel: Component<Props> = (props) => {
               }
 
               queryClient.invalidateQueries({
-                queryKey: ['getFlow'],
+                queryKey: flowQueries.keys.get.queryKey,
               });
 
               if (isTypeChanged) {
