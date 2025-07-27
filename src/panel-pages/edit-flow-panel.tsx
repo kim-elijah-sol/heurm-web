@@ -466,6 +466,8 @@ export const EditFlowPanel: Component<Props> = (props) => {
             color={color}
             disabled={disabled()}
             onClick={async () => {
+              const isTypeChanged = type() !== props.flow().type;
+
               await handleSave();
 
               if (selectedWave() !== defaultSelectedWaveId) {
@@ -489,6 +491,12 @@ export const EditFlowPanel: Component<Props> = (props) => {
               queryClient.invalidateQueries({
                 queryKey: ['getFlow'],
               });
+
+              if (isTypeChanged) {
+                queryClient.invalidateQueries({
+                  queryKey: ['getHistory', props.flow().id],
+                });
+              }
 
               close();
 
