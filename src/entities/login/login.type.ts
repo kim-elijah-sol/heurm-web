@@ -1,9 +1,10 @@
 import { z } from 'zod';
-import {
-  postLoginRequestSchema,
-  postLoginResponseSchema,
-} from './login.schema';
+import { loginSchema } from '.';
 
-export type PostLoginRequest = z.infer<typeof postLoginRequestSchema>;
+export type PostLoginRequest = z.infer<
+  typeof loginSchema.postLoginRequestSchema
+>;
 
-export type PostLoginResponse = z.infer<typeof postLoginResponseSchema>;
+export type PostLoginResponse = z.infer<
+  typeof loginSchema.postLoginResponseSchema
+>;
