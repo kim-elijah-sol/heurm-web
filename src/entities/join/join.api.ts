@@ -1,29 +1,22 @@
 import { https } from '~/shared/lib';
-import {
-  postJoinResponseSchema,
-  postVerifyEmailResponseSchema,
-  postVerifyEmailSendResponseSchema,
-} from './join.schema';
-import type {
-  PostJoinRequest,
-  PostJoinResponse,
-  PostVerifyEmailRequest,
-  PostVerifyEmailResponse,
-  PostVerifyEmailSendRequest,
-  PostVerifyEmailSendResponse,
-} from './join.type';
+import { joinSchema, JoinType } from '.';
 
-export const postVerifyEmailSend = (body: PostVerifyEmailSendRequest) =>
+export const postVerifyEmailSend = (
+  body: JoinType.PostVerifyEmailSendRequest
+) =>
   https
-    .post<PostVerifyEmailSendResponse>('/user/join/verify-email-send', body)
-    .then(https.validateResponse(postVerifyEmailSendResponseSchema));
+    .post<JoinType.PostVerifyEmailSendResponse>(
+      '/user/join/verify-email-send',
+      body
+    )
+    .then(https.validateResponse(joinSchema.postVerifyEmailSendResponseSchema));
 
-export const postVerifyEmail = (body: PostVerifyEmailRequest) =>
+export const postVerifyEmail = (body: JoinType.PostVerifyEmailRequest) =>
   https
-    .post<PostVerifyEmailResponse>('/user/join/verify-email', body)
-    .then(https.validateResponse(postVerifyEmailResponseSchema));
+    .post<JoinType.PostVerifyEmailResponse>('/user/join/verify-email', body)
+    .then(https.validateResponse(joinSchema.postVerifyEmailResponseSchema));
 
-export const postJoin = (body: PostJoinRequest) =>
+export const postJoin = (body: JoinType.PostJoinRequest) =>
   https
-    .post<PostJoinResponse>('/user/join', body)
-    .then(https.validateResponse(postJoinResponseSchema));
+    .post<JoinType.PostJoinResponse>('/user/join', body)
+    .then(https.validateResponse(joinSchema.postJoinResponseSchema));
