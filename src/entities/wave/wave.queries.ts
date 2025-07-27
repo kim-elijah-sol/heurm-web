@@ -1,10 +1,18 @@
+import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { useMutation, useQuery } from '@tanstack/solid-query';
 import { toastAtError } from '~/shared/fx';
 import { waveApi } from '.';
 
+export const keys = createQueryKeys('wave', {
+  get: ['get'],
+  post: ['post'],
+  patch: ['patch'],
+  delete: ['delete'],
+});
+
 export const getWaveQuery = () =>
   useQuery(() => ({
-    queryKey: ['getWave'],
+    queryKey: keys.get.queryKey,
     queryFn: () => waveApi.getWave(),
   }));
 
@@ -12,7 +20,7 @@ export const postWaveMutation = (
   onSuccess?: (data: Awaited<ReturnType<typeof waveApi.postWave>>) => void
 ) =>
   useMutation(() => ({
-    mutationKey: ['postWave'],
+    mutationKey: keys.post.queryKey,
     mutationFn: waveApi.postWave,
     onSuccess,
     onError: (error) => toastAtError(error),
@@ -22,7 +30,7 @@ export const patchWaveMutation = (
   onSuccess?: (data: Awaited<ReturnType<typeof waveApi.patchWave>>) => void
 ) =>
   useMutation(() => ({
-    mutationKey: ['patchWave'],
+    mutationKey: keys.patch.queryKey,
     mutationFn: waveApi.patchWave,
     onSuccess,
     onError: (error) => toastAtError(error),
@@ -32,7 +40,7 @@ export const deleteWaveMutation = (
   onSuccess?: (data: Awaited<ReturnType<typeof waveApi.deleteWave>>) => void
 ) =>
   useMutation(() => ({
-    mutationKey: ['deleteWave'],
+    mutationKey: keys.delete.queryKey,
     mutationFn: waveApi.deleteWave,
     onSuccess,
     onError: (error) => toastAtError(error),
