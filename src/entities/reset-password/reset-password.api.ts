@@ -1,32 +1,42 @@
 import { https } from '~/shared/lib';
-import {
-  patchResetPasswordResponseSchema,
-  postVerifyEmailResponseSchema,
-  postVerifyEmailSendResponseSchema,
-} from './reset-password.schema';
-import type {
-  PatchResetPasswordRequest,
-  PatchResetPasswordResponse,
-  PostVerifyEmailRequest,
-  PostVerifyEmailResponse,
-  PostVerifyEmailSendRequest,
-  PostVerifyEmailSendResponse,
-} from './reset-password.type';
+import { resetPasswordSchema, ResetPasswordType } from '.';
 
-export const postVerifyEmailSend = (body: PostVerifyEmailSendRequest) =>
+export const postVerifyEmailSend = (
+  body: ResetPasswordType.PostVerifyEmailSendRequest
+) =>
   https
-    .post<PostVerifyEmailSendResponse>(
+    .post<ResetPasswordType.PostVerifyEmailSendResponse>(
       '/user/reset-password/verify-email-send',
       body
     )
-    .then(https.validateResponse(postVerifyEmailSendResponseSchema));
+    .then(
+      https.validateResponse(
+        resetPasswordSchema.postVerifyEmailSendResponseSchema
+      )
+    );
 
-export const postVerifyEmail = (body: PostVerifyEmailRequest) =>
+export const postVerifyEmail = (
+  body: ResetPasswordType.PostVerifyEmailRequest
+) =>
   https
-    .post<PostVerifyEmailResponse>('/user/reset-password/verify-email', body)
-    .then(https.validateResponse(postVerifyEmailResponseSchema));
+    .post<ResetPasswordType.PostVerifyEmailResponse>(
+      '/user/reset-password/verify-email',
+      body
+    )
+    .then(
+      https.validateResponse(resetPasswordSchema.postVerifyEmailResponseSchema)
+    );
 
-export const patchResetPassword = (body: PatchResetPasswordRequest) =>
+export const patchResetPassword = (
+  body: ResetPasswordType.PatchResetPasswordRequest
+) =>
   https
-    .patch<PatchResetPasswordResponse>('/user/reset-password', body)
-    .then(https.validateResponse(patchResetPasswordResponseSchema));
+    .patch<ResetPasswordType.PatchResetPasswordResponse>(
+      '/user/reset-password',
+      body
+    )
+    .then(
+      https.validateResponse(
+        resetPasswordSchema.patchResetPasswordResponseSchema
+      )
+    );
