@@ -11,7 +11,7 @@ export const Input: Component<Props> = (props) => {
   return (
     <input
       class={clsx(
-        'font-semibold text-md py-3 px-4 rounded-[12px] bg-slate-100 transition-all duration-300 w-full focus:bg-slate-200',
+        'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400',
         local.class
       )}
       {...rest}
