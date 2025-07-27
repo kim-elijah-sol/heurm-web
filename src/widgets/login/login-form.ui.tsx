@@ -15,7 +15,7 @@ export const LoginForm = () => {
   const buttonBaseClassName = 'p-5 rounded-[42%] transition-all';
 
   const inputBaseClassName =
-    'font-semibold px-4 py-3 rounded-[12px] w-full transition-all bg-slate-100 focus:bg-slate-200';
+    'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
 
   return (
     <form
