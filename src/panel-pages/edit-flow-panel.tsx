@@ -10,6 +10,7 @@ import {
 } from 'solid-js';
 import { flowConstant, flowQueries, type FlowType } from '~/entities/flow';
 import { flowWaveQueries } from '~/entities/flow-wave';
+import { historyQueries } from '~/entities/history';
 import { waveQueries } from '~/entities/wave';
 import { createEditFlowForm } from '~/features/flow/hook';
 import {
@@ -494,7 +495,7 @@ export const EditFlowPanel: Component<Props> = (props) => {
 
               if (isTypeChanged) {
                 queryClient.invalidateQueries({
-                  queryKey: ['getHistory', props.flow().id],
+                  queryKey: historyQueries.keys.get(props.flow().id).queryKey,
                 });
               }
 
