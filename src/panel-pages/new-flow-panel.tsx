@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
-import { createSignal, Match, Show, Switch, type Component } from 'solid-js';
+import { Match, Show, Switch, type Component } from 'solid-js';
 import { flowConstant, flowQueries } from '~/entities/flow';
 import { flowWaveQueries } from '~/entities/flow-wave';
 import { waveQueries } from '~/entities/wave';
@@ -13,10 +13,10 @@ import {
   FlowPanelWeeklyPatternSelect,
   FlowPanelYearlyPatternSelect,
 } from '~/features/flow/ui';
+import { createSelectWave } from '~/features/wave/hook';
 import { NewWaveButton, WaveItem, WaveList } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { toast } from '~/shared/lib';
-import type { Nullable } from '~/shared/types';
 import {
   Check,
   CheckCheck,
@@ -134,11 +134,7 @@ export const NewFlowPanel: Component<Props> = (props) => {
 
   const wave = waveQueries.getWaveQuery();
 
-  const [selectedWave, setSelectedWave] = createSignal<Nullable<string>>(null);
-
-  const handleClickWaveItem = (id: string) => {
-    setSelectedWave(selectedWave() === id ? null : id);
-  };
+  const [selectedWave, handleClickWaveItem] = createSelectWave();
 
   const postFlowWave = flowWaveQueries.postFlowWaveMutation();
 

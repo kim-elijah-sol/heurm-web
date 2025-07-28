@@ -1,13 +1,6 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
-import {
-  createSignal,
-  Match,
-  Show,
-  Switch,
-  type Accessor,
-  type Component,
-} from 'solid-js';
+import { Match, Show, Switch, type Accessor, type Component } from 'solid-js';
 import { flowConstant, flowQueries, type FlowType } from '~/entities/flow';
 import { flowWaveQueries } from '~/entities/flow-wave';
 import { historyQueries } from '~/entities/history';
@@ -21,12 +14,12 @@ import {
   FlowPanelWeeklyPatternSelect,
   FlowPanelYearlyPatternSelect,
 } from '~/features/flow/ui';
+import { createSelectWave } from '~/features/wave/hook';
 import { NewWaveButton, WaveItem, WaveList } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { delay } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import type { Nullable } from '~/shared/types';
 import {
   BottomSheet,
   Check,
@@ -150,13 +143,9 @@ export const EditFlowPanel: Component<Props> = (props) => {
     ? props.flow().wave[0].id
     : null;
 
-  const [selectedWave, setSelectedWave] = createSignal<Nullable<string>>(
+  const [selectedWave, handleClickWaveItem] = createSelectWave(
     defaultSelectedWaveId
   );
-
-  const handleClickWaveItem = (id: string) => {
-    setSelectedWave(selectedWave() === id ? null : id);
-  };
 
   const deleteFlow = flowQueries.deleteFlowMutation();
 
