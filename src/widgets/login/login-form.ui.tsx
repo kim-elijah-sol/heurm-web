@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { createLoginForm } from '~/features/login/hook';
-import { Login } from '~/shared/ui';
+import { Input, Login } from '~/shared/ui';
 
 export const LoginForm = () => {
   const {
@@ -14,24 +14,19 @@ export const LoginForm = () => {
 
   const buttonBaseClassName = 'p-5 rounded-[42%] transition-all';
 
-  const inputBaseClassName =
-    'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
-
   return (
     <form
       onSubmit={handleSubmit}
       class='px-4 flex flex-col gap-4 w-full items-center'
     >
-      <input
+      <Input
         type='email'
-        class={inputBaseClassName}
         placeholder='email'
         value={email()}
         onInput={handleInputEmail}
       />
-      <input
+      <Input
         type='password'
-        class={inputBaseClassName}
         placeholder='password'
         value={password()}
         onInput={handleInputPassword}

@@ -34,6 +34,7 @@ import {
   ChevronsDown,
   ChevronsUp,
   FlowColorSelect,
+  Input,
   MoveRight,
   Panel,
   X,
@@ -45,9 +46,6 @@ type Props = {
 };
 
 export const EditFlowPanel: Component<Props> = (props) => {
-  const inputBaseClassName =
-    'font-semibold px-4 py-4 rounded-[24px] w-full transition-all bg-slate-100 focus:bg-slate-200 placeholder:text-gray-400';
-
   const queryClient = useQueryClient();
 
   const {
@@ -193,9 +191,8 @@ export const EditFlowPanel: Component<Props> = (props) => {
             />
             <FlowPanelForm.Wrapper>
               <FlowPanelForm.Label>Name</FlowPanelForm.Label>
-              <input
+              <Input
                 type='text'
-                class={inputBaseClassName}
                 value={name()}
                 onInput={handleInputName}
                 placeholder='Flow Name'
@@ -252,18 +249,18 @@ export const EditFlowPanel: Component<Props> = (props) => {
                   Target Count &nbsp;&&nbsp; Unit
                 </FlowPanelForm.Label>
                 <div class='flex w-full gap-2'>
-                  <input
+                  <Input
                     type='number'
                     pattern='[0-9]*'
                     inputMode='numeric'
-                    class={clsx(inputBaseClassName, 'flex-2')}
+                    class='flex-2'
                     placeholder='Target Count'
                     value={targetCount()}
                     onInput={handleInputTargetCount}
                   />
-                  <input
+                  <Input
                     type='text'
-                    class={clsx(inputBaseClassName, 'flex-1')}
+                    class='flex-1'
                     placeholder='Unit'
                     value={unit()}
                     onInput={handleInputUnit}
@@ -406,21 +403,19 @@ export const EditFlowPanel: Component<Props> = (props) => {
                   </p>
 
                   <div class='flex gap-2 flex-2'>
-                    <input
+                    <Input
                       type='number'
                       pattern='[0-9]*'
                       inputMode='numeric'
-                      class={inputBaseClassName}
                       placeholder={nRadioText().replace('Every', '')}
                       value={repeat()}
                       onInput={(e) => setRepeat(e.target.value)}
                     />
                     {repeatType() === 'NM' && (
-                      <input
+                      <Input
                         type='number'
                         pattern='[0-9]*'
                         inputMode='numeric'
-                        class={inputBaseClassName}
                         placeholder={restPlaceholderText()}
                         value={rest()}
                         onInput={(e) => setRest(e.target.value)}
