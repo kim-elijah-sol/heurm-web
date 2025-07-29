@@ -57,12 +57,9 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   const [isCTAPanelOpened, openCTAPanel, closeCTAPanel] =
     createBluredPanelShow();
 
-  const [isEditFlowPanelOpened, openEditFlowPanel, closeEditFlowPanel] =
-    createBoolean();
-
   const { onTouchStart, onTouchEnd } = createLongPress({
     onClick: openCTAPanel,
-    onLongPress: openEditFlowPanel,
+    onLongPress: () => EditFlowPanel.openEditFlowPanel(flow()),
   });
 
   const [scaling, animStart, animEnd] = createBoolean();
@@ -230,9 +227,6 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
             color={color}
             onCTA={handleClickCTA}
           />
-        )}
-        {isEditFlowPanelOpened() && (
-          <EditFlowPanel close={closeEditFlowPanel} flow={flow} />
         )}
       </FlowItemComponent.Wrapper>
     </FlowItemColorContext.Provider>

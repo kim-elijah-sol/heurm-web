@@ -1,6 +1,14 @@
 import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
-import { Match, Show, Switch, type Accessor, type Component } from 'solid-js';
+import {
+  createEffect,
+  createSignal,
+  Match,
+  Show,
+  Switch,
+  type Accessor,
+  type Component,
+} from 'solid-js';
 import { flowConstant, flowQueries, type FlowType } from '~/entities/flow';
 import { flowWaveQueries } from '~/entities/flow-wave';
 import { historyQueries } from '~/entities/history';
@@ -20,6 +28,7 @@ import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { delay } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
 import { toast } from '~/shared/lib';
+import type { Nullable } from '~/shared/types';
 import {
   BottomSheet,
   Check,
@@ -38,7 +47,7 @@ type Props = {
   flow: Accessor<FlowType.GetFlowResponseItem>;
 };
 
-export const EditFlowPanel: Component<Props> = (props) => {
+const _EditFlowPanel: Component<Props> = (props) => {
   const queryClient = useQueryClient();
 
   const {
@@ -566,3 +575,36 @@ export const EditFlowPanel: Component<Props> = (props) => {
     </Panel.Slide>
   );
 };
+
+const editFlowPanelState =
+  createSignal<Nullable<FlowType.GetFlowResponseItem>>(null);
+
+export const EditFlowPanel = Object.assign(_EditFlowPanel, {
+  Adapter: () => {
+    const [isOpened, open, _close] = createBoolean();
+
+    const flow = () => editFlowPanelState[0]();
+
+    const close = () => {
+      _close();
+      editFlowPanelState[1](null);
+    };
+
+    createEffect(() => {
+      if (flow() !== null) {
+        open();
+      }
+    });
+
+    return (
+      <Show when={isOpened() || flow()}>
+        <_EditFlowPanel
+          flow={flow as Accessor<FlowType.GetFlowResponseItem>}
+          close={close}
+        />
+      </Show>
+    );
+  },
+  openEditFlowPanel: (flow: FlowType.GetFlowResponseItem) =>
+    editFlowPanelState[1](flow),
+});
