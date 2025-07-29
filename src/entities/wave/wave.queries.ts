@@ -1,5 +1,6 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { useMutation, useQuery } from '@tanstack/solid-query';
+import { reconcile } from 'solid-js/store';
 import { toastAtError } from '~/shared/fx';
 import { waveApi } from '.';
 
@@ -14,6 +15,7 @@ export const getWaveQuery = () =>
   useQuery(() => ({
     queryKey: keys.get.queryKey,
     queryFn: () => waveApi.getWave(),
+    reconcile: (oldData, newData) => reconcile(newData)(oldData),
   }));
 
 export const postWaveMutation = (
