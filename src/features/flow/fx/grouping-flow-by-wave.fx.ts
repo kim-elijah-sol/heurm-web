@@ -3,35 +3,35 @@ import { type WaveType } from '~/entities/wave';
 
 export const groupingFlowByWave = (
   flows: FlowType.GetFlowResponse,
-  _wave: WaveType.GetWaveResponse
+  wave: WaveType.GetWaveResponse
 ) => {
-  const registeredFlowIds: string[] = [];
-
-  const wave = ['None Wave', ..._wave.map((it) => it.name)];
+  const waveIds = ['', ...wave.map((it) => it.id)];
 
   const result: {
-    wave: string;
+    waveId: string;
     flows: FlowType.GetFlowResponse;
-  }[] = wave.map((wave) => ({
-    wave,
+  }[] = waveIds.map((waveId) => ({
+    waveId,
     flows: [],
   }));
 
   for (const flow of flows) {
-    const wave = flow.wave[0]?.name ?? 'None Wave';
+    const waveId = flow.wave[0]?.id ?? '';
 
-    if (result.some((it) => it.wave === wave) === false) {
-      result.push({
-        wave,
-        flows: [],
-      });
-    }
-
-    const index = result.findIndex((it) => it.wave === wave);
+    const index = result.findIndex((it) => it.waveId === waveId);
 
     result[index].flows.push(flow);
-    registeredFlowIds.push(flow.id);
   }
 
-  return result.filter((it) => it.flows.length !== 0);
+  return result
+    .filter((it) => it.flows.length !== 0)
+    .map((it) => {
+      const waveName =
+        wave.find((wave) => wave.id === it.waveId)?.name ?? 'None Wave';
+
+      return {
+        wave: waveName,
+        flows: it.flows,
+      };
+    });
 };
