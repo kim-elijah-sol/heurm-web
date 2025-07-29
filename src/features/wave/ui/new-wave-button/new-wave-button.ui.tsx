@@ -27,7 +27,7 @@ export const NewWaveButton: Component<Props> = (props) => {
 
   const postWave = waveQueries.postWaveMutation(() => {
     queryClient.invalidateQueries({
-      queryKey: ['getWave'],
+      queryKey: waveQueries.keys.get.queryKey,
     });
   });
 
