@@ -410,6 +410,7 @@ export const NewFlowPanel: Component<Props> = (props) => {
                     color={color}
                     selected={() => selectedWave() === wave.id}
                     onClick={() => handleClickWaveItem(wave.id)}
+                    id={wave.id}
                   >
                     {wave.name}
                   </WaveItem>
