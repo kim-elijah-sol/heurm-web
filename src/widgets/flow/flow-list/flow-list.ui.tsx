@@ -1,4 +1,4 @@
-import { Accessor, children, For, Match, Switch, type JSX } from 'solid-js';
+import { Accessor, children, Index, Match, Switch, type JSX } from 'solid-js';
 import { flowQueries, type FlowType } from '~/entities/flow';
 import { waveQueries, type WaveType } from '~/entities/wave';
 import { filterValidFlow, groupingFlowByWave } from '~/features/flow/fx';
@@ -10,27 +10,27 @@ export const FlowList = () => {
     <FlowListSuspense>
       {(flows, wave) => (
         <div class='flex flex-col gap-5'>
-          <For each={groupingFlowByWave(flows(), wave)}>
+          <Index each={groupingFlowByWave(flows(), wave)}>
             {(group) => (
               <div>
-                <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
+                <p class='mb-2 font-semibold ml-2'>{group().wave}</p>
                 <div class='flex flex-col gap-3'>
-                  <For each={group.flows}>
+                  <Index each={group().flows}>
                     {(flow) => (
                       <Switch>
-                        <Match when={flow.type === 'COMPLETE'}>
-                          <FlowItem.Complete flow={() => flow} />
+                        <Match when={flow().type === 'COMPLETE'}>
+                          <FlowItem.Complete flow={flow} />
                         </Match>
-                        <Match when={flow.type !== 'COMPLETE'}>
-                          <FlowItem.Countable flow={() => flow} />
+                        <Match when={flow().type !== 'COMPLETE'}>
+                          <FlowItem.Countable flow={flow} />
                         </Match>
                       </Switch>
                     )}
-                  </For>
+                  </Index>
                 </div>
               </div>
             )}
-          </For>
+          </Index>
         </div>
       )}
     </FlowListSuspense>
