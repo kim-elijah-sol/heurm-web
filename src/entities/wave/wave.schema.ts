@@ -31,3 +31,11 @@ export const deleteWaveRequestSchema = z.object({
 export const deleteWaveResponseSchema = z.object({
   result: z.boolean(),
 });
+
+export const reorderWaveRequestSchema = z.object({
+  ids: z.array(z.string()),
+});
+
+export const reorderWaveResponseSchema = z.object({
+  result: z.boolean(),
+});

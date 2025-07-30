@@ -9,6 +9,7 @@ export const keys = createQueryKeys('wave', {
   post: ['post'],
   patch: ['patch'],
   delete: ['delete'],
+  reorder: ['reorder'],
 });
 
 export const getWaveQuery = () =>
@@ -44,6 +45,16 @@ export const deleteWaveMutation = (
   useMutation(() => ({
     mutationKey: keys.delete.queryKey,
     mutationFn: waveApi.deleteWave,
+    onSuccess,
+    onError: (error) => toastAtError(error),
+  }));
+
+export const reorderWaveMutation = (
+  onSuccess?: (data: Awaited<ReturnType<typeof waveApi.reorderWave>>) => void
+) =>
+  useMutation(() => ({
+    mutationKey: keys.reorder.queryKey,
+    mutationFn: waveApi.reorderWave,
     onSuccess,
     onError: (error) => toastAtError(error),
   }));

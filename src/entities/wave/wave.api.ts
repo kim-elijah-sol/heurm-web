@@ -20,3 +20,8 @@ export const deleteWave = (data: WaveType.DeleteWaveRequest) =>
   https
     .delete<WaveType.DeleteWaveResponse>('/wave', { data })
     .then(https.validateResponse(waveSchema.deleteWaveResponseSchema));
+
+export const reorderWave = (data: WaveType.ReorderWaveRequest) =>
+  https
+    .patch<WaveType.ReorderWaveResponse>('/wave/reorder', data)
+    .then(https.validateResponse(waveSchema.reorderWaveResponseSchema));

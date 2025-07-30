@@ -28,3 +28,11 @@ export type DeleteWaveRequest = z.infer<
 export type DeleteWaveResponse = z.infer<
   typeof waveSchema.deleteWaveResponseSchema
 >;
+
+export type ReorderWaveRequest = z.infer<
+  typeof waveSchema.reorderWaveRequestSchema
+>;
+
+export type ReorderWaveResponse = z.infer<
+  typeof waveSchema.reorderWaveResponseSchema
+>;
