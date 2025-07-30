@@ -1,3 +1,6 @@
+export * from './arrow-down-up.ui';
+export * from './arrow-down.ui';
+export * from './arrow-up.ui';
 export * from './calendar-range.ui';
 export * from './check-check.ui';
 export * from './check.ui';

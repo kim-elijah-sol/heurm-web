@@ -23,7 +23,12 @@ import {
   FlowPanelYearlyPatternSelect,
 } from '~/features/flow/ui';
 import { createSelectWave } from '~/features/wave/hook';
-import { NewWaveButton, WaveItem, WaveList } from '~/features/wave/ui';
+import {
+  NewWaveButton,
+  OrderWaveButton,
+  WaveItem,
+  WaveList,
+} from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { delay } from '~/shared/fx';
 import { createBoolean } from '~/shared/hook';
@@ -447,6 +452,9 @@ const _EditFlowPanel: Component<Props> = (props) => {
                 ))}
 
                 <NewWaveButton color={color} />
+                {(wave.data?.length ?? 0) > 0 && (
+                  <OrderWaveButton color={color} />
+                )}
               </WaveList>
             </FlowPanelForm.Wrapper>
 
