@@ -69,11 +69,11 @@ export const WeekCalendar: Component<Props> = (props) => {
     const endDate = new Date(lastDate);
     endDate.setDate(lastDate.getDate() + (6 - lastDate.getDay()));
 
-    const weeks: Array<Array<Date | null>> = [];
+    const weeks: Array<Array<Nullable<Date>>> = [];
     let current = new Date(startDate);
 
     while (current <= endDate) {
-      const week: Array<Date | null> = [];
+      const week: Array<Nullable<Date>> = [];
 
       for (let i = 0; i < 7; i++) {
         const dateCopy = getMidnight(current);

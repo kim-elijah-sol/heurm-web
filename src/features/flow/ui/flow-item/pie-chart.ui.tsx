@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { type Accessor, type Component } from 'solid-js';
 import { FLOW_STROKE_200, FLOW_STROKE_500 } from '~/shared/constant';
-import type { FlowColor } from '~/shared/types';
+import type { FlowColor, Nullable } from '~/shared/types';
 
 type Props = {
   percentage: Accessor<number>;
   color: Accessor<FlowColor>;
-  complete: Accessor<boolean | null>;
+  complete: Accessor<Nullable<boolean>>;
 };
 
 export const PieChart: Component<Props> = (props) => {

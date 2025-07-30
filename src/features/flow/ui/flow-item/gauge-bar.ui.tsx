@@ -5,13 +5,13 @@ import {
   FLOW_STROKE_500,
   FLOW_STROKE_600,
 } from '~/shared/constant';
-import type { FlowColor } from '~/shared/types';
+import type { FlowColor, Nullable } from '~/shared/types';
 
 type Props = {
   value: Accessor<number>;
   target: Accessor<number>;
   color: Accessor<FlowColor>;
-  complete: Accessor<boolean | null>;
+  complete: Accessor<Nullable<boolean>>;
 };
 export const GaugeBar: Component<Props> = (props) => {
   const size = 24;

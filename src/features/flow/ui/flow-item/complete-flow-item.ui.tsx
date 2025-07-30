@@ -9,7 +9,7 @@ import { FLOW_STROKE_200 } from '~/shared/constant';
 import { getRandomItem } from '~/shared/fx';
 import { createBoolean, createLongPress } from '~/shared/hook';
 import { toast } from '~/shared/lib';
-import type { FlowColor } from '~/shared/types';
+import type { FlowColor, Nullable } from '~/shared/types';
 import { Check, Loader, Panel, X } from '~/shared/ui';
 import { TypeLabel } from '.';
 import { FlowItemColorContext } from '../../context';
@@ -54,7 +54,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
     history.refetch();
   });
 
-  const handleClickCTA = async (isCompleted: boolean | null) => {
+  const handleClickCTA = async (isCompleted: Nullable<boolean>) => {
     if (currentHistory()) {
       await patchHistory.mutateAsync({
         id: currentHistory()!.id,
@@ -130,17 +130,20 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
 };
 
 type CTAPanelProps = {
-  onCTA: (isCompleted: boolean | null) => void;
+  onCTA: (isCompleted: Nullable<boolean>) => void;
   close: () => void;
 };
 
 const CTAPanel: Component<CTAPanelProps> = (props) => {
-  const [clickedType, setClickedType] = createSignal<boolean | null>();
+  const [clickedType, setClickedType] = createSignal<Nullable<boolean>>();
 
   const buttonBaseClassName =
     'p-5 rounded-[42%] transition-all active:scale-95';
 
-  const handleClickCTA = (isCompleted: boolean | null, close: () => void) => {
+  const handleClickCTA = (
+    isCompleted: Nullable<boolean>,
+    close: () => void
+  ) => {
     setClickedType(isCompleted);
 
     setTimeout(() => {
@@ -149,7 +152,7 @@ const CTAPanel: Component<CTAPanelProps> = (props) => {
     }, 800);
   };
 
-  const getButtonClickedClass = (isCompleted: boolean | null) => {
+  const getButtonClickedClass = (isCompleted: Nullable<boolean>) => {
     if (isCompleted === clickedType())
       return `cta-button-center-${isCompleted}`;
     if (clickedType() !== undefined) return 'cta-button-hide';

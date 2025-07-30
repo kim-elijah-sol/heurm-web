@@ -6,6 +6,7 @@ import {
   FLOW_INSET_RING_500,
   FLOW_TEXT_500,
 } from '~/shared/constant';
+import type { Nullable } from '~/shared/types';
 import { useFlowItemColor } from '../../hook';
 
 type WrapperProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'class'>;
@@ -35,8 +36,8 @@ const Wrapper: Component<WrapperProps> = (_props) => {
 };
 
 type StatusBgProps = {
-  isFill: Accessor<boolean | null>;
-  isPale?: Accessor<boolean | null>;
+  isFill: Accessor<Nullable<boolean>>;
+  isPale?: Accessor<Nullable<boolean>>;
 };
 
 const StatusBg: Component<StatusBgProps> = (props) => {
@@ -70,7 +71,7 @@ const Main: Component<MainProps> = (props) => {
 };
 
 type NameProps = {
-  isWhite: boolean | null;
+  isWhite: Nullable<boolean>;
   children: JSX.Element;
 };
 

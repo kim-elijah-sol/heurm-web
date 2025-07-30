@@ -2,12 +2,12 @@ import clsx from 'clsx';
 import { type Accessor, type Component } from 'solid-js';
 import { FLOW_TEXT_500 } from '~/shared/constant';
 import { capitalize } from '~/shared/fx';
-import type { FlowColor, FlowType } from '~/shared/types';
+import type { FlowColor, FlowType, Nullable } from '~/shared/types';
 import { CheckCheck, ChevronsDown, ChevronsUp } from '~/shared/ui';
 
 type Props = {
   type: FlowType;
-  isCompleted?: Accessor<boolean | null>;
+  isCompleted?: Accessor<Nullable<boolean>>;
   color: Accessor<FlowColor>;
 };
 
