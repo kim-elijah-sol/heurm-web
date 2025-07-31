@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/solid-query';
 import clsx from 'clsx';
 import { createSignal, For, type Accessor, type Component } from 'solid-js';
 import { waveQueries, WaveType } from '~/entities/wave';
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export const OrderWaveButton: Component<Props> = (props) => {
+  const queryClient = useQueryClient();
+	
   const wave = waveQueries.getWaveQuery();
 
   const [orderingWave, setOrderingWave] =
@@ -42,6 +45,12 @@ export const OrderWaveButton: Component<Props> = (props) => {
 
     setOrderingWave(reorderedWave);
   };
+	
+  const reorderWaveMutation = waveQueries.reorderWaveMutation(() => {
+	queryClient.invalidateQueries({
+      queryKey: waveQueries.keys.get.queryKey,
+    });
+  })
 
   return (
     <>
@@ -120,6 +129,10 @@ export const OrderWaveButton: Component<Props> = (props) => {
                   FLOW_ACTIVE_BG_500[props.color()]
                 )}
                 onClick={async () => {
+				  await reorderWaveMutation.mutateAsync({
+					  ids: orderingWave().map((wave) => wave.id)
+				  })
+					  
                   close();
                 }}
               >
