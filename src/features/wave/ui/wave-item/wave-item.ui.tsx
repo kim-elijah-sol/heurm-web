@@ -7,7 +7,9 @@ import {
   FLOW_BG_400,
   FLOW_TEXT_500,
 } from '~/shared/constant';
+import { delay } from '~/shared/fx';
 import { createBoolean, createLongPress } from '~/shared/hook';
+import { toast } from '~/shared/lib';
 import type { FlowColor } from '~/shared/types';
 import { BottomSheet, X } from '~/shared/ui';
 
@@ -29,16 +31,23 @@ export const WaveItem: Component<Props> = (props) => {
   const disabled = () =>
     name().trim().length === 0 || name().trim() === defaultName;
 
-  const [isBottomSheetOpened, open, _close] = createBoolean();
+  const [isEditBottomSheetOpened, openEditBottomSheet, _closeEditBottomSheet] =
+    createBoolean();
 
-  const close = () => {
-    _close();
+  const closeEditBottomSheet = () => {
+    _closeEditBottomSheet();
     setName(defaultName);
   };
 
+  const [
+    isDeleteBottomSheetOpened,
+    openDeleteBottomSheet,
+    closeDeleteBottomSheet,
+  ] = createBoolean();
+
   const { onTouchStart, onTouchEnd } = createLongPress({
     onClick: props.onClick,
-    onLongPress: open,
+    onLongPress: openEditBottomSheet,
   });
 
   const patchWave = waveQueries.patchWaveMutation(() => {
@@ -46,6 +55,8 @@ export const WaveItem: Component<Props> = (props) => {
       queryKey: waveQueries.keys.get.queryKey,
     });
   });
+
+  const deleteWave = waveQueries.deleteWaveMutation();
 
   return (
     <>
@@ -65,14 +76,14 @@ export const WaveItem: Component<Props> = (props) => {
       >
         {props.children}
       </button>
-      {isBottomSheetOpened() && (
-        <BottomSheet close={close}>
-          {(close) => (
+      {isEditBottomSheetOpened() && (
+        <BottomSheet close={closeEditBottomSheet}>
+          {(closeEditBottomSheet) => (
             <>
               <div class='flex justify-between items-center mb-6'>
                 <p class='font-semibold text-xl'>Edit Wave</p>
                 <button
-                  onClick={close}
+                  onClick={closeEditBottomSheet}
                   class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
                 >
                   <X size={24} />
@@ -102,11 +113,84 @@ export const WaveItem: Component<Props> = (props) => {
                     name: name().trim(),
                   });
 
-                  close();
+                  closeEditBottomSheet();
                 }}
               >
                 Edit Wave
               </button>
+
+              <div class='mt-3 flex justify-center'>
+                <button
+                  class='font-semibold text-sm text-slate-400 py-1 px-2 rounded-[10px] transition-all active:scale-95 active:bg-slate-200'
+                  onClick={openDeleteBottomSheet}
+                >
+                  Delete This Wave
+                </button>
+              </div>
+
+              {isDeleteBottomSheetOpened() && (
+                <BottomSheet close={closeDeleteBottomSheet}>
+                  {(closeDeleteBottomSheet) => (
+                    <>
+                      <div class='flex justify-between items-center mb-4'>
+                        <p class='font-semibold text-xl'>
+                          Delete {props.children} Wave
+                        </p>
+                        <button
+                          onClick={closeDeleteBottomSheet}
+                          class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
+                        >
+                          <X size={24} />
+                        </button>
+                      </div>
+
+                      <p class='font-semibold text-lg mb-2'>Are You Sure?</p>
+
+                      <p class='font-medium text-sm text-slate-500'>
+                        Are you sure you want to delete this wave?
+                        <br />
+                        This action cannot be undone, and all related waves will
+                        be permanently removed.
+                      </p>
+
+                      <ul class='mt-2 text-sm text-slate-400'>
+                        <li>· Deleting the wave will not remove any flows.</li>
+                        <li>
+                          · However, flows assigned to this wave will become
+                          uncategorized.
+                        </li>
+                      </ul>
+
+                      <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white my-4' />
+
+                      <button
+                        class='w-full text-white font-semibold py-4 rounded-[24px] bg-slate-300 transition-all active:scale-95 active:bg-slate-400'
+                        onClick={async () => {
+                          await deleteWave.mutateAsync({
+                            id: props.id,
+                          });
+
+                          closeDeleteBottomSheet();
+
+                          await delay(300);
+
+                          closeEditBottomSheet();
+
+                          await delay(300);
+
+                          queryClient.invalidateQueries({
+                            queryKey: waveQueries.keys.get.queryKey,
+                          });
+
+                          toast.open(`${props.children} is deleted.`);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                </BottomSheet>
+              )}
             </>
           )}
         </BottomSheet>
