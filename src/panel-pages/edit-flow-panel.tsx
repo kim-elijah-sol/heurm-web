@@ -505,7 +505,6 @@ const _EditFlowPanel: Component<Props> = (props) => {
                     <div class='w-full h-[1px] bg-linear-to-r from-white via-slate-300 to-white my-4' />
 
                     <button
-                      disabled={disabled()}
                       class='w-full text-white font-semibold py-4 rounded-[24px] bg-slate-300 transition-all active:scale-95 active:bg-slate-400'
                       onClick={async () => {
                         await deleteFlow.mutateAsync({
