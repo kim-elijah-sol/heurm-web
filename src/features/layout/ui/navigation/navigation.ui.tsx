@@ -1,13 +1,14 @@
 import { type Component } from 'solid-js';
+import { ChartLine, Fan, Settings } from '~/shared/ui';
 import { NavigationItem } from './navigation-item.ui';
 import './navigation.ui.css';
 
 export const Navigation: Component<{}> = () => {
   return (
-    <nav class='heurm-navigation fixed bottom-4 left-4 px-4 py-3 gap-4 bg-white z-30 rounded-[20px] flex justify-between w-max'>
-      <NavigationItem href='/' name='Home' />
-      <NavigationItem href='/analytics' name='Analytics' />
-      <NavigationItem href='/setting' name='Setting' />
+    <nav class='heurm-navigation fixed bottom-4 left-1/2 -translate-x-1/2 px-8 py-3 gap-6 bg-white z-30 rounded-[32px] flex justify-between w-max'>
+      <NavigationItem href='/' name='Home' icon={Fan} />
+      <NavigationItem href='/analytics' name='Analytics' icon={ChartLine} />
+      <NavigationItem href='/setting' name='Setting' icon={Settings} />
     </nav>
   );
 };
