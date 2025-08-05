@@ -1,4 +1,3 @@
-import { Footer } from '~/shared/ui';
 import { FlowList, NewFlowButton } from '~/widgets/flow';
 import { DateSelect, MainTop } from '~/widgets/main';
 
@@ -11,7 +10,6 @@ function Main() {
         <FlowList />
         <NewFlowButton />
       </div>
-      <Footer />
     </>
   );
 }
