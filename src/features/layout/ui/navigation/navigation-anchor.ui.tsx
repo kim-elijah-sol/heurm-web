@@ -1,14 +1,11 @@
 import { A, useLocation } from '@solidjs/router';
 import clsx from 'clsx';
 import { type Component } from 'solid-js';
+import { LayoutType } from '~/entities/layout';
 
-type Props = {
-  href: string;
-  name: string;
-  icon: Component<{ stroke: string }>;
-};
-
-export const NavigationItem: Component<Props> = (props) => {
+export const NavigationAnchor: Component<LayoutType.NavigationAnchor> = (
+  props
+) => {
   const location = useLocation();
 
   const isCurrent = () => location.pathname === props.href;
