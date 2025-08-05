@@ -1,7 +1,7 @@
 import { A, useLocation } from '@solidjs/router';
 import clsx from 'clsx';
 import { type Component } from 'solid-js';
-import { LayoutType } from '~/entities/layout';
+import { LayoutConstant, LayoutType } from '~/entities/layout';
 
 export const NavigationAnchor: Component<LayoutType.NavigationAnchor> = (
   props
@@ -13,7 +13,10 @@ export const NavigationAnchor: Component<LayoutType.NavigationAnchor> = (
   return (
     <A
       href={props.href}
-      class='flex flex-col w-[74px] gap-1 items-center transition-all duration-300 active:scale-95 active:bg-gray-300/50 py-2 rounded-[28px]'
+      class={clsx(
+        'flex flex-col gap-1 items-center transition-all duration-300 active:scale-95 active:bg-gray-300/50 py-2 rounded-[28px] z-2',
+        LayoutConstant.NAVIGATION_ANCHOR_WIDTH_PX
+      )}
     >
       {props.icon({
         stroke: isCurrent() ? '#333' : '#999',
