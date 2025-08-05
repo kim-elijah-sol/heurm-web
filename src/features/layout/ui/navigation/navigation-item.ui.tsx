@@ -14,7 +14,10 @@ export const NavigationItem: Component<Props> = (props) => {
   const isCurrent = () => location.pathname === props.href;
 
   return (
-    <A href={props.href} class='flex flex-col gap-1 items-center'>
+    <A
+      href={props.href}
+      class='flex flex-col w-[74px] gap-1 items-center transition-all duration-300 active:scale-95 active:bg-gray-300/50 py-2 rounded-[28px]'
+    >
       {props.icon({
         stroke: isCurrent() ? '#333' : '#999',
       })}
