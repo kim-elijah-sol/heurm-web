@@ -21,5 +21,4 @@ export const NAVIGATION_ANCHORS: LayoutType.NavigationAnchor[] = [
 
 export const NAVIGATION_ANCHOR_WIDTH = 80 as const;
 
-export const NAVIGATION_ANCHOR_WIDTH_PX =
-  `w-[${NAVIGATION_ANCHOR_WIDTH}px]` as const;
+export const NAVIGATION_ANCHOR_WIDTH_PX = `w-[80px]` as const;
