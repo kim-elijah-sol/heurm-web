@@ -13,7 +13,7 @@ export const Navigation: Component<{}> = () => {
 
   return (
     <Show when={isNavigationHide(location.pathname) === false}>
-      <nav class='heurm-navigation fixed bottom-4 left-1/2 -translate-x-1/2 p-1 bg-white z-30 rounded-[32px] flex justify-between w-max'>
+      <nav class='heurm-navigation fixed bottom-4 left-1/2 p-1 bg-white z-30 rounded-[32px] flex justify-between w-max'>
         <For each={LayoutConstant.NAVIGATION_ANCHORS}>
           {(anchor) => <NavigationAnchor {...anchor} />}
         </For>
