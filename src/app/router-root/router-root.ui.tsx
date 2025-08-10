@@ -5,7 +5,7 @@ import { Navigation } from '~/features/layout/ui';
 export const RouterRoot: Component<RouteSectionProps> = (props) => {
   return (
     <>
-      <div class='pb-[96px]'>{props.children}</div>
+      <div class='p-4 pb-[112px]'>{props.children}</div>
       <Navigation />
     </>
   );
