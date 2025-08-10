@@ -1,4 +1,4 @@
-import { FlowList, NewFlowButton } from '~/widgets/flow';
+import { FlowList } from '~/widgets/flow';
 import { DateSelect, MainTop } from '~/widgets/main';
 
 function Main() {
@@ -8,7 +8,6 @@ function Main() {
         <MainTop />
         <DateSelect />
         <FlowList />
-        <NewFlowButton />
       </div>
     </>
   );
