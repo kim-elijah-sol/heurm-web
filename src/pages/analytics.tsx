@@ -1,9 +1,11 @@
+import { AnalyticsFlowList } from '~/widgets/analytics';
 import { UserTop } from '~/widgets/user';
 
 function Analytics() {
   return (
     <>
       <UserTop />
+      <AnalyticsFlowList />
     </>
   );
 }
