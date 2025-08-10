@@ -17,7 +17,7 @@ export const UserTop = () => {
   const profile = userQueries.getUserProfileQuery();
 
   return (
-    <div class='flex items-center justify-between mb-4'>
+    <div class='flex items-start justify-between mb-4'>
       <HelloUser userName={() => profile.data?.name} />
       <UserAvatar
         src={() => profile.data?.profileImage ?? undefined}
