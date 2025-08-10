@@ -1,1 +1,1 @@
-export * from './analytics-flow-list';
+export * from './analytics-list';

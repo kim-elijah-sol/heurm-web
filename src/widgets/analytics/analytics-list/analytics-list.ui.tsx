@@ -2,16 +2,16 @@ import { children, For, JSX, Match, Switch } from 'solid-js';
 import { flowQueries, FlowType } from '~/entities/flow';
 import { waveQueries, WaveType } from '~/entities/wave';
 import { getStartDate } from '~/features/analytics/fx';
+import { completeAnalyticsCalc } from '~/features/analytics/fx/complete-analytics-calc.fx';
+import { AnalyticsItem } from '~/features/analytics/ui';
 import { groupingFlowByWave } from '~/features/flow/fx';
 import { NoFlow } from '~/features/flow/ui';
 
-export const AnalyticsFlowList = () => {
+export const AnalyticsList = () => {
   return (
-    <AnalyticsFlowListSuspense>
+    <AnalyticsListSuspense>
       {(flow, wave) => {
         const startDate = getStartDate(flow);
-
-        console.log(startDate);
 
         return (
           <div class='flex flex-col gap-5'>
@@ -20,8 +20,16 @@ export const AnalyticsFlowList = () => {
                 <div>
                   <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
                   <div class='flex flex-col gap-3'>
-                    <For each={group.flows}>
-                      {(flow) => <div>{flow.id}</div>}
+                    <For
+                      each={group.flows.filter((it) => it.type === 'COMPLETE')}
+                    >
+                      {(flow) => (
+                        <AnalyticsItem
+                          flow={() => flow}
+                          startDate={startDate}
+                          analyticsCalcFx={completeAnalyticsCalc}
+                        />
+                      )}
                     </For>
                   </div>
                 </div>
@@ -30,11 +38,11 @@ export const AnalyticsFlowList = () => {
           </div>
         );
       }}
-    </AnalyticsFlowListSuspense>
+    </AnalyticsListSuspense>
   );
 };
 
-const AnalyticsFlowListSuspense = (props: {
+const AnalyticsListSuspense = (props: {
   children: (
     flow: FlowType.GetFlowResponse,
     wave: WaveType.GetWaveResponse
