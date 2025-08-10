@@ -1,10 +1,11 @@
 import { FlowList } from '~/widgets/flow';
-import { DateSelect, MainTop } from '~/widgets/main';
+import { DateSelect } from '~/widgets/main';
+import { UserTop } from '~/widgets/user';
 
 function Main() {
   return (
     <div class='flex flex-col gap-4'>
-      <MainTop />
+      <UserTop />
       <DateSelect />
       <FlowList />
     </div>
