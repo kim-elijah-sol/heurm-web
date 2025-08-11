@@ -5,6 +5,8 @@ import { historyQueries } from '~/entities/history';
 import {
   FLOW_BG_100,
   FLOW_BG_100_30,
+  FLOW_BG_200,
+  FLOW_BG_300,
   FLOW_BG_500,
   FLOW_BORDER_200,
 } from '~/shared/constant';
@@ -53,6 +55,8 @@ export const AnalyticsItem: Component<Props> = (props) => {
                 'w-3 h-3 rounded-[4px]',
                 it === 'past' && 'bg-gray-200',
                 it === 0 && FLOW_BG_100[color()],
+                it === 1 && FLOW_BG_200[color()],
+                it === 2 && FLOW_BG_300[color()],
                 it === 3 && FLOW_BG_500[color()]
               )}
             ></div>
