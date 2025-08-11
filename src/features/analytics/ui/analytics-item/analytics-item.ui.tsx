@@ -1,4 +1,4 @@
-import { Accessor, Component, createEffect } from 'solid-js';
+import { Accessor, Component, For } from 'solid-js';
 import { FlowType } from '~/entities/flow';
 import { historyQueries } from '~/entities/history';
 import { AnalyticsCalcFx } from '../../types';
@@ -19,7 +19,11 @@ export const AnalyticsItem: Component<Props> = (props) => {
   const result = () =>
     props.analyticsCalcFx(props.startDate)(flow())(history.data ?? []);
 
-  createEffect(() => console.log(result()));
-
-  return <></>;
+  return (
+    <div class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max'>
+      <For each={result()}>
+        {(it) => <div class='w-3 h-3 bg-black rounded-[4px]'></div>}
+      </For>
+    </div>
+  );
 };
