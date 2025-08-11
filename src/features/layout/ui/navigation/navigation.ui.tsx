@@ -12,8 +12,6 @@ export const Navigation: Component<{}> = () => {
 
   const isMain = () => location.pathname === '/';
 
-  if (isNavigationHide(location.pathname)) return <></>;
-
   return (
     <Show when={isNavigationHide(location.pathname) === false}>
       <nav
