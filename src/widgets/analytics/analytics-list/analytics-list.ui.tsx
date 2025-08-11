@@ -5,6 +5,7 @@ import {
   completeAnalyticsCalc,
   getStartDate,
   overAnalyticsCalc,
+  underAnalyticsCalc,
 } from '~/features/analytics/fx';
 import { AnalyticsItem } from '~/features/analytics/ui';
 import { groupingFlowByWave } from '~/features/flow/fx';
@@ -23,11 +24,7 @@ export const AnalyticsList = () => {
                 <div>
                   <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
                   <div class='flex flex-col gap-3'>
-                    <For
-                      each={group.flows.filter(
-                        (it) => it.type === 'COMPLETE' || it.type === 'OVER'
-                      )}
-                    >
+                    <For each={group.flows}>
                       {(flow) => (
                         <AnalyticsItem
                           flow={() => flow}
@@ -35,7 +32,9 @@ export const AnalyticsList = () => {
                           analyticsCalcFx={
                             flow.type === 'COMPLETE'
                               ? completeAnalyticsCalc
-                              : overAnalyticsCalc
+                              : flow.type === 'OVER'
+                              ? overAnalyticsCalc
+                              : underAnalyticsCalc
                           }
                         />
                       )}
