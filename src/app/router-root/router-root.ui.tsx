@@ -3,9 +3,13 @@ import { Component } from 'solid-js';
 import { Navigation } from '~/features/layout/ui';
 
 export const RouterRoot: Component<RouteSectionProps> = (props) => {
+  const pathname = props.location.pathname;
+
   return (
     <>
-      <div class='p-4 pb-[112px]'>{props.children}</div>
+      <div class={pathname !== '/login' ? ' p-4 pb-[112px]' : ''}>
+        {props.children}
+      </div>
       <Navigation />
     </>
   );
