@@ -1,8 +1,11 @@
 import { children, For, JSX, Match, Switch } from 'solid-js';
 import { flowQueries, FlowType } from '~/entities/flow';
 import { waveQueries, WaveType } from '~/entities/wave';
-import { getStartDate } from '~/features/analytics/fx';
-import { completeAnalyticsCalc } from '~/features/analytics/fx/complete-analytics-calc.fx';
+import {
+  completeAnalyticsCalc,
+  getStartDate,
+  overAnalyticsCalc,
+} from '~/features/analytics/fx';
 import { AnalyticsItem } from '~/features/analytics/ui';
 import { groupingFlowByWave } from '~/features/flow/fx';
 import { NoFlow } from '~/features/flow/ui';
@@ -21,13 +24,19 @@ export const AnalyticsList = () => {
                   <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
                   <div class='flex flex-col gap-3'>
                     <For
-                      each={group.flows.filter((it) => it.type === 'COMPLETE')}
+                      each={group.flows.filter(
+                        (it) => it.type === 'COMPLETE' || it.type === 'OVER'
+                      )}
                     >
                       {(flow) => (
                         <AnalyticsItem
                           flow={() => flow}
                           startDate={startDate}
-                          analyticsCalcFx={completeAnalyticsCalc}
+                          analyticsCalcFx={
+                            flow.type === 'COMPLETE'
+                              ? completeAnalyticsCalc
+                              : overAnalyticsCalc
+                          }
                         />
                       )}
                     </For>
