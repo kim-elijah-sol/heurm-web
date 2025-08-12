@@ -4,7 +4,7 @@ import { FlowType } from '~/entities/flow';
 import { historyQueries } from '~/entities/history';
 import {
   FLOW_BG_100,
-  FLOW_BG_100_30,
+  FLOW_BG_100_15,
   FLOW_BG_200,
   FLOW_BG_300,
   FLOW_BG_500,
@@ -38,7 +38,7 @@ export const AnalyticsItem: Component<Props> = (props) => {
       class={clsx(
         'border p-2 rounded-[12px]',
         FLOW_BORDER_200[color()],
-        FLOW_BG_100_30[color()]
+        FLOW_BG_100_15[color()]
       )}
     >
       <div class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max'>

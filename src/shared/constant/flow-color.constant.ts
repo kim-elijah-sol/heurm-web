@@ -31,15 +31,15 @@ export const FLOW_BG_100 = {
   pink: 'bg-pink-100',
 } as const;
 
-export const FLOW_BG_100_30 = {
-  red: 'bg-red-100/30',
-  green: 'bg-green-100/30',
-  blue: 'bg-blue-100/30',
-  indigo: 'bg-indigo-100/30',
-  teal: 'bg-teal-100/30',
-  yellow: 'bg-yellow-100/30',
-  purple: 'bg-purple-100/30',
-  pink: 'bg-pink-100/30',
+export const FLOW_BG_100_15 = {
+  red: 'bg-red-100/15',
+  green: 'bg-green-100/15',
+  blue: 'bg-blue-100/15',
+  indigo: 'bg-indigo-100/15',
+  teal: 'bg-teal-100/15',
+  yellow: 'bg-yellow-100/15',
+  purple: 'bg-purple-100/15',
+  pink: 'bg-pink-100/15',
 } as const;
 
 export const FLOW_BG_200 = {
