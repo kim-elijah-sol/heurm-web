@@ -41,6 +41,7 @@ export const AnalyticsItem: Component<Props> = (props) => {
         FLOW_BG_100_15[color()]
       )}
     >
+      <p class='font-semibold text-sm mb-2'>{flow().name}</p>
       <div class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max'>
         <div
           class='w-3'
