@@ -4,6 +4,7 @@ import { isSameDate } from '~/features/main/fx';
 import { getMidnight } from '~/shared/fx';
 import type { Nullable } from '~/shared/types';
 import type { AnalyticsCalcFx, AnalyticsResult } from '../types';
+import { isRestDay } from './is-rest-day.fx';
 
 const ONE_DAY = 86_400_000;
 
@@ -24,6 +25,12 @@ export const baseAnalyticsCalc: (
   for (; current <= today; current += ONE_DAY) {
     if (startAt > current) {
       result.push('past');
+
+      continue;
+    }
+
+    if (isRestDay(current)(flow)) {
+      result.push('rest');
 
       continue;
     }
