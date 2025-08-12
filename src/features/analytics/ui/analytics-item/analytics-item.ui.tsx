@@ -44,15 +44,15 @@ export const AnalyticsItem: Component<Props> = (props) => {
   return (
     <div
       class={clsx(
-        'border p-2 rounded-[12px]',
+        'border py-2 rounded-[12px]',
         FLOW_BORDER_200[color()],
         FLOW_BG_100_15[color()]
       )}
     >
-      <p class='font-semibold text-sm mb-2'>{flow().name}</p>
+      <p class='font-semibold text-sm mb-2 px-2'>{flow().name}</p>
       <div class='w-full overflow-x-auto' ref={(ref) => (scrollView = ref)}>
         <div
-          class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max'
+          class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max mx-2'
           ref={(ref) => (timelineView = ref)}
         >
           <div
