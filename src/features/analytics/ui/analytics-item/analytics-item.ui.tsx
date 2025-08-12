@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Accessor, Component, For } from 'solid-js';
+import { Accessor, Component, For, onMount } from 'solid-js';
 import { FlowType } from '~/entities/flow';
 import { historyQueries } from '~/entities/history';
 import {
@@ -20,6 +20,10 @@ type Props = {
 };
 
 export const AnalyticsItem: Component<Props> = (props) => {
+  let scrollView: HTMLDivElement;
+
+  let timelineView: HTMLDivElement;
+
   const flow = props.flow;
 
   const color = () => flow().color as FlowColor;
@@ -33,6 +37,10 @@ export const AnalyticsItem: Component<Props> = (props) => {
 
   const day = () => props.startDate.getDay();
 
+  onMount(() => {
+    scrollView.scrollTo({ left: timelineView.clientWidth });
+  });
+
   return (
     <div
       class={clsx(
@@ -42,28 +50,33 @@ export const AnalyticsItem: Component<Props> = (props) => {
       )}
     >
       <p class='font-semibold text-sm mb-2'>{flow().name}</p>
-      <div class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max'>
+      <div class='w-full overflow-x-auto' ref={(ref) => (scrollView = ref)}>
         <div
-          class='w-3'
-          style={{
-            height: `${day() * 12 + Math.max(day() - 1, 0) * 2}px`,
-          }}
-        ></div>
-        <For each={result()}>
-          {(it) => (
-            <div
-              class={clsx(
-                'w-3 h-3 rounded-[4px]',
-                it === 'past' && 'bg-gray-200',
-                it === 'rest' && 'bg-slate-300',
-                it === 0 && FLOW_BG_100[color()],
-                it === 1 && FLOW_BG_200[color()],
-                it === 2 && FLOW_BG_300[color()],
-                it === 3 && FLOW_BG_500[color()]
-              )}
-            ></div>
-          )}
-        </For>
+          class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max'
+          ref={(ref) => (timelineView = ref)}
+        >
+          <div
+            class='w-3'
+            style={{
+              height: `${day() * 12 + Math.max(day() - 1, 0) * 2}px`,
+            }}
+          ></div>
+          <For each={result()}>
+            {(it) => (
+              <div
+                class={clsx(
+                  'w-3 h-3 rounded-[4px]',
+                  it === 'past' && 'bg-gray-200',
+                  it === 'rest' && 'bg-slate-300',
+                  it === 0 && FLOW_BG_100[color()],
+                  it === 1 && FLOW_BG_200[color()],
+                  it === 2 && FLOW_BG_300[color()],
+                  it === 3 && FLOW_BG_500[color()]
+                )}
+              ></div>
+            )}
+          </For>
+        </div>
       </div>
     </div>
   );
