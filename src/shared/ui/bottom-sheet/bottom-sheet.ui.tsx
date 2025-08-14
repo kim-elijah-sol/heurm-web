@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { children, createSignal, type Component, type JSX } from 'solid-js';
+import { createSignal, type Component, type JSX } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { BottomSheetCloseContext } from './bottom-sheet-close.context';
 import './bottom-sheet.ui.css';
@@ -20,8 +20,6 @@ export const BottomSheet: Component<Props> = (props) => {
     }, 300);
   };
 
-  const resolved = children(() => props.children(close));
-
   const autoClose = () => props.autoClose ?? true;
 
   return (
@@ -41,7 +39,7 @@ export const BottomSheet: Component<Props> = (props) => {
               transition() ? 'heurm-bottom-sheet-foreground-fade-out' : ''
             )}
           >
-            {resolved()}
+            {props.children(close)}
           </div>
         </div>
       </BottomSheetCloseContext.Provider>
