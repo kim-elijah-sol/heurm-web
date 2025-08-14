@@ -11,7 +11,7 @@ import {
 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import type { FlowColor } from '~/shared/types';
-import { ArrowDown, ArrowDownUp, ArrowUp, BottomSheet, X } from '~/shared/ui';
+import { ArrowDown, ArrowDownUp, ArrowUp, BottomSheet } from '~/shared/ui';
 
 type Props = {
   color: Accessor<FlowColor>;
@@ -19,7 +19,7 @@ type Props = {
 
 export const OrderWaveButton: Component<Props> = (props) => {
   const queryClient = useQueryClient();
-	
+
   const wave = waveQueries.getWaveQuery();
 
   const [orderingWave, setOrderingWave] =
@@ -45,12 +45,12 @@ export const OrderWaveButton: Component<Props> = (props) => {
 
     setOrderingWave(reorderedWave);
   };
-	
+
   const reorderWaveMutation = waveQueries.reorderWaveMutation(() => {
-	queryClient.invalidateQueries({
+    queryClient.invalidateQueries({
       queryKey: waveQueries.keys.get.queryKey,
     });
-  })
+  });
 
   return (
     <>
@@ -69,15 +69,10 @@ export const OrderWaveButton: Component<Props> = (props) => {
         <BottomSheet close={close}>
           {(close) => (
             <>
-              <div class='flex justify-between items-center mb-4'>
-                <p class='font-semibold text-xl'>Reorder Waves</p>
-                <button
-                  onClick={close}
-                  class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
-                >
-                  <X size={24} />
-                </button>
-              </div>
+              <BottomSheet.Top className='mb-4'>
+                <BottomSheet.Top.Title>Reorder Waves</BottomSheet.Top.Title>
+                <BottomSheet.Top.CloseButton />
+              </BottomSheet.Top>
 
               <div class='max-h-[30vh] overflow-y-auto w-full'>
                 <div class='flex flex-col gap-3'>
@@ -129,10 +124,10 @@ export const OrderWaveButton: Component<Props> = (props) => {
                   FLOW_ACTIVE_BG_500[props.color()]
                 )}
                 onClick={async () => {
-				  await reorderWaveMutation.mutateAsync({
-					  ids: orderingWave().map((wave) => wave.id)
-				  })
-					  
+                  await reorderWaveMutation.mutateAsync({
+                    ids: orderingWave().map((wave) => wave.id),
+                  });
+
                   close();
                 }}
               >

@@ -481,17 +481,12 @@ const _EditFlowPanel: Component<Props> = (props) => {
               <BottomSheet close={closeDeleteBottomSheet}>
                 {(closeDeleteBottomSheet) => (
                   <>
-                    <div class='flex justify-between items-center mb-4'>
-                      <p class='font-semibold text-xl'>
+                    <BottomSheet.Top className='mb-4'>
+                      <BottomSheet.Top.Title>
                         Delete {props.flow().name}
-                      </p>
-                      <button
-                        onClick={closeDeleteBottomSheet}
-                        class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
-                      >
-                        <X size={24} />
-                      </button>
-                    </div>
+                      </BottomSheet.Top.Title>
+                      <BottomSheet.Top.CloseButton />
+                    </BottomSheet.Top>
 
                     <p class='font-semibold text-lg mb-2'>Are You Sure?</p>
 

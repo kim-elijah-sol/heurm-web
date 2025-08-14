@@ -11,7 +11,7 @@ import { delay } from '~/shared/fx';
 import { createBoolean, createLongPress } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { FlowColor } from '~/shared/types';
-import { BottomSheet, X } from '~/shared/ui';
+import { BottomSheet } from '~/shared/ui';
 
 type Props = {
   children: string;
@@ -80,15 +80,10 @@ export const WaveItem: Component<Props> = (props) => {
         <BottomSheet close={closeEditBottomSheet}>
           {(closeEditBottomSheet) => (
             <>
-              <div class='flex justify-between items-center mb-6'>
-                <p class='font-semibold text-xl'>Edit Wave</p>
-                <button
-                  onClick={closeEditBottomSheet}
-                  class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
-                >
-                  <X size={24} />
-                </button>
-              </div>
+              <BottomSheet.Top className='mb-6'>
+                <BottomSheet.Top.Title>Edit Wave</BottomSheet.Top.Title>
+                <BottomSheet.Top.CloseButton />
+              </BottomSheet.Top>
 
               <input
                 type='text'
@@ -132,17 +127,12 @@ export const WaveItem: Component<Props> = (props) => {
                 <BottomSheet close={closeDeleteBottomSheet}>
                   {(closeDeleteBottomSheet) => (
                     <>
-                      <div class='flex justify-between items-center mb-4'>
-                        <p class='font-semibold text-xl'>
+                      <BottomSheet.Top className='mb-4'>
+                        <BottomSheet.Top.Title>
                           Delete {props.children} Wave
-                        </p>
-                        <button
-                          onClick={closeDeleteBottomSheet}
-                          class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
-                        >
-                          <X size={24} />
-                        </button>
-                      </div>
+                        </BottomSheet.Top.Title>
+                        <BottomSheet.Top.CloseButton />
+                      </BottomSheet.Top>
 
                       <p class='font-semibold text-lg mb-2'>Are You Sure?</p>
 

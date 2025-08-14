@@ -5,7 +5,7 @@ import { waveQueries } from '~/entities/wave';
 import { FLOW_ACTIVE_BG_500, FLOW_BG_400 } from '~/shared/constant';
 import { createBoolean } from '~/shared/hook';
 import type { FlowColor } from '~/shared/types';
-import { BottomSheet, Plus, X } from '~/shared/ui';
+import { BottomSheet, Plus } from '~/shared/ui';
 
 type Props = {
   color: Accessor<FlowColor>;
@@ -48,15 +48,10 @@ export const NewWaveButton: Component<Props> = (props) => {
         <BottomSheet close={close}>
           {(close) => (
             <>
-              <div class='flex justify-between items-center mb-6'>
-                <p class='font-semibold text-xl'>New Wave</p>
-                <button
-                  onClick={close}
-                  class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
-                >
-                  <X size={24} />
-                </button>
-              </div>
+              <BottomSheet.Top className='mb-6'>
+                <BottomSheet.Top.Title>New Wave</BottomSheet.Top.Title>
+                <BottomSheet.Top.CloseButton />
+              </BottomSheet.Top>
 
               <input
                 type='text'

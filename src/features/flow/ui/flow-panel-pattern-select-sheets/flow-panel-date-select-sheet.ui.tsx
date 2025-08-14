@@ -9,7 +9,7 @@ import {
 import { FLOW_ACTIVE_BG_500, FLOW_BG_400 } from '~/shared/constant';
 import { getRange } from '~/shared/fx';
 import type { FlowColor } from '~/shared/types';
-import { BottomSheet, X } from '~/shared/ui';
+import { BottomSheet } from '~/shared/ui';
 
 type Props = {
   close: () => void;
@@ -27,15 +27,10 @@ export const FlowPanelDateSelectSheet: Component<Props> = (props) => {
     <BottomSheet close={props.close}>
       {(close) => (
         <>
-          <div class='flex justify-between items-center mb-6'>
-            <p class='font-semibold text-xl'>Select Specific Date</p>
-            <button
-              onClick={close}
-              class='p-[7px] rounded-[42%] transition-all active:scale-[.95] bg-red-400 active:bg-red-500'
-            >
-              <X size={24} />
-            </button>
-          </div>
+          <BottomSheet.Top className='mb-6'>
+            <BottomSheet.Top.Title>Select Specific Date</BottomSheet.Top.Title>
+            <BottomSheet.Top.CloseButton />
+          </BottomSheet.Top>
 
           <div class='flex flex-col items-center gap-3'>
             <div class='flex justify-start gap-2'>
