@@ -11,11 +11,8 @@ export const underAnalyticsCalc: AnalyticsCalcFx = baseAnalyticsCalc(
       return 0;
     }
 
-    const ratio = Math.floor(
-      3 -
-        Math.min(Math.max(targetHistoryCount - targetCount, 0) / targetCount, 3)
-    ) as 0 | 1 | 2 | 3;
+    if (targetCount >= targetHistoryCount) return 3;
 
-    return ratio;
+    return 0;
   }
 );
