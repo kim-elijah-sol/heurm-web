@@ -5,7 +5,7 @@ export const useBottomSheetClose = () => {
   const bottomSheetCloseContext = useContext(BottomSheetCloseContext);
 
   if (!bottomSheetCloseContext)
-    throw new Error('Flow Item Color Context is not exist');
+    throw new Error('Bottom Sheet Close Context is not exist');
 
   return bottomSheetCloseContext;
 };
