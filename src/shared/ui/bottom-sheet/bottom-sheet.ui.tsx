@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { children, createSignal, type Component, type JSX } from 'solid-js';
 import { Portal } from 'solid-js/web';
+import { BottomSheetCloseContext } from './bottom-sheet-close.context';
 import './bottom-sheet.ui.css';
 
 type Props = {
@@ -25,23 +26,25 @@ export const BottomSheet: Component<Props> = (props) => {
 
   return (
     <Portal>
-      <div
-        onClick={autoClose() ? close : undefined}
-        class={clsx(
-          'fixed inset-0 z-50 backdrop-blur-sm heurm-bottom-sheet-animation',
-          transition() ? 'heurm-bottom-sheet-fade-out' : ''
-        )}
-      >
+      <BottomSheetCloseContext.Provider value={close}>
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={autoClose() ? close : undefined}
           class={clsx(
-            'absolute bottom-0 left-0 right-0 px-4 pb-4 pt-4 bg-white rounded-tr-[16px] rounded-tl-[16px] heurm-bottom-sheet-foreground-fade-in',
-            transition() ? 'heurm-bottom-sheet-foreground-fade-out' : ''
+            'fixed inset-0 z-50 backdrop-blur-sm heurm-bottom-sheet-animation',
+            transition() ? 'heurm-bottom-sheet-fade-out' : ''
           )}
         >
-          {resolved()}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            class={clsx(
+              'absolute bottom-0 left-0 right-0 px-4 pb-4 pt-4 bg-white rounded-tr-[16px] rounded-tl-[16px] heurm-bottom-sheet-foreground-fade-in',
+              transition() ? 'heurm-bottom-sheet-foreground-fade-out' : ''
+            )}
+          >
+            {resolved()}
+          </div>
         </div>
-      </div>
+      </BottomSheetCloseContext.Provider>
     </Portal>
   );
 };
