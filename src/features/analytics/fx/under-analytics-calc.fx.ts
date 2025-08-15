@@ -13,6 +13,14 @@ export const underAnalyticsCalc: AnalyticsCalcFx = baseAnalyticsCalc(
 
     if (targetCount >= targetHistoryCount) return 3;
 
-    return 0;
+    const ratio = targetHistoryCount / targetCount;
+
+    if (ratio >= 2) {
+      return 0;
+    }
+    if (ratio >= 1.5) {
+      return 1;
+    }
+    return 2;
   }
 );
