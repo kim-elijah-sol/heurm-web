@@ -13,41 +13,26 @@ export const baseAnalyticsCalc: (
     flow: FlowType.GetFlowResponseItem
   ) => AnalyticsResult
 ) => AnalyticsCalcFx = (callback) => (startDate) => (flow) => (history) => {
-  const result: AnalyticsResult[] = [];
+  const startValue = startDate.valueOf();
 
-  let current = startDate.valueOf();
+  const todayValue = getMidnight().valueOf();
 
-  const today = getMidnight().valueOf();
+  const flowStartAtValue = getMidnight(flow.startAt).valueOf();
 
-  const startAt = getMidnight(flow.startAt).valueOf();
+  return Array.from({ length: (todayValue - startValue) / ONE_DAY }).reduce<
+    AnalyticsResult[]
+  >((result, _, day) => {
+    const current = startValue + day * ONE_DAY;
 
-  for (; current <= today; current += ONE_DAY) {
-    if (startAt > current) {
-      result.push('past');
-
-      continue;
-    }
-
-    if (isRestDay(current)(flow)) {
-      result.push('rest');
-
-      continue;
-    }
+    if (flowStartAtValue > current) return result.concat('past');
+    if (isRestDay(current)(flow)) return result.concat('rest');
 
     const targetHistory = history.find((history) =>
       isSameDate(getMidnight(history.date), getMidnight(current))
     );
 
-    if (targetHistory === undefined) {
-      result.push('not-recored');
+    if (targetHistory === undefined) return result.concat('not-recored');
 
-      continue;
-    }
-
-    const callbackResult = callback(targetHistory, flow);
-
-    result.push(callbackResult);
-  }
-
-  return result;
+    return result.concat(callback(targetHistory, flow));
+  }, []);
 };
