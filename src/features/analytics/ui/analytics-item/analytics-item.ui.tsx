@@ -14,6 +14,7 @@ import {
   FLOW_BORDER_400_50,
   FLOW_BORDER_600_50,
 } from '~/shared/constant';
+import { dateFormat } from '~/shared/fx';
 import { FlowColor } from '~/shared/types';
 import { AnalyticsCalcFx } from '../../types';
 
@@ -53,7 +54,14 @@ export const AnalyticsItem: Component<Props> = (props) => {
         FLOW_BG_100_15[color()]
       )}
     >
-      <p class='font-semibold text-sm mb-2 px-2'>{flow().name}</p>
+      <div class='flex items-center justify-between mb-2 px-2'>
+        <p class='font-semibold text-sm'>{flow().name}</p>
+
+        <p class='font-medium text-xs text-gray-400/75'>
+          {dateFormat['yyyy.MM.dd'](flow().startAt)} ~{' '}
+          {flow().endAt && dateFormat['yyyy.MM.dd'](flow().endAt!)}
+        </p>
+      </div>
       <div class='w-full overflow-x-auto' ref={(ref) => (scrollView = ref)}>
         <div
           class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max mx-2'
