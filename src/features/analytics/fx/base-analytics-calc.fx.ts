@@ -19,12 +19,15 @@ export const baseAnalyticsCalc: (
 
   const flowStartAtValue = getMidnight(flow.startAt).valueOf();
 
+  const flowEndAtValue = flow.endAt ? getMidnight(flow.endAt).valueOf() : null;
+
   return Array.from({
     length: (todayValue - startValue + ONE_DAY) / ONE_DAY,
   }).reduce<AnalyticsResult[]>((result, _, day) => {
     const current = startValue + day * ONE_DAY;
 
     if (flowStartAtValue > current) return result.concat('past');
+    if (flowEndAtValue && flowEndAtValue < current) return result;
     if (isRestDay(current)(flow)) return result.concat('rest');
 
     const targetHistory = history.find((history) =>
