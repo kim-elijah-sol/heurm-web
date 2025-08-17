@@ -3,7 +3,7 @@ import { baseAnalyticsCalc } from './base-analytics-calc.fx';
 
 export const overAnalyticsCalc: AnalyticsCalcFx = baseAnalyticsCalc(
   (targetHistory, flow) => {
-    const targetHistoryCount = targetHistory?.count ?? 0;
+    const targetHistoryCount = targetHistory.count!;
 
     const targetCount = flow.targetCount!;
 
