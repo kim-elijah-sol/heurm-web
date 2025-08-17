@@ -2,7 +2,6 @@ import { FlowType } from '~/entities/flow';
 import type { HistoryType } from '~/entities/history';
 import { isSameDate } from '~/features/main/fx';
 import { getMidnight } from '~/shared/fx';
-import type { Nullable } from '~/shared/types';
 import type { AnalyticsCalcFx, AnalyticsResult } from '../types';
 import { isRestDay } from './is-rest-day.fx';
 
@@ -10,7 +9,7 @@ const ONE_DAY = 86_400_000;
 
 export const baseAnalyticsCalc: (
   callback: (
-    history: Nullable<HistoryType.GetHistoryResponseItem>,
+    history: HistoryType.GetHistoryResponseItem,
     flow: FlowType.GetFlowResponseItem
   ) => AnalyticsResult
 ) => AnalyticsCalcFx = (callback) => (startDate) => (flow) => (history) => {
@@ -35,10 +34,15 @@ export const baseAnalyticsCalc: (
       continue;
     }
 
-    const targetHistory =
-      history.find((history) =>
-        isSameDate(getMidnight(history.date), getMidnight(current))
-      ) ?? null;
+    const targetHistory = history.find((history) =>
+      isSameDate(getMidnight(history.date), getMidnight(current))
+    );
+
+    if (targetHistory === undefined) {
+      result.push('not-recored');
+
+      continue;
+    }
 
     const callbackResult = callback(targetHistory, flow);
 
