@@ -19,9 +19,9 @@ export const baseAnalyticsCalc: (
 
   const flowStartAtValue = getMidnight(flow.startAt).valueOf();
 
-  return Array.from({ length: (todayValue - startValue) / ONE_DAY }).reduce<
-    AnalyticsResult[]
-  >((result, _, day) => {
+  return Array.from({
+    length: (todayValue - startValue + ONE_DAY) / ONE_DAY,
+  }).reduce<AnalyticsResult[]>((result, _, day) => {
     const current = startValue + day * ONE_DAY;
 
     if (flowStartAtValue > current) return result.concat('past');
