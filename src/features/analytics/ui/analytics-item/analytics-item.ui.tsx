@@ -66,8 +66,8 @@ export const AnalyticsItem: Component<Props> = (props) => {
               <div
                 class={clsx(
                   'w-3 h-3 rounded-[4px]',
-                  it === 'past' && 'bg-gray-200',
-                  it === 'rest' && 'bg-slate-300',
+                  it === 'past' && 'bg-gray-100',
+                  it === 'rest' && 'bg-gray-200',
                   it === 'not-recored' && 'bg-gray-300',
                   it === 0 && FLOW_BG_100[color()],
                   it === 1 && FLOW_BG_200[color()],
