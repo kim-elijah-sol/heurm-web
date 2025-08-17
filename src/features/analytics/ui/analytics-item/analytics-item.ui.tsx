@@ -9,6 +9,10 @@ import {
   FLOW_BG_300,
   FLOW_BG_500,
   FLOW_BORDER_200,
+  FLOW_BORDER_200_50,
+  FLOW_BORDER_300_50,
+  FLOW_BORDER_400_50,
+  FLOW_BORDER_600_50,
 } from '~/shared/constant';
 import { FlowColor } from '~/shared/types';
 import { AnalyticsCalcFx } from '../../types';
@@ -65,14 +69,18 @@ export const AnalyticsItem: Component<Props> = (props) => {
             {(it) => (
               <div
                 class={clsx(
-                  'w-3 h-3 rounded-[4px]',
-                  it === 'past' && 'bg-gray-100',
-                  it === 'rest' && 'bg-gray-200',
-                  it === 'not-recored' && 'bg-gray-300',
-                  it === 0 && FLOW_BG_100[color()],
-                  it === 1 && FLOW_BG_200[color()],
-                  it === 2 && FLOW_BG_300[color()],
-                  it === 3 && FLOW_BG_500[color()]
+                  'w-3 h-3 rounded-[4px] border',
+                  it === 'past' && 'bg-gray-100 border-gray-200/50',
+                  it === 'rest' && 'bg-gray-200 border-gray-300/50',
+                  it === 'not-recored' && 'bg-gray-300 border-gray-400/50',
+                  it === 0 &&
+                    clsx(FLOW_BG_100[color()], FLOW_BORDER_200_50[color()]),
+                  it === 1 &&
+                    clsx(FLOW_BG_200[color()], FLOW_BORDER_300_50[color()]),
+                  it === 2 &&
+                    clsx(FLOW_BG_300[color()], FLOW_BORDER_400_50[color()]),
+                  it === 3 &&
+                    clsx(FLOW_BG_500[color()], FLOW_BORDER_600_50[color()])
                 )}
               ></div>
             )}

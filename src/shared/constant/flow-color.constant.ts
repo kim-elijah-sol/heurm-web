@@ -196,6 +196,28 @@ export const FLOW_BORDER_200 = {
   pink: 'border-pink-200',
 } as const;
 
+export const FLOW_BORDER_200_50 = {
+  red: 'border-red-200/50',
+  green: 'border-green-200/50',
+  blue: 'border-blue-200/50',
+  indigo: 'border-indigo-200/50',
+  teal: 'border-teal-200/50',
+  yellow: 'border-yellow-200/50',
+  purple: 'border-purple-200/50',
+  pink: 'border-pink-200/50',
+} as const;
+
+export const FLOW_BORDER_300_50 = {
+  red: 'border-red-300/50',
+  green: 'border-green-300/50',
+  blue: 'border-blue-300/50',
+  indigo: 'border-indigo-300/50',
+  teal: 'border-teal-300/50',
+  yellow: 'border-yellow-300/50',
+  purple: 'border-purple-300/50',
+  pink: 'border-pink-300/50',
+} as const;
+
 export const FLOW_BORDER_400 = {
   red: 'border-red-400',
   green: 'border-green-400',
@@ -207,6 +229,17 @@ export const FLOW_BORDER_400 = {
   pink: 'border-pink-400',
 } as const;
 
+export const FLOW_BORDER_400_50 = {
+  red: 'border-red-400/50',
+  green: 'border-green-400/50',
+  blue: 'border-blue-400/50',
+  indigo: 'border-indigo-400/50',
+  teal: 'border-teal-400/50',
+  yellow: 'border-yellow-400/50',
+  purple: 'border-purple-400/50',
+  pink: 'border-pink-400/50',
+} as const;
+
 export const FLOW_BORDER_500 = {
   red: 'border-red-500',
   green: 'border-green-500',
@@ -216,6 +249,17 @@ export const FLOW_BORDER_500 = {
   yellow: 'border-yellow-500',
   purple: 'border-purple-500',
   pink: 'border-pink-500',
+} as const;
+
+export const FLOW_BORDER_600_50 = {
+  red: 'border-red-600/50',
+  green: 'border-green-600/50',
+  blue: 'border-blue-600/50',
+  indigo: 'border-indigo-600/50',
+  teal: 'border-teal-600/50',
+  yellow: 'border-yellow-600/50',
+  purple: 'border-purple-600/50',
+  pink: 'border-pink-600/50',
 } as const;
 
 export const FLOW_ACTIVE_BORDER_500 = {
