@@ -6,7 +6,7 @@ export const createSelectWave = (defaultSelectedWaveId?: Nullable<string>) => {
     defaultSelectedWaveId ?? null
   );
 
-  const handleClickWaveItem = (id: string) => {
+  const handleClickWaveItem = (id: Nullable<string>) => {
     setSelectedWave(selectedWave() === id ? null : id);
   };
 
