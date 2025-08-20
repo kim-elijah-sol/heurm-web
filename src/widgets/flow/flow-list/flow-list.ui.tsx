@@ -4,35 +4,71 @@ import { waveQueries, type WaveType } from '~/entities/wave';
 import { filterValidFlow, groupingFlowByWave } from '~/features/flow/fx';
 import { FlowItem, NoFlow } from '~/features/flow/ui';
 import { createDateSelect } from '~/features/main/hook';
+import { createSelectWave } from '~/features/wave/hook';
+import { WaveItem, WaveList } from '~/features/wave/ui';
 
 export const FlowList = () => {
+  const [selectedWave, handleClickWaveItem] = createSelectWave('Every');
+
   return (
     <FlowListSuspense>
-      {(flows, wave) => (
-        <div class='flex flex-col gap-5'>
-          <For each={groupingFlowByWave(flows(), wave)}>
-            {(group) => (
-              <div>
-                <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
-                <div class='flex flex-col gap-3'>
-                  <For each={group.flows}>
-                    {(flow) => (
-                      <Switch>
-                        <Match when={flow.type === 'COMPLETE'}>
-                          <FlowItem.Complete flow={() => flow} />
-                        </Match>
-                        <Match when={flow.type !== 'COMPLETE'}>
-                          <FlowItem.Countable flow={() => flow} />
-                        </Match>
-                      </Switch>
-                    )}
-                  </For>
-                </div>
-              </div>
-            )}
-          </For>
-        </div>
-      )}
+      {(flows, wave) => {
+        const filteringWave: Array<{ id?: string; name: string }> = [
+          {
+            name: 'Every',
+          },
+          {
+            name: 'None Wave',
+          },
+        ].concat(wave);
+
+        return (
+          <>
+            <WaveList.Scrollable className='mb-4'>
+              <For each={filteringWave}>
+                {(wave) => (
+                  <WaveItem
+                    selected={() => selectedWave() === wave.name}
+                    onClick={() => handleClickWaveItem(wave.name, true)}
+                    id={wave.id}
+                  >
+                    {wave.name}
+                  </WaveItem>
+                )}
+              </For>
+            </WaveList.Scrollable>
+            <div class='flex flex-col gap-5'>
+              <For
+                each={groupingFlowByWave(flows(), wave).filter(({ wave }) => {
+                  if (selectedWave() === 'Every') return true;
+
+                  return wave === selectedWave();
+                })}
+              >
+                {(group) => (
+                  <div>
+                    <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
+                    <div class='flex flex-col gap-3'>
+                      <For each={group.flows}>
+                        {(flow) => (
+                          <Switch>
+                            <Match when={flow.type === 'COMPLETE'}>
+                              <FlowItem.Complete flow={() => flow} />
+                            </Match>
+                            <Match when={flow.type !== 'COMPLETE'}>
+                              <FlowItem.Countable flow={() => flow} />
+                            </Match>
+                          </Switch>
+                        )}
+                      </For>
+                    </div>
+                  </div>
+                )}
+              </For>
+            </div>
+          </>
+        );
+      }}
     </FlowListSuspense>
   );
 };
