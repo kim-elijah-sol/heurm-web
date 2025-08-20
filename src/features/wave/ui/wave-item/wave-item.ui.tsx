@@ -17,7 +17,7 @@ type Props = {
   children: string;
   onClick: () => void;
   selected: Accessor<boolean>;
-  color: Accessor<FlowColor>;
+  color?: Accessor<FlowColor>;
   id?: string;
 };
 
@@ -73,7 +73,9 @@ export const WaveItem: Component<Props> = (props) => {
           'font-semibold px-3 py-1.5 rounded-[16px] transition-all active:scale-95',
           /** BACKGROUND */ props.selected() ? 'bg-slate-200' : 'bg-slate-100',
           /** TEXT COLOR */ props.selected()
-            ? FLOW_TEXT_500[props.color()]
+            ? props.color
+              ? FLOW_TEXT_500[props.color()]
+              : 'text-gray-900'
             : 'text-gray-600',
           /** ACTIVE BACKGROUND */ props.selected()
             ? 'active:bg-slate-400/70'
@@ -105,8 +107,8 @@ export const WaveItem: Component<Props> = (props) => {
                 disabled={disabled()}
                 class={clsx(
                   'w-full text-white font-semibold h-12 rounded-[20px] transition-all active:scale-95 disabled:active:scale-100 disabled:bg-gray-300 disabled:active:bg-gray-300',
-                  FLOW_BG_400[props.color()],
-                  FLOW_ACTIVE_BG_500[props.color()]
+                  props.color && FLOW_BG_400[props.color()],
+                  props.color && FLOW_ACTIVE_BG_500[props.color()]
                 )}
                 onClick={async () => {
                   await patchWave.mutateAsync({
