@@ -64,6 +64,20 @@ export const WaveItem: Component<Props> = (props) => {
 
   const deleteWave = waveQueries.deleteWaveMutation();
 
+  const backgroundColor = () =>
+    props.selected() ? 'bg-slate-200' : 'bg-slate-100';
+
+  const activeBackgroundColor = () =>
+    props.selected() ? 'active:bg-slate-400/70' : 'active:bg-slate-200/70';
+
+  const textColor = () => {
+    if (props.selected() === false) return 'text-gray-600';
+
+    if (props.color) return FLOW_TEXT_500[props.color()];
+
+    return 'text-gray-900';
+  };
+
   return (
     <>
       <button
@@ -71,15 +85,9 @@ export const WaveItem: Component<Props> = (props) => {
         on:touchend={onTouchEnd}
         class={clsx(
           'font-semibold px-3 py-1.5 rounded-[16px] transition-all active:scale-95',
-          /** BACKGROUND */ props.selected() ? 'bg-slate-200' : 'bg-slate-100',
-          /** TEXT COLOR */ props.selected()
-            ? props.color
-              ? FLOW_TEXT_500[props.color()]
-              : 'text-gray-900'
-            : 'text-gray-600',
-          /** ACTIVE BACKGROUND */ props.selected()
-            ? 'active:bg-slate-400/70'
-            : 'active:bg-slate-200/70'
+          backgroundColor(),
+          activeBackgroundColor(),
+          textColor()
         )}
       >
         {props.children}
