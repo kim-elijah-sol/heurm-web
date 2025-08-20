@@ -6,7 +6,15 @@ export const createSelectWave = (defaultSelectedWaveId?: Nullable<string>) => {
     defaultSelectedWaveId ?? null
   );
 
-  const handleClickWaveItem = (id: Nullable<string>) => {
+  const handleClickWaveItem = (
+    id: Nullable<string>,
+    autoNullBlock?: boolean
+  ) => {
+    if (autoNullBlock) {
+      setSelectedWave(id);
+      return;
+    }
+
     setSelectedWave(selectedWave() === id ? null : id);
   };
 
