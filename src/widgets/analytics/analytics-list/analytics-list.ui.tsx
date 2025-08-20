@@ -10,40 +10,75 @@ import {
 import { AnalyticsItem } from '~/features/analytics/ui';
 import { groupingFlowByWave } from '~/features/flow/fx';
 import { NoFlow } from '~/features/flow/ui';
+import { createSelectWave } from '~/features/wave/hook';
+import { WaveItem, WaveList } from '~/features/wave/ui';
 
 export const AnalyticsList = () => {
+  const [selectedWave, handleClickWaveItem] = createSelectWave('Every');
+
   return (
     <AnalyticsListSuspense>
       {(flow, wave) => {
         const startDate = getStartDate(flow);
 
+        const filteringWave: Array<{ id?: string; name: string }> = [
+          {
+            name: 'Every',
+          },
+          {
+            name: 'None Wave',
+          },
+        ].concat(wave);
+
         return (
-          <div class='flex flex-col gap-5'>
-            <For each={groupingFlowByWave(flow, wave)}>
-              {(group) => (
-                <div>
-                  <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
-                  <div class='flex flex-col gap-3'>
-                    <For each={group.flows}>
-                      {(flow) => (
-                        <AnalyticsItem
-                          flow={() => flow}
-                          startDate={startDate}
-                          analyticsCalcFx={
-                            flow.type === 'COMPLETE'
-                              ? completeAnalyticsCalc
-                              : flow.type === 'OVER'
-                              ? overAnalyticsCalc
-                              : underAnalyticsCalc
-                          }
-                        />
-                      )}
-                    </For>
+          <>
+            <WaveList.Scrollable className='mt-6 mb-4'>
+              <For each={filteringWave}>
+                {(wave) => (
+                  <WaveItem
+                    selected={() => selectedWave() === wave.name}
+                    onClick={() => handleClickWaveItem(wave.name, true)}
+                    id={wave.id}
+                  >
+                    {wave.name}
+                  </WaveItem>
+                )}
+              </For>
+            </WaveList.Scrollable>
+
+            <div class='flex flex-col gap-5'>
+              <For
+                each={groupingFlowByWave(flow, wave).filter(({ wave }) => {
+                  if (selectedWave() === 'Every') return true;
+
+                  return wave === selectedWave();
+                })}
+              >
+                {(group) => (
+                  <div>
+                    <p class='mb-2 font-semibold ml-2'>{group.wave}</p>
+                    <div class='flex flex-col gap-3'>
+                      <For each={group.flows}>
+                        {(flow) => (
+                          <AnalyticsItem
+                            flow={() => flow}
+                            startDate={startDate}
+                            analyticsCalcFx={
+                              flow.type === 'COMPLETE'
+                                ? completeAnalyticsCalc
+                                : flow.type === 'OVER'
+                                ? overAnalyticsCalc
+                                : underAnalyticsCalc
+                            }
+                          />
+                        )}
+                      </For>
+                    </div>
                   </div>
-                </div>
-              )}
-            </For>
-          </div>
+                )}
+              </For>
+            </div>
+          </>
         );
       }}
     </AnalyticsListSuspense>
