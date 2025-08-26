@@ -1,6 +1,5 @@
 import { For } from 'solid-js';
-import type { WaveType } from '~/entities/wave';
-import { waveQueries } from '~/entities/wave';
+import { waveConstant, waveQueries, type WaveType } from '~/entities/wave';
 import type { PickedPartial } from '~/shared/types';
 import { WaveItem, WaveList } from '../ui';
 import { createSelectWave } from './create-select-wave.hook';
@@ -8,17 +7,12 @@ import { createSelectWave } from './create-select-wave.hook';
 export const createFilteringWaveList = () => {
   const wave = waveQueries.getWaveQuery();
 
-  const [selectedWave, handleClickWaveItem] = createSelectWave('Every');
+  const [selectedWave, handleClickWaveItem] = createSelectWave(
+    waveConstant.DEFAULT_SELECTED_WAVE_NAME
+  );
 
   const waveList = (): PickedPartial<WaveType.GetWaveResponseItem, 'id'>[] =>
-    [
-      {
-        name: 'Every',
-      },
-      {
-        name: 'None Wave',
-      },
-    ].concat(wave.data ?? []);
+    waveConstant.FILTERING_WAVE_LIST.concat(wave.data ?? []);
 
   const filteringWaveList = () => (
     <>

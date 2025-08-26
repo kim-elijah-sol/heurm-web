@@ -1,5 +1,5 @@
 import { type FlowType } from '~/entities/flow';
-import { type WaveType } from '~/entities/wave';
+import { waveConstant, type WaveType } from '~/entities/wave';
 
 export const groupingFlowByWave = (
   flows: FlowType.GetFlowResponse,
@@ -27,7 +27,8 @@ export const groupingFlowByWave = (
     .filter((it) => it.flows.length !== 0)
     .map((it) => {
       const waveName =
-        wave.find((wave) => wave.id === it.waveId)?.name ?? 'None Wave';
+        wave.find((wave) => wave.id === it.waveId)?.name ??
+        waveConstant.NONE_GROPING_WAVE_NAME;
 
       return {
         wave: waveName,
