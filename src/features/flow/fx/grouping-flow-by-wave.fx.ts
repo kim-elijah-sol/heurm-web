@@ -18,7 +18,10 @@ export const groupingFlowByWave = (
   for (const flow of flows) {
     const waveId = flow.wave[0]?.id ?? '';
 
-    const index = result.findIndex((it) => it.waveId === waveId);
+    const index = Math.max(
+      result.findIndex((it) => it.waveId === waveId),
+      0
+    );
 
     result[index].flows.push(flow);
   }
