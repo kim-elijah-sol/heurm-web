@@ -1,13 +1,12 @@
-import { For } from 'solid-js';
+import { createSignal, For } from 'solid-js';
 import { waveConstant, waveQueries, type WaveType } from '~/entities/wave';
 import type { PickedPartial } from '~/shared/types';
 import { WaveItem, WaveList } from '../ui';
-import { createSelectWave } from './create-select-wave.hook';
 
 export const createFilteringWaveList = () => {
   const wave = waveQueries.getWaveQuery();
 
-  const [selectedWave, handleClickWaveItem] = createSelectWave(
+  const [selectedWave, setSelectedWave] = createSignal<string>(
     waveConstant.DEFAULT_SELECTED_WAVE_NAME
   );
 
@@ -21,7 +20,7 @@ export const createFilteringWaveList = () => {
           {(wave) => (
             <WaveItem.OnlySelectable
               selected={() => selectedWave() === wave.name}
-              onClick={() => handleClickWaveItem(wave.name, true)}
+              onClick={() => setSelectedWave(wave.name)}
             >
               {wave.name}
             </WaveItem.OnlySelectable>
