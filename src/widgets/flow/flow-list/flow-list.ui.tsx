@@ -4,6 +4,7 @@ import { waveQueries, type WaveType } from '~/entities/wave';
 import { filterValidFlow, groupingFlowByWave } from '~/features/flow/fx';
 import { FlowItem, NoFlow } from '~/features/flow/ui';
 import { createDateSelect } from '~/features/main/hook';
+import { filteringSelectedWave } from '~/features/wave/fx';
 import { createFilteringWaveList } from '~/features/wave/hook';
 
 export const FlowList = () => {
@@ -18,11 +19,9 @@ export const FlowList = () => {
 
             <div class='flex flex-col gap-5'>
               <For
-                each={groupingFlowByWave(flows(), wave).filter(({ wave }) => {
-                  if (selectedWave() === 'Every') return true;
-
-                  return wave === selectedWave();
-                })}
+                each={groupingFlowByWave(flows(), wave).filter(
+                  filteringSelectedWave(selectedWave())
+                )}
               >
                 {(group) => (
                   <div>

@@ -10,6 +10,7 @@ import {
 import { AnalyticsItem } from '~/features/analytics/ui';
 import { groupingFlowByWave } from '~/features/flow/fx';
 import { NoFlow } from '~/features/flow/ui';
+import { filteringSelectedWave } from '~/features/wave/fx';
 import { createFilteringWaveList } from '~/features/wave/hook';
 
 export const AnalyticsList = () => {
@@ -26,11 +27,9 @@ export const AnalyticsList = () => {
 
             <div class='flex flex-col gap-5'>
               <For
-                each={groupingFlowByWave(flow, wave).filter(({ wave }) => {
-                  if (selectedWave() === 'Every') return true;
-
-                  return wave === selectedWave();
-                })}
+                each={groupingFlowByWave(flow, wave).filter(
+                  filteringSelectedWave(selectedWave())
+                )}
               >
                 {(group) => (
                   <div>
