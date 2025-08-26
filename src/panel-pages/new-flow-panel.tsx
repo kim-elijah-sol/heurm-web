@@ -13,7 +13,6 @@ import {
   FlowPanelWeeklyPatternSelect,
   FlowPanelYearlyPatternSelect,
 } from '~/features/flow/ui';
-import { createSelectWave } from '~/features/wave/hook';
 import {
   NewWaveButton,
   OrderWaveButton,
@@ -21,6 +20,7 @@ import {
   WaveList,
 } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
+import { createSingleToggle } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import {
   Check,
@@ -139,7 +139,7 @@ export const NewFlowPanel: Component<Props> = (props) => {
 
   const wave = waveQueries.getWaveQuery();
 
-  const [selectedWave, handleClickWaveItem] = createSelectWave();
+  const [selectedWave, handleClickWaveItem] = createSingleToggle<string>();
 
   const postFlowWave = flowWaveQueries.postFlowWaveMutation();
 

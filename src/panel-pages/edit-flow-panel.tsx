@@ -22,7 +22,6 @@ import {
   FlowPanelWeeklyPatternSelect,
   FlowPanelYearlyPatternSelect,
 } from '~/features/flow/ui';
-import { createSelectWave } from '~/features/wave/hook';
 import {
   NewWaveButton,
   OrderWaveButton,
@@ -31,7 +30,7 @@ import {
 } from '~/features/wave/ui';
 import { FLOW_BG_400, FLOW_BORDER_400, FLOW_TEXT_500 } from '~/shared/constant';
 import { delay } from '~/shared/fx';
-import { createBoolean } from '~/shared/hook';
+import { createBoolean, createSingleToggle } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type { Nullable } from '~/shared/types';
 import {
@@ -157,7 +156,7 @@ const _EditFlowPanel: Component<Props> = (props) => {
     ? props.flow().wave[0].id
     : null;
 
-  const [selectedWave, handleClickWaveItem] = createSelectWave(
+  const [selectedWave, handleClickWaveItem] = createSingleToggle(
     defaultSelectedWaveId
   );
 
