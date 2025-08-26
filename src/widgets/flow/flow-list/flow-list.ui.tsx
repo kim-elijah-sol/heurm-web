@@ -15,7 +15,7 @@ export const FlowList = () => {
       {(flows, wave) => {
         return (
           <>
-            {filteringWaveList()}
+            {filteringWaveList({ className: 'mb-4' })}
 
             <div class='flex flex-col gap-5'>
               <For

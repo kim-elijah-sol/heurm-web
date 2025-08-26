@@ -23,7 +23,7 @@ export const AnalyticsList = () => {
 
         return (
           <>
-            {filteringWaveList()}
+            {filteringWaveList({ className: 'mt-6 mb-4' })}
 
             <div class='flex flex-col gap-5'>
               <For

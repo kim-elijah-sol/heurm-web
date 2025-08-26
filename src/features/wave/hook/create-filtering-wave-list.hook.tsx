@@ -14,9 +14,9 @@ export const createFilteringWaveList = () => {
   const waveList = (): PickedPartial<WaveType.GetWaveResponseItem, 'id'>[] =>
     waveConstant.FILTERING_WAVE_LIST.concat(wave.data ?? []);
 
-  const filteringWaveList = () => (
+  const filteringWaveList = (props?: { className?: string }) => (
     <>
-      <WaveList.Scrollable className='mt-6 mb-4'>
+      <WaveList.Scrollable className={props?.className}>
         <For each={waveList()}>
           {(wave) => (
             <WaveItem
