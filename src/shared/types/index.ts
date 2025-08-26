@@ -7,5 +7,6 @@ export * from './flow-type.type';
 export * from './flow-weekly-pattern.type';
 export * from './flow-yearly-pattern.type';
 export * from './nullable.type';
+export * from './picked-partial.type';
 export * from './rolling-display-type.type';
 export * from './toast.type';
