@@ -4,39 +4,18 @@ import { waveQueries, type WaveType } from '~/entities/wave';
 import { filterValidFlow, groupingFlowByWave } from '~/features/flow/fx';
 import { FlowItem, NoFlow } from '~/features/flow/ui';
 import { createDateSelect } from '~/features/main/hook';
-import { createSelectWave } from '~/features/wave/hook';
-import { WaveItem, WaveList } from '~/features/wave/ui';
+import { createFilteringWaveList } from '~/features/wave/hook';
 
 export const FlowList = () => {
-  const [selectedWave, handleClickWaveItem] = createSelectWave('Every');
+  const [selectedWave, filteringWaveList] = createFilteringWaveList();
 
   return (
     <FlowListSuspense>
       {(flows, wave) => {
-        const filteringWave: Array<{ id?: string; name: string }> = [
-          {
-            name: 'Every',
-          },
-          {
-            name: 'None Wave',
-          },
-        ].concat(wave);
-
         return (
           <>
-            <WaveList.Scrollable className='mb-4'>
-              <For each={filteringWave}>
-                {(wave) => (
-                  <WaveItem
-                    selected={() => selectedWave() === wave.name}
-                    onClick={() => handleClickWaveItem(wave.name, true)}
-                    id={wave.id}
-                  >
-                    {wave.name}
-                  </WaveItem>
-                )}
-              </For>
-            </WaveList.Scrollable>
+            {filteringWaveList()}
+
             <div class='flex flex-col gap-5'>
               <For
                 each={groupingFlowByWave(flows(), wave).filter(({ wave }) => {
