@@ -19,13 +19,12 @@ export const createFilteringWaveList = () => {
       <WaveList.Scrollable className={props?.className}>
         <For each={waveList()}>
           {(wave) => (
-            <WaveItem
+            <WaveItem.OnlySelectable
               selected={() => selectedWave() === wave.name}
               onClick={() => handleClickWaveItem(wave.name, true)}
-              id={wave.id}
             >
               {wave.name}
-            </WaveItem>
+            </WaveItem.OnlySelectable>
           )}
         </For>
       </WaveList.Scrollable>

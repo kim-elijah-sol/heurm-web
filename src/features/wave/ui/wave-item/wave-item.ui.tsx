@@ -17,8 +17,8 @@ type Props = {
   children: string;
   onClick: () => void;
   selected: Accessor<boolean>;
-  color?: Accessor<FlowColor>;
-  id?: string;
+  color: Accessor<FlowColor>;
+  id: string;
 };
 
 export const WaveItem: Component<Props> = (props) => {
@@ -31,14 +31,8 @@ export const WaveItem: Component<Props> = (props) => {
   const disabled = () =>
     name().trim().length === 0 || name().trim() === defaultName;
 
-  const [isEditBottomSheetOpened, _openEditBottomSheet, _closeEditBottomSheet] =
+  const [isEditBottomSheetOpened, openEditBottomSheet, _closeEditBottomSheet] =
     createBoolean();
-
-  const openEditBottomSheet = () => {
-    if (props.id) {
-      _openEditBottomSheet();
-    }
-  };
 
   const closeEditBottomSheet = () => {
     _closeEditBottomSheet();
@@ -70,13 +64,8 @@ export const WaveItem: Component<Props> = (props) => {
   const activeBackgroundColor = () =>
     props.selected() ? 'active:bg-slate-400/70' : 'active:bg-slate-200/70';
 
-  const textColor = () => {
-    if (props.selected() === false) return 'text-gray-600';
-
-    if (props.color) return FLOW_TEXT_500[props.color()];
-
-    return 'text-gray-900';
-  };
+  const textColor = () =>
+    props.selected() ? FLOW_TEXT_500[props.color()] : 'text-gray-600';
 
   return (
     <>
@@ -115,12 +104,12 @@ export const WaveItem: Component<Props> = (props) => {
                 disabled={disabled()}
                 class={clsx(
                   'w-full text-white font-semibold h-12 rounded-[20px] transition-all active:scale-95 disabled:active:scale-100 disabled:bg-gray-300 disabled:active:bg-gray-300',
-                  props.color && FLOW_BG_400[props.color()],
-                  props.color && FLOW_ACTIVE_BG_500[props.color()]
+                  FLOW_BG_400[props.color()],
+                  FLOW_ACTIVE_BG_500[props.color()]
                 )}
                 onClick={async () => {
                   await patchWave.mutateAsync({
-                    id: props.id!,
+                    id: props.id,
                     name: name().trim(),
                   });
 
@@ -173,7 +162,7 @@ export const WaveItem: Component<Props> = (props) => {
                         class='w-full text-white font-semibold py-4 rounded-[24px] bg-slate-300 transition-all active:scale-95 active:bg-slate-400'
                         onClick={async () => {
                           await deleteWave.mutateAsync({
-                            id: props.id!,
+                            id: props.id,
                           });
 
                           closeDeleteBottomSheet();
