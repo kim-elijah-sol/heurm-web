@@ -45,7 +45,7 @@ export const WaveItem: Component<Props> = (props) => {
     closeDeleteBottomSheet,
   ] = createBoolean();
 
-  const { onTouchStart, onTouchEnd } = createLongPress({
+  const { onTouchStart, onTouchEnd, onTouchMove } = createLongPress({
     onClick: props.onClick,
     onLongPress: openEditBottomSheet,
   });
@@ -75,6 +75,7 @@ export const WaveItem: Component<Props> = (props) => {
       <button
         on:touchstart={onTouchStart}
         on:touchend={onTouchEnd}
+        on:touchmove={onTouchMove}
         class={clsx(
           'font-semibold px-3 py-1.5 rounded-[16px] transition-all active:scale-95',
           backgroundColor(),

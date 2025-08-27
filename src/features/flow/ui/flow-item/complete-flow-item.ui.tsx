@@ -35,7 +35,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
   const [isCTAPanelOpened, openCTAPanel, closeCTAPanel] =
     createBluredPanelShow();
 
-  const { onTouchStart, onTouchEnd } = createLongPress({
+  const { onTouchStart, onTouchEnd, onTouchMove } = createLongPress({
     onClick: openCTAPanel,
     onLongPress: () => EditFlowPanel.openEditFlowPanel(flow()),
   });
@@ -98,6 +98,7 @@ export const CompleteFlowItem: Component<FlowItemProps> = (props) => {
       <FlowItemComponent.Wrapper
         on:touchstart={onTouchStart}
         on:touchend={onTouchEnd}
+        on:touchmove={onTouchMove}
       >
         <FlowItemComponent.StatusBg
           isFill={() => isCompleted() !== null}

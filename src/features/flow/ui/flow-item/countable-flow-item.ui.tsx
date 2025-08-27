@@ -5,7 +5,7 @@ import {
   createSignal,
   Show,
   type Accessor,
-  type Component,
+  type Component
 } from 'solid-js';
 import { historyQueries, HistoryType } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
@@ -19,7 +19,7 @@ import type {
   FlowColor,
   FlowIntervalType,
   FlowType,
-  Nullable,
+  Nullable
 } from '~/shared/types';
 import { Check, Loader, Panel, X } from '~/shared/ui';
 import { PieChart, TypeLabel } from '.';
@@ -31,7 +31,7 @@ import {
   filterValidFlow,
   filterWeekHistory,
   filterYearHistory,
-  findCurrentHistory,
+  findCurrentHistory
 } from '../../fx';
 import { createBluredPanelShow } from '../../hook/create-blured-panel-show.hook';
 import { type FlowItemProps } from '../../types';
@@ -57,7 +57,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   const [isCTAPanelOpened, openCTAPanel, closeCTAPanel] =
     createBluredPanelShow();
 
-  const { onTouchStart, onTouchEnd } = createLongPress({
+  const { onTouchStart, onTouchEnd, onTouchMove } = createLongPress({
     onClick: openCTAPanel,
     onLongPress: () => EditFlowPanel.openEditFlowPanel(flow()),
   });
@@ -180,6 +180,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
       <FlowItemComponent.Wrapper
         on:touchstart={onTouchStart}
         on:touchend={onTouchEnd}
+        on:touchmove={onTouchMove}
       >
         <FlowItemComponent.StatusBg
           isFill={() => (currentHistory()?.count ?? null) !== null}
