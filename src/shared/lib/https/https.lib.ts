@@ -45,6 +45,7 @@ https.interceptors.response.use(undefined, async (error) => {
     if (error.response?.data !== 'Access token is expired') {
       removeTokens();
       window.location.replace('/login');
+      return Promise.reject(error);
     }
 
     if (isRefreshing) {
@@ -65,38 +66,38 @@ https.interceptors.response.use(undefined, async (error) => {
 
     isRefreshing = true;
 
-    https
-      .post('/user/refresh', {
+    try {
+      const refreshResult = await https.post('/user/refresh', {
         refreshToken: localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN),
         clientId: localStorage.getItem(STORAGE_KEYS.CLIENT_ID),
-      })
-      .then(({ data: { accessToken } }) => {
-        if (accessToken) {
-          localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
-
-          processFailedQueue(null, accessToken);
-
-          originalRequest.headers = {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          };
-
-          return https(originalRequest);
-        } else {
-          throw new Error('No access token received');
-        }
-      })
-      .catch((error) => {
-        processFailedQueue(error, null);
-
-        removeTokens();
-        window.location.replace('/login');
-
-        return Promise.reject(error);
-      })
-      .finally(() => {
-        isRefreshing = false;
       });
+
+      const accessToken = refreshResult.data.accessToken;
+
+      if (accessToken) {
+        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+
+        processFailedQueue(null, accessToken);
+
+        originalRequest.headers = {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        };
+
+        return https(originalRequest);
+      } else {
+        throw new Error('No access token received');
+      }
+    } catch (refreshError) {
+      processFailedQueue(refreshError, null);
+
+      removeTokens();
+      window.location.replace('/login');
+
+      return Promise.reject(refreshError);
+    } finally {
+      isRefreshing = false;
+    }
   }
 
   return Promise.reject(error);
