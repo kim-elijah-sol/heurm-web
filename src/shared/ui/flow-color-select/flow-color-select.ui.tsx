@@ -51,11 +51,11 @@ const ColorItem = (props: ColorItemProps) => {
       type='button'
       onClick={() => props.setColor(props.color())}
       class={clsx(
-        'w-11 h-11 rounded-[42%] flex items-center justify-center transition-all active:scale-90 border border-white/30 shadow-[0_0_8px_4px_rgba(255,255,255,0.2)]',
+        'w-10 h-10 rounded-[42%] flex items-center justify-center transition-all active:scale-90 border border-white/30 shadow-[0_0_8px_4px_rgba(255,255,255,0.2)]',
         FLOW_BG_300[props.color()]
       )}
     >
-      {props.isCurrent() && <Check size={28} strokeWidth={3} />}
+      {props.isCurrent() && <Check size={20} strokeWidth={3} />}
     </button>
   );
 };
