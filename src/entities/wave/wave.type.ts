@@ -36,3 +36,11 @@ export type ReorderWaveRequest = z.infer<
 export type ReorderWaveResponse = z.infer<
   typeof waveSchema.reorderWaveResponseSchema
 >;
+
+export type GetFlowWaveCountResponseItem = z.infer<
+  typeof waveSchema.getFlowWaveCountResponseItemSchema
+>;
+
+export type GetFlowWaveCountResponse = z.infer<
+  typeof waveSchema.getFlowWaveCountResponseSchema
+>;

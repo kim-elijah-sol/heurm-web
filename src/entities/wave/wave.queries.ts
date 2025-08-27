@@ -10,6 +10,7 @@ export const keys = createQueryKeys('wave', {
   patch: ['patch'],
   delete: ['delete'],
   reorder: ['reorder'],
+  getFlowWaveCount: ['getFlowWaveCount'],
 });
 
 export const getWaveQuery = () =>
@@ -57,4 +58,10 @@ export const reorderWaveMutation = (
     mutationFn: waveApi.reorderWave,
     onSuccess,
     onError: (error) => toastAtError(error),
+  }));
+
+export const getFlowWaveCountQuery = () =>
+  useQuery(() => ({
+    queryKey: keys.getFlowWaveCount.queryKey,
+    queryFn: () => waveApi.getFlowWaveCount(),
   }));

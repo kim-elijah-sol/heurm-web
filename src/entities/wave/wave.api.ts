@@ -25,3 +25,8 @@ export const reorderWave = (data: WaveType.ReorderWaveRequest) =>
   https
     .patch<WaveType.ReorderWaveResponse>('/wave/reorder', data)
     .then(https.validateResponse(waveSchema.reorderWaveResponseSchema));
+
+export const getFlowWaveCount = () =>
+  https
+    .get<WaveType.GetFlowWaveCountResponse>('/wave/flow-wave-count')
+    .then(https.validateResponse(waveSchema.getFlowWaveCountResponseSchema));

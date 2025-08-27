@@ -39,3 +39,13 @@ export const reorderWaveRequestSchema = z.object({
 export const reorderWaveResponseSchema = z.object({
   result: z.boolean(),
 });
+
+export const getFlowWaveCountResponseItemSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  flowWaveCount: z.number(),
+});
+
+export const getFlowWaveCountResponseSchema = z.array(
+  getFlowWaveCountResponseItemSchema
+);
