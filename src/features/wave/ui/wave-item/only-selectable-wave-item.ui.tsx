@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { type Accessor, type Component, type JSX } from 'solid-js';
 
 type Props = {
-  children: string;
+  children: JSX.Element;
   onClick: JSX.CustomEventHandlersNamespaced<HTMLButtonElement>['on:click'];
   selected: Accessor<boolean>;
 };
