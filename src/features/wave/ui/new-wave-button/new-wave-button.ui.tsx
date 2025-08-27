@@ -29,6 +29,9 @@ export const NewWaveButton: Component<Props> = (props) => {
     queryClient.invalidateQueries({
       queryKey: waveQueries.keys.get.queryKey,
     });
+    queryClient.invalidateQueries({
+      queryKey: waveQueries.keys.getFlowWaveCount.queryKey,
+    });
   });
 
   return (

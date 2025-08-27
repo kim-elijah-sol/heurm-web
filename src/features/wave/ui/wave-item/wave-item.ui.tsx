@@ -54,6 +54,9 @@ export const WaveItem: Component<Props> = (props) => {
     queryClient.invalidateQueries({
       queryKey: waveQueries.keys.get.queryKey,
     });
+    queryClient.invalidateQueries({
+      queryKey: waveQueries.keys.getFlowWaveCount.queryKey,
+    });
   });
 
   const deleteWave = waveQueries.deleteWaveMutation();
@@ -175,6 +178,10 @@ export const WaveItem: Component<Props> = (props) => {
 
                           queryClient.invalidateQueries({
                             queryKey: waveQueries.keys.get.queryKey,
+                          });
+                          queryClient.invalidateQueries({
+                            queryKey:
+                              waveQueries.keys.getFlowWaveCount.queryKey,
                           });
 
                           toast.open(`${props.children} is deleted.`);

@@ -516,6 +516,9 @@ const _EditFlowPanel: Component<Props> = (props) => {
                         queryClient.invalidateQueries({
                           queryKey: flowQueries.keys.get.queryKey,
                         });
+                        queryClient.invalidateQueries({
+                          queryKey: waveQueries.keys.getFlowWaveCount.queryKey,
+                        });
 
                         toast.open(`${props.flow().name} is deleted.`);
                       }}
@@ -556,6 +559,9 @@ const _EditFlowPanel: Component<Props> = (props) => {
 
               queryClient.invalidateQueries({
                 queryKey: flowQueries.keys.get.queryKey,
+              });
+              queryClient.invalidateQueries({
+                queryKey: waveQueries.keys.getFlowWaveCount.queryKey,
               });
 
               if (isTypeChanged) {

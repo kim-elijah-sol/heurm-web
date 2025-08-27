@@ -461,6 +461,9 @@ export const NewFlowPanel: Component<Props> = (props) => {
               queryClient.invalidateQueries({
                 queryKey: flowQueries.keys.get.queryKey,
               });
+              queryClient.invalidateQueries({
+                queryKey: waveQueries.keys.getFlowWaveCount.queryKey,
+              });
 
               close();
 
