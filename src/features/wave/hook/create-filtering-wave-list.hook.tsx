@@ -11,6 +11,14 @@ export const createFilteringWaveList = () => {
 
   const flowWaveCount = waveQueries.getFlowWaveCountQuery();
 
+  const totalFlowWaveCount = () =>
+    flowWaveCount.data?.reduce(
+      (acc, { flowWaveCount }) => acc + flowWaveCount,
+      0
+    ) ?? 0;
+
+  const noneWaveFlowCount = () => flowCount() - totalFlowWaveCount();
+
   const [selectedWave, setSelectedWave] = createSignal<string>(
     waveConstant.DEFAULT_SELECTED_WAVE_NAME
   );
@@ -19,7 +27,9 @@ export const createFilteringWaveList = () => {
     waveConstant.FILTERING_WAVE_LIST.map((it) => ({
       ...it,
       flowWaveCount:
-        it.name === waveConstant.DEFAULT_SELECTED_WAVE_NAME ? flowCount() : 0,
+        it.name === waveConstant.DEFAULT_SELECTED_WAVE_NAME
+          ? flowCount()
+          : noneWaveFlowCount(),
     }));
 
   const waveList = (): PickedPartial<
