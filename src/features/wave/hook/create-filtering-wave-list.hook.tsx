@@ -4,6 +4,11 @@ import { waveConstant, waveQueries, type WaveType } from '~/entities/wave';
 import type { PickedPartial } from '~/shared/types';
 import { WaveItem, WaveList } from '../ui';
 
+type FilteringWaveItem = PickedPartial<
+  WaveType.GetFlowWaveCountResponseItem,
+  'id'
+>;
+
 export const createFilteringWaveList = () => {
   const flow = flowQueries.getFlowQuery();
 
@@ -24,18 +29,24 @@ export const createFilteringWaveList = () => {
   );
 
   const filteringWaveListWithCount = () =>
-    waveConstant.FILTERING_WAVE_LIST.map((it) => ({
-      ...it,
-      flowWaveCount:
-        it.name === waveConstant.DEFAULT_SELECTED_WAVE_NAME
-          ? flowCount()
-          : noneWaveFlowCount(),
-    }));
+    waveConstant.FILTERING_WAVE_LIST.reduce<FilteringWaveItem[]>((acc, it) => {
+      if (it.name === waveConstant.DEFAULT_SELECTED_WAVE_NAME)
+        return acc.concat({
+          ...it,
+          flowWaveCount: flowCount(),
+        });
 
-  const waveList = (): PickedPartial<
-    WaveType.GetFlowWaveCountResponseItem,
-    'id'
-  >[] => filteringWaveListWithCount().concat(flowWaveCount.data ?? []);
+      if (noneWaveFlowCount() > 0)
+        return acc.concat({
+          ...it,
+          flowWaveCount: noneWaveFlowCount(),
+        });
+
+      return acc;
+    }, []);
+
+  const waveList = () =>
+    filteringWaveListWithCount().concat(flowWaveCount.data ?? []);
 
   const filteringWaveList = (props?: { className?: string }) => (
     <>
