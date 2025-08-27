@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, isAxiosError } from 'axios';
 import { STORAGE_KEYS } from '~/shared/constant';
+import { removeTokens } from '~/shared/fx';
 
 export const https = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -42,9 +43,7 @@ https.interceptors.response.use(undefined, async (error) => {
     const originalRequest = error.config as AxiosRequestConfig;
 
     if (error.response?.data !== 'Access token is expired') {
-      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.CLIENT_ID);
-      localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+      removeTokens();
       window.location.replace('/login');
     }
 
@@ -90,9 +89,7 @@ https.interceptors.response.use(undefined, async (error) => {
       .catch((error) => {
         processFailedQueue(error, null);
 
-        localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
-        localStorage.removeItem(STORAGE_KEYS.CLIENT_ID);
-        localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
+        removeTokens();
         window.location.replace('/login');
 
         return Promise.reject(error);

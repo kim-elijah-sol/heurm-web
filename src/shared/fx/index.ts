@@ -5,4 +5,5 @@ export * from './get-client-touch-position.fx';
 export * from './get-midnight.fx';
 export * from './get-random-item.fx';
 export * from './get-range.fx';
+export * from './remove-tokens.fx';
 export * from './toast-at-error.fx';

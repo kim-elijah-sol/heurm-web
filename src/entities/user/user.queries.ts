@@ -26,10 +26,12 @@ export const patchUserProfileMutation = (
   }));
 
 export const logoutMutation = (
-  onSuccess: (data: Awaited<ReturnType<typeof userApi.deleteLogout>>) => void
+  onSuccess: (data: Awaited<ReturnType<typeof userApi.deleteLogout>>) => void,
+  onError: () => void
 ) =>
   useMutation(() => ({
     mutationKey: keys.deleteLogout.queryKey,
     mutationFn: userApi.deleteLogout,
     onSuccess,
+    onError,
   }));
