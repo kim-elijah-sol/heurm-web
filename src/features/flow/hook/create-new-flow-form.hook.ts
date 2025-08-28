@@ -5,6 +5,7 @@ import {
   flowQueries,
   type FlowType as FlowTypes,
 } from '~/entities/flow';
+import { createDateSelect } from '~/features/main/hook';
 import { getMidnight } from '~/shared/fx';
 import { createInput } from '~/shared/hook';
 import type {
@@ -19,6 +20,8 @@ import type {
 } from '~/shared/types';
 
 export const createNewFlowForm = () => {
+  const { current } = createDateSelect();
+
   const postFlow = flowQueries.postFlowMutation();
 
   const [name, handleInputName] = createInput();
@@ -76,7 +79,9 @@ export const createNewFlowForm = () => {
   const accumulateTypeStep = () =>
     flowConstant.INTERVAL_TYPES.indexOf(accumulateType());
 
-  const [startAt, setStartAt] = createSignal<Nullable<Date>>(getMidnight());
+  const [startAt, setStartAt] = createSignal<Nullable<Date>>(
+    getMidnight(current())
+  );
 
   const [endAt, setEndAt] = createSignal<Nullable<Date>>(null);
 
