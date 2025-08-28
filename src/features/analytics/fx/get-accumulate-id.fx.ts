@@ -1,6 +1,5 @@
+import { ONE_DAY } from '~/shared/constant';
 import { dateFormat } from '~/shared/fx';
-
-const ONE_DAY = 86_400_000;
 
 export const getAccumulateId = {
   weekly: (current: number) => {

@@ -1,6 +1,7 @@
 import { type FlowType } from '~/entities/flow';
 import type { HistoryType } from '~/entities/history';
 import { isSameDate } from '~/features/main/fx';
+import { ONE_DAY } from '~/shared/constant';
 import { getMidnight } from '~/shared/fx';
 import type { Nullable } from '~/shared/types';
 import type {
@@ -10,8 +11,6 @@ import type {
 } from '../types';
 import { getAccumulateId } from './get-accumulate-id.fx';
 import { isRestDay } from './is-rest-day.fx';
-
-const ONE_DAY = 86_400_000;
 
 export const baseAnalyticsCalc: (
   callback: (

@@ -1,8 +1,7 @@
 import { getWeekOfMonth, lastDayOfMonth } from 'date-fns';
 import { FlowType } from '~/entities/flow';
+import { ONE_DAY } from '~/shared/constant';
 import { getMidnight } from '~/shared/fx';
-
-const ONE_DAY = 86_400_000;
 
 export const filterValidFlow =
   (today: number) =>
