@@ -43,14 +43,27 @@ export const baseAnalyticsCalc: (
     };
   });
 
+  const stackedCountCacheMap: Record<string, number> = {};
+
   const historyCountStackedByAccmulateId = historyWithAccumulateId.map((it) => {
     const { accumulateId } = it;
 
     if (accumulateId !== null) {
+      const stackedCountCache = stackedCountCacheMap[accumulateId];
+
+      if (stackedCountCache) {
+        return {
+          ...it,
+          count: stackedCountCache,
+        };
+      }
+
       const stackedCount = historyWithAccumulateId
         .filter((it) => it.accumulateId === accumulateId)
         .map(({ count }) => count!)
         .reduce((acc, current) => acc + current, 0);
+
+      stackedCountCacheMap[accumulateId] = stackedCount;
 
       return {
         ...it,
