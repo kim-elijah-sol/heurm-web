@@ -9,6 +9,7 @@ import type {
   AnalyticsResult,
   AnalyticsResultObject,
 } from '../types';
+import { filterValidHistory } from './filter-valid-history.fx';
 import { getAccumulateId } from './get-accumulate-id.fx';
 import { isRestDay } from './is-rest-day.fx';
 
@@ -25,6 +26,8 @@ export const baseAnalyticsCalc: (
   const flowStartAtValue = getMidnight(flow.startAt).valueOf();
 
   const flowEndAtValue = flow.endAt ? getMidnight(flow.endAt).valueOf() : null;
+
+  const validHistory = history.filter(filterValidHistory);
 
   return Array.from({
     length: (todayValue - startValue + ONE_DAY) / ONE_DAY,
@@ -49,7 +52,7 @@ export const baseAnalyticsCalc: (
           accumulateId,
         });
 
-      const targetHistory = history.find((history) =>
+      const targetHistory = validHistory.find((history) =>
         isSameDate(getMidnight(history.date), getMidnight(current))
       );
 
