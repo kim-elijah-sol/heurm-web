@@ -1,13 +1,14 @@
 import { type FlowType } from '~/entities/flow';
 import type { HistoryType } from '~/entities/history';
 import { isSameDate } from '~/features/main/fx';
-import { dateFormat, getMidnight } from '~/shared/fx';
+import { getMidnight } from '~/shared/fx';
 import type { Nullable } from '~/shared/types';
 import type {
   AnalyticsCalcFx,
   AnalyticsResult,
   AnalyticsResultObject,
 } from '../types';
+import { getAccumulateId } from './get-accumulate-id.fx';
 import { isRestDay } from './is-rest-day.fx';
 
 const ONE_DAY = 86_400_000;
@@ -29,21 +30,12 @@ export const baseAnalyticsCalc: (
   return Array.from({
     length: (todayValue - startValue + ONE_DAY) / ONE_DAY,
   }).reduce<AnalyticsResultObject[]>((result, _, day) => {
-    let accumulateId: Nullable<string> = null;
-
     const current = startValue + day * ONE_DAY;
 
-    if (flow.accumulateType) {
-      if (flow.accumulateType === 'WEEKLY') {
-        const currentDate = new Date(current);
+    let accumulateId: Nullable<string> = null;
 
-        const currentDay = currentDate.getDay();
-
-        const weekFirstDate = new Date(current - currentDay * ONE_DAY);
-
-        accumulateId = dateFormat['yyyy-MM-dd'](weekFirstDate);
-      }
-    }
+    if (flow.accumulateType === 'WEEKLY')
+      accumulateId = getAccumulateId.weekly(current);
 
     if (flowStartAtValue > current)
       return result.concat({
