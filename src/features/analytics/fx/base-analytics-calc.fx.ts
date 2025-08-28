@@ -28,39 +28,62 @@ export const baseAnalyticsCalc: (
 
   return Array.from({
     length: (todayValue - startValue + ONE_DAY) / ONE_DAY,
-  }).reduce<AnalyticsResultObject[]>((result, _, day) => {
-    const current = startValue + day * ONE_DAY;
+  })
+    .reduce<AnalyticsResultObject[]>((result, _, day) => {
+      const current = startValue + day * ONE_DAY;
 
-    let accumulateId: Nullable<string> = null;
+      let accumulateId: Nullable<string> = null;
 
-    if (flow.accumulateType === 'WEEKLY')
-      accumulateId = getAccumulateId.weekly(current);
+      if (flow.accumulateType === 'WEEKLY')
+        accumulateId = getAccumulateId.weekly(current);
 
-    if (flowStartAtValue > current)
+      if (flowStartAtValue > current)
+        return result.concat({
+          result: 'past',
+          accumulateId,
+        });
+      if (flowEndAtValue && flowEndAtValue < current) return result;
+      if (isRestDay(current)(flow))
+        return result.concat({
+          result: 'rest',
+          accumulateId,
+        });
+
+      const targetHistory = history.find((history) =>
+        isSameDate(getMidnight(history.date), getMidnight(current))
+      );
+
+      if (targetHistory === undefined)
+        return result.concat({
+          result: 'not-recored',
+          accumulateId,
+        });
+
       return result.concat({
-        result: 'past',
+        result: callback(targetHistory, flow),
         accumulateId,
       });
-    if (flowEndAtValue && flowEndAtValue < current) return result;
-    if (isRestDay(current)(flow))
-      return result.concat({
-        result: 'rest',
-        accumulateId,
-      });
+    }, [])
+    .map((it, _, original) => {
+      const { result, accumulateId } = it;
 
-    const targetHistory = history.find((history) =>
-      isSameDate(getMidnight(history.date), getMidnight(current))
-    );
+      if (typeof result === 'number' && accumulateId !== null) {
+        const maxResultByAccumulateId = Math.max(
+          ...(original
+            .filter(
+              (it) =>
+                it.accumulateId === accumulateId &&
+                typeof it.result === 'number'
+            )
+            .map(({ result }) => result) as number[])
+        );
 
-    if (targetHistory === undefined)
-      return result.concat({
-        result: 'not-recored',
-        accumulateId,
-      });
+        return {
+          ...it,
+          result: maxResultByAccumulateId as AnalyticsResult,
+        };
+      }
 
-    return result.concat({
-      result: callback(targetHistory, flow),
-      accumulateId,
+      return it;
     });
-  }, []);
 };
