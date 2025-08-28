@@ -43,6 +43,24 @@ export const baseAnalyticsCalc: (
     };
   });
 
+  const historyCountStackedByAccmulateId = historyWithAccumulateId.map((it) => {
+    const { accumulateId } = it;
+
+    if (accumulateId !== null) {
+      const stackedCount = historyWithAccumulateId
+        .filter((it) => it.accumulateId === accumulateId)
+        .map(({ count }) => count!)
+        .reduce((acc, current) => acc + current, 0);
+
+      return {
+        ...it,
+        count: stackedCount,
+      };
+    }
+
+    return it;
+  });
+
   return Array.from({
     length: (todayValue - startValue + ONE_DAY) / ONE_DAY,
   })
@@ -66,7 +84,7 @@ export const baseAnalyticsCalc: (
           accumulateId,
         });
 
-      const targetHistory = validHistory.find((history) =>
+      const targetHistory = historyCountStackedByAccmulateId.find((history) =>
         isSameDate(getMidnight(history.date), getMidnight(current))
       );
 
