@@ -74,20 +74,20 @@ export const AnalyticsItem: Component<Props> = (props) => {
             }}
           ></div>
           <For each={result()}>
-            {(it) => (
+            {({ result }) => (
               <div
                 class={clsx(
                   'w-3 h-3 rounded-[4px] border',
-                  it === 'past' && 'bg-gray-100 border-gray-200/50',
-                  it === 'rest' && 'bg-gray-200 border-gray-300/50',
-                  it === 'not-recored' && 'bg-gray-300 border-gray-400/50',
-                  it === 0 &&
+                  result === 'past' && 'bg-gray-100 border-gray-200/50',
+                  result === 'rest' && 'bg-gray-200 border-gray-300/50',
+                  result === 'not-recored' && 'bg-gray-300 border-gray-400/50',
+                  result === 0 &&
                     clsx(FLOW_BG_100[color()], FLOW_BORDER_200_50[color()]),
-                  it === 1 &&
+                  result === 1 &&
                     clsx(FLOW_BG_200[color()], FLOW_BORDER_300_50[color()]),
-                  it === 2 &&
+                  result === 2 &&
                     clsx(FLOW_BG_300[color()], FLOW_BORDER_400_50[color()]),
-                  it === 3 &&
+                  result === 3 &&
                     clsx(FLOW_BG_500[color()], FLOW_BORDER_600_50[color()])
                 )}
               ></div>
