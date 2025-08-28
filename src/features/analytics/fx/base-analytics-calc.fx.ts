@@ -29,6 +29,20 @@ export const baseAnalyticsCalc: (
 
   const validHistory = history.filter(filterValidHistory);
 
+  const historyWithAccumulateId = validHistory.map((history) => {
+    const current = new Date(history.date).valueOf();
+
+    let accumulateId: Nullable<string> = null;
+
+    if (flow.accumulateType === 'WEEKLY')
+      accumulateId = getAccumulateId.weekly(current);
+
+    return {
+      ...history,
+      accumulateId,
+    };
+  });
+
   return Array.from({
     length: (todayValue - startValue + ONE_DAY) / ONE_DAY,
   })
