@@ -55,7 +55,7 @@ export const AnalyticsItem: Component<Props> = (props) => {
       )}
     >
       <div class='flex items-center justify-between mb-2 px-2'>
-        <p class='font-semibold text-sm'>{flow().name}</p>
+        <p class='font-semibold text-sm text-gray-800 pl-0.5'>{flow().name}</p>
 
         <p class='font-medium text-xs text-gray-400/75'>
           {dateFormat['yyyy.MM.dd'](flow().startAt)} ~{' '}
