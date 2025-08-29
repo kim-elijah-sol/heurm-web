@@ -5,6 +5,7 @@ import { ONE_DAY } from '~/shared/constant';
 import { getMidnight } from '~/shared/fx';
 import type { Nullable } from '~/shared/types';
 import type {
+  AnalyticsAccumulateGroupPosition,
   AnalyticsCalcFx,
   AnalyticsResult,
   AnalyticsResultObject,
@@ -49,6 +50,8 @@ export const baseAnalyticsCalc: (
 
   const stackedCountCacheMap: Record<string, number> = {};
 
+  const resultIdsByAccumulateIdMap: Record<string, number[]> = {};
+
   const historyCountStackedByAccmulateId = historyWithAccumulateId.map((it) => {
     const { accumulateId } = it;
 
@@ -80,43 +83,80 @@ export const baseAnalyticsCalc: (
 
   return Array.from({
     length: (todayValue - startValue + ONE_DAY) / ONE_DAY,
-  }).reduce<AnalyticsResultObject[]>((result, _, day) => {
-    const current = startValue + day * ONE_DAY;
+  })
+    .reduce<
+      Omit<AnalyticsResultObject & { id: number }, 'accumulateGroupPosition'>[]
+    >((result, _, day) => {
+      const current = startValue + day * ONE_DAY;
 
-    let accumulateId: Nullable<string> = null;
+      let accumulateId: Nullable<string> = null;
 
-    if (flow.accumulateType === 'WEEKLY')
-      accumulateId = getAccumulateId.weekly(current);
-    else if (flow.accumulateType === 'MONTHLY')
-      accumulateId = getAccumulateId.monthly(current);
-    else if (flow.accumulateType === 'YEARLY')
-      accumulateId = getAccumulateId.yearly(current);
+      if (flow.accumulateType === 'WEEKLY')
+        accumulateId = getAccumulateId.weekly(current);
+      else if (flow.accumulateType === 'MONTHLY')
+        accumulateId = getAccumulateId.monthly(current);
+      else if (flow.accumulateType === 'YEARLY')
+        accumulateId = getAccumulateId.yearly(current);
 
-    if (flowStartAtValue > current)
+      if (flowStartAtValue > current)
+        return result.concat({
+          result: 'past',
+          accumulateId,
+          id: day,
+        });
+      if (flowEndAtValue && flowEndAtValue < current) return result;
+      if (isRestDay(current)(flow))
+        return result.concat({
+          result: 'rest',
+          accumulateId,
+          id: day,
+        });
+
+      const targetHistory = historyCountStackedByAccmulateId.find((history) =>
+        isSameDate(getMidnight(history.date), getMidnight(current))
+      );
+
+      if (targetHistory === undefined)
+        return result.concat({
+          result: 'not-recored',
+          accumulateId,
+          id: day,
+        });
+
       return result.concat({
-        result: 'past',
+        result: callback(targetHistory, flow),
         accumulateId,
+        id: day,
       });
-    if (flowEndAtValue && flowEndAtValue < current) return result;
-    if (isRestDay(current)(flow))
-      return result.concat({
-        result: 'rest',
-        accumulateId,
-      });
+    }, [])
+    .map<AnalyticsResultObject>((it, _, result) => {
+      let accumulateGroupPosition: AnalyticsAccumulateGroupPosition = null;
 
-    const targetHistory = historyCountStackedByAccmulateId.find((history) =>
-      isSameDate(getMidnight(history.date), getMidnight(current))
-    );
+      if (it.accumulateId) {
+        let resultIds = resultIdsByAccumulateIdMap[it.accumulateId];
 
-    if (targetHistory === undefined)
-      return result.concat({
-        result: 'not-recored',
-        accumulateId,
-      });
+        if (!resultIds) {
+          const sameAccumulateIdResult = result.filter(
+            ({ accumulateId }) => it.accumulateId === accumulateId
+          );
+          resultIds = sameAccumulateIdResult.map((it) => it.id);
 
-    return result.concat({
-      result: callback(targetHistory, flow),
-      accumulateId,
+          resultIdsByAccumulateIdMap[it.accumulateId] = resultIds;
+        }
+
+        const indexAtResultIds = resultIds.indexOf(it.id);
+
+        accumulateGroupPosition =
+          indexAtResultIds === 0
+            ? 'first'
+            : indexAtResultIds === resultIds.length - 1
+            ? 'last'
+            : 'middle';
+      }
+
+      return {
+        ...it,
+        accumulateGroupPosition,
+      };
     });
-  }, []);
 };
