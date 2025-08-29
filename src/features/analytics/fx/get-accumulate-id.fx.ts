@@ -15,4 +15,7 @@ export const getAccumulateId = {
   monthly: (current: number) => {
     return format(current, 'yyyy-MM');
   },
+  yearly: (current: number) => {
+    return new Date(current).getFullYear().toString();
+  },
 };

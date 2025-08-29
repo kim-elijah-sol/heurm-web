@@ -38,6 +38,8 @@ export const baseAnalyticsCalc: (
       accumulateId = getAccumulateId.weekly(current);
     else if (flow.accumulateType === 'MONTHLY')
       accumulateId = getAccumulateId.monthly(current);
+    else if (flow.accumulateType === 'YEARLY')
+      accumulateId = getAccumulateId.yearly(current);
 
     return {
       ...history,
@@ -87,6 +89,8 @@ export const baseAnalyticsCalc: (
       accumulateId = getAccumulateId.weekly(current);
     else if (flow.accumulateType === 'MONTHLY')
       accumulateId = getAccumulateId.monthly(current);
+    else if (flow.accumulateType === 'YEARLY')
+      accumulateId = getAccumulateId.yearly(current);
 
     if (flowStartAtValue > current)
       return result.concat({
