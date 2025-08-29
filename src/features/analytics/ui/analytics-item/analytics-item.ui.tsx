@@ -101,7 +101,7 @@ export const AnalyticsItem: Component<Props> = (props) => {
                 class={clsx(
                   'rounded-[4px] border relative',
                   result === 'past' && 'bg-gray-100 border-gray-200/50',
-                  result === 'rest' && 'bg-gray-200 border-gray-300/50',
+                  result === 'rest' && 'bg-gray-200/85 border-gray-300/50',
                   result === 'not-recored' && 'bg-gray-300 border-gray-400/50',
                   result === 0 &&
                     clsx(FLOW_BG_100[color()], FLOW_BORDER_200_50[color()]),
