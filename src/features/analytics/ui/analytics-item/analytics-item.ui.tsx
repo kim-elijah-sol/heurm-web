@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { Accessor, Component, For, onMount } from 'solid-js';
+import { analyticsConstant } from '~/entities/analytics';
 import { FlowType } from '~/entities/flow';
 import { historyQueries } from '~/entities/history';
 import {
@@ -42,6 +43,11 @@ export const AnalyticsItem: Component<Props> = (props) => {
 
   const day = () => props.startDate.getDay();
 
+  const gap = () =>
+    flow().accumulateType !== 'DAILY' && flow().accumulateType !== null
+      ? analyticsConstant.ANALYTICS_ITEM_SQUARE_GAP_FOR_ACCUMULATE
+      : analyticsConstant.ANALYTICS_ITEM_SQUARE_GAP;
+
   onMount(() => {
     scrollView.scrollTo({ left: timelineView.clientWidth });
   });
@@ -62,22 +68,38 @@ export const AnalyticsItem: Component<Props> = (props) => {
           {flow().endAt && dateFormat['yyyy.MM.dd'](flow().endAt!)}
         </p>
       </div>
-      <div class='w-full overflow-x-auto' ref={(ref) => (scrollView = ref)}>
+      <div
+        class='w-full overflow-x-auto py-0.5'
+        ref={(ref) => (scrollView = ref)}
+      >
         <div
-          class='flex flex-col flex-wrap gap-[2px] h-24 items-start w-max mx-2'
+          class='flex flex-col flex-wrap items-start w-max mx-2'
+          style={{
+            height: `${
+              analyticsConstant.ANALYTICS_ITEM_SQUARE_SIZE * 7 + gap() * 6
+            }px`,
+            gap: `${gap()}px`,
+          }}
           ref={(ref) => (timelineView = ref)}
         >
           <div
-            class='w-3'
             style={{
-              height: `${day() * 12 + Math.max(day() - 1, 0) * 2}px`,
+              width: `${analyticsConstant.ANALYTICS_ITEM_SQUARE_SIZE}px`,
+              height: `${
+                day() * analyticsConstant.ANALYTICS_ITEM_SQUARE_SIZE +
+                Math.max(day() - 1, 0) * gap()
+              }px`,
             }}
           ></div>
           <For each={result()}>
-            {({ result }) => (
+            {({ result, accumulateGroupPosition }) => (
               <div
+                style={{
+                  width: `${analyticsConstant.ANALYTICS_ITEM_SQUARE_SIZE}px`,
+                  height: `${analyticsConstant.ANALYTICS_ITEM_SQUARE_SIZE}px`,
+                }}
                 class={clsx(
-                  'w-3 h-3 rounded-[4px] border',
+                  'rounded-[4px] border relative',
                   result === 'past' && 'bg-gray-100 border-gray-200/50',
                   result === 'rest' && 'bg-gray-200 border-gray-300/50',
                   result === 'not-recored' && 'bg-gray-300 border-gray-400/50',
@@ -90,7 +112,32 @@ export const AnalyticsItem: Component<Props> = (props) => {
                   result === 3 &&
                     clsx(FLOW_BG_500[color()], FLOW_BORDER_600_50[color()])
                 )}
-              ></div>
+              >
+                {accumulateGroupPosition === 'first' && (
+                  <div
+                    class={clsx(
+                      'absolute -inset-[3px] border border-b-0 rounded-[5px] rounded-b-none',
+                      FLOW_BORDER_200[color()]
+                    )}
+                  />
+                )}
+                {accumulateGroupPosition === 'middle' && (
+                  <div
+                    class={clsx(
+                      'absolute -left-[3px] -right-[3px] -top-[5px] -bottom-[5px] border border-y-0 rounded-[5px] rounded-t-none rounded-b-none',
+                      FLOW_BORDER_200[color()]
+                    )}
+                  />
+                )}
+                {accumulateGroupPosition === 'last' && (
+                  <div
+                    class={clsx(
+                      'absolute -inset-[3px] border border-t-0 rounded-[5px] rounded-t-none',
+                      FLOW_BORDER_200[color()]
+                    )}
+                  />
+                )}
+              </div>
             )}
           </For>
         </div>
