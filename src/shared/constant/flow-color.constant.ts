@@ -185,6 +185,17 @@ export const FLOW_ACTIVE_TEXT_500 = {
   pink: 'active:text-pink-500',
 } as const;
 
+export const FLOW_BORDER_100 = {
+  red: 'border-red-100',
+  green: 'border-green-100',
+  blue: 'border-blue-100',
+  indigo: 'border-indigo-100',
+  teal: 'border-teal-100',
+  yellow: 'border-yellow-100',
+  purple: 'border-purple-100',
+  pink: 'border-pink-100',
+} as const;
+
 export const FLOW_BORDER_200 = {
   red: 'border-red-200',
   green: 'border-green-200',

@@ -9,6 +9,7 @@ import {
   FLOW_BG_200,
   FLOW_BG_300,
   FLOW_BG_500,
+  FLOW_BORDER_100,
   FLOW_BORDER_200,
   FLOW_BORDER_200_50,
   FLOW_BORDER_300_50,
@@ -47,6 +48,11 @@ export const AnalyticsItem: Component<Props> = (props) => {
     flow().accumulateType !== 'DAILY' && flow().accumulateType !== null
       ? analyticsConstant.ANALYTICS_ITEM_SQUARE_GAP_FOR_ACCUMULATE
       : analyticsConstant.ANALYTICS_ITEM_SQUARE_GAP;
+
+  const accumulateGroupStyleBase = clsx(
+    'absolute border rounded-[5px]',
+    FLOW_BORDER_100[color()]
+  );
 
   onMount(() => {
     scrollView.scrollTo({ left: timelineView.clientWidth });
@@ -116,24 +122,24 @@ export const AnalyticsItem: Component<Props> = (props) => {
                 {accumulateGroupPosition === 'first' && (
                   <div
                     class={clsx(
-                      'absolute -inset-[3px] border border-b-0 rounded-[5px] rounded-b-none',
-                      FLOW_BORDER_200[color()]
+                      accumulateGroupStyleBase,
+                      '-inset-[3px] border-b-0 rounded-b-none'
                     )}
                   />
                 )}
                 {accumulateGroupPosition === 'middle' && (
                   <div
                     class={clsx(
-                      'absolute -left-[3px] -right-[3px] -top-[5px] -bottom-[5px] border border-y-0 rounded-[5px] rounded-t-none rounded-b-none',
-                      FLOW_BORDER_200[color()]
+                      accumulateGroupStyleBase,
+                      '-left-[3px] -right-[3px] -top-[5px] -bottom-[5px] border-y-0 rounded-t-none rounded-b-none'
                     )}
                   />
                 )}
                 {accumulateGroupPosition === 'last' && (
                   <div
                     class={clsx(
-                      'absolute -inset-[3px] border border-t-0 rounded-[5px] rounded-t-none',
-                      FLOW_BORDER_200[color()]
+                      accumulateGroupStyleBase,
+                      '-inset-[3px] border-t-0 rounded-t-none'
                     )}
                   />
                 )}
