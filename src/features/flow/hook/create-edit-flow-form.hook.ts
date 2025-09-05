@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { createEffect, createSignal, type Accessor } from 'solid-js';
+import { createSignal, type Accessor } from 'solid-js';
 import {
   flowConstant,
   flowQueries,
@@ -8,6 +8,7 @@ import {
 import { getMidnight } from '~/features/main/fx';
 import { createInput } from '~/shared/hook';
 import type {
+  FlowAccumulateType,
   FlowColor,
   FlowIntervalType,
   FlowMonthlyPattern,
@@ -88,12 +89,12 @@ export const createEditFlowForm = (
     flow().accumulateType !== null
   );
 
-  const [accumulateType, setAccumulateType] = createSignal<FlowIntervalType>(
-    flow().accumulateType ?? 'DAILY'
+  const [accumulateType, setAccumulateType] = createSignal<FlowAccumulateType>(
+    flow().accumulateType ?? 'WEEKLY'
   );
 
   const accumulateTypeStep = () =>
-    flowConstant.INTERVAL_TYPES.indexOf(accumulateType());
+    flowConstant.ACCUMULATE_TYPES.indexOf(accumulateType());
 
   const [startAt, setStartAt] = createSignal<Nullable<Date>>(
     getMidnight(flow().startAt)
@@ -126,14 +127,6 @@ export const createEditFlowForm = (
   };
 
   const restPlaceholderText = () => `M ${repeatUnit()}`;
-
-  createEffect(() => {
-    if (accumulateTypeStep() === -1) {
-      setAccumulateType(
-        flowConstant.INTERVAL_TYPES[flowConstant.INTERVAL_TYPES.length - 1]
-      );
-    }
-  });
 
   const disabled = () => {
     if (name().trim().length === 0) return true;

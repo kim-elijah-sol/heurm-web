@@ -9,6 +9,7 @@ import { createDateSelect } from '~/features/main/hook';
 import { getMidnight } from '~/shared/fx';
 import { createInput } from '~/shared/hook';
 import type {
+  FlowAccumulateType,
   FlowColor,
   FlowIntervalType,
   FlowMonthlyPattern,
@@ -74,10 +75,10 @@ export const createNewFlowForm = () => {
   const [accumulate, setAccumulate] = createSignal<boolean>(false);
 
   const [accumulateType, setAccumulateType] =
-    createSignal<FlowIntervalType>('DAILY');
+    createSignal<FlowAccumulateType>('WEEKLY');
 
   const accumulateTypeStep = () =>
-    flowConstant.INTERVAL_TYPES.indexOf(accumulateType());
+    flowConstant.ACCUMULATE_TYPES.indexOf(accumulateType());
 
   const [startAt, setStartAt] = createSignal<Nullable<Date>>(
     getMidnight(current())

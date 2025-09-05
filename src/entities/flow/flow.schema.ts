@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import {
+  flowAccumulateTypeSchema,
   flowIntervalTypeSchema,
   flowRepeatTypeSchema,
   flowTypeSchema,
@@ -25,7 +26,7 @@ export const getFlowResponseItemSchema = z.object({
   months: z.array(z.number()),
   targetCount: z.number().nullable(),
   unit: z.string().nullable(),
-  accumulateType: flowIntervalTypeSchema.nullable(),
+  accumulateType: flowAccumulateTypeSchema.nullable(),
   startAt: z.string(),
   endAt: z.string().nullable(),
   startTime: z.number().nullable(),
@@ -49,7 +50,7 @@ export const postFlowRequestSchema = z.object({
   months: z.array(z.number()).optional(),
   targetCount: z.number().nullable().optional(),
   unit: z.string().nullable().optional(),
-  accumulateType: flowIntervalTypeSchema.nullable().optional(),
+  accumulateType: flowAccumulateTypeSchema.nullable().optional(),
   startAt: z.string(),
   endAt: z.string().nullable().optional(),
   startTime: z.number().nullable().optional(),
