@@ -1,10 +1,17 @@
 import type {
+  FlowAccumulateType,
   FlowIntervalType,
   FlowMonthlyPattern,
   FlowRepeatType,
   FlowWeeklyPattern,
   FlowYearlyPattern,
 } from '~/shared/types';
+
+export const ACCUMULATE_TYPES: FlowAccumulateType[] = [
+  'WEEKLY',
+  'MONTHLY',
+  'YEARLY',
+];
 
 export const INTERVAL_TYPES: FlowIntervalType[] = [
   'DAILY',

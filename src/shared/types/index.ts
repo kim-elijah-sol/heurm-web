@@ -1,3 +1,4 @@
+export * from './flow-accumulate-type.type';
 export * from './flow-color.type';
 export * from './flow-day.type';
 export * from './flow-interval-type.type';

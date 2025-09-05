@@ -1,5 +1,6 @@
 export * from './date.schema';
 export * from './email.schema';
+export * from './flow-accumulate-type.schema';
 export * from './flow-color.schema';
 export * from './flow-day.schema';
 export * from './flow-interval-type.schema';
