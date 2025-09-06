@@ -33,3 +33,6 @@ goorm.manifest
 dependency-graph.svg
 
 .vscode
+
+playwright-report
+test-results

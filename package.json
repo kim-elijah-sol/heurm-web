@@ -6,7 +6,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "depcruise:validate": "npx depcruise src --include-only '^src' --config --output-type err-long",
-    "depcruise:tree": "npx depcruise src --include-only '^src' --config --output-type dot | dot -Tsvg > dependency-graph.svg && open dependency-graph.svg"
+    "depcruise:tree": "npx depcruise src --include-only '^src' --config --output-type dot | dot -Tsvg > dependency-graph.svg && open dependency-graph.svg",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@lukemorales/query-key-factory": "^1.3.4",
@@ -25,8 +26,10 @@
     "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
     "@tailwindcss/postcss": "^4.1.4",
     "dependency-cruiser": "^16.10.1",
+    "playwright": "^1.55.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
