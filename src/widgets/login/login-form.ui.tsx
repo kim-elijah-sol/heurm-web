@@ -33,6 +33,7 @@ export const LoginForm = () => {
       />
       <button
         type='submit'
+        disabled={submitDisabled()}
         class={clsx(
           buttonBaseClassName,
           submitDisabled()
