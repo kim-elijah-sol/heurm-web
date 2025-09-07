@@ -7,7 +7,9 @@
     "preview": "vite preview",
     "depcruise:validate": "npx depcruise src --include-only '^src' --config --output-type err-long",
     "depcruise:tree": "npx depcruise src --include-only '^src' --config --output-type dot | dot -Tsvg > dependency-graph.svg && open dependency-graph.svg",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest"
   },
   "dependencies": {
     "@lukemorales/query-key-factory": "^1.3.4",
@@ -34,6 +36,7 @@
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.2",
-    "vite-plugin-solid": "^2.11.6"
+    "vite-plugin-solid": "^2.11.6",
+    "vitest": "^3.2.4"
   }
 }
