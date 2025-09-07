@@ -69,4 +69,19 @@ test.describe('로그인 페이지 테스트', () => {
       'Password must be at least 8 characters long'
     );
   });
+
+  test('비밀번호 형식이 아닌 경우 로그인 시도 시 실패 토스트가 나온다. [16자 초과]', async ({
+    page,
+  }) => {
+    await page.goto('/login');
+
+    await page.locator('input[type="email"]').fill('kimelijahsol@test.com');
+    await page.locator('input[type="password"]').fill('testpasswordtest!');
+
+    await page.locator('button[type="submit"]').click();
+
+    await expect(page.locator('.toast')).toHaveText(
+      'Password must be at most 16 characters long'
+    );
+  });
 });
