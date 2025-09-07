@@ -39,4 +39,19 @@ test.describe('로그인 페이지 테스트', () => {
 
     await expect(page.locator('button[type="submit"]')).toBeEnabled();
   });
+
+  test('이메일 형식이 아닌 경우 로그인 시도 시 실패 토스트가 나온다.', async ({
+    page,
+  }) => {
+    await page.goto('/login');
+
+    await page.locator('input[type="email"]').fill('kimelijahsol@a.c');
+    await page.locator('input[type="password"]').fill('TestPassword');
+
+    await page.locator('button[type="submit"]').click();
+
+    await expect(page.locator('.toast')).toHaveText(
+      'Please enter a valid email address'
+    );
+  });
 });
