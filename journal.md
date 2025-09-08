@@ -1,5 +1,10 @@
 # Heurm Web Journal
 
+# 2025-09-08
+
+vitest 를 사용해서 unit 테스트 코드를 작성하고 있다.<br>
+side effect 가 없게끔 코드 리팩토링도 하고 오류 상황을 좀 더 명확히 구분할 필요가 있을 것 같다.
+
 # 2025-09-07
 
 playwright 를 사용해서 e2e 테스트 코드를 작성하고 있다.<br>
