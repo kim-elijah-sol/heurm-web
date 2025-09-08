@@ -7,10 +7,7 @@ type ToastAtErrorOptions = {
   chaining: boolean;
 };
 
-export const toastAtError = (
-  error: any,
-  options?: ToastAtErrorOptions
-): string => {
+export const toastAtError = (error: any, options?: ToastAtErrorOptions) => {
   const chaining = options?.chaining ?? false;
 
   if (error instanceof ZodError) {
@@ -22,6 +19,7 @@ export const toastAtError = (
   if (!chaining) {
     return toast.open(DEFAULT_ERROR_MESSAGE);
   } else {
+    toast.open(DEFAULT_ERROR_MESSAGE);
     throw error;
   }
 };
