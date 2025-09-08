@@ -29,14 +29,16 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",
+    "@solidjs/testing-library": "^0.8.10",
     "@tailwindcss/postcss": "^4.1.4",
     "dependency-cruiser": "^16.10.1",
+    "jsdom": "^26.1.0",
     "playwright": "^1.55.0",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.2",
-    "vite-plugin-solid": "^2.11.6",
+    "vite-plugin-solid": "^2.11.8",
     "vitest": "^3.2.4"
   }
 }
