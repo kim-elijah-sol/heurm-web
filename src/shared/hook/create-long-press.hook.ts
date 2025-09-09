@@ -39,7 +39,7 @@ export const createLongPress = (props: Props) => {
     }
   };
 
-  const handleEventEnd: TouchEventHandler = () => {
+  const handleEventEnd = () => {
     if (isCancel) {
       return;
     }
