@@ -1,5 +1,11 @@
 # Heurm Web Journal
 
+# 2025-09-09
+
+vitest 에 solid testing plugin 을 사용해서 hook 테스트 하는 법을 배웠고<br>
+global 함수를 mocking 하는 법을 배웠다.<br>
+이젠 playwright 로 ct 하는 법도 배워봐야겠다.
+
 # 2025-09-08
 
 vitest 를 사용해서 unit 테스트 코드를 작성하고 있다.<br>
