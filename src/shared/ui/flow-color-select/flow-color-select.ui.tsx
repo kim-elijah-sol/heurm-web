@@ -12,7 +12,10 @@ type Props = {
 
 export const FlowColorSelect: Component<Props> = (props) => {
   return (
-    <div class={clsx('flex flex-col gap-6 w-full', props.className)}>
+    <div
+      data-testid='flow-color-select'
+      class={clsx('flex flex-col gap-6 w-full', props.className)}
+    >
       <div class='flex justify-evenly'>
         <For each={FLOW_COLOR.slice(0, 4)}>
           {(it) => (
@@ -48,6 +51,7 @@ type ColorItemProps = {
 const ColorItem = (props: ColorItemProps) => {
   return (
     <button
+      data-testid={`color-item-${props.color()}`}
       type='button'
       onClick={() => props.setColor(props.color())}
       class={clsx(
