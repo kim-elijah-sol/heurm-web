@@ -1,7 +1,5 @@
-import { render, screen } from '@solidjs/testing-library';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen } from '@solidjs/testing-library';
 import { describe, expect, test, vi } from 'vitest';
-import { delay } from '~/shared/fx';
 import { BottomSheet } from '~/shared/ui';
 
 describe('bottom-sheet-top', () => {
@@ -33,7 +31,9 @@ describe('bottom-sheet-top', () => {
     expect(component).toHaveTextContent('Hello World!');
   });
 
-  test('BottomSheet.Top.CloseButton > BottomSheet 의 close 함수를 처리한다.', async () => {
+  test('BottomSheet.Top.CloseButton > BottomSheet 의 close 함수를 처리한다.', () => {
+    vi.useFakeTimers();
+
     const close = vi.fn(() => {});
 
     render(() => (
@@ -44,12 +44,14 @@ describe('bottom-sheet-top', () => {
 
     const button = screen.getByTestId('bottom-sheet-top-close-button');
 
-    await userEvent.click(button);
+    fireEvent.click(button);
 
     expect(close).not.toBeCalled();
 
-    await delay(500);
+    vi.advanceTimersByTime(300);
 
     expect(close).toBeCalled();
+
+    vi.useRealTimers();
   });
 });
