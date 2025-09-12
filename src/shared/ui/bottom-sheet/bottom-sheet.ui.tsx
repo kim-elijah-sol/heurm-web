@@ -26,6 +26,7 @@ export const BottomSheet: Component<Props> = (props) => {
     <Portal>
       <BottomSheetCloseContext.Provider value={close}>
         <div
+          data-testid='heurm-bottom-sheet-bg'
           onClick={autoClose() ? close : undefined}
           class={clsx(
             'fixed inset-0 z-50 backdrop-blur-sm heurm-bottom-sheet-animation',
