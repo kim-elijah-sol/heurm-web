@@ -8,15 +8,13 @@ import { FlowColorSelect } from '~/shared/ui';
 
 describe('flow-color-select', () => {
   test('초기 색상이 선택되어 있다.', async () => {
-    const component = render(() => (
-      <FlowColorSelect color={() => 'blue'} setColor={() => {}} />
-    ));
+    render(() => <FlowColorSelect color={() => 'blue'} setColor={() => {}} />);
 
-    const blueButton = component.getByTestId('color-item-blue');
+    const blueButton = screen.getByTestId('color-item-blue');
 
     expect(blueButton.children.length).toBe(1);
 
-    const redButton = component.getByTestId('color-item-red');
+    const redButton = screen.getByTestId('color-item-red');
 
     expect(redButton.children.length).toBe(0);
   });
@@ -24,11 +22,9 @@ describe('flow-color-select', () => {
   test('사용자 클릭을 정상적으로 처리할 수 있다.', async () => {
     const [color, setColor] = createSignal<FlowColor>('blue');
 
-    const component = render(() => (
-      <FlowColorSelect color={color} setColor={setColor} />
-    ));
+    render(() => <FlowColorSelect color={color} setColor={setColor} />);
 
-    const redButton = component.getByTestId('color-item-red');
+    const redButton = screen.getByTestId('color-item-red');
 
     await userEvent.click(redButton);
 
