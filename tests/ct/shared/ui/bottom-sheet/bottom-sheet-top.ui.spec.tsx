@@ -34,7 +34,7 @@ describe('bottom-sheet-top', () => {
   test('BottomSheet.Top.CloseButton > BottomSheet 의 close 함수를 처리한다.', () => {
     vi.useFakeTimers();
 
-    const close = vi.fn(() => {});
+    const close = vi.fn();
 
     render(() => (
       <BottomSheet close={close}>

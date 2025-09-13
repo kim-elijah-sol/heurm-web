@@ -26,7 +26,7 @@ describe('blured-panel', () => {
   });
 
   test('close 함수가 transition 이후 정상적으로 호출된다.', () => {
-    const close = vi.fn(() => {});
+    const close = vi.fn();
 
     render(() => (
       <Panel.Blured close={close}>
@@ -46,7 +46,7 @@ describe('blured-panel', () => {
   });
 
   test('배경을 클릭하면 close 함수가 transition 이후 정상적으로 호출된다.', () => {
-    const close = vi.fn(() => {});
+    const close = vi.fn();
 
     render(() => <Panel.Blured close={close}>{() => <></>}</Panel.Blured>);
 
@@ -62,7 +62,7 @@ describe('blured-panel', () => {
   });
 
   test('autoClose 를 비활성화 시키면 배경을 클릭해도 close 함수가 실행되지 않는다..', () => {
-    const close = vi.fn(() => {});
+    const close = vi.fn();
 
     render(() => (
       <Panel.Blured autoClose={false} close={close}>

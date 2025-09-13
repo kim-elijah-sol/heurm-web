@@ -26,7 +26,7 @@ describe('slide-panel', () => {
   });
 
   test('close 함수가 transition 이후 정상적으로 호출된다.', () => {
-    const close = vi.fn(() => {});
+    const close = vi.fn();
 
     render(() => (
       <Panel.Slide close={close}>
