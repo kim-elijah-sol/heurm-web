@@ -26,6 +26,7 @@ export const BluredPanel: Component<Props> = (props) => {
   return (
     <Portal>
       <div
+        data-testid='heurm-blured-panel-bg'
         on:click={autoClose() ? close : undefined}
         class={clsx(
           'fixed inset-0 z-50 backdrop-blur-sm heurm-blured-panel-animation',
