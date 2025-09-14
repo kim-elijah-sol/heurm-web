@@ -5,7 +5,7 @@ import {
   flowQueries,
   FlowType as FlowTypes,
 } from '~/entities/flow';
-import { getMidnight } from '~/features/main/fx';
+import { getMidnight } from '~/shared/fx';
 import { createInput } from '~/shared/hook';
 import type {
   FlowAccumulateType,

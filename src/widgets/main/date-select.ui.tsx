@@ -1,7 +1,8 @@
 import { Index } from 'solid-js';
-import { getMidnight, isSameDate } from '~/features/main/fx';
+import { isSameDate } from '~/features/main/fx';
 import { createDateSelect } from '~/features/main/hook';
 import { DateCard, WeekPicker } from '~/features/main/ui';
+import { getMidnight } from '~/shared/fx';
 
 export const DateSelect = () => {
   const { current, weeks, setCurrent } = createDateSelect();
