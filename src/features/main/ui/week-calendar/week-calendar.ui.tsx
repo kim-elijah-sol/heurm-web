@@ -8,9 +8,10 @@ import {
   type Accessor,
   type Component,
 } from 'solid-js';
+import { getMidnight } from '~/shared/fx';
 import type { Nullable } from '~/shared/types';
 import { ChevronLeft, ChevronRight, X } from '~/shared/ui';
-import { getMidnight, isSameDate } from '../../fx';
+import { isSameDate } from '../../fx';
 import './week-calendar.ui.css';
 
 type Props = {

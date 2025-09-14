@@ -1,5 +1,6 @@
 import { createMemo, createSignal } from 'solid-js';
-import { getMidnight, getWeeks } from '../fx';
+import { getMidnight } from '~/shared/fx';
+import { getWeeks } from '../fx';
 
 const [current, _setCurrent] = createSignal<Date>(getMidnight());
 
