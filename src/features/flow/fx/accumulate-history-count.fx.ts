@@ -2,7 +2,7 @@ import { type HistoryType } from '~/entities/history';
 
 export const accumulateHistoryCount = (
   acc: number,
-  it: HistoryType.GetHistoryResponseItem
+  it: Pick<HistoryType.GetHistoryResponseItem, 'count'>
 ) => {
   return acc + (it.count ?? 0);
 };
