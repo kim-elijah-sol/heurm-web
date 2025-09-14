@@ -1,4 +1,4 @@
-import { getMidnight } from './get-midnight.fx';
+import { getMidnight } from '~/shared/fx';
 
 export const getWeeks = (_today: Date) => {
   const today = getMidnight(_today);
