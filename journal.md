@@ -1,5 +1,10 @@
 # Heurm Web Journal
 
+# 2025-09-14
+
+현재 ct 는 testing library 를 이용해 진행하고 있다.<br>
+playwright 는 오류가 발생하는데 이 또한 구름 ide 환경이 문제인 것인가?
+
 # 2025-09-09
 
 vitest 에 solid testing plugin 을 사용해서 hook 테스트 하는 법을 배웠고<br>
