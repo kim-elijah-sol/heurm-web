@@ -8,7 +8,8 @@ const getDateValue = (date: number | string | Date) => {
 };
 
 export const filterWeekHistory =
-  (current: Accessor<Date>) => (it: HistoryType.GetHistoryResponseItem) => {
+  (current: Accessor<Date>) =>
+  (it: Pick<HistoryType.GetHistoryResponseItem, 'date'>) => {
     const currentDay = new Date(current()).getDay();
     const weekFirstDate = new Date(
       current().valueOf() - currentDay * ONE_DAY
