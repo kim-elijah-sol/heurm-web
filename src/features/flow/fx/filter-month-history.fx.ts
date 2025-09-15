@@ -2,7 +2,8 @@ import { type Accessor } from 'solid-js';
 import { type HistoryType } from '~/entities/history';
 
 export const filterMonthHistory =
-  (current: Accessor<Date>) => (it: HistoryType.GetHistoryResponseItem) => {
+  (current: Accessor<Date>) =>
+  (it: Pick<HistoryType.GetHistoryResponseItem, 'date'>) => {
     const currentYear = new Date(current()).getFullYear();
     const currentMonth = new Date(current()).getMonth();
 
