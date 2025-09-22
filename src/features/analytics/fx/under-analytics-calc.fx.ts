@@ -1,6 +1,6 @@
-import { FlowType } from '~/entities/flow';
-import { HistoryType } from '~/entities/history';
-import { AnalyticsResult } from '../types';
+import { type FlowType } from '~/entities/flow';
+import { type HistoryType } from '~/entities/history';
+import { type AnalyticsResult } from '../types';
 
 export const underAnalyticsCalc = (
   targetHistory: Pick<HistoryType.GetHistoryResponseItem, 'count'>,
