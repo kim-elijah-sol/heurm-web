@@ -5,7 +5,7 @@ import {
   createSignal,
   Show,
   type Accessor,
-  type Component
+  type Component,
 } from 'solid-js';
 import { historyQueries, HistoryType } from '~/entities/history';
 import { mainConstant } from '~/entities/main';
@@ -16,10 +16,10 @@ import { getMidnight, getRandomItem } from '~/shared/fx';
 import { createBoolean, createLongPress } from '~/shared/hook';
 import { toast } from '~/shared/lib';
 import type {
+  FlowAccumulateType,
   FlowColor,
-  FlowIntervalType,
   FlowType,
-  Nullable
+  Nullable,
 } from '~/shared/types';
 import { Check, Loader, Panel, X } from '~/shared/ui';
 import { PieChart, TypeLabel } from '.';
@@ -31,7 +31,7 @@ import {
   filterValidFlow,
   filterWeekHistory,
   filterYearHistory,
-  findCurrentHistory
+  findCurrentHistory,
 } from '../../fx';
 import { createBluredPanelShow } from '../../hook/create-blured-panel-show.hook';
 import { type FlowItemProps } from '../../types';
@@ -50,7 +50,7 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
 
   const targetCount = () => flow().targetCount!;
 
-  const accumulateType = () => flow().accumulateType ?? 'DAILY';
+  const accumulateType = () => flow().accumulateType ?? 'WEEKLY';
 
   const { current } = createDateSelect();
 
@@ -120,8 +120,6 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   const currentHistory = () => historys().find(findCurrentHistory(current));
 
   const stackedCount = () => {
-    if (accumulateType() === 'DAILY') return currentHistory()?.count ?? 0;
-
     const filterFn =
       accumulateType() === 'WEEKLY'
         ? filterWeekHistory
@@ -136,8 +134,6 @@ export const CountableFlowItem: Component<FlowItemProps> = (props) => {
   };
 
   const stackedCountExceptCurrent = () => {
-    if (accumulateType() === 'DAILY') return 0;
-
     const filterFn =
       accumulateType() === 'WEEKLY'
         ? filterWeekHistory
@@ -238,7 +234,7 @@ type CTAPanelProps = {
   close: () => void;
 
   type: Accessor<FlowType>;
-  accumulateType: Accessor<FlowIntervalType>;
+  accumulateType: Accessor<FlowAccumulateType>;
   stackedCountExceptCurrent: Accessor<number>;
   targetCount: Accessor<number>;
   color: Accessor<FlowColor>;
@@ -290,7 +286,7 @@ const CTAPanel: Component<CTAPanelProps> = (props) => {
           <Panel.CloseButton onClick={close} />
 
           <p class='text-[24px] text-slate-600 mb-4 font-semibold'>
-            {props.accumulateType() !== 'DAILY' && (
+            {props.accumulateType() !== null && (
               <>
                 {(
                   props.stackedCountExceptCurrent() + (valueToCount() ?? 0)

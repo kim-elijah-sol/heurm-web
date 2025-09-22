@@ -45,7 +45,7 @@ export const AnalyticsItem: Component<Props> = (props) => {
   const day = () => props.startDate.getDay();
 
   const gap = () =>
-    flow().accumulateType !== 'DAILY' && flow().accumulateType !== null
+    flow().accumulateType !== null
       ? analyticsConstant.ANALYTICS_ITEM_SQUARE_GAP_FOR_ACCUMULATE
       : analyticsConstant.ANALYTICS_ITEM_SQUARE_GAP;
 
