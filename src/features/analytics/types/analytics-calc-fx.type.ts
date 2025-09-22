@@ -1,9 +1,8 @@
-import type { FlowType } from '~/entities/flow';
-import type { HistoryType } from '~/entities/history';
-import type { AnalyticsResultObject } from './analytics-result-object.type';
+import { type FlowType } from '~/entities/flow';
+import { type HistoryType } from '~/entities/history';
+import { type AnalyticsResult } from './analytics-result.type';
 
 export type AnalyticsCalcFx = (
-  startDate: Date
-) => (
+  history: HistoryType.GetHistoryResponseItem,
   flow: FlowType.GetFlowResponseItem
-) => (history: HistoryType.GetHistoryResponse) => AnalyticsResultObject[];
+) => AnalyticsResult;

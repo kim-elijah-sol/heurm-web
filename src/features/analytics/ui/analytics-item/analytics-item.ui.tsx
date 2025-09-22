@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Accessor, Component, For, onMount } from 'solid-js';
 import { analyticsConstant } from '~/entities/analytics';
-import { FlowType } from '~/entities/flow';
+import { type FlowType } from '~/entities/flow';
 import { historyQueries } from '~/entities/history';
 import {
   FLOW_BG_100,
@@ -18,7 +18,8 @@ import {
 } from '~/shared/constant';
 import { dateFormat } from '~/shared/fx';
 import { FlowColor } from '~/shared/types';
-import { AnalyticsCalcFx } from '../../types';
+import { baseAnalyticsCalc } from '../../fx/base-analytics-calc.fx';
+import type { AnalyticsCalcFx } from '../../types';
 
 type Props = {
   flow: Accessor<FlowType.GetFlowResponseItem>;
@@ -40,7 +41,9 @@ export const AnalyticsItem: Component<Props> = (props) => {
   }));
 
   const result = () =>
-    props.analyticsCalcFx(props.startDate)(flow())(history.data ?? []);
+    baseAnalyticsCalc(props.analyticsCalcFx)(props.startDate)(flow())(
+      history.data ?? []
+    );
 
   const day = () => props.startDate.getDay();
 

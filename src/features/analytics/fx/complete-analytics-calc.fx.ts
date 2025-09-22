@@ -1,12 +1,12 @@
-import { AnalyticsCalcFx } from '../types';
-import { baseAnalyticsCalc } from './base-analytics-calc.fx';
+import { type HistoryType } from '~/entities/history';
+import { type AnalyticsResult } from '../types';
 
-export const completeAnalyticsCalc: AnalyticsCalcFx = baseAnalyticsCalc(
-  (targetHistory) => {
-    if (targetHistory.complete === true) {
-      return 3;
-    } else {
-      return 0;
-    }
+export const completeAnalyticsCalc = (
+  targetHistory: Pick<HistoryType.GetHistoryResponseItem, 'complete'>
+): AnalyticsResult => {
+  if (targetHistory.complete === true) {
+    return 3;
+  } else {
+    return 0;
   }
-);
+};
