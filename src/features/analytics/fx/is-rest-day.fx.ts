@@ -1,11 +1,25 @@
 import { getWeekOfMonth, lastDayOfMonth } from 'date-fns';
-import { FlowType } from '~/entities/flow';
+import { type FlowType } from '~/entities/flow';
 import { ONE_DAY } from '~/shared/constant';
 import { getMidnight } from '~/shared/fx';
 
-export const isRestDay: (
+type RequiredFlowItemProperty =
+  | 'repeat'
+  | 'rest'
+  | 'intervalType'
+  | 'months'
+  | 'weeks'
+  | 'dates'
+  | 'days'
+  | 'startAt';
+
+type IsRestDay = (
   current: number
-) => (flow: FlowType.GetFlowResponseItem) => boolean = (current) => (flow) => {
+) => (
+  flow: Pick<FlowType.GetFlowResponseItem, RequiredFlowItemProperty>
+) => boolean;
+
+export const isRestDay: IsRestDay = (current) => (flow) => {
   const startAt = getMidnight(flow.startAt).valueOf();
 
   if (flow.intervalType === 'DAILY') {
