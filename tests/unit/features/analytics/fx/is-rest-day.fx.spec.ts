@@ -3,6 +3,17 @@ import { isRestDay } from '~/features/analytics/fx';
 
 type RequiredFlowItem = Parameters<ReturnType<typeof isRestDay>>[0];
 
+const NONE_ERROR_FLOW = {
+  startAt: '',
+  intervalType: 'DAILY',
+  repeat: null,
+  rest: null,
+  dates: [],
+  months: [],
+  weeks: [],
+  days: [],
+} as RequiredFlowItem;
+
 describe('is-rest-day', () => {
   test('intervalType 이 DAILY 이고, NM 타입에서 쉬는 날 true 반환', () => {
     // 21일에 시작해서 1일 하고 1일 쉬는 형식이기에 22일에는 쉬는 날
@@ -104,5 +115,65 @@ describe('is-rest-day', () => {
 
     expect(isRestDay(new Date('2009-01-01').valueOf())(flow)).toBe(true);
     expect(isRestDay(new Date('2011-12-31').valueOf())(flow)).toBe(true);
+  });
+
+  test('지정한 월이 아닌 경우 true 반환', () => {
+    // 월은 0부터 시작이기 때문에 7월~12월까지 쉬는 월
+    const flow = {
+      startAt: '2025-01-01',
+      months: [0, 1, 2, 3, 4, 5],
+    } as RequiredFlowItem;
+
+    expect(isRestDay(new Date('2025-07-01').valueOf())(flow)).toBe(true);
+    expect(isRestDay(new Date('2025-12-31').valueOf())(flow)).toBe(true);
+  });
+
+  test('지정한 일이 아닌 경우 true 반환', () => {
+    // 1일과 마지막일(32)이 아닌 경우 true 반환
+    const flow = {
+      ...NONE_ERROR_FLOW,
+      startAt: '2025-07-01',
+      dates: [1, 32],
+    } as RequiredFlowItem;
+
+    expect(isRestDay(new Date('2025-07-02').valueOf())(flow)).toBe(true);
+    expect(isRestDay(new Date('2025-07-15').valueOf())(flow)).toBe(true);
+    expect(isRestDay(new Date('2025-07-30').valueOf())(flow)).toBe(true);
+  });
+
+  test('지정한 주차가 아닌 경우 true 반환', () => {
+    // 2주차(7~13일)와 마지막 주차(6)(28~30일)가 아닌 경우 true 반환
+    const flow = {
+      ...NONE_ERROR_FLOW,
+      startAt: '2025-09-01',
+      weeks: [2, 6],
+    } as RequiredFlowItem;
+
+    expect(isRestDay(new Date('2025-09-01').valueOf())(flow)).toBe(true);
+    // 마지막 주차에 껴있지만 다른 월의 첫주차이기 때문에 true 반환
+    expect(isRestDay(new Date('2025-10-01').valueOf())(flow)).toBe(true);
+  });
+
+  test('지정한 요일이 아닌 경우 true 반환', () => {
+    // 일,수,토요일이 아닌 경우 true 반환
+    const flow = {
+      ...NONE_ERROR_FLOW,
+      startAt: '2025-09-01',
+      days: [0, 3, 6],
+    } as RequiredFlowItem;
+
+    // 월요일
+    expect(isRestDay(new Date('2025-09-08').valueOf())(flow)).toBe(true);
+    // 금요일
+    expect(isRestDay(new Date('2025-09-12').valueOf())(flow)).toBe(true);
+  });
+
+  test('쉬는 날이 아닌 경우 false 반환', () => {
+    const flow = {
+      ...NONE_ERROR_FLOW,
+      startAt: '2025-09-01',
+    } as RequiredFlowItem;
+
+    expect(isRestDay(new Date('2025-09-12').valueOf())(flow)).toBe(false);
   });
 });
